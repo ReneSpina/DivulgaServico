@@ -1,0 +1,175 @@
+﻿@model DIVULGA_SERVICOS.Models.RegisterPrestadorViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Create a new account.</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.NM_NOME_PESSOA, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.NM_NOME_PESSOA, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.NM_NOME_PESSOA, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DS_APELIDO_SITE, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DS_APELIDO_SITE, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DS_APELIDO_SITE, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TF_TEL_FIXO, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TF_TEL_FIXO, new { htmlAttributes = new { @class = "form-control"} })
+            @Html.ValidationMessageFor(model => model.TF_TEL_FIXO, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TF_TEL_CEL, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TF_TEL_CEL, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TF_TEL_CEL, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.CD_CNPJ, new { @class = "control-label col-md-2" })
+            
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CD_CNPJ, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CD_CNPJ, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CD_CODIGO_INDICACAO, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CD_CODIGO_INDICACAO, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CD_CODIGO_INDICACAO, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CD_CEP, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CD_CEP, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CD_CEP, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TP_TIPO_LOGRADOURO, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TP_TIPO_LOGRADOURO, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TP_TIPO_LOGRADOURO, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NM_LOGRADOURO, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NM_LOGRADOURO, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NM_LOGRADOURO, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NM_BAIRRO, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NM_BAIRRO, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NM_BAIRRO, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NM_CIDADE, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NM_CIDADE, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NM_CIDADE, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-default" value="Register" />
+            </div>
+        </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.mask.min.js"></script>
+
+<script>
+    $("#CD_CEP").change(function(e)
+    {
+        e.preventDefault();
+        $("#TP_TIPO_LOGRADOURO").val('');
+        $("#NM_LOGRADOURO").val('');
+        $("#NM_BAIRRO").val('');
+        $("#NM_CIDADE").val('');
+        //$("#Estado").val('');
+
+        var cep = $("#CD_CEP").val();
+        $.getJSON("https://viacep.com.br/ws/" + cep + "/json/", {}, function (data)
+        {
+            var tipo_rua_avenida = data.logradouro.split(' ', 1);;
+            //var nm_logradouro = data.logradouro.slice($("#TP_TIPO_LOGRADOURO").val().length);
+
+
+            //if (data.resultado_txt == "sucesso - cep completo")
+            //{
+                $("#TP_TIPO_LOGRADOURO").val(tipo_rua_avenida);
+                $("#NM_LOGRADOURO").val(data.logradouro.slice($("#TP_TIPO_LOGRADOURO").val().length+1));
+                $("#NM_CIDADE").val(data.localidade);
+                $("#NM_BAIRRO").val(data.bairro);
+                //$("#Estado").val(data.uf);
+            //}
+        });
+
+    });
+
+
+    $("#TF_TEL_CEL").mask("(00) 90000-0000");
+    $("#TF_TEL_FIXO").mask("(00) 0000-0000");
+    $("#CD_CEP").mask("00000-000");
+    $("#DS_APELIDO_SITE").attr("placeholder", "SEUSITE").blur();
+    
+
+
+</script>
