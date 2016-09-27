@@ -7,6 +7,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using DIVULGA_SERVICOS.Models;
+using System.Net;
+using System.Data.Entity;
 
 namespace DIVULGA_SERVICOS.Controllers
 {
@@ -15,9 +17,11 @@ namespace DIVULGA_SERVICOS.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private PRINCIPAL db;
 
         public ManageController()
         {
+            db = new PRINCIPAL();
         }
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -331,7 +335,113 @@ namespace DIVULGA_SERVICOS.Controllers
             base.Dispose(disposing);
         }
 
-#region Helpers
+        //Início dos métodos para o gerenciamento dos clientes
+        public ActionResult Cliente()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var userName = User.Identity.Name;
+                var usuario = db.CAD_PESSOA.Where(x => x.UserName == userName).FirstOrDefault();
+                var cliente = db.CAD_CLIENTE.Where(x => x.CD_PESSOA == usuario.Id);
+
+                if (cliente != null)
+                {
+                    //var cliente = db.CAD_CLIENTE.Include(x => x.CD_PESSOA == pes_juridica.CD_PESSOA);
+                    return View("Gerenciamento_Clientes", cliente.ToList());
+                }
+                return View();
+            }
+            else
+            {
+                ViewBag.errorMessage = "Você precisa ser um prestador de serviço e deve estar logado para acessar essa página.";
+                return View("Error");
+            }
+            //var cAD_CLIENTE = db.CAD_CLIENTE.Include(c => c.CAD_PES_JURIDICA);
+        }
+
+        // GET: CAD_CLIENTE/Details/5
+        public ActionResult Detalhes(int id)
+        {
+            if (id < 1)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            CAD_CLIENTE cAD_CLIENTE = db.CAD_CLIENTE.Where(x => x.SQ_CLIENTE == id).FirstOrDefault();
+            if (cAD_CLIENTE == null)
+            {
+                return HttpNotFound();
+            }
+            return View("Detalhes", cAD_CLIENTE);
+        }
+
+        // GET: CAD_CLIENTE/Create
+        public ActionResult Criar()
+        {
+            ViewBag.CD_PESSOA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ");
+            return View("Criar");
+        }
+
+        // POST: CAD_CLIENTE/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Criar([Bind(Include = "NM_NOME")] CAD_CLIENTE cAD_CLIENTE)
+        {
+            if (ModelState.IsValid)
+            {
+                cAD_CLIENTE.CD_PESSOA = User.Identity.GetUserId();
+                db.CAD_CLIENTE.Add(cAD_CLIENTE);
+                db.SaveChanges();
+                return RedirectToAction("Cliente");
+            }
+
+            ViewBag.CD_PESSOA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ", cAD_CLIENTE.CD_PESSOA);
+            return View(cAD_CLIENTE);
+        }
+
+        // GET: CAD_CLIENTE/Edit/5
+        public ActionResult Editar(int id)
+        {
+            if (id < 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            CAD_CLIENTE cAD_CLIENTE = db.CAD_CLIENTE.Where(x => x.SQ_CLIENTE == id).FirstOrDefault();
+            if (cAD_CLIENTE == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.CD_PESSOA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ", cAD_CLIENTE.CD_PESSOA);
+            return View(cAD_CLIENTE);
+        }
+
+        // POST: CAD_CLIENTE/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Editar([Bind(Include = "SQ_CLIENTE, NM_NOME")] CAD_CLIENTE cAD_CLIENTE)
+        {
+            cAD_CLIENTE.CD_PESSOA = User.Identity.GetUserId();
+            if (ModelState.IsValid)
+            {
+                db.Entry(cAD_CLIENTE).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Cliente");
+            }
+            ViewBag.CD_PESSOA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ", cAD_CLIENTE.CD_PESSOA);
+            return View(cAD_CLIENTE);
+        }
+
+
+
+
+
+
+        //Fim dos métodos para o gerenciamento dos clientes
+
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 

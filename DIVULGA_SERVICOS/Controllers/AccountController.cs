@@ -206,8 +206,6 @@ namespace DIVULGA_SERVICOS.Controllers
                     Email = model.UserName,
                     DS_EMAIL =model.UserName,
                 };
-
-
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

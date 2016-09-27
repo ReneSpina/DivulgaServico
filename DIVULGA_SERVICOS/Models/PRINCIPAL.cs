@@ -63,6 +63,15 @@ namespace DIVULGA_SERVICOS.Models
                 .Property(e => e.NM_NOME)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<CAD_CLIENTE>()
+                .Property(p => p.SQ_CLIENTE)
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+
+            modelBuilder.Entity<CAD_CLIENTE>()
+                .HasRequired(c => c.CAD_PES_JURIDICA)
+                .WithMany(p => p.CAD_CLIENTE)
+                .HasForeignKey(p => p.CD_PESSOA);
+
             modelBuilder.Entity<CAD_DICA>()
                 .Property(e => e.NM__NOME)
                 .IsUnicode(false);

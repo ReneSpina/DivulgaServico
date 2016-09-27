@@ -21,7 +21,7 @@ namespace DIVULGA_SERVICOS.Models
 
         [Key]
         [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int SQ_CLIENTE { get; set; }
 
         [Required]

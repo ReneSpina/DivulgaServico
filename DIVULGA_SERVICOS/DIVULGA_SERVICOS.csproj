@@ -198,6 +198,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CAD_CLIENTEController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -296,9 +297,20 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\Info.cshtml" />
+    <Content Include="Views\CAD_CLIENTE\Create.cshtml" />
+    <Content Include="Views\CAD_CLIENTE\Delete.cshtml" />
+    <Content Include="Views\CAD_CLIENTE\Details.cshtml" />
+    <Content Include="Views\CAD_CLIENTE\Edit.cshtml" />
+    <Content Include="Views\CAD_CLIENTE\Index.cshtml" />
+    <Content Include="Views\CAD_CLIENTE\Cliente.cshtml" />
+    <Content Include="Views\Manage\Gerenciamento_Clientes.cshtml" />
+    <Content Include="Views\Manage\Criar.cshtml" />
+    <Content Include="Views\Manage\Detalhes.cshtml" />
+    <Content Include="Views\Manage\Editar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
