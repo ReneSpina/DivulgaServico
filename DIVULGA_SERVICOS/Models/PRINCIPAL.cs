@@ -41,10 +41,10 @@ namespace DIVULGA_SERVICOS.Models
                 .Property(e => e.DS_DESCRICAO)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<CAD_ATIVIDADE>()
-                .HasMany(e => e.CAD_SUB_CAT_ATIV)
-                .WithRequired(e => e.CAD_ATIVIDADE)
-                .WillCascadeOnDelete(false);
+            //modelBuilder.Entity<CAD_ATIVIDADE>()
+            //    .HasMany(e => e.CAD_SUB_CAT_ATIV)
+            //    .WithRequired(e => e.CAD_ATIVIDADE)
+            //    .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<CAD_AVALIACAO>()
                 .Property(e => e.DS_DESCRICAO)
@@ -58,6 +58,26 @@ namespace DIVULGA_SERVICOS.Models
                 .HasMany(e => e.CAD_SUB_CATEGORIA)
                 .WithRequired(e => e.CAD_CATEGORIA)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<CAD_SUB_CAT_ATIV>()
+                .HasMany(e => e.CAD_ATIVIDADE)
+                .WithRequired(e => e.CAD_SUB_CAT_ATIV)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<CAD_SERV_JURIDICA>()
+               .HasMany(e => e.CAD_CATEGORIA)
+               .WithRequired(e => e.CAD_SERV_JURIDICA)
+               .WillCascadeOnDelete(false);
+
+            //modelBuilder.Entity<CAD_CATEGORIA>()
+            //.HasMany(x => x.CAD_PES_JURIDICA)
+            //.WithMany(x => x.CAD_CATEGORIA)
+            //.Map(m =>
+            //{
+            //    m.MapLeftKey("CD_CATEGORIA");
+            //    m.MapRightKey("CD_PESSOA");
+            //    m.ToTable("CAD_SERV_JURIDICA");
+            //});
 
             modelBuilder.Entity<CAD_CLIENTE>()
                 .Property(e => e.NM_NOME)
@@ -75,6 +95,10 @@ namespace DIVULGA_SERVICOS.Models
             modelBuilder.Entity<CAD_DICA>()
                 .Property(e => e.NM__NOME)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<CAD_DICA>()
+                .Property(p => p.SQ_DICA)
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             modelBuilder.Entity<CAD_DICA>()
                 .Property(e => e.DS_DESCRICAO)
@@ -155,11 +179,11 @@ namespace DIVULGA_SERVICOS.Models
                 .Property(e => e.DS_QUEM_SOMOS)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<CAD_PES_JURIDICA>()
-                .HasMany(e => e.CAD_AVALIACAO)
-                .WithRequired(e => e.CAD_PES_JURIDICA)
-                .HasForeignKey(e => e.CD_PES_JURIDICA)
-                .WillCascadeOnDelete(false);
+            //modelBuilder.Entity<CAD_PES_JURIDICA>()
+            //    .HasMany(e => e.CAD_AVALIACAO)
+            //    .WithRequired(e => e.CAD_PES_JURIDICA)
+            //    .HasForeignKey(e => e.CD_PES_JURIDICA)
+            //    .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<CAD_PES_JURIDICA>()
                 .HasMany(e => e.CAD_CLIENTE)
@@ -255,7 +279,7 @@ namespace DIVULGA_SERVICOS.Models
             modelBuilder.Entity<VEN_ORCAMENTO>()
                 .HasMany(e => e.CAD_SUB_CATEGORIA)
                 .WithMany(e => e.VEN_ORCAMENTO)
-                .Map(m => m.ToTable("VEN_ORC_SERVICO").MapLeftKey("CD_ORCAMENTO").MapRightKey(new[] { "CD_SUB_CATEGORIA", "CD_CATEGORIA" }));
+                .Map(m => m.ToTable("VEN_ORC_SERVICO"));/*.MapLeftKey("CD_ORCAMENTO").MapRightKey(new[] { "CD_SUB_CATEGORIA", "CD_CATEGORIA" }));*/
 
             modelBuilder.Entity<CAD_PESSOA>()
                .ToTable("AspNetUsers")

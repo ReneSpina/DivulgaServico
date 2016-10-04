@@ -204,9 +204,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201609160025052_Principal2.cs" />
-    <Compile Include="Migrations\201609160025052_Principal2.Designer.cs">
-      <DependentUpon>201609160025052_Principal2.cs</DependentUpon>
+    <Compile Include="Migrations\201610041356096_Principal5.cs" />
+    <Compile Include="Migrations\201610041356096_Principal5.Designer.cs">
+      <DependentUpon>201610041356096_Principal5.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -236,10 +236,12 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Empty.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Imagens\20140831_171351.jpg" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -251,6 +253,12 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
+    <Content Include="Content\jquery.Jcrop.min.css" />
+    <Content Include="Scripts\jquery.fileupload-ui.js" />
+    <Content Include="Scripts\jquery.fileupload.js" />
+    <Content Include="Scripts\jquery.iframe-transport.js" />
+    <Content Include="Scripts\jquery.Jcrop.min.js" />
     <Content Include="Scripts\jquery.mask.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -307,6 +315,10 @@
     <Content Include="Views\Manage\Criar.cshtml" />
     <Content Include="Views\Manage\Detalhes.cshtml" />
     <Content Include="Views\Manage\Editar.cshtml" />
+    <Content Include="Views\Manage\Gerenciamento_Dicas.cshtml" />
+    <Content Include="Views\Manage\CriarDicas.cshtml" />
+    <Content Include="Views\Manage\DetalhesDica.cshtml" />
+    <Content Include="Views\Manage\EditarDicas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -321,8 +333,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201609160025052_Principal2.resx">
-      <DependentUpon>201609160025052_Principal2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201610041356096_Principal5.resx">
+      <DependentUpon>201610041356096_Principal5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

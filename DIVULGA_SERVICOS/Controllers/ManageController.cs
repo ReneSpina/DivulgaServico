@@ -433,13 +433,112 @@ namespace DIVULGA_SERVICOS.Controllers
             ViewBag.CD_PESSOA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ", cAD_CLIENTE.CD_PESSOA);
             return View(cAD_CLIENTE);
         }
-
-
-
-
-
-
         //Fim dos métodos para o gerenciamento dos clientes
+
+
+        //Início dos métodos para o gerenciamento das dicas
+        public ActionResult Dicas()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var userName = User.Identity.Name;
+                var usuario = db.CAD_PESSOA.Where(x => x.UserName == userName).FirstOrDefault();
+                var dica = db.CAD_DICA.Where(x => x.CD_PESSOA == usuario.Id);
+
+                if (dica != null)
+                {
+                    //var cliente = db.CAD_CLIENTE.Include(x => x.CD_PESSOA == pes_juridica.CD_PESSOA);
+                    return View("Gerenciamento_Dicas", dica.ToList());
+                }
+                return View();
+            }
+            else
+            {
+                ViewBag.errorMessage = "Você precisa ser um prestador de serviço e deve estar logado para acessar essa página.";
+                return View("Error");
+            }
+        }
+
+        // GET: CAD_DICA/Create
+        public ActionResult CriarDicas()
+        {
+            ViewBag.CD_PESSOA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ");
+            return View("CriarDicas");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CriarDicas([Bind(Include = "NM__NOME,DS_DESCRICAO")] CAD_DICA cAD_DICA)
+        {
+            if (ModelState.IsValid)
+            {
+                cAD_DICA.CD_PESSOA = User.Identity.GetUserId();
+                db.CAD_DICA.Add(cAD_DICA);
+                db.SaveChanges();
+                return RedirectToAction("Dica");
+            }
+
+            ViewBag.CD_PESSOA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ", cAD_DICA.CD_PESSOA);
+            return View(cAD_DICA);
+        }
+
+
+        // GET: CAD_DICA/Details/5
+        public ActionResult DetalhesDicas(int id)
+        {
+            if (id < 1)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            CAD_DICA cAD_DICA = db.CAD_DICA.Where(x => x.SQ_DICA == id).FirstOrDefault();
+            if (cAD_DICA == null)
+            {
+                return HttpNotFound();
+            }
+            return View("DetalhesDica", cAD_DICA);
+        }
+
+
+        // GET: CAD_DICA/Edit/5
+        public ActionResult EditarDicas(int id)
+        {
+            if (id < 1)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            CAD_DICA cAD_DICA = db.CAD_DICA.Where(x => x.SQ_DICA == id).FirstOrDefault();
+            if (cAD_DICA == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.CD_PESSOA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ", cAD_DICA.CD_PESSOA);
+            return View(cAD_DICA);
+        }
+
+        // POST: CAD_DICA/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditarDicas([Bind(Include = "NM__NOME,DS_DESCRICAO")] CAD_DICA cAD_DICA)
+        {
+            cAD_DICA.CD_PESSOA = User.Identity.GetUserId();
+            if (ModelState.IsValid)
+            {
+                db.Entry(cAD_DICA).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Dicas");
+            }
+            ViewBag.CD_PESSOA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ", cAD_DICA.CD_PESSOA);
+            return View(cAD_DICA);
+        }
+
+
+
+
+
+        //Fim dos métodos para o gerenciamento das dicas
+
 
         #region Helpers
         // Used for XSRF protection when adding external logins

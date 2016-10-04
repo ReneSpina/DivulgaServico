@@ -8,6 +8,12 @@ namespace DIVULGA_SERVICOS.Models
 
     public partial class CAD_SUB_CAT_ATIV
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public CAD_SUB_CAT_ATIV()
+        {
+            CAD_ATIVIDADE = new HashSet<CAD_ATIVIDADE>();
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long CD_SUB_CAT_ATIV { get; set; }
@@ -18,7 +24,8 @@ namespace DIVULGA_SERVICOS.Models
 
         public long CD_ATIVIDADE { get; set; }
 
-        public virtual CAD_ATIVIDADE CAD_ATIVIDADE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CAD_ATIVIDADE> CAD_ATIVIDADE { get; set; }
 
         public virtual CAD_SUB_CATEGORIA CAD_SUB_CATEGORIA { get; set; }
     }
