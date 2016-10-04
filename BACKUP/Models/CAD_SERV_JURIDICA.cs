@@ -8,6 +8,12 @@ namespace DIVULGA_SERVICOS.Models
 
     public partial class CAD_SERV_JURIDICA
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public CAD_SERV_JURIDICA()
+        {
+            CAD_CATEGORIA = new HashSet<CAD_CATEGORIA>();;
+        }
+
         [Key]
         [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -25,5 +31,9 @@ namespace DIVULGA_SERVICOS.Models
         public string DS_DESCRICAO { get; set; }
 
         public virtual CAD_PES_JURIDICA CAD_PES_JURIDICA { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CAD_CATEGORIA> CAD_CATEGORIA { get; set; }
+
     }
 }

@@ -19,10 +19,6 @@ namespace DIVULGA_SERVICOS.Models
 
         [Column(TypeName = "text")]
         [Required]
-        public string DS_DESCRICAO { get; set; }
-
-        [Column(TypeName = "text")]
-        [Required]
         public string NM_NOME { get; set; }
 
         public virtual CAD_SUB_CAT_ATIV CAD_SUB_CAT_ATIV { get; set; }

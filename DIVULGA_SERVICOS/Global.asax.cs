@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
+
 namespace DIVULGA_SERVICOS
 {
     public class MvcApplication : System.Web.HttpApplication
@@ -16,6 +17,7 @@ namespace DIVULGA_SERVICOS
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            //GlobalConfiguration.Configure(WebApiConfig.Register);
         }
     }
 }

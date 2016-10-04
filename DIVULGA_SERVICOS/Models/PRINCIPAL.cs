@@ -37,10 +37,6 @@ namespace DIVULGA_SERVICOS.Models
             //modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             //modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
 
-            modelBuilder.Entity<CAD_ATIVIDADE>()
-                .Property(e => e.DS_DESCRICAO)
-                .IsUnicode(false);
-
             //modelBuilder.Entity<CAD_ATIVIDADE>()
             //    .HasMany(e => e.CAD_SUB_CAT_ATIV)
             //    .WithRequired(e => e.CAD_ATIVIDADE)

@@ -59,12 +59,12 @@ namespace DIVULGA_SERVICOS.Controllers
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
-                : message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+                message == ManageMessageId.ChangePasswordSuccess ? "Sua senha foi alterada com sucesso."
+                : message == ManageMessageId.SetPasswordSuccess ? "Sua senha foi definida com sucesso."
+                : message == ManageMessageId.SetTwoFactorSuccess ? "O seu provedor de autenticação de dois fatores foi definido."
+                : message == ManageMessageId.Error ? "Ocorreu um erro."
+                : message == ManageMessageId.AddPhoneSuccess ? "Seu número de telefone fo adicionado com sucesso"
+                : message == ManageMessageId.RemovePhoneSuccess ? "Seu número de telefone foi removido com sucesso."
                 : "";
 
             var userId = User.Identity.GetUserId();
@@ -194,7 +194,7 @@ namespace DIVULGA_SERVICOS.Controllers
                 return RedirectToAction("Index", new { Message = ManageMessageId.AddPhoneSuccess });
             }
             // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("", "Failed to verify phone");
+            ModelState.AddModelError("", "Flaha para verificar o número");
             return View(model);
         }
 
@@ -283,8 +283,8 @@ namespace DIVULGA_SERVICOS.Controllers
         public async Task<ActionResult> ManageLogins(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
-                message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
-                : message == ManageMessageId.Error ? "An error has occurred."
+                message == ManageMessageId.RemoveLoginSuccess ? "O login externo foi removido com sucesso."
+                : message == ManageMessageId.Error ? "Ocorreu um erro."
                 : "";
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             if (user == null)
@@ -475,7 +475,7 @@ namespace DIVULGA_SERVICOS.Controllers
                 cAD_DICA.CD_PESSOA = User.Identity.GetUserId();
                 db.CAD_DICA.Add(cAD_DICA);
                 db.SaveChanges();
-                return RedirectToAction("Dica");
+                return RedirectToAction("Dicas");
             }
 
             ViewBag.CD_PESSOA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ", cAD_DICA.CD_PESSOA);
@@ -512,7 +512,7 @@ namespace DIVULGA_SERVICOS.Controllers
                 return HttpNotFound();
             }
             ViewBag.CD_PESSOA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ", cAD_DICA.CD_PESSOA);
-            return View(cAD_DICA);
+            return View("EditarDicas",cAD_DICA);
         }
 
         // POST: CAD_DICA/Edit/5
@@ -520,11 +520,12 @@ namespace DIVULGA_SERVICOS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditarDicas([Bind(Include = "NM__NOME,DS_DESCRICAO")] CAD_DICA cAD_DICA)
+        public ActionResult EditarDicas([Bind(Include = "NM__NOME,DS_DESCRICAO, SQ_DICA")] CAD_DICA cAD_DICA, int id)
         {
             cAD_DICA.CD_PESSOA = User.Identity.GetUserId();
             if (ModelState.IsValid)
             {
+                cAD_DICA.SQ_DICA = id;
                 db.Entry(cAD_DICA).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Dicas");
