@@ -100,6 +100,18 @@ namespace DIVULGA_SERVICOS.Models
                 .Property(e => e.DS_DESCRICAO)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<BASE_DE_DADOS>()
+                .Property(e => e.NM_NOME_CATEGORIA)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<BASE_DE_DADOS>()
+                .Property(e => e.NM_NOME_ATIVIDADE)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<BASE_DE_DADOS>()
+                .Property(e => e.NM_NOME_SUBCATEGORIA)
+                .IsUnicode(false);
+
             modelBuilder.Entity<CAD_IMAGEM>()
                 .Property(e => e.NM_NOME)
                 .IsUnicode(false);
