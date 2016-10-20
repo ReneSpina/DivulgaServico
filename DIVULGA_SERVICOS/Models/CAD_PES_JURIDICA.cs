@@ -14,10 +14,10 @@ namespace DIVULGA_SERVICOS.Models
             CAD_AVALIACAO = new HashSet<CAD_AVALIACAO>();
             CAD_CLIENTE = new HashSet<CAD_CLIENTE>();
             CAD_DICA = new HashSet<CAD_DICA>();
-            //CAD_CATEGORIA = new HashSet<CAD_CATEGORIA>();
-            CAD_SLIDESHOW = new HashSet<CAD_SLIDESHOW>();
+            CAD_CATEGORIA = new HashSet<CAD_CATEGORIA>();
+            //CAD_SLIDESHOW = new HashSet<CAD_SLIDESHOW>();
             VEN_ORCAMENTO = new HashSet<VEN_ORCAMENTO>();
-            CAD_SERV_JURIDICA = new HashSet<CAD_SERV_JURIDICA>(); 
+            //CAD_SERV_JURIDICA = new HashSet<CAD_SERV_JURIDICA>(); 
         }
 
         [Key]
@@ -56,14 +56,14 @@ namespace DIVULGA_SERVICOS.Models
 
         public virtual CAD_PESSOA CAD_PESSOA { get; set; }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CAD_CATEGORIA> CAD_CATEGORIA { get; set; }
+
         //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        //public virtual ICollection<CAD_CATEGORIA> CAD_CATEGORIA { get; set; }
+        //public virtual ICollection<CAD_SERV_JURIDICA> CAD_SERV_JURIDICA { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CAD_SERV_JURIDICA> CAD_SERV_JURIDICA { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CAD_SLIDESHOW> CAD_SLIDESHOW { get; set; }
+        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        //public virtual ICollection<CAD_SLIDESHOW> CAD_SLIDESHOW { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VEN_ORCAMENTO> VEN_ORCAMENTO { get; set; }

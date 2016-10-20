@@ -17,7 +17,8 @@ namespace DIVULGA_SERVICOS.Controllers
         // GET: CAD_CATEGORIA
         public ActionResult Index()
         {
-            return View(db.CAD_CATEGORIA.ToList());
+            var cAD_CATEGORIA = db.CAD_CATEGORIA.Include(c => c.CAD_PES_JURIDICA);
+            return View(cAD_CATEGORIA.ToList());
         }
 
         // GET: CAD_CATEGORIA/Details/5
@@ -38,6 +39,7 @@ namespace DIVULGA_SERVICOS.Controllers
         // GET: CAD_CATEGORIA/Create
         public ActionResult Create()
         {
+            ViewBag.CD_PES_JURIDICA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ");
             return View();
         }
 
@@ -46,7 +48,7 @@ namespace DIVULGA_SERVICOS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CD_CATEGORIA,CD_SERVICO,CD_PES_JURIDICA,NM_NOME")] CAD_CATEGORIA cAD_CATEGORIA)
+        public ActionResult Create([Bind(Include = "SQ_CATEGORIA,CD_PES_JURIDICA,NM_NOME,SHOW,DS_DESCRICAO")] CAD_CATEGORIA cAD_CATEGORIA)
         {
             if (ModelState.IsValid)
             {
@@ -55,6 +57,7 @@ namespace DIVULGA_SERVICOS.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.CD_PES_JURIDICA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ", cAD_CATEGORIA.CD_PES_JURIDICA);
             return View(cAD_CATEGORIA);
         }
 
@@ -70,6 +73,7 @@ namespace DIVULGA_SERVICOS.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.CD_PES_JURIDICA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ", cAD_CATEGORIA.CD_PES_JURIDICA);
             return View(cAD_CATEGORIA);
         }
 
@@ -78,7 +82,7 @@ namespace DIVULGA_SERVICOS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CD_CATEGORIA,CD_SERVICO,CD_PES_JURIDICA,NM_NOME")] CAD_CATEGORIA cAD_CATEGORIA)
+        public ActionResult Edit([Bind(Include = "SQ_CATEGORIA,CD_PES_JURIDICA,NM_NOME,SHOW,DS_DESCRICAO")] CAD_CATEGORIA cAD_CATEGORIA)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +90,7 @@ namespace DIVULGA_SERVICOS.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.CD_PES_JURIDICA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ", cAD_CATEGORIA.CD_PES_JURIDICA);
             return View(cAD_CATEGORIA);
         }
 

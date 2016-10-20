@@ -15,7 +15,7 @@ namespace DIVULGA_SERVICOS.Models
         {
             CAD_CLIENTE = new HashSet<CAD_CLIENTE>();
             CAD_DICA = new HashSet<CAD_DICA>();
-            CAD_SLIDESHOW = new HashSet<CAD_SLIDESHOW>();
+            //CAD_SLIDESHOW = new HashSet<CAD_SLIDESHOW>();
         }
 
         [Key]
@@ -31,8 +31,8 @@ namespace DIVULGA_SERVICOS.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CAD_DICA> CAD_DICA { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CAD_SLIDESHOW> CAD_SLIDESHOW { get; set; }
+        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        //public virtual ICollection<CAD_SLIDESHOW> CAD_SLIDESHOW { get; set; }
     }
     
 }

@@ -8,11 +8,11 @@ namespace DIVULGA_SERVICOS.Models
 
     public partial class VEN_ORCAMENTO
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public VEN_ORCAMENTO()
-        {
-            CAD_SUB_CATEGORIA = new HashSet<CAD_SUB_CATEGORIA>();
-        }
+        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        //public VEN_ORCAMENTO()
+        //{
+        //    CAD_SUB_CATEGORIA = new HashSet<CAD_SUB_CATEGORIA>();
+        //}
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -28,7 +28,7 @@ namespace DIVULGA_SERVICOS.Models
 
         public virtual VEN_BOLETO VEN_BOLETO { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CAD_SUB_CATEGORIA> CAD_SUB_CATEGORIA { get; set; }
+        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        //public virtual ICollection<CAD_SUB_CATEGORIA> CAD_SUB_CATEGORIA { get; set; }
     }
 }

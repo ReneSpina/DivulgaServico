@@ -214,18 +214,17 @@
     <Compile Include="Controllers\CAD_CLIENTEController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SitePrestadorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201610042209332_Pincipal11.cs" />
-    <Compile Include="Migrations\201610042209332_Pincipal11.Designer.cs">
-      <DependentUpon>201610042209332_Pincipal11.cs</DependentUpon>
+    <Compile Include="Migrations\201610182017210_Principal.cs" />
+    <Compile Include="Migrations\201610182017210_Principal.Designer.cs">
+      <DependentUpon>201610182017210_Principal.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\CAD_ATIVIDADE.cs" />
     <Compile Include="Models\CAD_AVALIACAO.cs" />
-    <Compile Include="Models\BASE_DE_DADOS.cs" />
     <Compile Include="Models\CAD_CATEGORIA.cs" />
     <Compile Include="Models\CAD_CLIENTE.cs" />
     <Compile Include="Models\CAD_DICA.cs" />
@@ -235,10 +234,6 @@
     <Compile Include="Models\CAD_PES_FONE.cs" />
     <Compile Include="Models\CAD_PES_JURIDICA.cs" />
     <Compile Include="Models\CAD_PES_USUARIO.cs" />
-    <Compile Include="Models\CAD_SERV_JURIDICA.cs" />
-    <Compile Include="Models\CAD_SLIDESHOW.cs" />
-    <Compile Include="Models\CAD_SUB_CATEGORIA.cs" />
-    <Compile Include="Models\CAD_SUB_CAT_ATIV.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PRINCIPAL.cs" />
@@ -248,8 +243,11 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\ASUS.jpg" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\cropper.css" />
+    <Content Include="Content\cropper.min.css" />
     <Content Include="Content\Empty.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -264,11 +262,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\cropper.js" />
+    <Content Include="Scripts\cropper.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui.min.js" />
-    <Content Include="Content\jquery.Jcrop.min.css" />
     <Content Include="Scripts\jquery.fileupload-ui.js" />
     <Content Include="Scripts\jquery.fileupload.js" />
     <Content Include="Scripts\jquery.iframe-transport.js" />
@@ -278,6 +277,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -338,6 +338,13 @@
     <Content Include="Views\CAD_CATEGORIA\Details.cshtml" />
     <Content Include="Views\CAD_CATEGORIA\Edit.cshtml" />
     <Content Include="Views\CAD_CATEGORIA\Index.cshtml" />
+    <Content Include="Views\Manage\CriarServico.cshtml" />
+    <Content Include="Views\Manage\Gerenciamento_Servicos.cshtml" />
+    <Content Include="Views\Manage\DetalhesServico.cshtml" />
+    <Content Include="Views\Manage\EditarServico.cshtml" />
+    <Content Include="Views\Manage\DeletarServico.cshtml" />
+    <Content Include="Views\SitePrestador\SitePrestador1.cshtml" />
+    <Content Include="Views\SitePrestador\SitePrestador.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -352,8 +359,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201610042209332_Pincipal11.resx">
-      <DependentUpon>201610042209332_Pincipal11.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201610182017210_Principal.resx">
+      <DependentUpon>201610182017210_Principal.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -533,12 +533,138 @@ namespace DIVULGA_SERVICOS.Controllers
             ViewBag.CD_PESSOA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ", cAD_DICA.CD_PESSOA);
             return View(cAD_DICA);
         }
-
-
-
-
-
         //Fim dos métodos para o gerenciamento das dicas
+
+
+
+
+
+        //Início dos métodos para o gerenciamento dos serviços
+        public ActionResult Servicos()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var userName = User.Identity.Name;
+                var usuario = db.CAD_PESSOA.Where(x => x.UserName == userName).FirstOrDefault();
+                var servico = db.CAD_CATEGORIA.Where(x => x.CD_PES_JURIDICA == usuario.Id);
+
+                if (servico != null)
+                {
+                    //var cliente = db.CAD_CLIENTE.Include(x => x.CD_PESSOA == pes_juridica.CD_PESSOA);
+                    return View("Gerenciamento_Servicos", servico.ToList());
+                }
+                return View();
+            }
+            else
+            {
+                ViewBag.errorMessage = "Você precisa ser um prestador de serviço e deve estar logado para acessar essa página.";
+                return View("Error");
+            }
+        }
+
+        // GET: CAD_CATEGORIA/Create
+        public ActionResult CriarServico()
+        {
+            //ViewBag.CD_PES_JURIDICA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ");
+            return View("CriarServico");
+        }
+
+        // POST: CAD_CATEGORIA/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CriarServico([Bind(Include = "NM_NOME, SHOW, DS_DESCRICAO")] CAD_CATEGORIA cAD_CATEGORIA)
+        {
+            if (ModelState.IsValid)
+            {
+                cAD_CATEGORIA.CD_PES_JURIDICA = User.Identity.GetUserId();
+                db.CAD_CATEGORIA.Add(cAD_CATEGORIA);
+                db.SaveChanges();
+                return RedirectToAction("Servicos");
+            }
+
+            ViewBag.CD_PES_JURIDICA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ", cAD_CATEGORIA.CD_PES_JURIDICA);
+            return View(cAD_CATEGORIA);
+        }
+
+        // GET: CAD_CATEGORIA/Details/5
+        public ActionResult DetalhesServico(int id)
+        {
+            if (id < 1)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            CAD_CATEGORIA cAD_CATEGORIA = db.CAD_CATEGORIA.Where(x => x.SQ_CATEGORIA == id).FirstOrDefault();
+            if (cAD_CATEGORIA == null)
+            {
+                return HttpNotFound();
+            }
+            return View("DetalhesServico",cAD_CATEGORIA);
+        }
+
+        // GET: CAD_CATEGORIA/Edit/5
+        public ActionResult EditarServico(int id)
+        {
+            if (id < 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            CAD_CATEGORIA cAD_CATEGORIA = db.CAD_CATEGORIA.Where(x => x.SQ_CATEGORIA == id).FirstOrDefault();
+            if (cAD_CATEGORIA == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.CD_PES_JURIDICA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ", cAD_CATEGORIA.CD_PES_JURIDICA);
+            return View("EditarServico", cAD_CATEGORIA);
+        }
+
+        // POST: CAD_CATEGORIA/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditarServico([Bind(Include = "SQ_CATEGORIA,NM_NOME,SHOW,DS_DESCRICAO")] CAD_CATEGORIA cAD_CATEGORIA)
+        {
+            if (ModelState.IsValid)
+            {
+                cAD_CATEGORIA.CD_PES_JURIDICA = User.Identity.GetUserId();
+                db.Entry(cAD_CATEGORIA).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Servicos");
+            }
+            ViewBag.CD_PES_JURIDICA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ", cAD_CATEGORIA.CD_PES_JURIDICA);
+            return View(cAD_CATEGORIA);
+        }
+
+
+        // GET: CAD_CATEGORIA/Delete/5
+        public ActionResult DeletarServico(int id)
+        {
+            if (id < 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            CAD_CATEGORIA cAD_CATEGORIA = db.CAD_CATEGORIA.Where(x => x.SQ_CATEGORIA == id).FirstOrDefault();
+            if (cAD_CATEGORIA == null)
+            {
+                return HttpNotFound();
+            }
+            return View("DeletarServico", cAD_CATEGORIA);
+        }
+
+        // POST: CAD_CATEGORIA/Delete/5
+        [HttpPost, ActionName("DeletarServico")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeletarServicoOk(int id)
+        {
+            CAD_CATEGORIA cAD_CATEGORIA = db.CAD_CATEGORIA.Where(x => x.SQ_CATEGORIA == id).FirstOrDefault();
+            db.CAD_CATEGORIA.Remove(cAD_CATEGORIA);
+            db.SaveChanges();
+            return RedirectToAction("Servicos");
+        }
+
+        //Fim dos métodos para o gerenciamento dos serviços
 
 
         #region Helpers
