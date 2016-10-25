@@ -160,9 +160,9 @@ namespace DIVULGA_SERVICOS.Models
                 .Property(e => e.CD_CEP)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<CAD_PES_ENDERECO>()
-                .Property(e => e.TP_TIPO_LOGRADOURO)
-                .IsUnicode(false);
+            //modelBuilder.Entity<CAD_PES_ENDERECO>()
+            //    .Property(e => e.TP_TIPO_LOGRADOURO)
+            //    .IsUnicode(false);
 
             modelBuilder.Entity<CAD_PES_ENDERECO>()
                 .Property(p => p.SQ_ENDERECO)

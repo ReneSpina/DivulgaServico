@@ -192,7 +192,7 @@ namespace DIVULGA_SERVICOS.Controllers
         public async Task<ActionResult> Register(RegisterPrestadorViewModel model)
         {
             string link_site;
-            long indicacao;
+            //long indicacao;
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser
@@ -226,21 +226,21 @@ namespace DIVULGA_SERVICOS.Controllers
                                 link_site = model.DS_LINK_SITE;
                             }
 
-                            if(model.CD_CODIGO_INDICACAO.ToString() == "")
-                            {
-                                indicacao = 0;
-                            }
-                            else
-                            {
-                                indicacao = model.CD_CODIGO_INDICACAO;
-                            }
+                            //if(model.CD_CODIGO_INDICACAO.ToString() == "")
+                            //{
+                            //    indicacao = 0;
+                            //}
+                            //else
+                            //{
+                            //    indicacao = model.CD_CODIGO_INDICACAO;
+                            //}
                         
                             CAD_PES_JURIDICA juridica = new CAD_PES_JURIDICA
                             {
                                 DS_LINK_SITE = link_site,
                                 CD_PESSOA = user.Id,
                                 CD_CNPJ = model.CD_CNPJ,
-                                CD_CODIGO_INDICACAO = indicacao,
+                                //CD_CODIGO_INDICACAO = indicacao,
                             };
                             db.CAD_PES_JURIDICA.Add(juridica);
                             db.SaveChanges();
@@ -250,9 +250,13 @@ namespace DIVULGA_SERVICOS.Controllers
                             CD_PESSOA = user.Id,
                             NM_CIDADE = model.NM_CIDADE,
                             NM_LOGRADOURO = model.NM_LOGRADOURO,
-                            NM_BAIRRO = model.NM_BAIRRO,
+                            NM_BAIRRO = "NULL",
+                            NUMERO = model.NUMERO,
+                            NM_ESTADO = model.NM_ESTADO,
                             CD_CEP = model.CD_CEP,
-                            TP_TIPO_LOGRADOURO = model.TP_TIPO_LOGRADOURO,
+                            CD_LAT = model.CD_LAT,
+                            CD_LONG = model.CD_LONG
+                            //TP_TIPO_LOGRADOURO = model.TP_TIPO_LOGRADOURO,
                         };
 
                         db.CAD_PES_ENDERECO.Add(endereco);

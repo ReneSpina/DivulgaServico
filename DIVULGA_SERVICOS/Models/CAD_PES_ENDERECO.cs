@@ -27,12 +27,24 @@ namespace DIVULGA_SERVICOS.Models
         [StringLength(255)]
         public string NM_BAIRRO { get; set; }
 
+        [StringLength(255)]
+        public string NM_ESTADO { get; set; }
+
         [Required]
         [StringLength(20)]
         public string CD_CEP { get; set; }
+        
 
-        [StringLength(20)]
-        public string TP_TIPO_LOGRADOURO { get; set; }
+        public int NUMERO { get; set; }
+
+        //[StringLength(20)]
+        //public string TP_TIPO_LOGRADOURO { get; set; }
+
+        [StringLength(100)]
+        public string CD_LAT { get; set; }
+
+        [StringLength(100)]
+        public string CD_LONG { get; set; }
 
         public virtual CAD_PESSOA CAD_PESSOA { get; set; }
     }

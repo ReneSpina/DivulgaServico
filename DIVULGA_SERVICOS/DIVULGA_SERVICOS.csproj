@@ -218,9 +218,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201610182017210_Principal.cs" />
-    <Compile Include="Migrations\201610182017210_Principal.Designer.cs">
-      <DependentUpon>201610182017210_Principal.cs</DependentUpon>
+    <Compile Include="Migrations\201610251513529_Principal1.cs" />
+    <Compile Include="Migrations\201610251513529_Principal1.Designer.cs">
+      <DependentUpon>201610251513529_Principal1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -249,6 +249,7 @@
     <Content Include="Content\cropper.css" />
     <Content Include="Content\cropper.min.css" />
     <Content Include="Content\Empty.png" />
+    <Content Include="Content\jquery-ui.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -267,6 +268,7 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery-ui.min.js" />
     <Content Include="Scripts\jquery.fileupload-ui.js" />
     <Content Include="Scripts\jquery.fileupload.js" />
@@ -278,6 +280,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\main.js" />
+    <Content Include="Scripts\mapa.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -359,8 +362,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201610182017210_Principal.resx">
-      <DependentUpon>201610182017210_Principal.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201610251513529_Principal1.resx">
+      <DependentUpon>201610251513529_Principal1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

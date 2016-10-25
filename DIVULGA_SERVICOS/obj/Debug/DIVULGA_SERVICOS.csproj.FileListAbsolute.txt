@@ -173,8 +173,8 @@ C:\Rene Spina\Spread - CVC\Documento e Formulários\Rene Spina\Desenvolvimento\D
 C:\Rene Spina\Spread - CVC\Documento e Formulários\Rene Spina\Desenvolvimento\DivulgaServico\DIVULGA_SERVICOS\bin\Microsoft.Owin.Security.Google.xml
 C:\Rene Spina\Spread - CVC\Documento e Formulários\Rene Spina\Desenvolvimento\DivulgaServico\DIVULGA_SERVICOS\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Rene Spina\Spread - CVC\Documento e Formulários\Rene Spina\Desenvolvimento\DivulgaServico\DIVULGA_SERVICOS\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\Rene Spina\Spread - CVC\Documento e Formulários\Rene Spina\Desenvolvimento\DivulgaServico\DIVULGA_SERVICOS\obj\Debug\DIVULGA_SERVICOS.csprojResolveAssemblyReference.cache
-C:\Rene Spina\Spread - CVC\Documento e Formulários\Rene Spina\Desenvolvimento\DivulgaServico\DIVULGA_SERVICOS\obj\Debug\DIVULGA_SERVICOS.Migrations.Principal.resources
-C:\Rene Spina\Spread - CVC\Documento e Formulários\Rene Spina\Desenvolvimento\DivulgaServico\DIVULGA_SERVICOS\obj\Debug\DIVULGA_SERVICOS.csproj.GenerateResource.Cache
 C:\Rene Spina\Spread - CVC\Documento e Formulários\Rene Spina\Desenvolvimento\DivulgaServico\DIVULGA_SERVICOS\obj\Debug\DIVULGA_SERVICOS.dll
 C:\Rene Spina\Spread - CVC\Documento e Formulários\Rene Spina\Desenvolvimento\DivulgaServico\DIVULGA_SERVICOS\obj\Debug\DIVULGA_SERVICOS.pdb
+C:\Rene Spina\Spread - CVC\Documento e Formulários\Rene Spina\Desenvolvimento\DivulgaServico\DIVULGA_SERVICOS\obj\Debug\DIVULGA_SERVICOS.csprojResolveAssemblyReference.cache
+C:\Rene Spina\Spread - CVC\Documento e Formulários\Rene Spina\Desenvolvimento\DivulgaServico\DIVULGA_SERVICOS\obj\Debug\DIVULGA_SERVICOS.Migrations.Principal1.resources
+C:\Rene Spina\Spread - CVC\Documento e Formulários\Rene Spina\Desenvolvimento\DivulgaServico\DIVULGA_SERVICOS\obj\Debug\DIVULGA_SERVICOS.csproj.GenerateResource.Cache

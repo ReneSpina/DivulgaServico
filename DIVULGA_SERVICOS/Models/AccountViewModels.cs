@@ -144,34 +144,49 @@ namespace DIVULGA_SERVICOS.Models
         [StringLength(500)]
         public string DS_LINK_SITE { get; set; }
 
-        [Display(Name = "CÓDIGO DE INDICAÇÃO")]
-        [DisplayName("CÓDIGO DE INDICAÇÃO")]
-        public long CD_CODIGO_INDICACAO { get; set; }
+        //[Display(Name = "CÓDIGO DE INDICAÇÃO")]
+        //[DisplayName("CÓDIGO DE INDICAÇÃO")]
+        //public long CD_CODIGO_INDICACAO { get; set; }
 
-        [Required (ErrorMessage = "O NOME DA CIDADE É OBRIGATÓRIO!")]
-        [Display(Name = "CIDADE")]
+        //[Required (ErrorMessage = "O NOME DA CIDADE É OBRIGATÓRIO!")]
+        //[Display(Name = "CIDADE")]
         [StringLength(100)]
         public string NM_CIDADE { get; set; }
 
         [Required (ErrorMessage = "O LOGRADOURO É OBRIGATÓRIO!")]
-        [Display(Name = "LOGRADOURO")]
+        [Display(Name = "ENDEREÇO")]
         [StringLength(1000)]
         public string NM_LOGRADOURO { get; set; }
 
-        [Required(ErrorMessage = "O BAIRRO É OBRIGATÓRIO!")]
-        [Display(Name = "BAIRRO")]
+        //[Required(ErrorMessage = "O BAIRRO É OBRIGATÓRIO!")]
+        //[Display(Name = "BAIRRO")]
         [StringLength(100)]
         public string NM_BAIRRO { get; set; }
 
-        [Required(ErrorMessage = "O CEP É OBRIGATÓRIO!")]
-        [Display(Name = "CEP")]
+        [StringLength(50)]
+        public string NM_ESTADO { get; set; }
+
+        //[Required(ErrorMessage = "O CEP É OBRIGATÓRIO!")]
+        //[Display(Name = "CEP")]
         [StringLength(20)]
         public string CD_CEP { get; set; }
 
-        [Required(ErrorMessage = "O TIPO DE LOGRADOURO É OBRIGATÓRIO!")]
-        [Display(Name = "TIPO DE LOGRADOURO")]
-        [StringLength(30)]
-        public string TP_TIPO_LOGRADOURO { get; set; }
+        //[Required(ErrorMessage = "O TIPO DE LOGRADOURO É OBRIGATÓRIO!")]
+        //[Display(Name = "TIPO DE LOGRADOURO")]
+        //[StringLength(30)]
+        //public string TP_TIPO_LOGRADOURO { get; set; }
+
+        public int NUMERO { get; set; }
+
+        //[StringLength(20)]
+        //public string TP_TIPO_LOGRADOURO { get; set; }
+
+        [StringLength(100)]
+        public string CD_LAT { get; set; }
+
+        [StringLength(100)]
+        public string CD_LONG { get; set; }
+
     }
 
 
