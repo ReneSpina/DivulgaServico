@@ -14,7 +14,7 @@ function initAutocomplete() {
     // location types.
     autocomplete = new google.maps.places.Autocomplete(
         (document.getElementById('autocomplete')),
-        {types: ['geocode']});
+        { types: ['geocode'] });
 
 // When the user selects an address from the dropdown, populate the address
 // fields in the form.
@@ -44,6 +44,22 @@ function fillInAddress() {
     var lng = place.geometry.location.lng();
     document.getElementById("latitude").value = lat;
     document.getElementById("longitude").value = lng;
+
+
+    var latlng = new google.maps.LatLng(lat, lng);
+    var options = {
+        zoom: 16,
+        center: latlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    map = new google.maps.Map(document.getElementById("mapa"), options);
+    marker = new google.maps.Marker({
+        map: map,
+        draggable: true,
+    });
+    marker.setPosition(latlng);
+
 
 }
 // [END region_fillform]

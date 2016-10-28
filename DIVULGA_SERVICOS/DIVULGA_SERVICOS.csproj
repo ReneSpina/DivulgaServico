@@ -212,6 +212,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CAD_CATEGORIAController.cs" />
     <Compile Include="Controllers\CAD_CLIENTEController.cs" />
+    <Compile Include="Controllers\CAD_PES_JURIDICAController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SitePrestadorController.cs" />
@@ -255,6 +256,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Imagens\20140831_171351.jpg" />
+    <Content Include="Imagens\Map-Marker.ico" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -348,6 +350,11 @@
     <Content Include="Views\Manage\DeletarServico.cshtml" />
     <Content Include="Views\SitePrestador\SitePrestador1.cshtml" />
     <Content Include="Views\SitePrestador\SitePrestador.cshtml" />
+    <Content Include="Views\CAD_PES_JURIDICA\Create.cshtml" />
+    <Content Include="Views\CAD_PES_JURIDICA\Delete.cshtml" />
+    <Content Include="Views\CAD_PES_JURIDICA\Details.cshtml" />
+    <Content Include="Views\CAD_PES_JURIDICA\Edit.cshtml" />
+    <Content Include="Views\CAD_PES_JURIDICA\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
