@@ -257,6 +257,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Imagens\20140831_171351.jpg" />
     <Content Include="Imagens\Map-Marker.ico" />
+    <Content Include="Imagens\place-128.png" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -286,6 +287,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\speed_test.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

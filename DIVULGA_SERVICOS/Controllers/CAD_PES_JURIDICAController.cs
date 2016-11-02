@@ -17,8 +17,11 @@ namespace DIVULGA_SERVICOS.Controllers
         // GET: CAD_PES_JURIDICA
         public ActionResult Index()
         {
+
             var cAD_PES_JURIDICA = db.CAD_PES_JURIDICA.Include(c => c.CAD_PESSOA);
             IList<CAD_PES_ENDERECO> enderecos = new List<CAD_PES_ENDERECO>();
+
+
 
             enderecos = db.CAD_PES_ENDERECO.Include(c => c.CAD_PESSOA).ToList<CAD_PES_ENDERECO>();
             ViewData["DadosEndereco"] = enderecos;

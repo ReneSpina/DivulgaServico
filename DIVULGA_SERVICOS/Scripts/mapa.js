@@ -56,6 +56,7 @@ function fillInAddress() {
     map = new google.maps.Map(document.getElementById("mapa"), options);
     marker = new google.maps.Marker({
         map: map,
+        //icon: "/Imagens/place-128.png",
         draggable: true,
     });
     marker.setPosition(latlng);

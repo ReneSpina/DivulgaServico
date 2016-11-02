@@ -4,6 +4,17 @@
 }
 
 <h2>@ViewBag.Title.</h2>
+<style>
+    #nomesite {
+        display: none;
+    }
+    #nomelong {
+        display: none;
+    }
+    #nomelat {
+        display: none;
+    }
+</style>
 <script src="~/Scripts/jquery-1.10.2.js"></script>
 
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
@@ -11,7 +22,7 @@
     @Html.AntiForgeryToken()
     <h4>Create a new account.</h4>
     <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
+    @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.NM_NOME_PESSOA, new { @class = "control-label col-md-2" })
@@ -20,15 +31,15 @@
                 @Html.ValidationMessageFor(model => model.NM_NOME_PESSOA, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.DS_APELIDO_SITE, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DS_APELIDO_SITE, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.DS_APELIDO_SITE, new { htmlAttributes = new { @class = "form-control"} })
                 @Html.ValidationMessageFor(model => model.DS_APELIDO_SITE, "", new { @class = "text-danger" })
             </div>
+            <div id="nomesite" class="alert alert-info" role="alert">
+            </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.TF_TEL_FIXO, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -67,35 +78,35 @@
             <div class="col-md-10">
                 <input id="autocomplete" placeholder="Enter your address" onfocus="geolocate()" type="text" class="form-control" />
             </div>
-            <div id="mapa" style="height: 300px; width: 500px" type="hidden">
-            </div>
+            @*<div id="mapa" style="height: 300px; width: 500px" type="hidden">
+    </div>*@
 
 
         </div>
 
-        @*<div class="form-group">
+        <div class="form-group">
             @Html.LabelFor(model => model.NM_LOGRADOURO, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">*@
-               @Html.HiddenFor(model => model.NM_LOGRADOURO, new {id= "route"})
-                @*@Html.ValidationMessageFor(model => model.NM_LOGRADOURO, "", new { @class = "text-danger" })
+            <div class="col-md-10">
+               @Html.EditorFor(model => model.NM_LOGRADOURO, new { htmlAttributes = new { id= "route", @class = "form-control" }})
+                @Html.ValidationMessageFor(model => model.NM_LOGRADOURO, "", new { @class = "text-danger" })
             </div>
-        </div>*@
+        </div>
 
-        @*<div class="form-group">
+        <div class="form-group">
             @Html.LabelFor(model => model.NUMERO, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">*@
-                @Html.HiddenFor(model => model.NUMERO, new { id = "street_number"})
-                @*@Html.ValidationMessageFor(model => model.NUMERO, "", new { @class = "text-danger" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NUMERO, new { htmlAttributes = new { id = "street_number", @class = "form-control" }})
+                @Html.ValidationMessageFor(model => model.NUMERO, "", new { @class = "text-danger" })
             </div>
-        </div>*@
+        </div>
 
-        @*<div class="form-group">
+        <div class="form-group">
             @Html.LabelFor(model => model.CD_CEP, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">*@
-                @Html.HiddenFor(model => model.CD_CEP, new {id = "postal_code"})
-                @*@Html.ValidationMessageFor(model => model.CD_CEP, "", new { @class = "text-danger" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CD_CEP, new { htmlAttributes = new { id = "postal_code", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CD_CEP, "", new { @class = "text-danger" })
             </div>
-        </div>*@
+        </div>
     
             @*@Html.HiddenFor(model => model.TP_TIPO_LOGRADOURO)*@
             @*@Html.LabelFor(model => model.TP_TIPO_LOGRADOURO, new { @class = "control-label col-md-2" })
@@ -112,35 +123,39 @@
             </div>
         </div>*@
 
-        @*<div class="form-group">
+        <div class="form-group">
             @Html.LabelFor(model => model.NM_CIDADE, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">*@
-                @Html.HiddenFor(model => model.NM_CIDADE, new {id = "locality"})
-                @*@Html.ValidationMessageFor(model => model.NM_CIDADE, "", new { @class = "text-danger" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NM_CIDADE, new { htmlAttributes = new { id = "locality", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NM_CIDADE, "", new { @class = "text-danger" })
             </div>
-        </div>*@
+        </div>
 
-        @*<div class="form-group">
+        <div class="form-group">
             @Html.LabelFor(model => model.NM_ESTADO, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">*@
-                @Html.HiddenFor(model => model.NM_ESTADO, new {id = "administrative_area_level_1"})
-                @*@Html.ValidationMessageFor(model => model.NM_ESTADO, "", new { @class = "text-danger" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NM_ESTADO, new { htmlAttributes = new { id = "administrative_area_level_1", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NM_ESTADO, "", new { @class = "text-danger" })
             </div>
-        </div>*@
+        </div>
 
         <div class="form-group">
 
-            @*@Html.LabelFor(model => model.CD_LONG, new { @class = "control-label col-md-2" })*@
+            @Html.LabelFor(model => model.CD_LONG, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.HiddenFor(model => model.CD_LONG, new {id = "longitude"})
-                @*@Html.ValidationMessageFor(model => model.CD_LONG, "", new { @class = "text-danger" })*@
+                @Html.EditorFor(model => model.CD_LONG, new { htmlAttributes = new { id = "longitude", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CD_LONG, "", new { @class = "text-danger" })
+            </div>
+            <div id="nomelong" class="alert alert-info" role="alert">
             </div>
         </div>
         <div class="form-group">
-            @*@Html.LabelFor(model => model.CD_LAT, new { @class = "control-label col-md-2" })*@
+            @Html.LabelFor(model => model.CD_LAT, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.HiddenFor(model => model.CD_LAT, new {id = "latitude"})
-                @*@Html.ValidationMessageFor(model => model.CD_LAT, "", new { @class = "text-danger" })*@
+                @Html.EditorFor(model => model.CD_LAT, new { htmlAttributes = new { id = "latitude", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CD_LAT, "", new { @class = "text-danger" })
+            </div>
+            <div id="nomelat" class="alert alert-info" role="alert">
             </div>
         </div>
 
@@ -148,6 +163,7 @@
             @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
                 @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -155,6 +171,7 @@
             @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
                 @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -162,6 +179,7 @@
             @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
                 @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -176,7 +194,6 @@
 
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6lb1sCgZqE0v4a8A-G9lNTlnHLajSnY4&signed_in=true&libraries=places&callback=initAutocomplete"
                 async defer></script>
-
 
         <script src="~/Scripts/mapa.js"></script>
         <script src="~/Scripts/jquery.mask.min.js"></script>
@@ -221,7 +238,28 @@
             $("#TF_TEL_FIXO").mask("(00) 0000-0000");
             $("#CD_CEP").mask("00000-000");
             $("#DS_APELIDO_SITE").attr("placeholder", "SEUSITE").blur();
+            //document.getElementById("latitude").disabled = true;
+            //document.getElementById("longitude").disabled = true;
 
+            $("#DS_APELIDO_SITE").focus(function () {
+                $("#nomesite").show("fold", 1000);
+                //$("#DS_APELIDO_SITE").tooltip();
+            });
 
+            $("#CD_LONG").focus(function () {
+                $("#nomelong").show("fold", 1000);
+                $("#nomelong").html("NÃO ALTERE ESTE VALOR!");
+            });
+
+            $("#CD_LAT").focus(function () {
+                $("#nomelat").show("fold", 1000);
+                $("#nomelat").html("NÃO ALTERE ESTE VALOR!");
+                //$("#DS_APELIDO_SITE").tooltip();
+            });
+
+            $("#DS_APELIDO_SITE").keyup(function () {
+
+                $("#nomesite").html("www.mercadodeservicos.com.br/" + $(this).val());
+            })
 
         </script>
