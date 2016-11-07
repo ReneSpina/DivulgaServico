@@ -6,7 +6,6 @@
     var endereco = ViewData["DadosEndereco"] as IEnumerable<DIVULGA_SERVICOS.Models.CAD_PES_ENDERECO>;
 }
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,17 +22,9 @@
     <div class="container">
         <div class="jumbotron">
             <div class="row-fluid">
-                <div class="span2">
-                    <h4>Testando</h4>
-                    <ul>
-                        @foreach (var item in ViewData["DadosEndereco"] as IEnumerable<DIVULGA_SERVICOS.Models.CAD_PES_ENDERECO>)
-                        {
-                            <li>
-                                <a href="#">@item.CAD_PESSOA.DS_APELIDO_SITE</a>
-                            </li>
-                        }
-                    </ul>
+                <div class="span2" id="lista">
                 </div>
+
                 <div id="map">
 
                 </div>
@@ -47,52 +38,52 @@
                 // Sydney, NSW, Australia. Note that the anchor is set to (0,32) to correspond
                 // to the base of the flagpole.
                 function initMap() {
-                    map = new google.maps.Map(document.getElementById('map'), {
+                                        map = new google.maps.Map(document.getElementById('map'), {
                         zoom: 14,
                         center: { lat: -15.7217174, lng: -48.0783226 }
-                    });
+                                    });
 
-                    // Try HTML5 geolocation.
-                    if (navigator.geolocation) {
-                        navigator.geolocation.getCurrentPosition(function(position) {
-                            var pos = {
+                                    // Try HTML5 geolocation.
+                                    if (navigator.geolocation) {
+                                        navigator.geolocation.getCurrentPosition(function(position) {
+                                            var pos = {
                                 lat: position.coords.latitude,
                                 lng: position.coords.longitude
-                            };
+                                            };
 
-                            //infoWindow.setPosition(pos);
-                            //infoWindow.setContent('Location found.');
-                            map.setCenter(pos);
-                        }, function() {
-                            handleLocationError(true, infoWindow, map.getCenter());
-                        });
-                    } else {
+                                        //infoWindow.setPosition(pos);
+                                        //infoWindow.setContent('Location found.');
+                                        map.setCenter(pos);
+                                    }, function() {
+                                        handleLocationError(true, infoWindow, map.getCenter());
+                                    });
+                                } else {
                         // Browser doesn't support Geolocation
                         handleLocationError(false, infoWindow, map.getCenter());
                     }
                     setMarkers(map);
-                }
+                        }
 
-                // Data for the markers consisting of a name, a LatLng and a zIndex for the
-                // order in which these markers should display on top of each other.
+                        // Data for the markers consisting of a name, a LatLng and a zIndex for the
+                        // order in which these markers should display on top of each other.
 
-                //var beaches = [
-                //  ['Bondi Beach', -33.890542, 151.274856, 4],
-                //  ['Coogee Beach', -33.923036, 151.259052, 5],
-                //  ['Cronulla Beach', -34.028249, 151.157507, 3],
-                //  ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
-                //  ['Maroubra Beach', -33.950198, 151.259302, 1]
-                //];
+                        //var beaches = [
+                        //  ['Bondi Beach', -33.890542, 151.274856, 4],
+                        //  ['Coogee Beach', -33.923036, 151.259052, 5],
+                        //  ['Cronulla Beach', -34.028249, 151.157507, 3],
+                        //  ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
+                        //  ['Maroubra Beach', -33.950198, 151.259302, 1]
+                        //];
 
-                function setMarkers(map) {
-                    // Adds markers to the map.
+                        function setMarkers(map) {
+                            // Adds markers to the map.
 
-                    // Marker sizes are expressed as a Size of X,Y where the origin of the image
-                    // (0,0) is located in the top left of the image.
+                            // Marker sizes are expressed as a Size of X,Y where the origin of the image
+                            // (0,0) is located in the top left of the image.
 
-                    // Origins, anchor positions and coordinates of the marker increase in the X
-                    // direction to the right and in the Y direction down.
-                    var image = {
+                            // Origins, anchor positions and coordinates of the marker increase in the X
+                            // direction to the right and in the Y direction down.
+                            var image = {
                         url: '/Imagens/place-128.png',
                         // This marker is 20 pixels wide by 32 pixels high.
                         scaledSize: new google.maps.Size(45, 45),
@@ -100,28 +91,47 @@
                         origin: new google.maps.Point(0, 0),
                         // The anchor for this image is the base of the flagpole at (0, 32).
                         anchor: new google.maps.Point(0, 32)
-                    };
-                    // Shapes define the clickable region of the icon. The type defines an HTML
-                    // <area> element 'poly' which traces out a polygon as a series of X,Y points.
-                    // The final coordinate closes the poly by connecting to the first coordinate.
-                    //var shape = {
-                    //    coords: [1, 1, 1, 20, 18, 20, 18, 1],
-                    //    type: 'poly'
-                    //};
-                    var markers=[];
-                    var infowindow = new google.maps.InfoWindow(), marker;
+                            };
+                        // Shapes define the clickable region of the icon. The type defines an HTML
+                        // <area> element 'poly' which traces out a polygon as a series of X,Y points.
+                        // The final coordinate closes the poly by connecting to the first coordinate.
+                        //var shape = {
+                        //    coords: [1, 1, 1, 20, 18, 20, 18, 1],
+                        //    type: 'poly'
+                        //};
+                        var markers=[];
+                        var infowindow = new google.maps.InfoWindow(), marker;
                     @foreach (var item in ViewData["DadosEndereco"] as IEnumerable<DIVULGA_SERVICOS.Models.CAD_PES_ENDERECO>)
-                {
+                        {
                     <text>
-
+                            var latlng = new google.maps.LatLng(@item.CD_LAT, @item.CD_LONG);
                     var marker = new google.maps.Marker({
-                        position: { lat: @item.CD_LAT, lng: @item.CD_LONG},
+                        position: latlng,
                         map: map,
                         icon: image,
                         //shape: shape,
                         //title: "Teste",
                         //zIndex: beach[3]
                     });
+                        var panel = document.getElementById('lista');
+                        //panel.innerHTML = '';
+                        var item = document.createElement("DIV");
+                        var title = document.createElement("A");
+                        title.href = "#";
+                        title.className = "title";
+                        title.innerHTML = "@item.CAD_PESSOA.DS_APELIDO_SITE";
+                        item.appendChild(title);
+                        panel.appendChild(item);
+                        google.maps.event.addDomListener(title, 'click', (function(marker, i) {
+                        return function() {
+                            infowindow.setContent("@item.CAD_PESSOA.DS_APELIDO_SITE"+"<br>"+"@item.CAD_PESSOA.TF_TEL_CEL"+"<br>"+"@item.CAD_PESSOA.UserName"+"<br>");
+                            //window.alert(latlng);
+                            map.setZoom(14);
+                            infowindow.open(map, marker);
+                        }
+                    })(marker))
+
+
                     markers.push(marker);
                     google.maps.event.addListener(marker, 'click', (function(marker, i) {
                         return function() {
@@ -131,19 +141,8 @@
                     })(marker))
                     </text>
                 }
-                    var markerCluster = new MarkerClusterer(map, markers, {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+                        var markerCluster = new MarkerClusterer(map, markers, {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
                 }
-
-                //function preenchemapa(lat, long)
-                //{
-                //    var marker = new google.maps.Marker({
-                //        position: { lat: lat, lng: long},
-                //        map: map,
-                //        icon: image,
-                //        shape: shape,
-                //    });
-                //}
-
             </script>
             <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
             <script async defer

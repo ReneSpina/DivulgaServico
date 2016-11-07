@@ -1261,6 +1261,8 @@ pre code {
 @media (min-width: 1200px) {
   .container {
     max-width: 1550px;
+    padding-left: 2%;
+    padding-right: 0%;
   }
   .col-lg-1,
   .col-lg-2,
@@ -4170,7 +4172,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
   .container > .navbar-collapse {
     margin-right: 0;
     margin-left: 0;
-    padding-left: 2%;
+    padding-left: 0px;
   }
 }
 
@@ -4995,7 +4997,7 @@ a.list-group-item.active > .badge,
 }
 
 .container .jumbotron {
-  border-radius: 6px;
+  border-radius: 0px;
 }
 
 @media screen and (min-width: 768px) {
