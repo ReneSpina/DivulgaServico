@@ -14,17 +14,44 @@ namespace DIVULGA_SERVICOS.Controllers
     {
         private PRINCIPAL db = new PRINCIPAL();
 
-        // GET: CAD_PES_JURIDICA
-        public ActionResult Index()
-        {
 
-            var cAD_PES_JURIDICA = db.CAD_PES_JURIDICA.Include(c => c.CAD_PESSOA);
+        [HttpPost]
+        public ActionResult Pesquisa(string pesquisa)
+        {
+            IList<CAD_PES_JURIDICA> cAD_PES_JURIDICA = new List<CAD_PES_JURIDICA>();
+            IList<CAD_CATEGORIA> cAD_PES_CATEGORIA = new List<CAD_CATEGORIA>();
             IList<CAD_PES_ENDERECO> enderecos = new List<CAD_PES_ENDERECO>();
 
+            if (pesquisa != "")
+            {
+                cAD_PES_CATEGORIA = db.CAD_CATEGORIA.Where(x => x.DS_DESCRICAO.Contains(pesquisa) || x.NM_NOME.Contains(pesquisa)).ToList<CAD_CATEGORIA>();
+                foreach(var i in cAD_PES_CATEGORIA)
+                {
+                    cAD_PES_JURIDICA.Add(db.CAD_PES_JURIDICA.Where(x => x.CD_PESSOA == i.CD_PES_JURIDICA).ToList<CAD_PES_JURIDICA>().Single());
+                    enderecos.Add(db.CAD_PES_ENDERECO.Where(c => c.CD_PESSOA == i.CD_PES_JURIDICA).ToList<CAD_PES_ENDERECO>().Single());
+                }
+                ViewData["DadosEndereco"] = enderecos;
+            }
+            else
+            {
+                cAD_PES_JURIDICA = db.CAD_PES_JURIDICA.Include(c => c.CAD_PESSOA).ToList<CAD_PES_JURIDICA>();            
+                enderecos = db.CAD_PES_ENDERECO.Include(c => c.CAD_PESSOA).ToList<CAD_PES_ENDERECO>();
+                ViewData["DadosEndereco"] = enderecos;
+            }
 
+            return View("Index", cAD_PES_JURIDICA.ToList());
+        }
 
-            enderecos = db.CAD_PES_ENDERECO.Include(c => c.CAD_PESSOA).ToList<CAD_PES_ENDERECO>();
-            ViewData["DadosEndereco"] = enderecos;
+        public ActionResult Index()
+        {
+            IQueryable<CAD_PES_JURIDICA> cAD_PES_JURIDICA = Enumerable.Empty<CAD_PES_JURIDICA>().AsQueryable();
+            IQueryable<CAD_CATEGORIA> cAD_PES_CATEGORIA = Enumerable.Empty<CAD_CATEGORIA>().AsQueryable();
+            IList<CAD_PES_ENDERECO> enderecos = new List<CAD_PES_ENDERECO>();
+            
+                cAD_PES_JURIDICA = db.CAD_PES_JURIDICA.Include(c => c.CAD_PESSOA);
+                enderecos = db.CAD_PES_ENDERECO.Include(c => c.CAD_PESSOA).ToList<CAD_PES_ENDERECO>();
+                ViewData["DadosEndereco"] = enderecos;
+
             return View(cAD_PES_JURIDICA.ToList());
         }
 

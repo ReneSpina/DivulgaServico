@@ -25,6 +25,15 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>
+                        @using (Html.BeginForm("Pesquisa", "CAD_PES_JURIDICA", new { @class = "form-horizontal", role = "form" }, FormMethod.Post, null))
+                        {
+                            <div class="form-group">
+                                <input id="Pesquisa" name="Pesquisa" type="text">
+                            </div>
+                            <input type="submit" class="btn btn-default" value="Pesquisar Serviço">
+                        }
+                    </li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
