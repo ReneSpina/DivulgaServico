@@ -53,10 +53,20 @@ function fillInAddress() {
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
+    var image = {
+                        url: '/Imagens/place-128.png',
+                        // This marker is 20 pixels wide by 32 pixels high.
+                        scaledSize: new google.maps.Size(45, 45),
+                        // The origin for this image is (0, 0).
+                        origin: new google.maps.Point(0, 0),
+                        // The anchor for this image is the base of the flagpole at (0, 32).
+                        anchor: new google.maps.Point(0, 32)
+                            };
+
     map = new google.maps.Map(document.getElementById("mapa"), options);
     marker = new google.maps.Marker({
         map: map,
-        //icon: "/Imagens/place-128.png",
+        icon: image,
         draggable: true,
     });
     marker.setPosition(latlng);

@@ -5,6 +5,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DIVULGA_SERVICOS.Models;
+using System.Web.Routing;
 
 namespace DIVULGA_SERVICOS.Controllers
 {
@@ -25,13 +26,6 @@ namespace DIVULGA_SERVICOS.Controllers
 
         public ActionResult SiteHomePrestador(string NomePrestador)
         {
-
-            //if (id < 1)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-
-
             var prestador = db.CAD_PESSOA.Where(x => x.DS_APELIDO_SITE == NomePrestador).FirstOrDefault();
 
             if (prestador == null)
@@ -40,7 +34,39 @@ namespace DIVULGA_SERVICOS.Controllers
                 //return RedirectToAction("Index", new { Controller = NomePrestador});
                 return Redirect(NomePrestador+"/Index");//RedirectToAction("Index", ""+NomePrestador);
             }
-            return View("SitePrestador", prestador);
+            else
+            {
+                return View("SitePrestador", prestador);
+            }
+        }
+
+        public ActionResult ItemMenu(string NomePrestador, string ItemMenu)
+        {
+            var prestador = db.CAD_PESSOA.Where(x => x.DS_APELIDO_SITE == NomePrestador).FirstOrDefault();
+            //var action = ItemMenu;
+            //var controller = NomePrestador;
+            if (prestador != null)
+            {
+                if(ItemMenu == "Servico")
+                {
+                    var servicos = db.CAD_CATEGORIA.Where(x => x.CD_PES_JURIDICA == prestador.Id);
+                    return View("SiteServicoPrestador", servicos.ToList());
+                }
+                else if(ItemMenu == "Cliente")
+                    {
+                        var clientes = db.CAD_CLIENTE.Where(x => x.CD_PESSOA == prestador.Id);
+                        return View("SiteClientePrestador", clientes.ToList());
+                }
+                else
+                {
+                    return View();
+                }
+            }
+            else
+            {
+                //return RedirectToRoute("Default", (RouteTable.Routes[name: "Default"] as Route).Constraints);
+                return RedirectToRoute("Default");
+            }
         }
     }
 }

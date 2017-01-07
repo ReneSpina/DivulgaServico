@@ -181,10 +181,10 @@ namespace DIVULGA_SERVICOS.Models
         //[StringLength(20)]
         //public string TP_TIPO_LOGRADOURO { get; set; }
 
-        [StringLength(100)]
+        //[StringLength(100)]
         public string CD_LAT { get; set; }
 
-        [StringLength(100)]
+        //[StringLength(100)]
         public string CD_LONG { get; set; }
 
     }

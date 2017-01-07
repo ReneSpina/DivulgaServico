@@ -58,11 +58,11 @@ namespace DIVULGA_SERVICOS
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "790076024139-sdc09rpo8akfo4dmn4lhn0of8c97hbs3.apps.googleusercontent.com",
+                ClientSecret = "oej4aT_lMFZTajGq_Ixop6_E"
+            });
         }
     }
 }

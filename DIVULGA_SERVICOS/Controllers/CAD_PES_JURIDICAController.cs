@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DIVULGA_SERVICOS.Models;
+using System.Text;
+using System.Globalization;
 
 namespace DIVULGA_SERVICOS.Controllers
 {
@@ -14,32 +16,31 @@ namespace DIVULGA_SERVICOS.Controllers
     {
         private PRINCIPAL db = new PRINCIPAL();
 
-
         [HttpPost]
         public ActionResult Pesquisa(string pesquisa)
         {
-            IList<CAD_PES_JURIDICA> cAD_PES_JURIDICA = new List<CAD_PES_JURIDICA>();
+            string texto = RemoveAcento(pesquisa);
+            //IList<CAD_PES_JURIDICA> cAD_PES_JURIDICA = new List<CAD_PES_JURIDICA>();
             IList<CAD_CATEGORIA> cAD_PES_CATEGORIA = new List<CAD_CATEGORIA>();
             IList<CAD_PES_ENDERECO> enderecos = new List<CAD_PES_ENDERECO>();
-
             if (pesquisa != "")
             {
-                cAD_PES_CATEGORIA = db.CAD_CATEGORIA.Where(x => x.DS_DESCRICAO.Contains(pesquisa) || x.NM_NOME.Contains(pesquisa)).ToList<CAD_CATEGORIA>();
+                cAD_PES_CATEGORIA = db.CAD_CATEGORIA.Where(x => x.DS_DESCRICAO.Contains(texto)).ToList<CAD_CATEGORIA>();
                 foreach(var i in cAD_PES_CATEGORIA)
                 {
-                    cAD_PES_JURIDICA.Add(db.CAD_PES_JURIDICA.Where(x => x.CD_PESSOA == i.CD_PES_JURIDICA).ToList<CAD_PES_JURIDICA>().Single());
+                    //cAD_PES_JURIDICA.Add(db.CAD_PES_JURIDICA.Where(x => x.CD_PESSOA == i.CD_PES_JURIDICA).ToList<CAD_PES_JURIDICA>().Single());
                     enderecos.Add(db.CAD_PES_ENDERECO.Where(c => c.CD_PESSOA == i.CD_PES_JURIDICA).ToList<CAD_PES_ENDERECO>().Single());
                 }
                 ViewData["DadosEndereco"] = enderecos;
             }
             else
             {
-                cAD_PES_JURIDICA = db.CAD_PES_JURIDICA.Include(c => c.CAD_PESSOA).ToList<CAD_PES_JURIDICA>();            
+                //cAD_PES_JURIDICA = db.CAD_PES_JURIDICA.Include(c => c.CAD_PESSOA).ToList<CAD_PES_JURIDICA>();            
                 enderecos = db.CAD_PES_ENDERECO.Include(c => c.CAD_PESSOA).ToList<CAD_PES_ENDERECO>();
                 ViewData["DadosEndereco"] = enderecos;
             }
 
-            return View("Index", cAD_PES_JURIDICA.ToList());
+            return View("Index");
         }
 
         public ActionResult Index()
@@ -162,5 +163,22 @@ namespace DIVULGA_SERVICOS.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public static string RemoveAcento(String texto)
+        {
+            String normalizedString = texto.Normalize(NormalizationForm.FormD);
+            StringBuilder stringBuilder = new StringBuilder();
+
+            for (int i = 0; i < normalizedString.Length; i++)
+            {
+                Char c = normalizedString[i];
+                if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
+                    stringBuilder.Append(c);
+            }
+
+            return stringBuilder.ToString().ToLower();
+        }
     }
 }
+
+

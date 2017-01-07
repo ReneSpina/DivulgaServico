@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace DIVULGA_SERVICOS.Controllers
 {
+    [RequireHttps]
     public class HomeController : Controller
     {
         public ActionResult Index()

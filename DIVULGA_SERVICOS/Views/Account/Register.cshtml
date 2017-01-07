@@ -15,7 +15,6 @@
         display: none;
     }
 </style>
-<script src="~/Scripts/jquery-1.10.2.js"></script>
 
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
@@ -195,16 +194,14 @@
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6lb1sCgZqE0v4a8A-G9lNTlnHLajSnY4&signed_in=true&libraries=places&callback=initAutocomplete"
                 async defer></script>
 
+
+
         <script src="~/Scripts/mapa.js"></script>
-        <script src="~/Scripts/jquery.mask.min.js"></script>
-
-
-        @section Scripts {
-            @Scripts.Render("~/bundles/jqueryval")
-        }
-
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery.mask.min.js"></script>
         <script>
-
             //$("#CD_CEP").change(function(e)
             //{
             //    e.preventDefault();
