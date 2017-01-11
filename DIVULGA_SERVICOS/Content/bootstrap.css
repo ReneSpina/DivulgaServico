@@ -12,6 +12,76 @@ html {
 body {
   margin: 0;
 }
+
+/* Início do CSS do Sidenav bar*/
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.3s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    transition: 0.3s;
+}
+
+.sidenav a:hover, .offcanvas a:focus{
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.opennav
+{
+    font-size:24px;
+    cursor:pointer;
+    position: absolute;
+    z-index: 1;
+    margin: -10px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+/* Fim do CSS do Sidenav bar*/
+
+/*Início do CSS para ocultar itens google maps*/
+.gm-style-mtc { display:none; }
+/*Fim do CSS para ocultar itens google maps*/
+
+
+
+/*Início da formatação da caixa de busca de prestadores*/
+.form-inline
+{
+    font-size: 24px;
+    position: fixed;
+    z-index: 1;
+    margin-left: 40%;
+    margin-top: 1%;
+}
+/*Fim da formatação da caixa de busca de prestadores*/
+
+
 article,
 aside,
 details,

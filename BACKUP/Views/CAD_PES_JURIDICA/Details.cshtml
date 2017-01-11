@@ -1,0 +1,82 @@
+﻿@model DIVULGA_SERVICOS.Models.CAD_PES_JURIDICA
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>CAD_PES_JURIDICA</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.CAD_PESSOA.NM_NOME_PESSOA)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.CAD_PESSOA.NM_NOME_PESSOA)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.CD_CODIGO_INDICACAO)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.CD_CODIGO_INDICACAO)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.CD_CNPJ)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.CD_CNPJ)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DS_LINK_SITE)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DS_LINK_SITE)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DS_SOBRE)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DS_SOBRE)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DS_QUEM_SOMOS)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DS_QUEM_SOMOS)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.ID_PLANO)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.ID_PLANO)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.CD_PESSOA }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

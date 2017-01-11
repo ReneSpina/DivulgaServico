@@ -1,4 +1,3 @@
-C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Debug\DIVULGA_SERVICOS.csprojResolveAssemblyReference.cache
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\ApplicationInsights.config
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\roslyn\csc.exe
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -86,8 +85,6 @@ C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\Microsoft.Owi
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Debug\DIVULGA_SERVICOS.dll
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Debug\DIVULGA_SERVICOS.pdb
-C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Debug\DIVULGA_SERVICOS.Migrations.Pincipal11.resources
-C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Debug\DIVULGA_SERVICOS.csproj.GenerateResource.Cache
 C:\Rene Spina\Spread - CVC\Documento e Formulários\Rene Spina\Desenvolvimento\DivulgaServico\DIVULGA_SERVICOS\bin\ApplicationInsights.config
 C:\Rene Spina\Spread - CVC\Documento e Formulários\Rene Spina\Desenvolvimento\DivulgaServico\DIVULGA_SERVICOS\bin\roslyn\csc.exe
 C:\Rene Spina\Spread - CVC\Documento e Formulários\Rene Spina\Desenvolvimento\DivulgaServico\DIVULGA_SERVICOS\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -193,3 +190,21 @@ C:\Rene Spina\Spread - CVC\Documento e Formulários\Rene Spina\Desenvolvimento\D
 C:\Rene Spina\Spread - CVC\Documento e Formulários\Rene Spina\Desenvolvimento\DivulgaServico\DIVULGA_SERVICOS\bin\roslyn\System.IO.FileSystem.Primitives.dll
 C:\Rene Spina\Spread - CVC\Documento e Formulários\Rene Spina\Desenvolvimento\DivulgaServico\DIVULGA_SERVICOS\bin\roslyn\vbc.exe.config
 C:\Rene Spina\Spread - CVC\Documento e Formulários\Rene Spina\Desenvolvimento\DivulgaServico\DIVULGA_SERVICOS\bin\roslyn\vbc.rsp
+C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\roslyn\csc.exe.config
+C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\roslyn\csc.rsp
+C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\roslyn\csi.exe
+C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\roslyn\csi.rsp
+C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\roslyn\System.AppContext.dll
+C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\roslyn\System.IO.FileSystem.dll
+C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\roslyn\vbc.exe.config
+C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\roslyn\vbc.rsp
+C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\System.Device.Portable.dll
+C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Debug\DIVULGA_SERVICOS.Migrations.Principal1.resources
+C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Debug\DIVULGA_SERVICOS.csproj.GenerateResource.Cache
+C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Debug\DIVULGA_SERVICOS.csprojResolveAssemblyReference.cache

@@ -11,6 +11,19 @@
  *
  * Date: 2016-09-22T22:30Z
  */
+/*Início do JS do Sidenav Bar*/
+function openNav() {
+    document.getElementById("mySidenav").style.width = "auto";
+    document.getElementById("mySidenav").style.padding = "30px 30px 30px 0px";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("mySidenav").style.padding = "0px 0px 0px 0px";
+}
+/*Fim do JS do Sidenav Bar*/
+
+
 ( function( global, factory ) {
 
 	"use strict";

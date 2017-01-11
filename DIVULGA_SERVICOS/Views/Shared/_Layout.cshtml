@@ -5,50 +5,95 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @*<title>@ViewBag.Title - My ASP.NET Application</title>*@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Mapa de Busca", "Index", "CAD_PES_JURIDICA")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>
-                        @using (Html.BeginForm("Pesquisa", "CAD_PES_JURIDICA", new { @class = "form-horizontal", role = "form" }, FormMethod.Post, null))
-                        {
-                            <div class="form-group">
-                                <input id="Pesquisa" name="Pesquisa" type="text">
-                            </div>
-                            <input id="ClickPesquisa" type="submit" class="btn btn-default" value="Pesquisar Serviço">
-                        }
-                    </li>
-                </ul>
-                @Html.Partial("_LoginPartial")
+@*<body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li>
+                            @using (Html.BeginForm("Pesquisa", "CAD_PES_JURIDICA", new { @class = "form-horizontal", role = "form" }, FormMethod.Post, null))
+                            {
+                                <div class="form-group">
+                                    <input id="Pesquisa" name="Pesquisa" type="text">
+                                </div>
+                                <input id="ClickPesquisa" type="submit" class="btn btn-default" value="Pesquisar Serviço">
+                            }
+                        </li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
             </div>
         </div>
+
+    </body>
+    </html>
+*@
+<body>
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a><br />
+        @*Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })<br />*@
+        
+        @if (Request.IsAuthenticated)
+        {
+
+            using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ActionLink("Olá " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })<br /><br />
+                @Html.ActionLink("Mapa de Busca", "Index", "CAD_PES_JURIDICA")<br />
+                @Html.ActionLink("Sobre", "About", "Home")<br />
+                @Html.ActionLink("Contatos", "Contact", "Home")<br />
+                <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a><br />
+            }
+        }
+        else
+        {
+            @Html.ActionLink("Mapa de Busca", "Index", "CAD_PES_JURIDICA")<br />
+            @Html.ActionLink("Sobre", "About", "Home")<br />
+            @Html.ActionLink("Contatos", "Contact", "Home")<br />
+            @Html.ActionLink("Criar Conta", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })<br />
+            @Html.ActionLink("Entrar", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })<br />
+        }
     </div>
+
+    
+    <form class="form-inline" action="~/CAD_PES_JURIDICA/Pesquisa" method="post">
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon"><span class="opennav" onclick="openNav()">&#9776;</span></div>
+                <input type="text" class="form-control" id="exampleInputAmount" placeholder="Costureira, Chaveiro, Eletricista">
+            </div>
+        </div>
+        <input type="submit" class="btn btn-default" value="Buscar">
+    </form>
+
+    @RenderBody()
     <div class="container body-content">
-        @RenderBody()
+        
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
-
+    
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
-</html>
+</html> 

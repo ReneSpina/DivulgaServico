@@ -1,0 +1,35 @@
+﻿@model DIVULGA_SERVICOS.Models.CAD_CLIENTE
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CAD_CLIENTE</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CAD_PES_JURIDICA.CD_CNPJ)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CAD_PES_JURIDICA.CD_CNPJ)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NM_NOME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NM_NOME)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

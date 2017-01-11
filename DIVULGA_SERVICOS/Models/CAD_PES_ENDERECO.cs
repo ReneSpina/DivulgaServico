@@ -40,11 +40,13 @@ namespace DIVULGA_SERVICOS.Models
         //[StringLength(20)]
         //public string TP_TIPO_LOGRADOURO { get; set; }
 
-        [StringLength(100)]
-        public string CD_LAT { get; set; }
+        public DbGeography localizacao { get; set; }
 
-        [StringLength(100)]
-        public string CD_LONG { get; set; }
+        //[StringLength(100)]
+        //public string CD_LAT { get; set; }
+
+        //[StringLength(100)]
+        //public string CD_LONG { get; set; }
 
         public virtual CAD_PESSOA CAD_PESSOA { get; set; }
     }

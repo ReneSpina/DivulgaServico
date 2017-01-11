@@ -15,13 +15,10 @@
     <title>Busca Serviços</title>
     </head>
 <body>
-    <div class="container">
-        <div id="map_container">
             <div id="map">
             </div>
-        </div>
-        </div>
     <script>
+
         // The following example creates complex markers to indicate beaches near
         // Sydney, NSW, Australia. Note that the anchor is set to (0,32) to correspond
         // to the base of the flagpole.
@@ -106,20 +103,21 @@
                             infowindow.open(map, marker);
                         }
                     })(marker))
-                    //var service = new google.maps.DistanceMatrixService();
+
                     var markers=[];
                     @foreach (var item in endereco)
-                            {
+                    {
+
                    <text>
                     var marker1 = new google.maps.Marker({
-                        position: new google.maps.LatLng(@item.CD_LAT, @item.CD_LONG),
-                        map: map,
-                        icon: image1,
-                        //shape: shape,
-                        //title: "Teste",
-                        //zIndex: beach[3]
+                        position: new google.maps.LatLng(@item.localizacao.Longitude.ToString().Replace(",", "."), @item.localizacao.Latitude.ToString().Replace(",", ".")),
+                    map: map,
+                    icon: image1,
+                    //shape: shape,
+                    //title: "Teste",
+                    //zIndex: beach[3]
                     });
-                    @*var panel = document.getElementById('lista');
+                @*var panel = document.getElementById('lista');
                     //panel.innerHTML = '';
                     var item = document.createElement("DIV");
                     var title = document.createElement("A");
@@ -136,37 +134,37 @@
                             infowindow.open(map, marker1);
                         }
                     })(marker1))*@
-                    //var distance = response.rows[0].elements[0].distance.text;
-                    //var duration = response.rows[0].elements[0].duration.text;
-                    //var dvDistance = document.getElementById("dvDistance");
-                    //dvDistance.innerHTML = "";
-                    //dvDistance.innerHTML += "Distance: " + distance + "<br />";
-                    //dvDistance.innerHTML += "Duration:" + duration;
-                    google.maps.event.addListener(marker1, 'click', (function(marker1, i) {
-                        return function() {
-                            infowindow.setContent("<button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModal"+'@item.CAD_PESSOA.DS_APELIDO_SITE'+"'>Acessar mais informações!</button>"+"<br><br>"+"@item.CAD_PESSOA.TF_TEL_CEL"+"<br>"+"@item.CAD_PESSOA.UserName"+"<br>"+"Aceita Cartões de crédito e débito"+"<br>"+"atende 7 dias da semana 24h por dia"+"<br>"+"Acionamento direto"+"<br><br>"+"<a href=/@item.CAD_PESSOA.DS_APELIDO_SITE class='btn btn-info btn-primary btn-xs' role='button'>Acessar o site</a>"+"<br><br>");
-                            infowindow.open(map, marker1);
-                        }
-                    })(marker1))
-                    markers.push(marker1);
-
-                    //window.alert("1");
-                    //window.alert(marker2.position);
-                    //window.alert(markers[i]);
-                    //} else {
-                    //    alert("Unable to find the distance via road.");
-                    //}
-                    //});
-                    </text>
+                //var distance = response.rows[0].elements[0].distance.text;
+                //var duration = response.rows[0].elements[0].duration.text;
+                //var dvDistance = document.getElementById("dvDistance");
+                //dvDistance.innerHTML = "";
+                //dvDistance.innerHTML += "Distance: " + distance + "<br />";
+                //dvDistance.innerHTML += "Duration:" + duration;
+                google.maps.event.addListener(marker1, 'click', (function(marker1, i) {
+                    return function() {
+                        infowindow.setContent("<button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModal"+'@item.CAD_PESSOA.DS_APELIDO_SITE'+"'>Acessar mais informações!</button>"+"<br><br>"+"@item.CAD_PESSOA.TF_TEL_CEL"+"<br>"+"@item.CAD_PESSOA.UserName"+"<br>"+"Aceita Cartões de crédito e débito"+"<br>"+"atende 7 dias da semana 24h por dia"+"<br>"+"Acionamento direto"+"<br><br>"+"<a href=/@item.CAD_PESSOA.DS_APELIDO_SITE class='btn btn-info btn-primary btn-xs' role='button'>Acessar o site</a>"+"<br><br>");
+                        infowindow.open(map, marker1);
                     }
-                    var markerCluster = new MarkerClusterer(map, markers, {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-                }, function() {
-                    handleLocationError(true, infoWindow, map.getCenter());
-                });
-            } else {
-                // Browser doesn't support Geolocation
+                })(marker1))
+                markers.push(marker1);
+
+                //window.alert("1");
+                //window.alert(marker2.position);
+                //window.alert(markers[i]);
+                //} else {
+                //    alert("Unable to find the distance via road.");
+                //}
+                //});
+                </text>
+                    }
+                var markerCluster = new MarkerClusterer(map, markers, {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+            }, function() {
+                handleLocationError(true, infoWindow, map.getCenter());
+            });
+        } else {
+        // Browser doesn't support Geolocation
                 handleLocationError(false, infoWindow, map.getCenter());
-            }
+        }
         }
     </script>
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
@@ -175,20 +173,8 @@
 </body>
 </html>
 
-<div class="progress">
-
     @foreach (var item in ViewData["DadosEndereco"] as IEnumerable<DIVULGA_SERVICOS.Models.CAD_PES_ENDERECO>)
     {
-        var porcentagem = 0;
-
-
-
-        <div class="progress-bar progress-bar-striped active" role="progressbar"
-             aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">
-            40%
-        </div>
-
-
         var id = "myModal" + @item.CAD_PESSOA.DS_APELIDO_SITE;
         <div class="modal fade" id='@id' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -225,5 +211,3 @@
             </div>
         </div>
     }
-
-</div>

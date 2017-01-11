@@ -1,0 +1,28 @@
+﻿@model DIVULGA_SERVICOS.Models.CAD_CLIENTE
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CAD_CLIENTE</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @*@Html.DisplayNameFor(model => model.NM_NOME)*@
+            Nome
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NM_NOME)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Editar", new { id = Model.SQ_CLIENTE }) |
+    @Html.ActionLink("Voltar a Lista de clientes", "Cliente")
+</p>

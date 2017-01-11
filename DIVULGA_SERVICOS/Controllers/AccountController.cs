@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Security.Principal;
+using System.Data.Entity.Spatial;
 
 namespace DIVULGA_SERVICOS.Controllers
 {
@@ -254,8 +255,7 @@ namespace DIVULGA_SERVICOS.Controllers
                             NUMERO = model.NUMERO,
                             NM_ESTADO = model.NM_ESTADO,
                             CD_CEP = model.CD_CEP,
-                            CD_LAT = model.CD_LAT,
-                            CD_LONG = model.CD_LONG
+                            localizacao = DbGeography.FromText("POINT("+model.CD_LAT+" "+model.CD_LONG+")")
                             //TP_TIPO_LOGRADOURO = model.TP_TIPO_LOGRADOURO,
                         };
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Spatial;
 using System.Web.Mvc;
 
 namespace DIVULGA_SERVICOS.Models
@@ -181,12 +182,11 @@ namespace DIVULGA_SERVICOS.Models
         //[StringLength(20)]
         //public string TP_TIPO_LOGRADOURO { get; set; }
 
-        //[StringLength(100)]
+        [StringLength(100)]
         public string CD_LAT { get; set; }
 
-        //[StringLength(100)]
+        [StringLength(100)]
         public string CD_LONG { get; set; }
-
     }
 
 

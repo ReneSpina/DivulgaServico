@@ -17,7 +17,7 @@ namespace DIVULGA_SERVICOS.Controllers
         private PRINCIPAL db = new PRINCIPAL();
 
         [HttpPost]
-        public ActionResult Pesquisa(string pesquisa)
+        public ActionResult Pesquisa(string pesquisa, string lat, string lng)
         {
             string texto = RemoveAcento(pesquisa);
             //IList<CAD_PES_JURIDICA> cAD_PES_JURIDICA = new List<CAD_PES_JURIDICA>();
