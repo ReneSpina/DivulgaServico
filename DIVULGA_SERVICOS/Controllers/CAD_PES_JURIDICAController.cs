@@ -18,7 +18,7 @@ namespace DIVULGA_SERVICOS.Controllers
         private PRINCIPAL db = new PRINCIPAL();
 
         [HttpGet]
-        public ActionResult Pesquisa(string pesquisa, string lat = "-23.643098", string lng = "-46.491012")
+        public ActionResult Pesquisa(string pesquisa, string lat = "", string lng = "", string cidade = "", string estado = "", int distancia = 0)
         {
             //var cAD_PES_CATEGORIA = new List<CAD_CATEGORIA>();
             var enderecos = new List<CAD_PES_ENDERECO>();
@@ -31,12 +31,19 @@ namespace DIVULGA_SERVICOS.Controllers
             {
                 texto = RemoveAcento(pesquisa);
 
-                enderecos = db.CAD_PES_ENDERECO.Where(
+                if(pesquisa == "todos")
+                {
+                    enderecos = db.CAD_PES_ENDERECO.Where(
+                    x => x.localizacao.Distance(localusuário) > 4).ToList();
+                }
+                else
+                {
+                    enderecos = db.CAD_PES_ENDERECO.Where(
                     x => x.localizacao.Distance(localusuário) < 10 &&
                     x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().DS_DESCRICAO.Contains(texto) ||
                     x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().NM_NOME.Contains(texto) ||
                     x.CAD_PESSOA.DS_APELIDO_SITE.Contains(texto)).ToList();
-                
+                }
                 ////enderecos = db.CAD_PES_ENDERECO.Where(c => c.localizacao.Distance(localusuário) < 10).ToList<CAD_PES_ENDERECO>();
                 //foreach (var i in enderecos)
                 //{
