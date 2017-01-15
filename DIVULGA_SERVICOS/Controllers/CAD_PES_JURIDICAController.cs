@@ -18,32 +18,25 @@ namespace DIVULGA_SERVICOS.Controllers
         private PRINCIPAL db = new PRINCIPAL();
 
         [HttpGet]
-        public ActionResult Pesquisa(string pesquisa, string lat = "", string lng = "", string cidade = "", string estado = "", int distancia = 0)
-        {
+        public ActionResult Pesquisa(string pesquisa, string lat = "", string lng = "")
+       {
             //var cAD_PES_CATEGORIA = new List<CAD_CATEGORIA>();
             var enderecos = new List<CAD_PES_ENDERECO>();
             IList<CAD_PES_ENDERECO> Prestadores = new List<CAD_PES_ENDERECO>();
             string texto = "";
+            ViewBag.latitude = lat;
+            ViewBag.longitude = lng;
             var localusuário = DbGeography.FromText("POINT (" + lat + " " + lng + ")");
+            
 
-
-            if (!String.IsNullOrEmpty(pesquisa) || String.IsNullOrEmpty(lat) || String.IsNullOrEmpty(lng))
+            if (!String.IsNullOrEmpty(pesquisa))
             {
                 texto = RemoveAcento(pesquisa);
-
-                if(pesquisa == "todos")
-                {
+                
                     enderecos = db.CAD_PES_ENDERECO.Where(
-                    x => x.localizacao.Distance(localusuário) > 4).ToList();
-                }
-                else
-                {
-                    enderecos = db.CAD_PES_ENDERECO.Where(
-                    x => x.localizacao.Distance(localusuário) < 10 &&
-                    x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().DS_DESCRICAO.Contains(texto) ||
+                    x => x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().DS_DESCRICAO.Contains(texto) ||
                     x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().NM_NOME.Contains(texto) ||
                     x.CAD_PESSOA.DS_APELIDO_SITE.Contains(texto)).ToList();
-                }
                 ////enderecos = db.CAD_PES_ENDERECO.Where(c => c.localizacao.Distance(localusuário) < 10).ToList<CAD_PES_ENDERECO>();
                 //foreach (var i in enderecos)
                 //{
@@ -52,23 +45,29 @@ namespace DIVULGA_SERVICOS.Controllers
                 //}
                 //ViewData["DadosEndereco"] = Prestadores;
             }
+            else if(!String.IsNullOrEmpty(lat))
+            {
+                enderecos = db.CAD_PES_ENDERECO.Include(c => c.CAD_PESSOA).ToList();
+                return View("Index", enderecos);
+            }
             else
             {
                 //cAD_PES_JURIDICA = db.CAD_PES_JURIDICA.Include(c => c.CAD_PESSOA).ToList<CAD_PES_JURIDICA>();            
-                enderecos = db.CAD_PES_ENDERECO.Include(c => c.CAD_PESSOA).ToList<CAD_PES_ENDERECO>();
-                ViewData["DadosEndereco"] = enderecos;
+                //enderecos = db.CAD_PES_ENDERECO.Include(c => c.CAD_PESSOA).ToList<CAD_PES_ENDERECO>();
+                //ViewData["DadosEndereco"] = enderecos;
+                return RedirectToAction("Index");
             }
-
             return View("Index", enderecos);
         }
 
         public ActionResult Index()
         {
-            var enderecos = new List<CAD_PES_ENDERECO>();
+            //var enderecos = new List<CAD_PES_ENDERECO>();
 
-            enderecos = db.CAD_PES_ENDERECO.Include(x => x.CAD_PESSOA).ToList();
-
-            return View(enderecos);
+            //enderecos = db.CAD_PES_ENDERECO.Include(x => x.CAD_PESSOA).ToList();
+            //ViewBag.lati = "";
+            //ViewBag.longi = "";
+            return View();
         }
 
         // GET: CAD_PES_JURIDICA/Details/5

@@ -1,5 +1,4 @@
-﻿
-var placeSearch, autocomplete;
+﻿var placeSearch, autocomplete;
 var componentForm = {
     street_number: 'long_name',
     route: 'long_name',
@@ -16,9 +15,9 @@ function initAutocomplete() {
         (document.getElementById('autocomplete')),
         { types: ['geocode'] });
 
-// When the user selects an address from the dropdown, populate the address
-// fields in the form.
-autocomplete.addListener('place_changed', fillInAddress);
+    // When the user selects an address from the dropdown, populate the address
+    // fields in the form.
+    autocomplete.addListener('place_changed', fillInAddress);
 }
 
 // [START region_fillform]
@@ -38,7 +37,7 @@ function fillInAddress() {
         if (componentForm[addressType]) {
             var val = place.address_components[i][componentForm[addressType]];
             document.getElementById(addressType).value = val;
-        }        
+        }
     }
     var lat = place.geometry.location.lat();
     var lng = place.geometry.location.lng();
@@ -54,14 +53,14 @@ function fillInAddress() {
     };
 
     var image = {
-                        url: '/Imagens/place-128.png',
-                        // This marker is 20 pixels wide by 32 pixels high.
-                        scaledSize: new google.maps.Size(45, 45),
-                        // The origin for this image is (0, 0).
-                        origin: new google.maps.Point(0, 0),
-                        // The anchor for this image is the base of the flagpole at (0, 32).
-                        anchor: new google.maps.Point(0, 32)
-                            };
+        url: '/Imagens/place-128.png',
+        // This marker is 20 pixels wide by 32 pixels high.
+        scaledSize: new google.maps.Size(45, 45),
+        // The origin for this image is (0, 0).
+        origin: new google.maps.Point(0, 0),
+        // The anchor for this image is the base of the flagpole at (0, 32).
+        anchor: new google.maps.Point(0, 32)
+    };
 
     map = new google.maps.Map(document.getElementById("mapa"), options);
     marker = new google.maps.Marker({
@@ -80,7 +79,7 @@ function fillInAddress() {
 // as supplied by the browser's 'navigator.geolocation' object.
 function geolocate() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
+        navigator.geolocation.getCurrentPosition(function (position) {
             var geolocation = {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
@@ -94,4 +93,3 @@ function geolocate() {
     }
 }
 // [END region_geolocation]
-
