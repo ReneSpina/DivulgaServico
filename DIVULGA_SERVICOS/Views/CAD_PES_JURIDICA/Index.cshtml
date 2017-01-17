@@ -199,7 +199,10 @@
             var pos = {
                 lat: @ViewBag.latitude.ToString().Replace(",", "."),
                 lng: @ViewBag.longitude.ToString().Replace(",", "."),
-                };
+            };
+
+            document.getElementById("lat").value = @ViewBag.latitude.ToString().Replace(",", ".");
+            document.getElementById("lng").value = @ViewBag.longitude.ToString().Replace(",", ".");
 
             var posicaoatual = new google.maps.LatLng(@ViewBag.latitude.ToString().Replace(",", "."), @ViewBag.longitude.ToString().Replace(",", "."));
             map.setCenter(pos);

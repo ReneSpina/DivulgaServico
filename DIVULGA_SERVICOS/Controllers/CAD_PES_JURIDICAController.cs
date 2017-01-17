@@ -18,7 +18,7 @@ namespace DIVULGA_SERVICOS.Controllers
         private PRINCIPAL db = new PRINCIPAL();
 
         [HttpGet]
-        public ActionResult Pesquisa(string pesquisa, string lat = "", string lng = "")
+        public ActionResult Pesquisa(string pesquisa = "", string lat = "", string lng = "")
        {
             //var cAD_PES_CATEGORIA = new List<CAD_CATEGORIA>();
             var enderecos = new List<CAD_PES_ENDERECO>();
@@ -26,7 +26,7 @@ namespace DIVULGA_SERVICOS.Controllers
             string texto = "";
             ViewBag.latitude = lat;
             ViewBag.longitude = lng;
-            var localusuário = DbGeography.FromText("POINT (" + lat + " " + lng + ")");
+            //var localusuário = DbGeography.FromText("POINT (" + lat + " " + lng + ")");
             
 
             if (!String.IsNullOrEmpty(pesquisa))
@@ -35,8 +35,11 @@ namespace DIVULGA_SERVICOS.Controllers
                 
                     enderecos = db.CAD_PES_ENDERECO.Where(
                     x => x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().DS_DESCRICAO.Contains(texto) ||
+                    x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().DS_DESCRICAO.Contains(pesquisa) ||
                     x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().NM_NOME.Contains(texto) ||
-                    x.CAD_PESSOA.DS_APELIDO_SITE.Contains(texto)).ToList();
+                    x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().NM_NOME.Contains(pesquisa) ||
+                    x.CAD_PESSOA.DS_APELIDO_SITE.Contains(texto) ||
+                    x.CAD_PESSOA.DS_APELIDO_SITE.Contains(pesquisa)).ToList();
                 ////enderecos = db.CAD_PES_ENDERECO.Where(c => c.localizacao.Distance(localusuário) < 10).ToList<CAD_PES_ENDERECO>();
                 //foreach (var i in enderecos)
                 //{
