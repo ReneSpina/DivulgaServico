@@ -1,0 +1,165 @@
+﻿@model DIVULGA_SERVICOS.Models.CAD_AVALIACAO
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+.btn span.glyphicon
+{
+	opacity: 0;
+}
+.btn.active span.glyphicon
+{
+	opacity: 1;
+}
+</style>
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>CAD_AVALIACAO</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="ORGANIZACAO">Organização</label>
+            <div class="col-md-10">
+                <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-success btn-gradient active">
+                        <input type="radio" name="ORGANIZACAO" id="ORGANIZACAO" value="1" autocomplete="off" chacked>
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </label>
+                    <label class="btn btn-primary">
+                        <input type="radio" name="ORGANIZACAO" id="ORGANIZACAO" value="2" autocomplete="off">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </label>
+                    <label class="btn btn-default">
+                        <input type="radio" name="ORGANIZACAO" id="ORGANIZACAO" value="3" autocomplete="off">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </label>
+                    <label class="btn btn-warning">
+                        <input type="radio" name="ORGANIZACAO" id="ORGANIZACAO" value="4" autocomplete="off">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </label>
+                    <label class="btn btn-danger">
+                        <input type="radio" name="ORGANIZACAO" id="ORGANIZACAO" value="5" autocomplete="off">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </label>
+                </div>
+                @Html.ValidationMessageFor(model => model.ORGANIZACAO, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="PRECO_QUALIDADE">Preço/Qualidade do Serviço</label>
+            <div class="col-md-10">
+                <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-success btn-gradient active">
+                        <input type="radio" name="PRECO_QUALIDADE" id="PRECO_QUALIDADE" value="1" autocomplete="off" chacked>
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </label>
+                    <label class="btn btn-primary">
+                        <input type="radio" name="PRECO_QUALIDADE" id="PRECO_QUALIDADE" value="2" autocomplete="off">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </label>
+                    <label class="btn btn-default">
+                        <input type="radio" name="PRECO_QUALIDADE" id="PRECO_QUALIDADE" value="3" autocomplete="off">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </label>
+                    <label class="btn btn-warning">
+                        <input type="radio" name="PRECO_QUALIDADE" id="PRECO_QUALIDADE" value="4" autocomplete="off">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </label>
+                    <label class="btn btn-danger">
+                        <input type="radio" name="PRECO_QUALIDADE" id="PRECO_QUALIDADE" value="5" autocomplete="off">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </label>
+                </div>
+                @Html.ValidationMessageFor(model => model.PRECO_QUALIDADE, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="PONTUALIDADE">Pontualidade</label>
+            <div class="col-md-10">
+                <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-success btn-gradient active">
+                        <input type="radio" name="PONTUALIDADE" id="PONTUALIDADE" value="1" autocomplete="off" chacked>
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </label>
+                    <label class="btn btn-primary">
+                        <input type="radio" name="PONTUALIDADE" id="PONTUALIDADE" value="2" autocomplete="off">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </label>
+                    <label class="btn btn-default">
+                        <input type="radio" name="PONTUALIDADE" id="PONTUALIDADE" value="3" autocomplete="off">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </label>
+                    <label class="btn btn-warning">
+                        <input type="radio" name="PONTUALIDADE" id="PONTUALIDADE" value="4" autocomplete="off">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </label>
+                    <label class="btn btn-danger">
+                        <input type="radio" name="PONTUALIDADE" id="PONTUALIDADE" value="5" autocomplete="off">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </label>
+                </div>
+                @Html.ValidationMessageFor(model => model.PONTUALIDADE, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="INDICACAO">Você o Indicaria?</label>
+            <div class="col-md-10">
+                <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-success btn-gradient active">
+                        <input type="radio" name="INDICACAO" id="INDICACAO" value="1" autocomplete="off" chacked>
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </label>
+                    <label class="btn btn-primary">
+                        <input type="radio" name="INDICACAO" id="INDICACAO" value="2" autocomplete="off">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </label>
+                    <label class="btn btn-default">
+                        <input type="radio" name="INDICACAO" id="INDICACAO" value="3" autocomplete="off">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </label>
+                    <label class="btn btn-warning">
+                        <input type="radio" name="INDICACAO" id="INDICACAO" value="4" autocomplete="off">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </label>
+                    <label class="btn btn-danger">
+                        <input type="radio" name="INDICACAO" id="INDICACAO" value="5" autocomplete="off">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </label>
+                </div>
+                @Html.ValidationMessageFor(model => model.INDICACAO, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="DS_DESCRICAO">Descrição</label>
+            <div class="col-md-10">
+                <textarea class="form-control" name="DS_DESCRICAO" id="DS_DESCRICAO" rows="3" placeholder="Um breve texto para expor sua opinião..."></textarea>
+                @Html.ValidationMessageFor(model => model.DS_DESCRICAO, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

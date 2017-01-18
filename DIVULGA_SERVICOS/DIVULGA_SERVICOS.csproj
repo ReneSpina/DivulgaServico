@@ -215,6 +215,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AvaliacaoController.cs" />
     <Compile Include="Controllers\CAD_CATEGORIAController.cs" />
     <Compile Include="Controllers\CAD_CLIENTEController.cs" />
     <Compile Include="Controllers\CAD_PES_JURIDICAController.cs" />
@@ -224,9 +225,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201701082053188_Principal1.cs" />
-    <Compile Include="Migrations\201701082053188_Principal1.Designer.cs">
-      <DependentUpon>201701082053188_Principal1.cs</DependentUpon>
+    <Compile Include="Migrations\201701172254531_Principal2.cs" />
+    <Compile Include="Migrations\201701172254531_Principal2.Designer.cs">
+      <DependentUpon>201701172254531_Principal2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -378,6 +379,11 @@
     <Content Include="Views\CAD_PES_JURIDICA\Index.cshtml" />
     <Content Include="Views\SitePrestador\SiteServicoPrestador.cshtml" />
     <Content Include="Views\SitePrestador\SiteClientePrestador.cshtml" />
+    <Content Include="Views\Avaliacao\Create.cshtml" />
+    <Content Include="Views\Avaliacao\Delete.cshtml" />
+    <Content Include="Views\Avaliacao\Details.cshtml" />
+    <Content Include="Views\Avaliacao\Edit.cshtml" />
+    <Content Include="Views\Avaliacao\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -390,8 +396,8 @@
     <Content Include="Scripts\jquery-3.1.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701082053188_Principal1.resx">
-      <DependentUpon>201701082053188_Principal1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201701172254531_Principal2.resx">
+      <DependentUpon>201701172254531_Principal2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
