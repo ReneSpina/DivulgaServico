@@ -47,7 +47,6 @@ namespace DIVULGA_SERVICOS.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CD_PES_JURIDICA,CD_PES_USUARIO,NT_MEDIA,PRECO_QUALIDADE,PONTUALIDADE,ORGANIZACAO,INDICACAO,SATISFACAO_ATENDIMENTO,SATISFACAO_SERVICO,DS_DESCRICAO")] CAD_AVALIACAO cAD_AVALIACAO)
         {
             if (ModelState.IsValid)

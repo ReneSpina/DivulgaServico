@@ -16,6 +16,7 @@
     <title>Busca Serviços</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
 </head>
 
 <body>
@@ -23,16 +24,16 @@
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a><br />
         @if (Request.IsAuthenticated)
-            {
-
+        {
+            
                 using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-                {
+            {
                 @Html.AntiForgeryToken()
                 @Html.ActionLink("Olá " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })<br /><br />
                 @Html.ActionLink("Mapa de Busca", "Index", "CAD_PES_JURIDICA")<br />
                 @Html.ActionLink("Sobre", "About", "Home")<br />
-                    @Html.ActionLink("Contatos", "Contact", "Home")<br />
-                    <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a><br />
+                @Html.ActionLink("Contatos", "Contact", "Home")<br />
+                <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a><br />
             }
         }
         else
@@ -234,7 +235,15 @@
             google.maps.event.addListener(marker1, 'click', (function(marker1, i) {
                 return function() {
                     var distancia = parseInt((@item.CAD_PESSOA.CAD_PES_ENDERECO.Single().localizacao.Distance(DbGeography.FromText("POINT("+ ViewBag.latitude.ToString().Replace(",", ".") + " "+ ViewBag.longitude.ToString().Replace(",", ".") + ")")).ToString().Replace(",", ".")/0.62137)/1000, 10);
-                    infowindow.setContent("<button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModal"+'@item.CAD_PESSOA.DS_APELIDO_SITE'+"'>Acessar mais informações!</button>"+"<br><br>Distância: "+ distancia +" Km"+"<br>"+"@item.CAD_PESSOA.TF_TEL_CEL"+"<br>"+"@item.CAD_PESSOA.UserName"+"<br>"+"Aceita Cartões de crédito e débito"+"<br>"+"atende 7 dias da semana 24h por dia"+"<br>"+"Acionamento direto"+"<br><br>"+"<a href=/@item.CAD_PESSOA.DS_APELIDO_SITE class='btn btn-info btn-primary btn-xs' role='button'>Acessar o site</a>"+"<br><br>");
+                    infowindow.setContent("<button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModal"+'@item.CAD_PESSOA.DS_APELIDO_SITE'+"'>Acessar mais informações!</button>"+
+                        "<br><br>Distância: "+ distancia +" Km"+
+                        "<br>"+"@item.CAD_PESSOA.TF_TEL_CEL"+
+                        "<br>"+"@item.CAD_PESSOA.UserName"+
+                        "<br>"+"Aceita Cartões de crédito e débito"+
+                        "<br>"+"atende 7 dias da semana 24h por dia"+
+                        "<br>"+"Acionamento direto"+
+                        "<br><br>"+
+                        "<button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModalAvaliacao"+'@item.CAD_PESSOA.DS_APELIDO_SITE'+"'>Avaliar o Prestador!</button>"+"<br><br>");
                     infowindow.open(map, marker1);
                 }
             })(marker1))
@@ -263,8 +272,8 @@ else
 {
     foreach (var item in Model)
     {
-        var id = "myModal" + @item.CAD_PESSOA.DS_APELIDO_SITE;
-        <div class="modal fade" id='@id' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        var idmodal = "myModal" + @item.CAD_PESSOA.DS_APELIDO_SITE;
+        <div class="modal fade" id='@idmodal' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -293,6 +302,159 @@ else
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        var idavaliacao = "myModalAvaliacao" + @item.CAD_PESSOA.DS_APELIDO_SITE;
+        <div class="modal fade" id='@idavaliacao' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">@item.CAD_PESSOA.NM_NOME_PESSOA</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="formAvaliacao form-inline" action="~/Avaliacao/Create" method="post">
+                            <div class="input-group">
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" for="ORGANIZACAO">Organização</label>
+                                    <div class="col-md-10">
+                                        <div class="btn-group" data-toggle="buttons">
+                                            <label class="btn btn-xs btn-success  active">
+                                                <input type="radio" name="ORGANIZACAO" id="ORGANIZACAO" value="1" autocomplete="off" chacked>
+                                                <span class="glyphicon glyphicon-ok"></span>
+                                            </label>
+                                            <label class="btn btn-xs btn-primary">
+                                                <input type="radio" name="ORGANIZACAO" id="ORGANIZACAO" value="2" autocomplete="off">
+                                                <span class="glyphicon glyphicon-ok"></span>
+                                            </label>
+                                            <label class="btn btn-xs btn-default">
+                                                <input type="radio" name="ORGANIZACAO" id="ORGANIZACAO" value="3" autocomplete="off">
+                                                <span class="glyphicon glyphicon-ok"></span>
+                                            </label>
+                                            <label class="btn btn-xs btn-warning">
+                                                <input type="radio" name="ORGANIZACAO" id="ORGANIZACAO" value="4" autocomplete="off">
+                                                <span class="glyphicon glyphicon-ok"></span>
+                                            </label>
+                                            <label class="btn btn-xs btn-danger">
+                                                <input type="radio" name="ORGANIZACAO" id="ORGANIZACAO" value="5" autocomplete="off">
+                                                <span class="glyphicon glyphicon-ok"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" for="PRECO_QUALIDADE">Preço/Qualidade do Serviço</label>
+                                    <div class="col-md-10">
+                                        <div class="btn-group" data-toggle="buttons">
+                                            <label class="btn btn-xs btn-success btn-gradient active">
+                                                <input type="radio" name="PRECO_QUALIDADE" id="PRECO_QUALIDADE" value="1" autocomplete="off" chacked>
+                                                <span class="glyphicon glyphicon-ok"></span>
+                                            </label>
+                                            <label class="btn btn-xs btn-primary">
+                                                <input type="radio" name="PRECO_QUALIDADE" id="PRECO_QUALIDADE" value="2" autocomplete="off">
+                                                <span class="glyphicon glyphicon-ok"></span>
+                                            </label>
+                                            <label class="btn btn-xs btn-default">
+                                                <input type="radio" name="PRECO_QUALIDADE" id="PRECO_QUALIDADE" value="3" autocomplete="off">
+                                                <span class="glyphicon glyphicon-ok"></span>
+                                            </label>
+                                            <label class="btn btn-xs btn-warning">
+                                                <input type="radio" name="PRECO_QUALIDADE" id="PRECO_QUALIDADE" value="4" autocomplete="off">
+                                                <span class="glyphicon glyphicon-ok"></span>
+                                            </label>
+                                            <label class="btn btn-xs btn-danger">
+                                                <input type="radio" name="PRECO_QUALIDADE" id="PRECO_QUALIDADE" value="5" autocomplete="off">
+                                                <span class="glyphicon glyphicon-ok"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" for="PONTUALIDADE">Pontualidade</label>
+                                    <div class="col-md-10">
+                                        <div class="btn-group" data-toggle="buttons">
+                                            <label class="btn btn-xs btn-success btn-gradient active">
+                                                <input type="radio" name="PONTUALIDADE" id="PONTUALIDADE" value="1" autocomplete="off" chacked>
+                                                <span class="glyphicon glyphicon-ok"></span>
+                                            </label>
+                                            <label class="btn btn-xs btn-primary">
+                                                <input type="radio" name="PONTUALIDADE" id="PONTUALIDADE" value="2" autocomplete="off">
+                                                <span class="glyphicon glyphicon-ok"></span>
+                                            </label>
+                                            <label class="btn btn-xs btn-default">
+                                                <input type="radio" name="PONTUALIDADE" id="PONTUALIDADE" value="3" autocomplete="off">
+                                                <span class="glyphicon glyphicon-ok"></span>
+                                            </label>
+                                            <label class="btn btn-xs btn-warning">
+                                                <input type="radio" name="PONTUALIDADE" id="PONTUALIDADE" value="4" autocomplete="off">
+                                                <span class="glyphicon glyphicon-ok"></span>
+                                            </label>
+                                            <label class="btn btn-xs btn-danger">
+                                                <input type="radio" name="PONTUALIDADE" id="PONTUALIDADE" value="5" autocomplete="off">
+                                                <span class="glyphicon glyphicon-ok"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" for="INDICACAO">Você o Indicaria?</label>
+                                    <div class="col-md-10">
+                                        <div class="btn-group" data-toggle="buttons">
+                                            <label class="btn btn-xs btn-success btn-gradient active">
+                                                <input type="radio" name="INDICACAO" id="INDICACAO" value="1" autocomplete="off" chacked>
+                                                <span class="glyphicon glyphicon-ok"></span>
+                                            </label>
+                                            <label class="btn btn-xs btn-primary">
+                                                <input type="radio" name="INDICACAO" id="INDICACAO" value="2" autocomplete="off">
+                                                <span class="glyphicon glyphicon-ok"></span>
+                                            </label>
+                                            <label class="btn btn-xs btn-default">
+                                                <input type="radio" name="INDICACAO" id="INDICACAO" value="3" autocomplete="off">
+                                                <span class="glyphicon glyphicon-ok"></span>
+                                            </label>
+                                            <label class="btn btn-xs btn-warning">
+                                                <input type="radio" name="INDICACAO" id="INDICACAO" value="4" autocomplete="off">
+                                                <span class="glyphicon glyphicon-ok"></span>
+                                            </label>
+                                            <label class="btn btn-xs btn-danger">
+                                                <input type="radio" name="INDICACAO" id="INDICACAO" value="5" autocomplete="off">
+                                                <span class="glyphicon glyphicon-ok"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" for="DS_DESCRICAO">Descrição</label>
+                                    <div class="col-md-10">
+                                        <textarea class="form-control" name="DS_DESCRICAO" id="DS_DESCRICAO" rows="3" placeholder="Um breve texto para expor sua opinião..."></textarea>
+                                    </div>
+                                </div>
+
+                                <input type="text" id="CD_PES_JURIDICA" class="hidden" name="CD_PES_JURIDICA" value="@item.CD_PESSOA">
+                                <input type="text" id="CD_PES_USUARIO" class="hidden" name="CD_PES_USUARIO" value="@User.Identity.GetUserId()">
+                                @if (Request.IsAuthenticated)
+                                {
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Avaliar" class="btn btn-default" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    <a id="loginparaavaliar" href="~/Account/Login">Faça login para avaliar</a>
+                                }
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>

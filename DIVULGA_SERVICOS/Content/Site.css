@@ -13,6 +13,25 @@
     padding-bottom: 50%;
 }
 
+/*Início da formatação do form de avaliação*/
+
+.btn span.glyphicon {
+    opacity: 0;
+}
+
+.formAvaliacao
+{
+    font-size: 14px;
+    position: inherit;
+}
+
+.btn.active span.glyphicon {
+    opacity: 1;
+}
+
+/*Início da formatação do form de avaliação*/
+
+
 
 /* Set padding to keep content from hitting the edges */
 /*.body-content {
@@ -91,4 +110,3 @@ button:hover {
 }*/
 
 /*Fim CSS 02/11/2016 - Rene Spina*/
-
