@@ -16,8 +16,10 @@ namespace DIVULGA_SERVICOS.Models
         //public virtual DbSet<CAD_ATIVIDADE> CAD_ATIVIDADE { get; set; }
         public virtual DbSet<CAD_AVALIACAO> CAD_AVALIACAO { get; set; }
         public virtual DbSet<CAD_CATEGORIA> CAD_CATEGORIA { get; set; }
+        public virtual DbSet<CAD_FORMA_PAGAMENTO> CAD_FORMA_PAGAMENTO { get; set; }
         public virtual DbSet<CAD_CLIENTE> CAD_CLIENTE { get; set; }
         public virtual DbSet<CAD_DICA> CAD_DICA { get; set; }
+        public virtual DbSet<CAD_HORA_ATENDIMENTO> CAD_HORA_ATENDIMENTO { get; set; }
         public virtual DbSet<CAD_IMAGEM> CAD_IMAGEM { get; set; }
         public virtual DbSet<CAD_PES_ENDERECO> CAD_PES_ENDERECO { get; set; }
         public virtual DbSet<CAD_PES_FONE> CAD_PES_FONE { get; set; }
@@ -180,10 +182,7 @@ namespace DIVULGA_SERVICOS.Models
             modelBuilder.Entity<CAD_PES_FONE>()
                 .Property(e => e.CD_CELULAR)
                 .IsUnicode(false);
-
-            modelBuilder.Entity<CAD_PES_JURIDICA>()
-                .Property(e => e.CD_CODIGO_INDICACAO);
-
+            
             modelBuilder.Entity<CAD_PES_JURIDICA>()
                 .Property(e => e.CD_CNPJ)
                 .IsUnicode(false);
@@ -279,9 +278,14 @@ namespace DIVULGA_SERVICOS.Models
                 .HasOptional(e => e.CAD_PES_JURIDICA)
                 .WithRequired(e => e.CAD_PESSOA);
 
+
             modelBuilder.Entity<CAD_PESSOA>()
                 .HasOptional(e => e.CAD_PES_USUARIO)
                 .WithRequired(e => e.CAD_PESSOA);
+
+            modelBuilder.Entity<CAD_PES_JURIDICA>()
+                .HasOptional(e => e.CAD_FORMA_PAGAMENTO)
+                .WithRequired(e => e.CAD_PES_JURIDICA);
 
             //modelBuilder.Entity<CAD_SUB_CATEGORIA>()
             //    .Property(e => e.NM_NOME)
@@ -296,7 +300,7 @@ namespace DIVULGA_SERVICOS.Models
             modelBuilder.Entity<VEN_ORCAMENTO>()
                 .HasOptional(e => e.VEN_BOLETO)
                 .WithRequired(e => e.VEN_ORCAMENTO);
-
+            
             //modelBuilder.Entity<VEN_ORCAMENTO>()
             //    .HasMany(e => e.CAD_SUB_CATEGORIA)
             //    .WithMany(e => e.VEN_ORCAMENTO)

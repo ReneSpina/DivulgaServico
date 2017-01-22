@@ -7,13 +7,13 @@ namespace DIVULGA_SERVICOS.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Principal2 : IMigrationMetadata
+    public sealed partial class Principal7 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Principal2));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Principal7));
         
         string IMigrationMetadata.Id
         {
-            get { return "201701172254531_Principal2"; }
+            get { return "201701220035324_Principal7"; }
         }
         
         string IMigrationMetadata.Source

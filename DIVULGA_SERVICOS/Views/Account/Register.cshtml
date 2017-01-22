@@ -4,17 +4,22 @@
 }
 
 <h2>@ViewBag.Title.</h2>
+
 <style>
     #nomesite {
         display: none;
     }
+
     #nomelong {
         display: none;
     }
+
     #nomelat {
         display: none;
     }
 </style>
+
+
 
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
@@ -23,234 +28,408 @@
     <hr />
     @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NM_NOME_PESSOA, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NM_NOME_PESSOA, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NM_NOME_PESSOA, "", new { @class = "text-danger" })
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.NM_NOME_PESSOA, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.NM_NOME_PESSOA, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.NM_NOME_PESSOA, "", new { @class = "text-danger" })
         </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DS_LINK_SITE, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DS_LINK_SITE, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DS_LINK_SITE, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
         <div class="form-group">
             @Html.LabelFor(model => model.DS_APELIDO_SITE, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DS_APELIDO_SITE, new { htmlAttributes = new { @class = "form-control"} })
+                @Html.EditorFor(model => model.DS_APELIDO_SITE, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.DS_APELIDO_SITE, "", new { @class = "text-danger" })
             </div>
             <div id="nomesite" class="alert alert-info" role="alert">
             </div>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.TF_TEL_FIXO, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TF_TEL_FIXO, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TF_TEL_FIXO, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TF_TEL_CEL, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TF_TEL_CEL, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TF_TEL_CEL, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(m => m.CD_CNPJ, new { @class = "control-label col-md-2" })
-
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CD_CNPJ, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CD_CNPJ, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.CD_CODIGO_INDICACAO, new { @class = "control-label col-md-2" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.TF_TEL_FIXO, new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.CD_CODIGO_INDICACAO, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.CD_CODIGO_INDICACAO, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.TF_TEL_FIXO, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TF_TEL_FIXO, "", new { @class = "text-danger" })
                 </div>
-            </div>*@
-
-        <div class="form-group">
-            <label class="control-label col-md-2" for="autocomplete">ENDEREÇO</label>
-            <div class="col-md-10">
-                <input id="autocomplete" placeholder="Enter your address" onfocus="geolocate()" type="text" class="form-control" />
             </div>
-            @*<div id="map" style="height: 300px; width: 500px" type="hidden">
-    </div>*@
 
-
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NM_LOGRADOURO, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-               @Html.EditorFor(model => model.NM_LOGRADOURO, new { htmlAttributes = new { id= "route", @class = "form-control" }})
-                @Html.ValidationMessageFor(model => model.NM_LOGRADOURO, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.TF_TEL_CEL, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TF_TEL_CEL, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TF_TEL_CEL, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NUMERO, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NUMERO, new { htmlAttributes = new { id = "street_number", @class = "form-control" }})
-                @Html.ValidationMessageFor(model => model.NUMERO, "", new { @class = "text-danger" })
-            </div>
-        </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.CD_CNPJ, new { @class = "control-label col-md-2" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CD_CEP, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CD_CEP, new { htmlAttributes = new { id = "postal_code", @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CD_CEP, "", new { @class = "text-danger" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CD_CNPJ, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CD_CNPJ, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
-    
+
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.CD_CODIGO_INDICACAO, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.CD_CODIGO_INDICACAO, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CD_CODIGO_INDICACAO, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+            <div class="form-group">
+                <label class="control-label col-md-2" for="autocomplete">ENDEREÇO</label>
+                <div class="col-md-10">
+                    <input id="autocomplete" placeholder="Enter your address" onfocus="geolocate()" type="text" class="form-control" />
+                </div>
+                @*<div id="map" style="height: 300px; width: 500px" type="hidden">
+                    </div>*@
+
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.NM_LOGRADOURO, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NM_LOGRADOURO, new { htmlAttributes = new { id = "route", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NM_LOGRADOURO, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.NUMERO, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NUMERO, new { htmlAttributes = new { id = "street_number", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NUMERO, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CD_CEP, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CD_CEP, new { htmlAttributes = new { id = "postal_code", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CD_CEP, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
             @*@Html.HiddenFor(model => model.TP_TIPO_LOGRADOURO)*@
             @*@Html.LabelFor(model => model.TP_TIPO_LOGRADOURO, new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.TP_TIPO_LOGRADOURO, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.TP_TIPO_LOGRADOURO, "", new { @class = "text-danger" })
                 </div>*@
-        @*<div class="form-group">
-            @Html.HiddenFor(model => model.NM_BAIRRO)
-            @Html.LabelFor(model => model.NM_BAIRRO, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NM_BAIRRO, new { htmlAttributes = new { @class = "form-control"} })
-                @Html.ValidationMessageFor(model => model.NM_BAIRRO, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
+            @*<div class="form-group">
+                    @Html.HiddenFor(model => model.NM_BAIRRO)
+                    @Html.LabelFor(model => model.NM_BAIRRO, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.NM_BAIRRO, new { htmlAttributes = new { @class = "form-control"} })
+                        @Html.ValidationMessageFor(model => model.NM_BAIRRO, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NM_CIDADE, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NM_CIDADE, new { htmlAttributes = new { id = "locality", @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NM_CIDADE, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.NM_CIDADE, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NM_CIDADE, new { htmlAttributes = new { id = "locality", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NM_CIDADE, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NM_ESTADO, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NM_ESTADO, new { htmlAttributes = new { id = "administrative_area_level_1", @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NM_ESTADO, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.NM_ESTADO, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NM_ESTADO, new { htmlAttributes = new { id = "administrative_area_level_1", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NM_ESTADO, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
+            <div class="form-group">
+                @Html.LabelFor(model => model.CD_LONG, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CD_LONG, new { htmlAttributes = new { id = "longitude", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CD_LONG, "", new { @class = "text-danger" })
+                </div>
+                <div id="nomelong" class="alert alert-info" role="alert">
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CD_LAT, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CD_LAT, new { htmlAttributes = new { id = "latitude", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CD_LAT, "", new { @class = "text-danger" })
+                </div>
+                <div id="nomelat" class="alert alert-info" role="alert">
+                </div>
+            </div>
 
-            @Html.LabelFor(model => model.CD_LONG, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CD_LONG, new { htmlAttributes = new { id = "longitude", @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CD_LONG, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#meuModal">Horário de Atendimento</button>
+                </div>
             </div>
-            <div id="nomelong" class="alert alert-info" role="alert">
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.CD_LAT, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CD_LAT, new { htmlAttributes = new { id = "latitude", @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CD_LAT, "", new { @class = "text-danger" })
-            </div>
-            <div id="nomelat" class="alert alert-info" role="alert">
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#meuModalPagamento">Formas de Pagamento</button>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#meuModalAtividade">Cadastrar Palavras Chave</button>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" class="btn btn-default" value="Register" />
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        }
+            <div class="form-group">
+                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
- <script src="~/Scripts/mapa.js"></script>
+            <div class="modal fade" id='meuModal' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">Horário de Atendimento</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+
+                                <div class="checkbox">
+                                    <label for="todo_dia">
+                                        <input name="TODO_DIA" id="todo_dia" value="false" type="checkbox">
+                                        <b>24h por dia, 7 dias da semana</b>
+                                    </label>
+                                </div>
+
+                                <div class="checkbox segundasexta">
+                                    <label for="project_parts-0">
+                                        <input name="segundasexta" id="segundasexta" value="false" type="checkbox">
+                                        Mesmo horário de segunda a sexta:
+                                    </label>
+                                    <b>
+                                        De: <input class="segundasextainicio" type="number" max="23" min="00" disabled>
+                                        às: <input class="segundasextafim" type="number" max="23" min="00" disabled>
+                                    </b>
+                                </div>
+
+                                <div class="checkbox segunda_check">
+                                    <label for="segunda">
+                                        <input name="segunda" id="segunda" type="checkbox">
+                                        Segunda
+                                    </label>
+                                    <b>
+                                        De: <input name="SEGUNDA_HORA_INICIO" id="segunda_inicio" type="number" max="23" min="00" disabled>
+                                        às: <input name="SEGUNDA_HORA_FIM" id="segunda_fim" type="number" max="23" min="00" disabled>
+                                    </b>
+                                </div>
+                                <div class="checkbox terca_check">
+                                    <label for="project_parts-1">
+                                        <input name="terca" id="terca" value="false" type="checkbox">
+                                        Terça
+                                    </label>
+                                    <b>
+                                        De: <input name="TERCA_HORA_INICIO" id="terca_inicio" type="number" max="23" min="00" disabled>
+                                        às: <input name="TERCA_HORA_FIM" id="terca_fim" type="number" max="23" min="00" disabled>
+                                    </b>
+                                </div>
+                                <div class="checkbox quarta_check">
+                                    <label for="project_parts-2">
+                                        <input name="quarta" id="quarta" value="false" type="checkbox">
+                                        Quarta
+                                    </label>
+                                    <b>
+                                        De: <input name="QUARTA_HORA_INICIO" id="quarta_inicio" type="number" max="23" min="00" disabled>
+                                        às: <input name="QUARTA_HORA_FIM" id="quarta_fim" type="number" max="23" min="00" disabled>
+                                    </b>
+                                </div>
+                                <div class="checkbox quinta_check">
+                                    <label for="project_parts-3">
+                                        <input name="quinta" id="quinta" value="false" type="checkbox">
+                                        Quinta
+                                    </label>
+                                    <b>
+                                        De: <input name="QUINTA_HORA_INICIO" id="quinta_inicio" type="number" max="23" min="00" disabled>
+                                        às: <input name="QUINTA_HORA_FIM" id="quinta_fim" type="number" max="23" min="00" disabled>
+                                    </b>
+                                </div>
+                                <div class="checkbox sexta_check">
+                                    <label for="project_parts-4">
+                                        <input name="sexta" id="sexta" value="false" type="checkbox">
+                                        Sexta
+                                    </label>
+                                    <b>
+                                        De: <input name="SEXTA_HORA_INICIO" id="sexta_inicio" type="number" max="23" min="00" disabled>
+                                        às: <input name="SEXTA_HORA_FIM" id="sexta_fim" type="number" max="23" min="00" disabled>
+                                    </b>
+                                </div>
+                                <div class="checkbox sabado_check">
+                                    <label for="project_parts-5">
+                                        <input name="sabado" id="sabado" value="false" type="checkbox">
+                                        Sábado
+                                    </label>
+                                    <b>
+                                        De: <input name="SABADO_HORA_INICIO" id="sabado_inicio" type="number" max="23" min="00" disabled>
+                                        às: <input name="SABADO_HORA_FIM" id="sabado_fim" type="number" max="23" min="00" disabled>
+                                    </b>
+                                </div>
+                                <div class="checkbox domingo_check">
+                                    <label for="project_parts-6">
+                                        <input name="domingo" id="domingo" value="false" type="checkbox">
+                                        Domingo
+                                    </label>
+                                    <b>
+                                        De: <input name="DOMINGO_HORA_INICIO" id="domingo_inicio" type="number" max="23" min="00" disabled>
+                                        às: <input name="DOMINGO_HORA_FIM" id="domingo_fim" type="number" max="23" min="00" disabled>
+                                    </b>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" id="fechaModal" class="btn btn-secondary">Cadastrar</button>
+                            @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id='meuModalPagamento' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close closePagamento" id="closePagamento" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">Aceito as Seguintes Formas de Pagamento:</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="checkbox">
+                                <label for="dinheiro">
+                                    <input name="DINHEIRO" id="dinheiro" type="checkbox" value="false">
+                                    <b>Dinheiro</b>
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label for="cheque">
+                                    <input name="CHEQUE" id="cheque" type="checkbox" value="false">
+                                    <b>Cheque</b>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label for="cartao_debito">
+                                    <input name="DEBITO" id="debito" type="checkbox" value="false">
+                                    <b>Cartão de Débito</b>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label for="cartao_credito">
+                                    <input name="CREDITO" id="credito" type="checkbox" value="false">
+                                    <b>Cartão de Crédito</b>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label for="outros">
+                                    <input name="OUTROS" id="outros" type="checkbox" value="false">
+                                    <b>Outras formas de pagamento</b>
+                                </label>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="fechaModalPagamento" class="btn btn-secondary">Cadastrar</button>
+                            @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id='meuModalAtividade' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close closeAtividade" id="closeAtividade" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">Cadastre as primeiras palavras chave:</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="alert alert-info">
+                                <strong>Info!</strong> Cadastre o maior números de palavras relacionadas com suas atividades possível. É por essas palavras que as pessoas vão te encontrar!
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="NM_NOME">Nome</label>
+                                <div class="col-md-10">
+                                    <input placeholder="Ex.: Chaveiro" class="form-control text-box single-line" data-val="true" data-val-length="O campo NM_NOME deve ser uma cadeia de caracteres com um comprimento máximo de 255." data-val-length-max="255" data-val-required="O campo NM_NOME é obrigatório." id="NM_NOME_ATIVIDADE" name="NM_NOME_ATIVIDADE" type="text" value="">
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="NM_NOME" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="DS_DESCRICAO">Descrição</label>
+                                <div class="col-md-10">
+                                    <input placeholder="Ex.: chave, fechadura, conserto de fechadura, porta, portão, fechadura de carro..." class="form-control text-box single-line" data-val="true" data-val-length="O campo DS_DESCRICAO deve ser uma cadeia de caracteres com um comprimento máximo de 255." data-val-length-max="255" data-val-required="O campo DS_DESCRICAO é obrigatório." id="DS_DESCRICAO_ATIVIDADE" name="DS_DESCRICAO_ATIVIDADE" type="text" value="">
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="DS_DESCRICAO" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="fechaModalAtividade" class="btn btn-secondary">Cadastrar</button>
+                            @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input id="cadastrogeral" type="submit" class="btn btn-default" value="Cadastrar" />
+                </div>
+            </div>
+}
+<script src="~/Scripts/mapa.js"></script>
 <script src="~/Scripts/jquery-3.1.1.min.js"></script>
 <script src="~/Scripts/jquery-ui.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
 <script src="~/Scripts/jquery.mask.min.js"></script>
-        <script>
-            //$("#CD_CEP").change(function(e)
-            //{
-            //    e.preventDefault();
-            //    $("#TP_TIPO_LOGRADOURO").val('');
-            //    $("#NM_LOGRADOURO").val('');
-            //    $("#NM_BAIRRO").val('');
-            //    $("#NM_CIDADE").val('');
-            //    //$("#Estado").val('');
+<script src="~/Scripts/Register.js"></script>
 
-            //    var cep = $("#CD_CEP").val();
-            //    $.getJSON("https://viacep.com.br/ws/" + cep + "/json/", {}, function (data)
-            //    {
-            //        var tipo_rua_avenida = data.logradouro.split(' ', 1);;
-            //        //var nm_logradouro = data.logradouro.slice($("#TP_TIPO_LOGRADOURO").val().length);
-
-
-            //        //if (data.resultado_txt == "sucesso - cep completo")
-            //        //{
-            //            $("#TP_TIPO_LOGRADOURO").val(tipo_rua_avenida);
-            //            $("#NM_LOGRADOURO").val(data.logradouro.slice($("#TP_TIPO_LOGRADOURO").val().length+1));
-            //            $("#NM_CIDADE").val(data.localidade);
-            //            $("#NM_BAIRRO").val(data.bairro);
-            //            //$("#Estado").val(data.uf);
-            //        //}
-            //    });
-
-            //});
-
-
-            $("#TF_TEL_CEL").mask("(00) 90000-0000");
-            $("#TF_TEL_FIXO").mask("(00) 0000-0000");
-            $("#CD_CEP").mask("00000-000");
-            $("#DS_APELIDO_SITE").attr("placeholder", "SEUSITE").blur();
-            //document.getElementById("latitude").disabled = true;
-            //document.getElementById("longitude").disabled = true;
-
-            $("#DS_APELIDO_SITE").focus(function () {
-                $("#nomesite").show("fold", 1000);
-                //$("#DS_APELIDO_SITE").tooltip();
-            });
-
-            $("#CD_LONG").focus(function () {
-                $("#nomelong").show("fold", 1000);
-                $("#nomelong").html("NÃO ALTERE ESTE VALOR!");
-            });
-
-            $("#CD_LAT").focus(function () {
-                $("#nomelat").show("fold", 1000);
-                $("#nomelat").html("NÃO ALTERE ESTE VALOR!");
-                //$("#DS_APELIDO_SITE").tooltip();
-            });
-
-            $("#DS_APELIDO_SITE").keyup(function () {
-
-                $("#nomesite").html("www.mercadodeservicos.com.br/" + $(this).val());
-            })
-
-        </script>

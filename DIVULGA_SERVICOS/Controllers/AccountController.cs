@@ -30,7 +30,7 @@ namespace DIVULGA_SERVICOS.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -42,9 +42,9 @@ namespace DIVULGA_SERVICOS.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -120,18 +120,18 @@ namespace DIVULGA_SERVICOS.Controllers
             //}
 
             switch (result)
-                {
-                    case SignInStatus.Success:
-                        return RedirectToLocal(returnUrl);
-                    case SignInStatus.LockedOut:
-                        return View("Lockout");
-                    case SignInStatus.RequiresVerification:
-                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                    case SignInStatus.Failure:
-                        default:
-                            ModelState.AddModelError("", "Invalid login attempt.");
-                            return View(model);
-                }
+            {
+                case SignInStatus.Success:
+                    return RedirectToLocal(returnUrl);
+                case SignInStatus.LockedOut:
+                    return View("Lockout");
+                case SignInStatus.RequiresVerification:
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                case SignInStatus.Failure:
+                default:
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                    return View(model);
+            }
         }
 
         //
@@ -163,7 +163,7 @@ namespace DIVULGA_SERVICOS.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -196,55 +196,47 @@ namespace DIVULGA_SERVICOS.Controllers
             //long indicacao;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser
+                DbContextTransaction transacao = db.Database.BeginTransaction();
+                try
                 {
-                    NM_NOME_PESSOA = model.NM_NOME_PESSOA,
-                    UserName = model.UserName,
-                    DS_APELIDO_SITE = model.DS_APELIDO_SITE,
-                    TF_TEL_CEL = model.TF_TEL_CEL,
-                    TF_TEL_FIXO = model.TF_TEL_FIXO,
-                    DT_DATA_CADASTRO = System.DateTime.Today,
-                    Email = model.UserName,
-                    DS_EMAIL =model.UserName,
-                };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    //IdentityResult resultClaim = await UserManager
-                    //  .AddClaimAsync(user.Id, new Claim("Nome", model.NM_NOME_PESSOA));
-                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    var user = new ApplicationUser
+                    {
+                        NM_NOME_PESSOA = model.NM_NOME_PESSOA,
+                        UserName = model.UserName,
+                        DS_APELIDO_SITE = model.DS_APELIDO_SITE,
+                        TF_TEL_CEL = model.TF_TEL_CEL,
+                        TF_TEL_FIXO = model.TF_TEL_FIXO,
+                        DT_DATA_CADASTRO = System.DateTime.Today,
+                        Email = model.UserName,
+                        DS_EMAIL = model.UserName,
+                    };
+                    var result = await UserManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
+                    {
+                        //IdentityResult resultClaim = await UserManager
+                        //  .AddClaimAsync(user.Id, new Claim("Nome", model.NM_NOME_PESSOA));
+                        //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
 
-                    DbContextTransaction transacao = db.Database.BeginTransaction();
-                        try
+
+                        if (model.DS_LINK_SITE == "")
                         {
-                            if(model.DS_LINK_SITE == "")
-                            {
-                                link_site = "vazio";
-                            }
-                            else
-                            {
-                                link_site = model.DS_LINK_SITE;
-                            }
-
-                            //if(model.CD_CODIGO_INDICACAO.ToString() == "")
-                            //{
-                            //    indicacao = 0;
-                            //}
-                            //else
-                            //{
-                            //    indicacao = model.CD_CODIGO_INDICACAO;
-                            //}
-                        
-                            CAD_PES_JURIDICA juridica = new CAD_PES_JURIDICA
-                            {
-                                DS_LINK_SITE = link_site,
-                                CD_PESSOA = user.Id,
-                                CD_CNPJ = model.CD_CNPJ,
-                                //CD_CODIGO_INDICACAO = indicacao,
-                            };
-                            db.CAD_PES_JURIDICA.Add(juridica);
-                            db.SaveChanges();
+                            link_site = "vazio";
+                        }
+                        else
+                        {
+                            link_site = model.DS_LINK_SITE;
+                        }
+                        CAD_PES_JURIDICA juridica = new CAD_PES_JURIDICA
+                        {
+                            DS_LINK_SITE = link_site,
+                            CD_PESSOA = user.Id,
+                            CD_CNPJ = model.CD_CNPJ,
+                            TODO_DIA = model.TODO_DIA
+                            //CD_CODIGO_INDICACAO = indicacao,
+                        };
+                        db.CAD_PES_JURIDICA.Add(juridica);
+                        db.SaveChanges();
 
                         CAD_PES_ENDERECO endereco = new CAD_PES_ENDERECO
                         {
@@ -255,37 +247,124 @@ namespace DIVULGA_SERVICOS.Controllers
                             NUMERO = model.NUMERO,
                             NM_ESTADO = model.NM_ESTADO,
                             CD_CEP = model.CD_CEP,
-                            localizacao = DbGeography.FromText("POINT("+model.CD_LAT+" "+model.CD_LONG+")")
+                            localizacao = DbGeography.FromText("POINT(" + model.CD_LAT + " " + model.CD_LONG + ")")
                             //TP_TIPO_LOGRADOURO = model.TP_TIPO_LOGRADOURO,
                         };
-
                         db.CAD_PES_ENDERECO.Add(endereco);
                         db.SaveChanges();
-                            transacao.Commit();
+                        transacao.Commit();
+
+                        CAD_FORMA_PAGAMENTO formaPagamento = new CAD_FORMA_PAGAMENTO
+                        {
+                            CD_FORMA_PAGAMENTO = user.Id,
+                            DINHEIRO = model.DINHEIRO,
+                            CHEQUE = model.CHEQUE,
+                            DEBITO = model.DEBITO,
+                            CREDITO = model.CREDITO,
+                            OUTROS = model.OUTROS
+                        };
+                        db.CAD_FORMA_PAGAMENTO.Add(formaPagamento);
+                        db.SaveChanges();
+                        transacao.Commit();
+
+                        CAD_HORA_ATENDIMENTO horaAtendimentoDomingo = new CAD_HORA_ATENDIMENTO
+                        {
+                            CD_HORA_ATENDIMENTO = user.Id,
+                            DIA_SEMANA = 0,
+                            HORA_INICIO = model.DOMINGO_HORA_INICIO,
+                            HORA_FIM = model.DOMINGO_HORA_FIM
+                        };
+                        db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoDomingo);
+                        db.SaveChanges();
+                        transacao.Commit();
+
+                        CAD_HORA_ATENDIMENTO horaAtendimentoSegunda = new CAD_HORA_ATENDIMENTO
+                        {
+                            CD_HORA_ATENDIMENTO = user.Id,
+                            DIA_SEMANA = 1,
+                            HORA_INICIO = model.SEGUNDA_HORA_INICIO,
+                            HORA_FIM = model.SEGUNDA_HORA_FIM
+                        };
+                        db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoSegunda);
+                        db.SaveChanges();
+                        transacao.Commit();
+
+                        CAD_HORA_ATENDIMENTO horaAtendimentoTerca = new CAD_HORA_ATENDIMENTO
+                        {
+                            CD_HORA_ATENDIMENTO = user.Id,
+                            DIA_SEMANA = 2,
+                            HORA_INICIO = model.TERCA_HORA_INICIO,
+                            HORA_FIM = model.TERCA_HORA_FIM
+                        };
+                        db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoTerca);
+                        db.SaveChanges();
+                        transacao.Commit();
+
+                        CAD_HORA_ATENDIMENTO horaAtendimentoQuarta = new CAD_HORA_ATENDIMENTO
+                        {
+                            CD_HORA_ATENDIMENTO = user.Id,
+                            DIA_SEMANA = 3,
+                            HORA_INICIO = model.QUARTA_HORA_INICIO,
+                            HORA_FIM = model.QUINTA_HORA_FIM
+                        };
+                        db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoQuarta);
+                        db.SaveChanges();
+                        transacao.Commit();
+
+                        CAD_HORA_ATENDIMENTO horaAtendimentoQuinta = new CAD_HORA_ATENDIMENTO
+                        {
+                            CD_HORA_ATENDIMENTO = user.Id,
+                            DIA_SEMANA = 4,
+                            HORA_INICIO = model.QUINTA_HORA_INICIO,
+                            HORA_FIM = model.QUINTA_HORA_FIM
+                        };
+                        db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoQuinta);
+                        db.SaveChanges();
+                        transacao.Commit();
+
+                        CAD_HORA_ATENDIMENTO horaAtendimentoSexta = new CAD_HORA_ATENDIMENTO
+                        {
+                            CD_HORA_ATENDIMENTO = user.Id,
+                            DIA_SEMANA = 5,
+                            HORA_INICIO = model.SEXTA_HORA_INICIO,
+                            HORA_FIM = model.SEXTA_HORA_FIM
+                        };
+                        db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoSexta);
+                        db.SaveChanges();
+                        transacao.Commit();
+
+                        CAD_HORA_ATENDIMENTO horaAtendimentoSabado = new CAD_HORA_ATENDIMENTO
+                        {
+                            CD_HORA_ATENDIMENTO = user.Id,
+                            DIA_SEMANA = 6,
+                            HORA_INICIO = model.SABADO_HORA_INICIO,
+                            HORA_FIM = model.SABADO_HORA_FIM
+                        };
+                        db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoSabado);
+                        db.SaveChanges();
+                        transacao.Commit();
 
                         //Envio de email para confirmação da conta cadastrada.
-                        string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                        var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                        await UserManager.SendEmailAsync(user.Id, "Confirme sua conta", "Por favor, confirme sua conta clicando <a href=\"" + callbackUrl + "\">aqui</a>");
+                        //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        //await UserManager.SendEmailAsync(user.Id, "Confirme sua conta", "Por favor, confirme sua conta clicando <a href=\"" + callbackUrl + "\">aqui</a>");
 
-                        ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
-                         + "before you can log in.";
-                        return View("Info");
-
+                        //ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
+                        // + "before you can log in.";
+                        return View("Login");
+                        //AddErrors(result);
+                        // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                        // Send an email with this link
                     }
-                        catch (Exception ex)
-                        {
-                            transacao.Rollback();
-                            throw ex;
-                        }
-
-                    //AddErrors(result);
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
+                    else
+                    {
+                        AddErrors(result);
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    AddErrors(result);
+                    transacao.Rollback();
+                    throw ex;
                 }
             }
 

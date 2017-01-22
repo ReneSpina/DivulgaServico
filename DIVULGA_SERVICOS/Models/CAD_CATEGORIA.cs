@@ -33,8 +33,6 @@ namespace DIVULGA_SERVICOS.Models
         [StringLength(255)]
         public string NM_NOME { get; set; }
 
-        public bool SHOW { get; set; }
-
         [Required]
         [StringLength(255)]
         public string DS_DESCRICAO { get; set; }

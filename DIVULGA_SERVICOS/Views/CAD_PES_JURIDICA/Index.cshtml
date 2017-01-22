@@ -25,8 +25,8 @@
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a><br />
         @if (Request.IsAuthenticated)
         {
-            
-                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+
+            using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
             {
                 @Html.AntiForgeryToken()
                 @Html.ActionLink("Olá " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })<br /><br />
@@ -41,7 +41,7 @@
             @Html.ActionLink("Mapa de Busca", "Index", "CAD_PES_JURIDICA")<br />
             @Html.ActionLink("Sobre", "About", "Home")<br />
             @Html.ActionLink("Contatos", "Contact", "Home")<br />
-                @Html.ActionLink("Criar Conta", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })<br />
+            @Html.ActionLink("Criar Conta", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })<br />
                 @Html.ActionLink("Entrar", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })<br />
         }
     </div>
@@ -258,7 +258,7 @@
     </script>
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAn0UNBMx1dKf0NQc2pVReLPRo21Eyp8qA&signed_in=true&libraries=places&callback=initMap" async defer></script>
-        @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
 </body>
 </html>

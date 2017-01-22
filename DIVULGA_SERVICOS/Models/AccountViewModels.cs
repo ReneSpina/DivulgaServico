@@ -187,6 +187,74 @@ namespace DIVULGA_SERVICOS.Models
 
         [StringLength(100)]
         public string CD_LONG { get; set; }
+
+        [Required]
+        public int SEGUNDA_HORA_INICIO { get; set; }
+
+        [Required]
+        public int SEGUNDA_HORA_FIM { get; set; }
+
+        [Required]
+        public int TERCA_HORA_INICIO { get; set; }
+
+        [Required]
+        public int TERCA_HORA_FIM { get; set; }
+
+        [Required]
+        public int QUARTA_HORA_INICIO { get; set; }
+
+        [Required]
+        public int QUARTA_HORA_FIM { get; set; }
+
+        [Required]
+        public int QUINTA_HORA_INICIO { get; set; }
+
+        [Required]
+        public int QUINTA_HORA_FIM { get; set; }
+
+        [Required]
+        public int SEXTA_HORA_INICIO { get; set; }
+
+        [Required]
+        public int SEXTA_HORA_FIM { get; set; }
+
+        [Required]
+        public int SABADO_HORA_INICIO { get; set; }
+
+        [Required]
+        public int SABADO_HORA_FIM { get; set; }
+
+        [Required]
+        public int DOMINGO_HORA_INICIO { get; set; }
+
+        [Required]
+        public int DOMINGO_HORA_FIM { get; set; }
+
+        [Required]
+        public bool TODO_DIA { get; set; }
+
+        [Required]
+        public bool DINHEIRO { get; set; }
+
+        [Required]
+        public bool CHEQUE { get; set; }
+
+        [Required]
+        public bool DEBITO { get; set; }
+
+        [Required]
+        public bool CREDITO { get; set; }
+
+        [Required]
+        public bool OUTROS { get; set; }
+
+        [Required]
+        [StringLength(255)]
+        public string NM_NOME { get; set; }
+
+        [Required]
+        [StringLength(255)]
+        public string DS_DESCRICAO { get; set; }
     }
 
 

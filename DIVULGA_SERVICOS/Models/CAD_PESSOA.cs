@@ -19,6 +19,7 @@ namespace DIVULGA_SERVICOS.Models
 
         [Key]
         public override string Id { get; set; }
+        
         [Required (ErrorMessage = "O NOME É OBRIGATÓRIO!")]
         [RegularExpression("^[a-zA-Z''-'\\s]{1,255}$", ErrorMessage = "INSIRA UM NOME VÁLIDO (SOMENTE LETRAS MAIÚSCULAS E/OU MINÚSCULAS)!")]
         [StringLength(255)]
