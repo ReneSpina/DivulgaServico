@@ -11,7 +11,7 @@
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public string CD_FORMA_PAGAMENTO { get; set; }
+        public string CD_PESSOA { get; set; }
 
         [Required]
         public bool DINHEIRO { get; set; }

@@ -250,11 +250,11 @@ namespace DIVULGA_SERVICOS.Models
 
         [Required]
         [StringLength(255)]
-        public string NM_NOME { get; set; }
+        public string NM_NOME_ATIVIDADE { get; set; }
 
         [Required]
         [StringLength(255)]
-        public string DS_DESCRICAO { get; set; }
+        public string DS_DESCRICAO_ATIVIDADE { get; set; }
     }
 
 

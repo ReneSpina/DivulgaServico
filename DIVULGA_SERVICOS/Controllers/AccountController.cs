@@ -252,11 +252,11 @@ namespace DIVULGA_SERVICOS.Controllers
                         };
                         db.CAD_PES_ENDERECO.Add(endereco);
                         db.SaveChanges();
-                        transacao.Commit();
 
                         CAD_FORMA_PAGAMENTO formaPagamento = new CAD_FORMA_PAGAMENTO
                         {
-                            CD_FORMA_PAGAMENTO = user.Id,
+                            //CAD_PES_JURIDICA = null,
+                            CD_PESSOA = user.Id,
                             DINHEIRO = model.DINHEIRO,
                             CHEQUE = model.CHEQUE,
                             DEBITO = model.DEBITO,
@@ -265,7 +265,7 @@ namespace DIVULGA_SERVICOS.Controllers
                         };
                         db.CAD_FORMA_PAGAMENTO.Add(formaPagamento);
                         db.SaveChanges();
-                        transacao.Commit();
+                        //transacao.Commit();
 
                         CAD_HORA_ATENDIMENTO horaAtendimentoDomingo = new CAD_HORA_ATENDIMENTO
                         {
@@ -276,7 +276,7 @@ namespace DIVULGA_SERVICOS.Controllers
                         };
                         db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoDomingo);
                         db.SaveChanges();
-                        transacao.Commit();
+                        //transacao.Commit();
 
                         CAD_HORA_ATENDIMENTO horaAtendimentoSegunda = new CAD_HORA_ATENDIMENTO
                         {
@@ -287,7 +287,7 @@ namespace DIVULGA_SERVICOS.Controllers
                         };
                         db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoSegunda);
                         db.SaveChanges();
-                        transacao.Commit();
+                        //transacao.Commit();
 
                         CAD_HORA_ATENDIMENTO horaAtendimentoTerca = new CAD_HORA_ATENDIMENTO
                         {
@@ -298,7 +298,7 @@ namespace DIVULGA_SERVICOS.Controllers
                         };
                         db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoTerca);
                         db.SaveChanges();
-                        transacao.Commit();
+                        //transacao.Commit();
 
                         CAD_HORA_ATENDIMENTO horaAtendimentoQuarta = new CAD_HORA_ATENDIMENTO
                         {
@@ -309,7 +309,7 @@ namespace DIVULGA_SERVICOS.Controllers
                         };
                         db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoQuarta);
                         db.SaveChanges();
-                        transacao.Commit();
+                        //transacao.Commit();
 
                         CAD_HORA_ATENDIMENTO horaAtendimentoQuinta = new CAD_HORA_ATENDIMENTO
                         {
@@ -320,7 +320,7 @@ namespace DIVULGA_SERVICOS.Controllers
                         };
                         db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoQuinta);
                         db.SaveChanges();
-                        transacao.Commit();
+                        //transacao.Commit();
 
                         CAD_HORA_ATENDIMENTO horaAtendimentoSexta = new CAD_HORA_ATENDIMENTO
                         {
@@ -331,7 +331,7 @@ namespace DIVULGA_SERVICOS.Controllers
                         };
                         db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoSexta);
                         db.SaveChanges();
-                        transacao.Commit();
+                        //transacao.Commit();
 
                         CAD_HORA_ATENDIMENTO horaAtendimentoSabado = new CAD_HORA_ATENDIMENTO
                         {
@@ -341,6 +341,16 @@ namespace DIVULGA_SERVICOS.Controllers
                             HORA_FIM = model.SABADO_HORA_FIM
                         };
                         db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoSabado);
+                        db.SaveChanges();
+                        //transacao.Commit();
+
+                        CAD_CATEGORIA atividade = new CAD_CATEGORIA
+                        {
+                            CD_PES_JURIDICA = user.Id,
+                            NM_NOME = model.NM_NOME_ATIVIDADE,
+                            DS_DESCRICAO = model.DS_DESCRICAO_ATIVIDADE
+                        };
+                        db.CAD_CATEGORIA.Add(atividade);
                         db.SaveChanges();
                         transacao.Commit();
 

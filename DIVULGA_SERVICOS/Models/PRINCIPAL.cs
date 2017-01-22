@@ -287,6 +287,10 @@ namespace DIVULGA_SERVICOS.Models
                 .HasOptional(e => e.CAD_FORMA_PAGAMENTO)
                 .WithRequired(e => e.CAD_PES_JURIDICA);
 
+            //modelBuilder.Entity<CAD_FORMA_PAGAMENTO>()
+            //    .HasOptional(e => e.CAD_PES_JURIDICA)
+            //    .WithRequired(e => e.CAD_FORMA_PAGAMENTO);
+
             //modelBuilder.Entity<CAD_SUB_CATEGORIA>()
             //    .Property(e => e.NM_NOME)
             //    .IsUnicode(false);

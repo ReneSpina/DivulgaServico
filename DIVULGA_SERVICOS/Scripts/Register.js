@@ -6,13 +6,34 @@ $("#fechaModalPagamento").click(function () {
     }
     else
     {
+        if ($("#dinheiro").is(":checked"))
+        {
+            $("#dinheiro").val(true);
+        }
+
+        if ($("#cheque").is(":checked")) {
+            $("#cheque").val(true);
+        }
+
+        if ($("#debito").is(":checked")) {
+            $("#debito").val(true);
+        }
+
+        if ($("#credito").is(":checked")) {
+            $("#credito").val(true);
+        }
+
+        if ($("#outros").is(":checked")) {
+            $("#outros").val(true);
+        }
+
         $("#closePagamento").trigger("click");
         $("#closePagamento").trigger("click");
     }
 });
 
 $("#fechaModalAtividade").click(function () {
-    if ($("#NM_NOME").val() == "" || $("#DS_DESCRICAO").val() == "") {
+    if ($("#NM_NOME_ATIVIDADE1").val() == "" || $("#DS_DESCRICAO_ATIVIDADE").val() == "") {
         alert("Você deve cadastrar uma atividade");
     }
     else
@@ -44,7 +65,7 @@ $("#fechaModal").click(function () {
     if (!$("#todo_dia").is(":checked") & !$("#segundasexta").is(":checked") & !$("#segunda").is(":checked") & !$("#terca").is(":checked") & !$("#quarta").is(":checked") & !$("#quinta").is(":checked") & !$("#sexta").is(":checked") & !$("#sabado").is(":checked") & !$("#domingo").is(":checked")) {
         alert("Você deve selecionar ao menos um horário de atendimento!");
     }
-    else if (($("#segunda_fim").val() < $("#segunda_inicio").val()) || ($("#terca_fim").val() < $("#terca_inicio").val()) || ($("#quarta_fim").val() < $("#quarta_inicio").val()) || ($("#quinta_fim").val() < $("#quinta_inicio").val()) || ($("#sexta_fim").val() < $("#sexta_inicio").val()) || ($("#sabado_fim").val() < $("#sabado_inicio").val()) || ($("#domingo_fim").val() < $("#domingo_inicio").val()) || ($(".segundasextafim").val() < $(".segundasextainicio").val())) {
+    else if ((parseInt($("#segunda_fim").val()) < parseInt($("#segunda_inicio").val())) || (parseInt($("#terca_fim").val()) < parseInt($("#terca_inicio").val())) || (parseInt($("#quarta_fim").val()) < parseInt($("#quarta_inicio").val())) || (parseInt($("#quinta_fim").val()) < parseInt($("#quinta_inicio").val())) || (parseInt($("#sexta_fim").val()) < parseInt($("#sexta_inicio").val())) || (parseInt($("#sabado_fim").val()) < parseInt($("#sabado_inicio").val())) || (parseInt($("#domingo_fim").val()) < parseInt($("#domingo_inicio").val())) || (parseInt($(".segundasextafim").val()) < parseInt($(".segundasextainicio").val()))) {
         alert("A hora de início não pode ser maior ou igual a hora de fim!");
     }
     else if ($("#segunda_fim").val() == "" & $("#segunda_inicio").val() != "" || $("#terca_fim").val() == "" & $("#terca_inicio").val() != "" || $("#quarta_fim").val() == "" & $("#quarta_inicio").val() != "" || $("#quinta_fim").val() == "" & $("#quinta_inicio").val() != "" || $("#sexta_fim").val() == "" & $("#sexta_inicio").val() != "" || $("#sabado_fim").val() == "" & $("#sabado_inicio").val() != "" || $("#domingo_fim").val() == "" & $("#domingo_inicio").val() != "" || $(".segundasextafim").val() == "" & $(".segundasextainicio").val() != "") {
@@ -54,6 +75,22 @@ $("#fechaModal").click(function () {
         alert("O campo de inicio também deve ser preenchido!");
     }
     else if ($("#segundasexta").is(":checked")) {
+        $("#todo_dia").val(false);
+        $("#segunda_inicio").prop("disabled", false);
+        $("#segunda_fim").prop("disabled", false);
+        $("#terca_inicio").prop("disabled", false);
+        $("#terca_fim").prop("disabled", false);
+        $("#quarta_inicio").prop("disabled", false);
+        $("#quarta_fim").prop("disabled", false);
+        $("#quinta_inicio").prop("disabled", false);
+        $("#quinta_fim").prop("disabled", false);
+        $("#sexta_inicio").prop("disabled", false);
+        $("#sexta_fim").prop("disabled", false);
+        $("#sabado_inicio").prop("disabled", false);
+        $("#sabado_fim").prop("disabled", false);
+        $("#domingo_inicio").prop("disabled", false);
+        $("#domingo_fim").prop("disabled", false);
+
         $("#segunda_inicio").val($(".segundasextainicio").val());
         $("#segunda_fim").val($(".segundasextafim").val());
 
@@ -71,62 +108,89 @@ $("#fechaModal").click(function () {
         $('.close').trigger('click');
         $('.close').trigger('click');
     }
-    else {
+    else if ($("#todo_dia").is(":checked")) {
+
+        $("#segunda_inicio").prop("disabled", false);
+        $("#segunda_fim").prop("disabled", false);
+        $("#terca_inicio").prop("disabled", false);
+        $("#terca_fim").prop("disabled", false);
+        $("#quarta_inicio").prop("disabled", false);
+        $("#quarta_fim").prop("disabled", false);
+        $("#quinta_inicio").prop("disabled", false);
+        $("#quinta_fim").prop("disabled", false);
+        $("#sexta_inicio").prop("disabled", false);
+        $("#sexta_fim").prop("disabled", false);
+        $("#sabado_inicio").prop("disabled", false);
+        $("#sabado_fim").prop("disabled", false);
+        $("#domingo_inicio").prop("disabled", false);
+        $("#domingo_fim").prop("disabled", false);
+
+
+        $(".segundasextainicio").val("");
+        $(".segundasextafim").val("");
+
+        $("#segunda_inicio").val(0);
+        $("#segunda_fim").val(23);
+
+        $("#terca_inicio").val(0);
+        $("#terca_fim").val(23);
+
+        $("#quarta_inicio").val(0);
+        $("#quarta_fim").val(23);
+
+        $("#quinta_inicio").val(0);
+        $("#quinta_fim").val(23);
+
+        $("#sexta_inicio").val(0);
+        $("#sexta_fim").val(23);
+
+        $("#sabado_inicio").val(0);
+        $("#sabado_fim").val(23);
+
+        $("#domingo_inicio").val(0);
+        $("#domingo_fim").val(23);
+
+        $('.close').trigger('click');
+        $('.close').trigger('click');
+
+    } else{
         $('.close').trigger('click');
         $('.close').trigger('click');
     }
 });
 
 
-$("input[type='checkbox']").click(function () {
-
+$("#todo_dia").change(function () {
     if ($("#todo_dia").is(":checked")) {
-
-        $("#segundasexta").prop('checked', false);
-
-        $("#todo_dia").val(true);
         $(".segundasexta").hide();
-        $(".segundasextainicio").val("");
-        $(".segundasextafim").val("");
-
         $(".segunda_check").hide();
-        $("#segunda_inicio").val(0);
-        $("#segunda_fim").val(23);
-
         $(".terca_check").hide();
-        $("#terca_inicio").val(0);
-        $("#terca_fim").val(23);
-
         $(".quarta_check").hide();
-        $("#quarta_inicio").val(0);
-        $("#quarta_fim").val(23);
-
         $(".quinta_check").hide();
-        $("#quinta_inicio").val(0);
-        $("#quinta_fim").val(23);
-
         $(".sexta_check").hide();
-        $("#sexta_inicio").val(0);
-        $("#sexta_fim").val(23);
-
         $(".sabado_check").hide();
-        $("#sabado_inicio").val(0);
-        $("#sabado_fim").val(23);
-
         $(".domingo_check").hide();
-        $("#domingo_inicio").val(0);
-        $("#domingo_fim").val(23);
-    }
-    else if ($("#segundasexta").is(":checked")) {
-        $(".segunda_check").hide();
-        $(".terca_check").hide();
-        $(".quarta_check").hide();
-        $(".quinta_check").hide();
-        $(".sexta_check").hide();
-        $(".segundasextainicio").prop("disabled", false);
-        $(".segundasextafim").prop("disabled", false);
+        $("#todo_dia").val(true);
+        $("#segundasexta").prop('checked', false);
     }
     else {
+        $("#todo_dia").val(false);
+
+        $("#segunda_inicio").prop("disabled", true);
+        $("#segunda_fim").prop("disabled", true);
+        $("#terca_inicio").prop("disabled", true);
+        $("#terca_fim").prop("disabled", true);
+        $("#quarta_inicio").prop("disabled", true);
+        $("#quarta_fim").prop("disabled", true);
+        $("#quinta_inicio").prop("disabled", true);
+        $("#quinta_fim").prop("disabled", true);
+        $("#sexta_inicio").prop("disabled", true);
+        $("#sexta_fim").prop("disabled", true);
+        $("#sabado_inicio").prop("disabled", true);
+        $("#sabado_fim").prop("disabled", true);
+        $("#domingo_inicio").prop("disabled", true);
+        $("#domingo_fim").prop("disabled", true);
+
         $(".segundasexta").show();
         $(".segunda_check").show();
         $(".terca_check").show();
@@ -136,95 +200,119 @@ $("input[type='checkbox']").click(function () {
         $(".sabado_check").show();
         $(".domingo_check").show();
 
-        if ($("#segundasexta").is(":checked")) {
-            $(".segundasextainicio").prop("disabled", false);
-            $(".segundasextafim").prop("disabled", false);
-        }
-        else {
-            $(".segundasextainicio").prop("disabled", true);
-            $(".segundasextafim").prop("disabled", true);
-            $(".segundasextainicio").val("");
-            $(".segundasextafim").val("");
-        }
-
-        if ($("#segunda").is(":checked")) {
-            $("#segunda_inicio").prop("disabled", false);
-            $("#segunda_fim").prop("disabled", false);
-        }
-        else {
-            $("#segunda_inicio").prop("disabled", true);
-            $("#segunda_fim").prop("disabled", true);
-            $("#segunda_inicio").val("");
-            $("#segunda_fim").val("");
-        }
-
-        if ($("#terca").is(":checked")) {
-            $("#terca_inicio").prop("disabled", false);
-            $("#terca_fim").prop("disabled", false);
-        }
-        else {
-            $("#terca_inicio").prop("disabled", true);
-            $("#terca_fim").prop("disabled", true);
-            $("#terca_inicio").val("");
-            $("#terca_fim").val("");
-        }
-
-        if ($("#quarta").is(":checked")) {
-            $("#quarta_inicio").prop("disabled", false);
-            $("#quarta_fim").prop("disabled", false);
-        }
-        else {
-            $("#quarta_inicio").prop("disabled", true);
-            $("#quarta_fim").prop("disabled", true);
-            $("#quarta_inicio").val("");
-            $("#quarta_fim").val("");
-        }
-
-        if ($("#quinta").is(":checked")) {
-            $("#quinta_inicio").prop("disabled", false);
-            $("#quinta_fim").prop("disabled", false);
-        }
-        else {
-            $("#quinta_inicio").prop("disabled", true);
-            $("#quinta_fim").prop("disabled", true);
-            $("#quinta_inicio").val("");
-            $("#quinta_fim").val("");
-        }
-
-        if ($("#sexta").is(":checked")) {
-            $("#sexta_inicio").prop("disabled", false);
-            $("#sexta_fim").prop("disabled", false);
-        }
-        else {
-            $("#sexta_inicio").prop("disabled", true);
-            $("#sexta_fim").prop("disabled", true);
-            $("#sexta_inicio").val("");
-            $("#sexta_fim").val("");
-        }
-
-        if ($("#sabado").is(":checked")) {
-            $("#sabado_inicio").prop("disabled", false);
-            $("#sabado_fim").prop("disabled", false);
-        }
-        else {
-            $("#sabado_inicio").prop("disabled", true);
-            $("#sabado_fim").prop("disabled", true);
-            $("#sabado_inicio").val("");
-            $("#sabado_fim").val("");
-        }
-
-        if ($("#domingo").is(":checked")) {
-            $("#domingo_inicio").prop("disabled", false);
-            $("#domingo_fim").prop("disabled", false);
-        }
-        else {
-            $("#domingo_inicio").prop("disabled", true);
-            $("#domingo_fim").prop("disabled", true);
-            $("#domingo_inicio").val("");
-            $("#domingo_fim").val("");
-        }
     }
 
+});
+
+
+$("#segundasexta").change(function () {
+    if ($("#segundasexta").is(":checked"))
+    {
+        $(".segunda_check").hide();
+        $(".terca_check").hide();
+        $(".quarta_check").hide();
+        $(".quinta_check").hide();
+        $(".sexta_check").hide();
+        $(".segundasextainicio").prop("disabled", false);
+        $(".segundasextafim").prop("disabled", false);
+        $("#segundasexta").prop('checked', true);
+    }
+    else
+    {
+        $(".segundasextainicio").prop("disabled", true);
+        $(".segundasextafim").prop("disabled", true);
+        $("#segundasexta").prop('checked', false);
+        $("#segunda_inicio").prop("disabled", true);
+        $("#segunda_fim").prop("disabled", true);
+        $("#terca_inicio").prop("disabled", true);
+        $("#terca_fim").prop("disabled", true);
+        $("#quarta_inicio").prop("disabled", true);
+        $("#quarta_fim").prop("disabled", true);
+        $("#quinta_inicio").prop("disabled", true);
+        $("#quinta_fim").prop("disabled", true);
+        $("#sexta_inicio").prop("disabled", true);
+        $("#sexta_fim").prop("disabled", true);
+        $("#sabado_inicio").prop("disabled", true);
+        $("#sabado_fim").prop("disabled", true);
+        $("#domingo_inicio").prop("disabled", true);
+        $("#domingo_fim").prop("disabled", true);
+        $(".segundasexta").show();
+        $(".segunda_check").show();
+        $(".terca_check").show();
+        $(".quarta_check").show();
+        $(".quinta_check").show();
+        $(".sexta_check").show();
+    }
+});
+
+$("#segunda").change(function () {
+    if($("#segunda").is(":checked")) {
+        $("#segunda_inicio").prop("disabled", false);
+        $("#segunda_fim").prop("disabled", false);
+    }
+    else {
+        $("#segunda_inicio").prop("disabled", true);
+        $("#segunda_fim").prop("disabled", true);
+        $("#segunda_inicio").val("");
+        $("#segunda_fim").val("");
+    }
+});
+
+
+$("#terca").change(function () {
+    if ($("#terca").is(":checked")) {
+        $("#terca_inicio").prop("disabled", false);
+        $("#terca_fim").prop("disabled", false);
+    }
+    else {
+        $("#terca_inicio").prop("disabled", true);
+        $("#terca_fim").prop("disabled", true);
+        $("#terca_inicio").val("");
+        $("#terca_fim").val("");
+    }
+});
+
+$("#quarta").change(function () {
+    if ($("#quarta").is(":checked")) {
+        $("#quarta_inicio").prop("disabled", false);
+        $("#quarta_fim").prop("disabled", false);
+    }
+    else {
+        $("#quarta_inicio").prop("disabled", true);
+        $("#quarta_fim").prop("disabled", true);
+        $("#quarta_inicio").val("");
+        $("#quarta_fim").val("");
+    }
+});
+
+
+$("#quinta").change(function () {
+    if ($("#quinta").is(":checked")) {
+        $("#quinta_inicio").prop("disabled", false);
+        $("#quinta_fim").prop("disabled", false);
+    }
+    else {
+        $("#quinta_inicio").prop("disabled", true);
+        $("#quinta_fim").prop("disabled", true);
+        $("#quinta_inicio").val("");
+        $("#quinta_fim").val("");
+    }
+});
+
+$("#sexta").change(function () {
+    if ($("#sexta").is(":checked")) {
+        $("#sexta_inicio").prop("disabled", false);
+        $("#sexta_fim").prop("disabled", false);
+    }
+    else {
+        $("#sexta_inicio").prop("disabled", true);
+        $("#sexta_fim").prop("disabled", true);
+        $("#sexta_inicio").val("");
+        $("#sexta_fim").val("");
+    }
+});
+
+$("#sabado").change(function () {
     if ($("#sabado").is(":checked")) {
         $("#sabado_inicio").prop("disabled", false);
         $("#sabado_fim").prop("disabled", false);
@@ -235,7 +323,9 @@ $("input[type='checkbox']").click(function () {
         $("#sabado_inicio").val("");
         $("#sabado_fim").val("");
     }
+});
 
+$("#domingo").change(function () {
     if ($("#domingo").is(":checked")) {
         $("#domingo_inicio").prop("disabled", false);
         $("#domingo_fim").prop("disabled", false);
@@ -246,8 +336,6 @@ $("input[type='checkbox']").click(function () {
         $("#domingo_inicio").val("");
         $("#domingo_fim").val("");
     }
-
-
 });
 
 
