@@ -279,9 +279,9 @@
                         "<br>"+
                         @if(item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.DINHEIRO == true)
                         {
-                            teste = "'Cheque <br>'+";
-                    }
-                    "<%= HttpUtility.HtmlEncode("+@teste+") %>"
+                            teste = "Cheque";
+                        }
+                         "@teste.ToString()"+
                         "<br>"+"@item.CAD_PESSOA.UserName"+
                         "<br>"+"Aceita Cartões de crédito e débito"+
                         "<br>"+"atende 7 dias da semana 24h por dia"+
