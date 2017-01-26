@@ -1,5 +1,4 @@
 ﻿@using Microsoft.AspNet.Identity
-    
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,11 +50,11 @@
         
         @if (Request.IsAuthenticated)
         {
-
+            
             using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
             {
                 @Html.AntiForgeryToken()
-                @Html.ActionLink("Olá " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })<br /><br />
+                @Html.ActionLink("Olá " + User.Identity.Name + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })<br /><br />
                 @Html.ActionLink("Mapa de Busca", "Index", "CAD_PES_JURIDICA")<br />
                 @Html.ActionLink("Sobre", "About", "Home")<br />
                 @Html.ActionLink("Contatos", "Contact", "Home")<br />

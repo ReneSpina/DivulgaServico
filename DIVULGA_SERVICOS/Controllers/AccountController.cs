@@ -82,15 +82,15 @@ namespace DIVULGA_SERVICOS.Controllers
                 return View(model);
             }
 
-            var user = await UserManager.FindByNameAsync(model.Email);
-            if (user != null)
-            {
-                if (!await UserManager.IsEmailConfirmedAsync(user.Id))
-                {
-                    ViewBag.errorMessage = "Você precisa confirmar seu email antes de logar pela primeira vez.";
-                    return View("Error");
-                }
-            }
+            //var user = await UserManager.FindByNameAsync(model.Email);
+            //if (user != null)
+            //{
+            //    if (!await UserManager.IsEmailConfirmedAsync(user.Id))
+            //    {
+            //        ViewBag.errorMessage = "Você precisa confirmar seu email antes de logar pela primeira vez.";
+            //        return View("Error");
+            //    }
+            //}
 
             //CAD_PESSOA user = null;
             //db.CAD_PESSOA.Single(u => u.Email.ToString().Equals(model.Email));
@@ -196,21 +196,22 @@ namespace DIVULGA_SERVICOS.Controllers
             //long indicacao;
             if (ModelState.IsValid)
             {
+
+                var user = new ApplicationUser
+                {
+                    NM_NOME_PESSOA = model.NM_NOME_PESSOA,
+                    UserName = model.UserName,
+                    DS_APELIDO_SITE = model.DS_APELIDO_SITE,
+                    //TF_TEL_CEL = model.TF_TEL_CEL,
+                    //TF_TEL_FIXO = model.TF_TEL_FIXO,
+                    DT_DATA_CADASTRO = System.DateTime.Today,
+                    Email = model.UserName,
+                    //DS_EMAIL = model.UserName,
+                };
+                var result = await UserManager.CreateAsync(user, model.Password);
                 DbContextTransaction transacao = db.Database.BeginTransaction();
                 try
                 {
-                    var user = new ApplicationUser
-                    {
-                        NM_NOME_PESSOA = model.NM_NOME_PESSOA,
-                        UserName = model.UserName,
-                        DS_APELIDO_SITE = model.DS_APELIDO_SITE,
-                        TF_TEL_CEL = model.TF_TEL_CEL,
-                        TF_TEL_FIXO = model.TF_TEL_FIXO,
-                        DT_DATA_CADASTRO = System.DateTime.Today,
-                        Email = model.UserName,
-                        DS_EMAIL = model.UserName,
-                    };
-                    var result = await UserManager.CreateAsync(user, model.Password);
                     if (result.Succeeded)
                     {
                         //IdentityResult resultClaim = await UserManager
@@ -229,15 +230,23 @@ namespace DIVULGA_SERVICOS.Controllers
                         }
                         CAD_PES_JURIDICA juridica = new CAD_PES_JURIDICA
                         {
-                            DS_LINK_SITE = link_site,
                             CD_PESSOA = user.Id,
+                            DS_LINK_SITE = link_site,
                             CD_CNPJ = model.CD_CNPJ,
-                            TODO_DIA = model.TODO_DIA
-                            //CD_CODIGO_INDICACAO = indicacao,
+                            TODO_DIA = model.TODO_DIA,
                         };
                         db.CAD_PES_JURIDICA.Add(juridica);
                         db.SaveChanges();
 
+                        CAD_PES_FONE telefone = new CAD_PES_FONE
+                        {
+                            CD_PESSOA = user.Id,
+                            CD_FIXO = model.TF_TEL_FIXO,
+                            CD_CELULAR = model.TF_TEL_CEL
+                        };
+                        db.CAD_PES_FONE.Add(telefone);
+                        db.SaveChanges();
+                        
                         CAD_PES_ENDERECO endereco = new CAD_PES_ENDERECO
                         {
                             CD_PESSOA = user.Id,
@@ -577,10 +586,36 @@ namespace DIVULGA_SERVICOS.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+
+                var user = new ApplicationUser
+                {
+                    NM_NOME_PESSOA = info.ExternalIdentity.Name,
+                    UserName = model.Email,
+                    DS_APELIDO_SITE = info.DefaultUserName,
+                    DT_DATA_CADASTRO = System.DateTime.Today,
+                    Email = model.Email
+                };
+
+
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
+                    DbContextTransaction transacao = db.Database.BeginTransaction();
+                    try
+                    {
+                        var cAD_PES_USUARIO = new CAD_PES_USUARIO
+                        {
+                            CD_PESSOA = user.Id
+                        };
+                        db.CAD_PES_USUARIO.Add(cAD_PES_USUARIO);
+                        db.SaveChanges();
+                        transacao.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        transacao.Rollback();
+                        throw ex;
+                    }
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)
                     {

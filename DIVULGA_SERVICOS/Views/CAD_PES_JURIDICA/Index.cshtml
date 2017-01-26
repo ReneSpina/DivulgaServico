@@ -4,8 +4,6 @@
 
 @{
     Layout = null;
-    //var Prestadores = ViewData["DadosEndereco"] as IEnumerable<DIVULGA_SERVICOS.Models.CAD_PES_ENDERECO>;
-    //var distancia = ViewData["DadosDistancia"];
 }
 
 <!DOCTYPE html>
@@ -38,30 +36,68 @@
         }
         else
         {
-            @Html.ActionLink("Mapa de Busca", "Index", "CAD_PES_JURIDICA")<br />
+            @Html.ActionLink("Buscar no Mapa", "Index", "CAD_PES_JURIDICA")<br />
             @Html.ActionLink("Sobre", "About", "Home")<br />
             @Html.ActionLink("Contatos", "Contact", "Home")<br />
             @Html.ActionLink("Criar Conta", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })<br />
-                @Html.ActionLink("Entrar", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })<br />
+            @Html.ActionLink("Entrar", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })<br />
         }
     </div>
 
 
-    <form class="form-inline" action="~/CAD_PES_JURIDICA/Pesquisa" method="get">
-        <div class="form-group">
-            <div class="input-group">
-                <div class="input-group-addon"><span class="opennav" onclick="openNav()">&#9776;</span></div>
-                <input type="text" class="form-control" name="pesquisa" placeholder="Costureira, Chaveiro, Eletricista">
-                <div id="locationField">
-                    <input id="autocomplete" placeholder="Enter your address"
-                           onFocus="geolocates()" type="text"></input>
+    <div class="input-group" id="adv-search">
+        <form class="form-horizontal" id="searchgroup" action="~/CAD_PES_JURIDICA/Pesquisa" method="get" role="form">
+            @*<div class="input-group-addon" id="boxhamburguermap"><span class="opennav" id="hamburguermap" onclick="openNav()">&#9776;</span></div>*@
+            <span class="glyphicon glyphicon-menu-hamburger" id="boxhamburguermap" onclick="openNav()"></span>
+            <input type="text" class="form-control" name="pesquisa" placeholder="Costureira, Chaveiro, Eletricista">
+            <input type="text" id="lat" class="hidden" name="lat">
+            <input type="text" id="lng" class="hidden" name="lng">
+            <div class="input-group-btn">
+                <div class="btn-group" role="group">
+                    <div class="dropdown dropdown-lg">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                        <div class="dropdown-menu dropdown-menu-right" id="menudropdown" role="menu">
+                            <div class="form-group">
+                                <input class="form-control" type="text" />
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" id="autocomplete" placeholder="Digite um outro endereço"
+                                       onFocus="geolocates()" type="text">
+
+                            </div>
+                            <button type="submit" class="btn btn-primary" id="lupaAvancada"><span class="glyphicon glyphicon-search" aria-hidden="true" id="lupa"></span></button>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true" id="lupa"></span></button>
                 </div>
-                <input type="text" id="lat" class="hidden" name="lat">
-                <input type="text" id="lng" class="hidden" name="lng">
             </div>
-        </div>
-        <input type="submit" class="btn btn-default" value="Buscar">
-    </form>
+        </form>
+    </div>
+
+    @*<form class="form-inline" id="searchgroup" action="~/CAD_PES_JURIDICA/Pesquisa" method="get">
+            <div class="form-group" id="form-group">
+                <div class="input-group" id="container-search2">
+                    <div class="input-group-addon" id="boxhamburguermap"><span class="opennav" id="hamburguermap" onclick="openNav()">&#9776;</span></div>
+                    <input type="text" class="form-control" id="barrapesquisa" name="pesquisa" placeholder="Costureira, Chaveiro, Eletricista">
+
+                    <input type="text" id="lat" class="hidden" name="lat">
+                    <input type="text" id="lng" class="hidden" name="lng">
+
+                    <input type="submit" class="pesquisa-avancada-button" value="A">
+                    <input type="submit" class="btn btn-default" id="buttonsearch" value="Buscar">
+
+
+                </div>
+
+                <div id="busca-avancada">
+                    <div id="locationField">
+                        <input id="autocomplete" placeholder="Digite um outro endereço"
+                               onFocus="geolocates()" type="text"></input>
+                    </div>
+                </div>
+            </div>
+
+        </form>*@
 
     <div id="map">
     </div>
@@ -223,8 +259,9 @@
 
             var markers=[];
             </text>
-                        foreach (var item in Model)
-                        {
+                    foreach (var item in Model)
+                    {
+                        var teste = "";
 
                             <text>
             var marker1 = new google.maps.Marker({
@@ -232,12 +269,19 @@
                 map: map,
                 icon: image1,
             });
-            google.maps.event.addListener(marker1, 'click', (function(marker1, i) {
+                        google.maps.event.addListener(marker1, 'click', (function(marker1, i) {
                 return function() {
-                    var distancia = parseInt((@item.CAD_PESSOA.CAD_PES_ENDERECO.Single().localizacao.Distance(DbGeography.FromText("POINT("+ ViewBag.latitude.ToString().Replace(",", ".") + " "+ ViewBag.longitude.ToString().Replace(",", ".") + ")")).ToString().Replace(",", ".")/0.62137)/1000, 10);
+                    var distancia = parseInt((@item.localizacao.Distance(DbGeography.FromText("POINT("+ ViewBag.latitude.ToString().Replace(",", ".") + " "+ ViewBag.longitude.ToString().Replace(",", ".") + ")")).ToString().Replace(",", ".")/0.62137)/1000, 10);
                     infowindow.setContent("<button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModal"+'@item.CAD_PESSOA.DS_APELIDO_SITE'+"'>Acessar mais informações!</button>"+
                         "<br><br>Distância: "+ distancia +" Km"+
-                        "<br>"+"@item.CAD_PESSOA.TF_TEL_CEL"+
+                        "<br>"+
+                        "Aceita as seguintes formas de pagamento:"+
+                        "<br>"+
+                        @if(item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.DINHEIRO == true)
+                        {
+                            teste = "'Cheque <br>'+";
+                    }
+                    "<%= HttpUtility.HtmlEncode("+@teste+") %>"
                         "<br>"+"@item.CAD_PESSOA.UserName"+
                         "<br>"+"Aceita Cartões de crédito e débito"+
                         "<br>"+"atende 7 dias da semana 24h por dia"+
@@ -284,19 +328,6 @@ else
                     </div>
                     <div class="modal-body">
                         @item.CAD_PESSOA.CAD_PES_ENDERECO.Single().NM_LOGRADOURO
-                        <br />
-                        @item.CAD_PESSOA.DS_EMAIL
-                        <br />
-                        <br />
-                        @item.CAD_PESSOA.TF_TEL_FIXO
-                        <br />
-                        @item.CAD_PESSOA.TF_TEL_CEL
-                        <br />
-                        Aceita Cartões de crédito e débito
-                        <br />
-                        atende 7 dias da semana 24h por dia
-                        <br />
-                        Acionamento direto
                         <br />
                     </div>
                     <div class="modal-footer">
@@ -448,7 +479,9 @@ else
                                 }
                                 else
                                 {
+                                    //Html.RenderPartial("_LoginPartial");
                                     <a id="loginparaavaliar" href="~/Account/Login">Faça login para avaliar</a>
+
                                 }
                             </div>
                         </form>

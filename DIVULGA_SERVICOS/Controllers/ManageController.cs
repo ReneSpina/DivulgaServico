@@ -336,203 +336,203 @@ namespace DIVULGA_SERVICOS.Controllers
         }
 
         //Início dos métodos para o gerenciamento dos clientes
-        public ActionResult Cliente()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                var userName = User.Identity.Name;
-                var usuario = db.CAD_PESSOA.Where(x => x.UserName == userName).FirstOrDefault();
-                var cliente = db.CAD_CLIENTE.Where(x => x.CD_PESSOA == usuario.Id);
+        //public ActionResult Cliente()
+        //{
+        //    if (User.Identity.IsAuthenticated)
+        //    {
+        //        var userName = User.Identity.Name;
+        //        var usuario = db.CAD_PESSOA.Where(x => x.UserName == userName).FirstOrDefault();
+        //        var cliente = db.CAD_CLIENTE.Where(x => x.CD_PESSOA == usuario.Id);
 
-                if (cliente != null)
-                {
-                    //var cliente = db.CAD_CLIENTE.Include(x => x.CD_PESSOA == pes_juridica.CD_PESSOA);
-                    return View("Gerenciamento_Clientes", cliente.ToList());
-                }
-                return View();
-            }
-            else
-            {
-                ViewBag.errorMessage = "Você precisa ser um prestador de serviço e deve estar logado para acessar essa página.";
-                return View("Error");
-            }
-            //var cAD_CLIENTE = db.CAD_CLIENTE.Include(c => c.CAD_PES_JURIDICA);
-        }
+        //        if (cliente != null)
+        //        {
+        //            //var cliente = db.CAD_CLIENTE.Include(x => x.CD_PESSOA == pes_juridica.CD_PESSOA);
+        //            return View("Gerenciamento_Clientes", cliente.ToList());
+        //        }
+        //        return View();
+        //    }
+        //    else
+        //    {
+        //        ViewBag.errorMessage = "Você precisa ser um prestador de serviço e deve estar logado para acessar essa página.";
+        //        return View("Error");
+        //    }
+        //    //var cAD_CLIENTE = db.CAD_CLIENTE.Include(c => c.CAD_PES_JURIDICA);
+        //}
 
         // GET: CAD_CLIENTE/Details/5
-        public ActionResult Detalhes(int id)
-        {
-            if (id < 1)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CAD_CLIENTE cAD_CLIENTE = db.CAD_CLIENTE.Where(x => x.SQ_CLIENTE == id).FirstOrDefault();
-            if (cAD_CLIENTE == null)
-            {
-                return HttpNotFound();
-            }
-            return View("Detalhes", cAD_CLIENTE);
-        }
+        //public ActionResult Detalhes(int id)
+        //{
+        //    if (id < 1)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    CAD_CLIENTE cAD_CLIENTE = db.CAD_CLIENTE.Where(x => x.SQ_CLIENTE == id).FirstOrDefault();
+        //    if (cAD_CLIENTE == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View("Detalhes", cAD_CLIENTE);
+        //}
 
-        // GET: CAD_CLIENTE/Create
-        public ActionResult Criar()
-        {
-            ViewBag.CD_PESSOA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ");
-            return View("Criar");
-        }
+        //// GET: CAD_CLIENTE/Create
+        //public ActionResult Criar()
+        //{
+        //    ViewBag.CD_PESSOA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ");
+        //    return View("Criar");
+        //}
 
         // POST: CAD_CLIENTE/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Criar([Bind(Include = "NM_NOME")] CAD_CLIENTE cAD_CLIENTE)
-        {
-            if (ModelState.IsValid)
-            {
-                cAD_CLIENTE.CD_PESSOA = User.Identity.GetUserId();
-                db.CAD_CLIENTE.Add(cAD_CLIENTE);
-                db.SaveChanges();
-                return RedirectToAction("Cliente");
-            }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Criar([Bind(Include = "NM_NOME")] CAD_CLIENTE cAD_CLIENTE)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        cAD_CLIENTE.CD_PESSOA = User.Identity.GetUserId();
+        //        db.CAD_CLIENTE.Add(cAD_CLIENTE);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Cliente");
+        //    }
 
-            ViewBag.CD_PESSOA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ", cAD_CLIENTE.CD_PESSOA);
-            return View(cAD_CLIENTE);
-        }
+        //    ViewBag.CD_PESSOA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ", cAD_CLIENTE.CD_PESSOA);
+        //    return View(cAD_CLIENTE);
+        //}
 
-        // GET: CAD_CLIENTE/Edit/5
-        public ActionResult Editar(int id)
-        {
-            if (id < 0)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CAD_CLIENTE cAD_CLIENTE = db.CAD_CLIENTE.Where(x => x.SQ_CLIENTE == id).FirstOrDefault();
-            if (cAD_CLIENTE == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.CD_PESSOA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ", cAD_CLIENTE.CD_PESSOA);
-            return View(cAD_CLIENTE);
-        }
+        //// GET: CAD_CLIENTE/Edit/5
+        //public ActionResult Editar(int id)
+        //{
+        //    if (id < 0)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    CAD_CLIENTE cAD_CLIENTE = db.CAD_CLIENTE.Where(x => x.SQ_CLIENTE == id).FirstOrDefault();
+        //    if (cAD_CLIENTE == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    ViewBag.CD_PESSOA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ", cAD_CLIENTE.CD_PESSOA);
+        //    return View(cAD_CLIENTE);
+        //}
 
         // POST: CAD_CLIENTE/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Editar([Bind(Include = "SQ_CLIENTE, NM_NOME")] CAD_CLIENTE cAD_CLIENTE)
-        {
-            cAD_CLIENTE.CD_PESSOA = User.Identity.GetUserId();
-            if (ModelState.IsValid)
-            {
-                db.Entry(cAD_CLIENTE).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Cliente");
-            }
-            ViewBag.CD_PESSOA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ", cAD_CLIENTE.CD_PESSOA);
-            return View(cAD_CLIENTE);
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Editar([Bind(Include = "SQ_CLIENTE, NM_NOME")] CAD_CLIENTE cAD_CLIENTE)
+        //{
+        //    cAD_CLIENTE.CD_PESSOA = User.Identity.GetUserId();
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(cAD_CLIENTE).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("Cliente");
+        //    }
+        //    ViewBag.CD_PESSOA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ", cAD_CLIENTE.CD_PESSOA);
+        //    return View(cAD_CLIENTE);
+        //}
         //Fim dos métodos para o gerenciamento dos clientes
 
 
         //Início dos métodos para o gerenciamento das dicas
-        public ActionResult Dicas()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                var userName = User.Identity.Name;
-                var usuario = db.CAD_PESSOA.Where(x => x.UserName == userName).FirstOrDefault();
-                var dica = db.CAD_DICA.Where(x => x.CD_PESSOA == usuario.Id);
+        //public ActionResult Dicas()
+        //{
+        //    if (User.Identity.IsAuthenticated)
+        //    {
+        //        var userName = User.Identity.Name;
+        //        var usuario = db.CAD_PESSOA.Where(x => x.UserName == userName).FirstOrDefault();
+        //        var dica = db.CAD_DICA.Where(x => x.CD_PESSOA == usuario.Id);
 
-                if (dica != null)
-                {
-                    //var cliente = db.CAD_CLIENTE.Include(x => x.CD_PESSOA == pes_juridica.CD_PESSOA);
-                    return View("Gerenciamento_Dicas", dica.ToList());
-                }
-                return View();
-            }
-            else
-            {
-                ViewBag.errorMessage = "Você precisa ser um prestador de serviço e deve estar logado para acessar essa página.";
-                return View("Error");
-            }
-        }
+        //        if (dica != null)
+        //        {
+        //            //var cliente = db.CAD_CLIENTE.Include(x => x.CD_PESSOA == pes_juridica.CD_PESSOA);
+        //            return View("Gerenciamento_Dicas", dica.ToList());
+        //        }
+        //        return View();
+        //    }
+        //    else
+        //    {
+        //        ViewBag.errorMessage = "Você precisa ser um prestador de serviço e deve estar logado para acessar essa página.";
+        //        return View("Error");
+        //    }
+        //}
 
         // GET: CAD_DICA/Create
-        public ActionResult CriarDicas()
-        {
-            ViewBag.CD_PESSOA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ");
-            return View("CriarDicas");
-        }
+        //public ActionResult CriarDicas()
+        //{
+        //    ViewBag.CD_PESSOA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ");
+        //    return View("CriarDicas");
+        //}
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CriarDicas([Bind(Include = "NM__NOME,DS_DESCRICAO")] CAD_DICA cAD_DICA)
-        {
-            if (ModelState.IsValid)
-            {
-                cAD_DICA.CD_PESSOA = User.Identity.GetUserId();
-                db.CAD_DICA.Add(cAD_DICA);
-                db.SaveChanges();
-                return RedirectToAction("Dicas");
-            }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult CriarDicas([Bind(Include = "NM__NOME,DS_DESCRICAO")] CAD_DICA cAD_DICA)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        cAD_DICA.CD_PESSOA = User.Identity.GetUserId();
+        //        db.CAD_DICA.Add(cAD_DICA);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Dicas");
+        //    }
 
-            ViewBag.CD_PESSOA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ", cAD_DICA.CD_PESSOA);
-            return View(cAD_DICA);
-        }
+        //    ViewBag.CD_PESSOA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ", cAD_DICA.CD_PESSOA);
+        //    return View(cAD_DICA);
+        //}
 
 
         // GET: CAD_DICA/Details/5
-        public ActionResult DetalhesDicas(int id)
-        {
-            if (id < 1)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CAD_DICA cAD_DICA = db.CAD_DICA.Where(x => x.SQ_DICA == id).FirstOrDefault();
-            if (cAD_DICA == null)
-            {
-                return HttpNotFound();
-            }
-            return View("DetalhesDica", cAD_DICA);
-        }
+        //public ActionResult DetalhesDicas(int id)
+        //{
+        //    if (id < 1)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    CAD_DICA cAD_DICA = db.CAD_DICA.Where(x => x.SQ_DICA == id).FirstOrDefault();
+        //    if (cAD_DICA == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View("DetalhesDica", cAD_DICA);
+        //}
 
 
-        // GET: CAD_DICA/Edit/5
-        public ActionResult EditarDicas(int id)
-        {
-            if (id < 1)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CAD_DICA cAD_DICA = db.CAD_DICA.Where(x => x.SQ_DICA == id).FirstOrDefault();
-            if (cAD_DICA == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.CD_PESSOA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ", cAD_DICA.CD_PESSOA);
-            return View("EditarDicas",cAD_DICA);
-        }
+        //// GET: CAD_DICA/Edit/5
+        //public ActionResult EditarDicas(int id)
+        //{
+        //    if (id < 1)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    CAD_DICA cAD_DICA = db.CAD_DICA.Where(x => x.SQ_DICA == id).FirstOrDefault();
+        //    if (cAD_DICA == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    ViewBag.CD_PESSOA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ", cAD_DICA.CD_PESSOA);
+        //    return View("EditarDicas",cAD_DICA);
+        //}
 
         // POST: CAD_DICA/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult EditarDicas([Bind(Include = "NM__NOME,DS_DESCRICAO, SQ_DICA")] CAD_DICA cAD_DICA, int id)
-        {
-            cAD_DICA.CD_PESSOA = User.Identity.GetUserId();
-            if (ModelState.IsValid)
-            {
-                cAD_DICA.SQ_DICA = id;
-                db.Entry(cAD_DICA).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Dicas");
-            }
-            ViewBag.CD_PESSOA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ", cAD_DICA.CD_PESSOA);
-            return View(cAD_DICA);
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult EditarDicas([Bind(Include = "NM__NOME,DS_DESCRICAO, SQ_DICA")] CAD_DICA cAD_DICA, int id)
+        //{
+        //    cAD_DICA.CD_PESSOA = User.Identity.GetUserId();
+        //    if (ModelState.IsValid)
+        //    {
+        //        cAD_DICA.SQ_DICA = id;
+        //        db.Entry(cAD_DICA).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("Dicas");
+        //    }
+        //    ViewBag.CD_PESSOA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ", cAD_DICA.CD_PESSOA);
+        //    return View(cAD_DICA);
+        //}
         //Fim dos métodos para o gerenciamento das dicas
 
 
@@ -574,7 +574,7 @@ namespace DIVULGA_SERVICOS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CriarServico([Bind(Include = "NM_NOME, SHOW, DS_DESCRICAO")] CAD_CATEGORIA cAD_CATEGORIA)
+        public ActionResult CriarServico([Bind(Include = "NM_NOME, DS_DESCRICAO")] CAD_CATEGORIA cAD_CATEGORIA)
         {
             if (ModelState.IsValid)
             {

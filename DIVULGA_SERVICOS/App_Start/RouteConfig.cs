@@ -13,23 +13,23 @@ namespace DIVULGA_SERVICOS
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             
-            routes.MapRoute(
-                "SitePrestador", // Route name
-                "{NomePrestador}/{ItemMenu}", // URL with parameters
-                new { controller = "SitePrestador", action = "ItemMenu"},
-                new {ItemMenu = "(Servico|Cliente)"}
-                );
+            //routes.MapRoute(
+            //    "SitePrestador", // Route name
+            //    "{NomePrestador}/{ItemMenu}", // URL with parameters
+            //    new { controller = "SitePrestador", action = "ItemMenu"},
+            //    new {ItemMenu = "(Servico|Cliente)"}
+            //    );
 
 
-            routes.MapRoute(
-                "SitePrestador1",
-                "{NomePrestador}",
-                new
-                {
-                    controller = "SitePrestador",
-                    action = "SiteHomePrestador",
-                }
-            );
+            //routes.MapRoute(
+            //    "SitePrestador1",
+            //    "{NomePrestador}",
+            //    new
+            //    {
+            //        controller = "SitePrestador",
+            //        action = "SiteHomePrestador",
+            //    }
+            //);
 
             routes.MapRoute(
                 "Default",

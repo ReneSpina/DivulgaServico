@@ -17,10 +17,10 @@ namespace DIVULGA_SERVICOS.Models
         public virtual DbSet<CAD_AVALIACAO> CAD_AVALIACAO { get; set; }
         public virtual DbSet<CAD_CATEGORIA> CAD_CATEGORIA { get; set; }
         public virtual DbSet<CAD_FORMA_PAGAMENTO> CAD_FORMA_PAGAMENTO { get; set; }
-        public virtual DbSet<CAD_CLIENTE> CAD_CLIENTE { get; set; }
-        public virtual DbSet<CAD_DICA> CAD_DICA { get; set; }
+        //public virtual DbSet<CAD_CLIENTE> CAD_CLIENTE { get; set; }
+        //public virtual DbSet<CAD_DICA> CAD_DICA { get; set; }
         public virtual DbSet<CAD_HORA_ATENDIMENTO> CAD_HORA_ATENDIMENTO { get; set; }
-        public virtual DbSet<CAD_IMAGEM> CAD_IMAGEM { get; set; }
+        //public virtual DbSet<CAD_IMAGEM> CAD_IMAGEM { get; set; }
         public virtual DbSet<CAD_PES_ENDERECO> CAD_PES_ENDERECO { get; set; }
         public virtual DbSet<CAD_PES_FONE> CAD_PES_FONE { get; set; }
         public virtual DbSet<CAD_PES_JURIDICA> CAD_PES_JURIDICA { get; set; }
@@ -30,12 +30,13 @@ namespace DIVULGA_SERVICOS.Models
         //public virtual DbSet<CAD_SLIDESHOW> CAD_SLIDESHOW { get; set; }
         //public virtual DbSet<CAD_SUB_CAT_ATIV> CAD_SUB_CAT_ATIV { get; set; }
         //public virtual DbSet<CAD_SUB_CATEGORIA> CAD_SUB_CATEGORIA { get; set; }
-        public virtual DbSet<VEN_BOLETO> VEN_BOLETO { get; set; }
-        public virtual DbSet<VEN_ORCAMENTO> VEN_ORCAMENTO { get; set; }
+        //public virtual DbSet<VEN_BOLETO> VEN_BOLETO { get; set; }
+        //public virtual DbSet<VEN_ORCAMENTO> VEN_ORCAMENTO { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
             //modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             //modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
 
@@ -90,30 +91,30 @@ namespace DIVULGA_SERVICOS.Models
             //    m.ToTable("CAD_SERV_JURIDICA");
             //});
 
-            modelBuilder.Entity<CAD_CLIENTE>()
-                .Property(e => e.NM_NOME)
-                .IsUnicode(false);
+            //modelBuilder.Entity<CAD_CLIENTE>()
+            //    .Property(e => e.NM_NOME)
+            //    .IsUnicode(false);
 
-            modelBuilder.Entity<CAD_CLIENTE>()
-                .Property(p => p.SQ_CLIENTE)
-                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            //modelBuilder.Entity<CAD_CLIENTE>()
+            //    .Property(p => p.SQ_CLIENTE)
+            //    .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-            modelBuilder.Entity<CAD_CLIENTE>()
-                .HasRequired(c => c.CAD_PES_JURIDICA)
-                .WithMany(p => p.CAD_CLIENTE)
-                .HasForeignKey(p => p.CD_PESSOA);
+            //modelBuilder.Entity<CAD_CLIENTE>()
+            //    .HasRequired(c => c.CAD_PES_JURIDICA)
+            //    .WithMany(p => p.CAD_CLIENTE)
+            //    .HasForeignKey(p => p.CD_PESSOA);
 
-            modelBuilder.Entity<CAD_DICA>()
-                .Property(e => e.NM__NOME)
-                .IsUnicode(false);
+            //modelBuilder.Entity<CAD_DICA>()
+            //    .Property(e => e.NM__NOME)
+            //    .IsUnicode(false);
 
-            modelBuilder.Entity<CAD_DICA>()
-                .Property(p => p.SQ_DICA)
-                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            //modelBuilder.Entity<CAD_DICA>()
+            //    .Property(p => p.SQ_DICA)
+            //    .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-            modelBuilder.Entity<CAD_DICA>()
-                .Property(e => e.DS_DESCRICAO)
-                .IsUnicode(false);
+            //modelBuilder.Entity<CAD_DICA>()
+            //    .Property(e => e.DS_DESCRICAO)
+            //    .IsUnicode(false);
 
             //modelBuilder.Entity<BASE_DE_DADOS>()
             //    .Property(e => e.NM_NOME_CATEGORIA)
@@ -127,19 +128,19 @@ namespace DIVULGA_SERVICOS.Models
             //    .Property(e => e.NM_NOME_SUBCATEGORIA)
             //    .IsUnicode(false);
 
-            modelBuilder.Entity<CAD_IMAGEM>()
-                .Property(e => e.NM_NOME)
-                .IsUnicode(false);
+            //modelBuilder.Entity<CAD_IMAGEM>()
+            //    .Property(e => e.NM_NOME)
+            //    .IsUnicode(false);
 
-            modelBuilder.Entity<CAD_IMAGEM>()
-                .HasMany(e => e.CAD_CLIENTE)
-                .WithMany(e => e.CAD_IMAGEM)
-                .Map(m => m.ToTable("CAD_IMG_CLIENTE").MapLeftKey("CD_IMAGEM").MapRightKey(new[] { "CD_PESSOA", "SQ_CLIENTE" }));
+            //modelBuilder.Entity<CAD_IMAGEM>()
+            //    .HasMany(e => e.CAD_CLIENTE)
+            //    .WithMany(e => e.CAD_IMAGEM)
+            //    .Map(m => m.ToTable("CAD_IMG_CLIENTE").MapLeftKey("CD_IMAGEM").MapRightKey(new[] { "CD_PESSOA", "SQ_CLIENTE" }));
 
-            modelBuilder.Entity<CAD_IMAGEM>()
-                .HasMany(e => e.CAD_DICA)
-                .WithMany(e => e.CAD_IMAGEM)
-                .Map(m => m.ToTable("CAD_IMG_DICA").MapLeftKey("CD_IMAGEM").MapRightKey(new[] { "CD_PESSOA", "SQ_DICA" }));
+            //modelBuilder.Entity<CAD_IMAGEM>()
+            //    .HasMany(e => e.CAD_DICA)
+            //    .WithMany(e => e.CAD_IMAGEM)
+            //    .Map(m => m.ToTable("CAD_IMG_DICA").MapLeftKey("CD_IMAGEM").MapRightKey(new[] { "CD_PESSOA", "SQ_DICA" }));
 
             //modelBuilder.Entity<CAD_IMAGEM>()
             //    .HasMany(e => e.CAD_SLIDESHOW)
@@ -176,28 +177,37 @@ namespace DIVULGA_SERVICOS.Models
                 .HasForeignKey(p => p.CD_PESSOA);
 
             modelBuilder.Entity<CAD_PES_FONE>()
-                .Property(e => e.CD_FIXO)
-                .IsUnicode(false);
+                .Property(p => p.SQ_FONE)
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             modelBuilder.Entity<CAD_PES_FONE>()
-                .Property(e => e.CD_CELULAR)
-                .IsUnicode(false);
+                .HasRequired(c => c.CAD_PESSOA)
+                .WithMany(p => p.CAD_PES_FONE)
+                .HasForeignKey(p => p.CD_PESSOA);
             
-            modelBuilder.Entity<CAD_PES_JURIDICA>()
-                .Property(e => e.CD_CNPJ)
-                .IsUnicode(false);
+            //modelBuilder.Entity<CAD_PES_FONE>()
+            //    .Property(e => e.CD_FIXO)
+            //    .IsUnicode(false);
 
-            modelBuilder.Entity<CAD_PES_JURIDICA>()
-                .Property(e => e.DS_LINK_SITE)
-                .IsUnicode(false);
+            //modelBuilder.Entity<CAD_PES_FONE>()
+            //    .Property(e => e.CD_CELULAR)
+            //    .IsUnicode(false);
 
-            modelBuilder.Entity<CAD_PES_JURIDICA>()
-                .Property(e => e.DS_SOBRE)
-                .IsUnicode(false);
+            //modelBuilder.Entity<CAD_PES_JURIDICA>()
+            //    .Property(e => e.CD_CNPJ)
+            //    .IsUnicode(false);
 
-            modelBuilder.Entity<CAD_PES_JURIDICA>()
-                .Property(e => e.DS_QUEM_SOMOS)
-                .IsUnicode(false);
+            //modelBuilder.Entity<CAD_PES_JURIDICA>()
+            //    .Property(e => e.DS_LINK_SITE)
+            //    .IsUnicode(false);
+
+            //modelBuilder.Entity<CAD_PES_JURIDICA>()
+            //    .Property(e => e.DS_SOBRE)
+            //    .IsUnicode(false);
+
+            //modelBuilder.Entity<CAD_PES_JURIDICA>()
+            //    .Property(e => e.DS_QUEM_SOMOS)
+            //    .IsUnicode(false);
 
             //modelBuilder.Entity<CAD_PES_JURIDICA>()
             //    .HasMany(e => e.CAD_AVALIACAO)
@@ -205,15 +215,15 @@ namespace DIVULGA_SERVICOS.Models
             //    .HasForeignKey(e => e.CD_PES_JURIDICA)
             //    .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<CAD_PES_JURIDICA>()
-                .HasMany(e => e.CAD_CLIENTE)
-                .WithRequired(e => e.CAD_PES_JURIDICA)
-                .WillCascadeOnDelete(false);
+            //modelBuilder.Entity<CAD_PES_JURIDICA>()
+            //    .HasMany(e => e.CAD_CLIENTE)
+            //    .WithRequired(e => e.CAD_PES_JURIDICA)
+            //    .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<CAD_PES_JURIDICA>()
-                .HasMany(e => e.CAD_DICA)
-                .WithRequired(e => e.CAD_PES_JURIDICA)
-                .WillCascadeOnDelete(false);
+            //modelBuilder.Entity<CAD_PES_JURIDICA>()
+            //    .HasMany(e => e.CAD_DICA)
+            //    .WithRequired(e => e.CAD_PES_JURIDICA)
+            //    .WillCascadeOnDelete(false);
 
             //modelBuilder.Entity<CAD_PES_JURIDICA>()
             //    .HasMany(e => e.CAD_SERV_JURIDICA)
@@ -226,11 +236,11 @@ namespace DIVULGA_SERVICOS.Models
             //    .WithRequired(e => e.CAD_PES_JURIDICA)
             //    .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<CAD_PES_JURIDICA>()
-                .HasMany(e => e.VEN_ORCAMENTO)
-                .WithRequired(e => e.CAD_PES_JURIDICA)
-                .HasForeignKey(e => e.CD_PES_JURIDICO)
-                .WillCascadeOnDelete(false);
+            //modelBuilder.Entity<CAD_PES_JURIDICA>()
+            //    .HasMany(e => e.VEN_ORCAMENTO)
+            //    .WithRequired(e => e.CAD_PES_JURIDICA)
+            //    .HasForeignKey(e => e.CD_PES_JURIDICO)
+            //    .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<CAD_PES_USUARIO>()
                 .HasMany(e => e.CAD_AVALIACAO)
@@ -238,31 +248,31 @@ namespace DIVULGA_SERVICOS.Models
                 .HasForeignKey(e => e.CD_PES_USUARIO)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<CAD_PES_USUARIO>()
-                .HasMany(e => e.VEN_ORCAMENTO)
-                .WithRequired(e => e.CAD_PES_USUARIO)
-                .HasForeignKey(e => e.CD_PES_USUARIO)
-                .WillCascadeOnDelete(false);
+            //modelBuilder.Entity<CAD_PES_USUARIO>()
+            //    .HasMany(e => e.VEN_ORCAMENTO)
+            //    .WithRequired(e => e.CAD_PES_USUARIO)
+            //    .HasForeignKey(e => e.CD_PES_USUARIO)
+            //    .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<CAD_PESSOA>()
-                .Property(e => e.NM_NOME_PESSOA)
-                .IsUnicode(false);
+            //modelBuilder.Entity<CAD_PESSOA>()
+            //    .Property(e => e.NM_NOME_PESSOA)
+            //    .IsUnicode(false);
 
-            modelBuilder.Entity<CAD_PESSOA>()
-                .Property(e => e.DS_APELIDO_SITE)
-                .IsUnicode(false);
+            //modelBuilder.Entity<CAD_PESSOA>()
+            //    .Property(e => e.DS_APELIDO_SITE)
+            //    .IsUnicode(false);
 
-            modelBuilder.Entity<CAD_PESSOA>()
-                .Property(e => e.DS_EMAIL)
-                .IsUnicode(false);
+            //modelBuilder.Entity<CAD_PESSOA>()
+            //    .Property(e => e.DS_EMAIL)
+            //    .IsUnicode(false);
 
-            modelBuilder.Entity<CAD_PESSOA>()
-                .Property(e => e.TF_TEL_FIXO)
-                .IsUnicode(false);
+            //modelBuilder.Entity<CAD_PESSOA>()
+            //    .Property(e => e.TF_TEL_FIXO)
+            //    .IsUnicode(false);
 
-            modelBuilder.Entity<CAD_PESSOA>()
-                .Property(e => e.TF_TEL_CEL)
-                .IsUnicode(false);
+            //modelBuilder.Entity<CAD_PESSOA>()
+            //    .Property(e => e.TF_TEL_CEL)
+            //    .IsUnicode(false);
 
             modelBuilder.Entity<CAD_PESSOA>()
                 .HasMany(e => e.CAD_PES_ENDERECO)
@@ -301,10 +311,10 @@ namespace DIVULGA_SERVICOS.Models
             //    .HasForeignKey(e => new { e.CD_SUB_CATEGORIA, e.CD_CATEGORIA })
             //    .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<VEN_ORCAMENTO>()
-                .HasOptional(e => e.VEN_BOLETO)
-                .WithRequired(e => e.VEN_ORCAMENTO);
-            
+            //modelBuilder.Entity<VEN_ORCAMENTO>()
+            //    .HasOptional(e => e.VEN_BOLETO)
+            //    .WithRequired(e => e.VEN_ORCAMENTO);
+
             //modelBuilder.Entity<VEN_ORCAMENTO>()
             //    .HasMany(e => e.CAD_SUB_CATEGORIA)
             //    .WithMany(e => e.VEN_ORCAMENTO)

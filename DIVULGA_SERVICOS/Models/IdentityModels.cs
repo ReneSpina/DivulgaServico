@@ -11,11 +11,11 @@ namespace DIVULGA_SERVICOS.Models
     public class ApplicationUser : IdentityUser
     {
         public string DS_APELIDO_SITE { get; set; }
-        public string TF_TEL_FIXO { get; set; }
-        public string TF_TEL_CEL { get; set; }
+        //public string TF_TEL_FIXO { get; set; }
+        //public string TF_TEL_CEL { get; set; }
         public DateTime DT_DATA_CADASTRO { get; set; }
         public string NM_NOME_PESSOA { get; set; }
-        public string DS_EMAIL { get; set; }
+        //public string DS_EMAIL { get; set; }
         //public string CD_CNPJ { get; set; }
         //public string DS_LINK_SITE { get; set; }
         //public int CD_CODIGO_INDICACAO { get; set; }

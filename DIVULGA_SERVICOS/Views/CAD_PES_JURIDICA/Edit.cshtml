@@ -21,15 +21,7 @@
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.CD_PESSOA)
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.CD_CODIGO_INDICACAO, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.CD_CODIGO_INDICACAO, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.CD_CODIGO_INDICACAO, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
+               
             <div class="form-group">
                 @Html.LabelFor(model => model.CD_CNPJ, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -62,13 +54,13 @@
                 </div>
             </div>
     
-            <div class="form-group">
+            @*<div class="form-group">
                 @Html.LabelFor(model => model.ID_PLANO, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.ID_PLANO, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.ID_PLANO, "", new { @class = "text-danger" })
                 </div>
-            </div>
+            </div>*@
     
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">

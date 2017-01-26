@@ -217,27 +217,22 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AvaliacaoController.cs" />
     <Compile Include="Controllers\CAD_CATEGORIAController.cs" />
-    <Compile Include="Controllers\CAD_CLIENTEController.cs" />
     <Compile Include="Controllers\CAD_PES_JURIDICAController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\SitePrestadorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201701221924362_principal16.cs" />
-    <Compile Include="Migrations\201701221924362_principal16.Designer.cs">
-      <DependentUpon>201701221924362_principal16.cs</DependentUpon>
+    <Compile Include="Migrations\201701252313282_principal3.cs" />
+    <Compile Include="Migrations\201701252313282_principal3.Designer.cs">
+      <DependentUpon>201701252313282_principal3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CAD_AVALIACAO.cs" />
     <Compile Include="Models\CAD_CATEGORIA.cs" />
-    <Compile Include="Models\CAD_CLIENTE.cs" />
-    <Compile Include="Models\CAD_DICA.cs" />
     <Compile Include="Models\CAD_FORMA_PAGAMENTO.cs" />
     <Compile Include="Models\CAD_HORA_ATENDIMENTO.cs" />
-    <Compile Include="Models\CAD_IMAGEM.cs" />
     <Compile Include="Models\CAD_PESSOA.cs" />
     <Compile Include="Models\CAD_PES_ENDERECO.cs" />
     <Compile Include="Models\CAD_PES_FONE.cs" />
@@ -246,8 +241,6 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PRINCIPAL.cs" />
-    <Compile Include="Models\VEN_BOLETO.cs" />
-    <Compile Include="Models\VEN_ORCAMENTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -262,11 +255,10 @@
     <Content Include="Content\Empty.png" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
-    <Content Include="Imagens\20140831_171351.jpg" />
     <Content Include="Imagens\Map-Marker.ico" />
     <Content Include="Imagens\place-128.png" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
@@ -285,7 +277,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
@@ -433,12 +424,6 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\Info.cshtml" />
-    <Content Include="Views\CAD_CLIENTE\Create.cshtml" />
-    <Content Include="Views\CAD_CLIENTE\Delete.cshtml" />
-    <Content Include="Views\CAD_CLIENTE\Details.cshtml" />
-    <Content Include="Views\CAD_CLIENTE\Edit.cshtml" />
-    <Content Include="Views\CAD_CLIENTE\Index.cshtml" />
-    <Content Include="Views\CAD_CLIENTE\Cliente.cshtml" />
     <Content Include="Views\Manage\Gerenciamento_Clientes.cshtml" />
     <Content Include="Views\Manage\Criar.cshtml" />
     <Content Include="Views\Manage\Detalhes.cshtml" />
@@ -463,7 +448,6 @@
     <Content Include="Views\CAD_PES_JURIDICA\Delete.cshtml" />
     <Content Include="Views\CAD_PES_JURIDICA\Details.cshtml" />
     <Content Include="Views\CAD_PES_JURIDICA\Edit.cshtml" />
-    <Content Include="Views\CAD_PES_JURIDICA\Index.cshtml" />
     <Content Include="Views\SitePrestador\SiteServicoPrestador.cshtml" />
     <Content Include="Views\SitePrestador\SiteClientePrestador.cshtml" />
     <Content Include="Views\Avaliacao\Create.cshtml" />
@@ -471,6 +455,7 @@
     <Content Include="Views\Avaliacao\Details.cshtml" />
     <Content Include="Views\Avaliacao\Edit.cshtml" />
     <Content Include="Views\Avaliacao\Index.cshtml" />
+    <Content Include="Views\CAD_PES_JURIDICA\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -483,8 +468,8 @@
     <Content Include="Scripts\jquery-3.1.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701221924362_principal16.resx">
-      <DependentUpon>201701221924362_principal16.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201701252313282_principal3.resx">
+      <DependentUpon>201701252313282_principal3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
