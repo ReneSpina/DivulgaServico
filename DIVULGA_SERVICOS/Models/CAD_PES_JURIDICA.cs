@@ -29,10 +29,7 @@ namespace DIVULGA_SERVICOS.Models
         [RegularExpression("^(\\d{14})|(\\d{11})$", ErrorMessage = "Insira um CPF ou CNPJ válido (digite somente números)!")]
         [StringLength(30)]
         public string CD_CNPJ { get; set; }
-
-        [StringLength(500)]
-        public string DS_LINK_SITE { get; set; }
-
+        
         [Column(TypeName = "text")]
         [DataType(DataType.MultilineText)]
         public string DS_SOBRE { get; set; }

@@ -10,18 +10,16 @@
     public class CAD_HORA_ATENDIMENTO
     {
         [Key]
-        [Column(Order = 0)]
+        [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public string CD_HORA_ATENDIMENTO { get; set; }
+        public string CD_PES_JURIDICA { get; set; }
 
         [Key]
-        [Column(Order = 1)]
+        [Column(Order = 0)]
         public int DIA_SEMANA { get; set; }
-
-        [Required]
+        
         public int HORA_INICIO { get; set; }
-
-        [Required]
+        
         public int HORA_FIM { get; set; }        
 
         public virtual CAD_PES_JURIDICA CAD_PES_JURIDICA { get; set; }

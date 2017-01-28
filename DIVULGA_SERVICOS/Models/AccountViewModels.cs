@@ -93,6 +93,11 @@ namespace DIVULGA_SERVICOS.Models
         public string UserName { get; set; }
 
         [Required]
+        [Display(Name = "CONFIRME SEU EMAIL")]
+        [System.ComponentModel.DataAnnotations.Compare("UserName", ErrorMessage = "Os Emails não são iguais!")]
+        public string ConfirmUserName { get; set; }
+
+        [Required]
         [Display(Name = "NOME")]
         public string NM_NOME_PESSOA { get; set; }
 
@@ -112,12 +117,12 @@ namespace DIVULGA_SERVICOS.Models
         [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "AS SENHAS NÃO SÃO IGUAIS!")]
         public string ConfirmPassword { get; set; }
 
-        [Required(ErrorMessage = "O NOME DO SITE É OBRIGATÓRIO!")]
-        [RegularExpression("^[a-zA-Z]{1,255}$", ErrorMessage = "INSIRA UM NOME VÁLIDO PARA O SEU SITE(SOMENTE LETRAS, SEM ESPAÇO)!")]
-        //[Remote("Valida_NM_Site", "Account", ErrorMessage = "ESSE NOME JÁ ESTÁ CADASTRADO!")]
-        [StringLength(100)]
-        [Display(Name = "NOME PARA O SEU SITE")]
-        public string DS_APELIDO_SITE { get; set; }
+        //[Required(ErrorMessage = "O NOME DO SITE É OBRIGATÓRIO!")]
+        //[RegularExpression("^[a-zA-Z]{1,255}$", ErrorMessage = "INSIRA UM NOME VÁLIDO PARA O SEU SITE(SOMENTE LETRAS, SEM ESPAÇO)!")]
+        ////[Remote("Valida_NM_Site", "Account", ErrorMessage = "ESSE NOME JÁ ESTÁ CADASTRADO!")]
+        //[StringLength(100)]
+        //[Display(Name = "NOME PARA O SEU SITE")]
+        //public string DS_APELIDO_SITE { get; set; }
 
         [Required(ErrorMessage = "O TELEFONE FIXO É OBRIGATÓRIO!")]
         [StringLength(15)]
@@ -142,8 +147,8 @@ namespace DIVULGA_SERVICOS.Models
         [Display(Name = "CPF OU CNPJ")]
         public string CD_CNPJ { get; set; }
 
-        [StringLength(500)]
-        public string DS_LINK_SITE { get; set; }
+        //[StringLength(500)]
+        //public string DS_LINK_SITE { get; set; }
 
         //[Display(Name = "CÓDIGO DE INDICAÇÃO")]
         //[DisplayName("CÓDIGO DE INDICAÇÃO")]
@@ -188,46 +193,46 @@ namespace DIVULGA_SERVICOS.Models
         [StringLength(100)]
         public string CD_LONG { get; set; }
 
-        [Required]
+        
         public int SEGUNDA_HORA_INICIO { get; set; }
 
-        [Required]
+        
         public int SEGUNDA_HORA_FIM { get; set; }
 
-        [Required]
+       
         public int TERCA_HORA_INICIO { get; set; }
 
-        [Required]
+        
         public int TERCA_HORA_FIM { get; set; }
 
-        [Required]
+        
         public int QUARTA_HORA_INICIO { get; set; }
 
-        [Required]
+        
         public int QUARTA_HORA_FIM { get; set; }
 
-        [Required]
+        
         public int QUINTA_HORA_INICIO { get; set; }
 
-        [Required]
+        
         public int QUINTA_HORA_FIM { get; set; }
 
-        [Required]
+        
         public int SEXTA_HORA_INICIO { get; set; }
 
-        [Required]
+        
         public int SEXTA_HORA_FIM { get; set; }
 
-        [Required]
+        
         public int SABADO_HORA_INICIO { get; set; }
 
-        [Required]
+        
         public int SABADO_HORA_FIM { get; set; }
 
-        [Required]
+        
         public int DOMINGO_HORA_INICIO { get; set; }
 
-        [Required]
+        
         public int DOMINGO_HORA_FIM { get; set; }
 
         [Required]

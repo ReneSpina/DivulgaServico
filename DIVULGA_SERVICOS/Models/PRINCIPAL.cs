@@ -45,9 +45,9 @@ namespace DIVULGA_SERVICOS.Models
             //    .WithRequired(e => e.CAD_ATIVIDADE)
             //    .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<CAD_AVALIACAO>()
-                .Property(e => e.DS_DESCRICAO)
-                .IsUnicode(false);
+            //modelBuilder.Entity<CAD_AVALIACAO>()
+            //    .Property(e => e.DS_DESCRICAO)
+            //    .IsUnicode(false);
 
             modelBuilder.Entity<CAD_CATEGORIA>()
                 .Property(e => e.NM_NOME)
@@ -64,6 +64,11 @@ namespace DIVULGA_SERVICOS.Models
             modelBuilder.Entity<CAD_CATEGORIA>()
                 .HasRequired(c => c.CAD_PES_JURIDICA)
                 .WithMany(p => p.CAD_CATEGORIA)
+                .HasForeignKey(p => p.CD_PES_JURIDICA);
+
+            modelBuilder.Entity<CAD_HORA_ATENDIMENTO>()
+                .HasRequired(c => c.CAD_PES_JURIDICA)
+                .WithMany(p => p.CAD_HORA_ATENDIMENTO)
                 .HasForeignKey(p => p.CD_PES_JURIDICA);
 
             //modelBuilder.Entity<CAD_CATEGORIA>()
@@ -242,12 +247,6 @@ namespace DIVULGA_SERVICOS.Models
             //    .HasForeignKey(e => e.CD_PES_JURIDICO)
             //    .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<CAD_PES_USUARIO>()
-                .HasMany(e => e.CAD_AVALIACAO)
-                .WithRequired(e => e.CAD_PES_USUARIO)
-                .HasForeignKey(e => e.CD_PES_USUARIO)
-                .WillCascadeOnDelete(false);
-
             //modelBuilder.Entity<CAD_PES_USUARIO>()
             //    .HasMany(e => e.VEN_ORCAMENTO)
             //    .WithRequired(e => e.CAD_PES_USUARIO)
@@ -296,6 +295,19 @@ namespace DIVULGA_SERVICOS.Models
             modelBuilder.Entity<CAD_PES_JURIDICA>()
                 .HasOptional(e => e.CAD_FORMA_PAGAMENTO)
                 .WithRequired(e => e.CAD_PES_JURIDICA);
+
+            modelBuilder.Entity<CAD_PES_USUARIO>()
+                .HasMany(e => e.CAD_AVALIACAO)
+                .WithRequired(e => e.CAD_PES_USUARIO)
+                .HasForeignKey(e => e.CD_PES_USUARIO)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<CAD_PES_JURIDICA>()
+                .HasMany(e => e.CAD_AVALIACAO)
+                .WithRequired(e => e.CAD_PES_JURIDICA)
+                .HasForeignKey(e => e.CD_PES_JURIDICA)
+                .WillCascadeOnDelete(false);
+
 
             //modelBuilder.Entity<CAD_FORMA_PAGAMENTO>()
             //    .HasOptional(e => e.CAD_PES_JURIDICA)

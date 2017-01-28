@@ -18,8 +18,6 @@ namespace DIVULGA_SERVICOS.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string CD_PES_USUARIO { get; set; }
 
-        public int NT_MEDIA { get; set; }
-
         public int PRECO_QUALIDADE { get; set; }
 
         public int PONTUALIDADE { get; set; }
@@ -27,8 +25,6 @@ namespace DIVULGA_SERVICOS.Models
         public int ORGANIZACAO { get; set; }
 
         public int INDICACAO { get; set; }
-
-        public int SATISFACAO_ATENDIMENTO { get; set; }
 
         public int SATISFACAO_SERVICO { get; set; }
 

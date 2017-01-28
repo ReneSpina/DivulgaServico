@@ -105,6 +105,7 @@ $("#fechaModal").click(function () {
 
         $("#sexta_inicio").val($(".segundasextainicio").val());
         $("#sexta_fim").val($(".segundasextafim").val());
+        
         $('.close').trigger('click');
         $('.close').trigger('click');
     }
@@ -208,6 +209,8 @@ $("#todo_dia").change(function () {
 $("#segundasexta").change(function () {
     if ($("#segundasexta").is(":checked"))
     {
+        $("#todo_dia").val(false);
+        $("#todo_dia").prop("disabled", true);
         $(".segunda_check").hide();
         $(".terca_check").hide();
         $(".quarta_check").hide();
@@ -366,3 +369,24 @@ $("#DS_APELIDO_SITE").keyup(function () {
 
     $("#nomesite").html("www.mercadodeservicos.com.br/" + $(this).val());
 })
+
+$("#segunda_inicio").val(1);
+$("#segunda_fim").val(1);
+
+$("#terca_inicio").val(1);
+$("#terca_fim").val(23);
+
+$("#quarta_inicio").val(1);
+$("#quarta_fim").val(1);
+
+$("#quinta_inicio").val(1);
+$("#quinta_fim").val(1);
+
+$("#sexta_inicio").val(1);
+$("#sexta_fim").val(1);
+
+$("#sabado_inicio").val(1);
+$("#sabado_fim").val(1);
+
+$("#domingo_inicio").val(1);
+$("#domingo_fim").val(1);

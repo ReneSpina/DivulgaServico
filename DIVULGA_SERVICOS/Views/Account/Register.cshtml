@@ -36,15 +36,15 @@
         </div>
     </div>
 
-    <div class="form-group">
+    @*<div class="form-group">
         @Html.LabelFor(model => model.DS_LINK_SITE, new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.DS_LINK_SITE, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.DS_LINK_SITE, "", new { @class = "text-danger" })
         </div>
-    </div>
+    </div>*@
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.DS_APELIDO_SITE, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.DS_APELIDO_SITE, new { htmlAttributes = new { @class = "form-control" } })
@@ -52,7 +52,7 @@
             </div>
             <div id="nomesite" class="alert alert-info" role="alert">
             </div>
-        </div>
+        </div>*@
             <div class="form-group">
                 @Html.LabelFor(model => model.TF_TEL_FIXO, new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -152,7 +152,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" hidden>
                 @Html.LabelFor(model => model.CD_LONG, new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.CD_LONG, new { htmlAttributes = new { id = "longitude", @class = "form-control" } })
@@ -161,7 +161,7 @@
                 <div id="nomelong" class="alert alert-info" role="alert">
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" hidden>
                 @Html.LabelFor(model => model.CD_LAT, new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.CD_LAT, new { htmlAttributes = new { id = "latitude", @class = "form-control" } })
@@ -194,6 +194,14 @@
                 <div class="col-md-10">
                     @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
                     @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.ConfirmUserName, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.ConfirmUserName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.ConfirmUserName, "", new { @class = "text-danger" })
                 </div>
             </div>
 

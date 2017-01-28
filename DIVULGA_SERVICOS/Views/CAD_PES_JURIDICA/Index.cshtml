@@ -261,7 +261,11 @@
             </text>
                     foreach (var item in Model)
                     {
-                        var teste = "";
+                        var dinheiro = "";
+                        var cheque = "";
+                        var debito = "";
+                        var credito = "";
+                        var outros = "";
 
                             <text>
             var marker1 = new google.maps.Marker({
@@ -269,25 +273,97 @@
                 map: map,
                 icon: image1,
             });
-                        google.maps.event.addListener(marker1, 'click', (function(marker1, i) {
+            google.maps.event.addListener(marker1, 'click', (function(marker1, i) {
                 return function() {
                     var distancia = parseInt((@item.localizacao.Distance(DbGeography.FromText("POINT("+ ViewBag.latitude.ToString().Replace(",", ".") + " "+ ViewBag.longitude.ToString().Replace(",", ".") + ")")).ToString().Replace(",", ".")/0.62137)/1000, 10);
-                    infowindow.setContent("<button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModal"+'@item.CAD_PESSOA.DS_APELIDO_SITE'+"'>Acessar mais informações!</button>"+
-                        "<br><br>Distância: "+ distancia +" Km"+
-                        "<br>"+
-                        "Aceita as seguintes formas de pagamento:"+
-                        "<br>"+
-                        @if(item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.DINHEIRO == true)
-                        {
-                            teste = "Cheque";
-                        }
-                         "@teste.ToString()"+
-                        "<br>"+"@item.CAD_PESSOA.UserName"+
-                        "<br>"+"Aceita Cartões de crédito e débito"+
-                        "<br>"+"atende 7 dias da semana 24h por dia"+
-                        "<br>"+"Acionamento direto"+
+                    infowindow.setContent(
+                        "<h4 style='color: rgb(51, 122, 183); border-bottom: 1px solid rgb(229, 229, 229);'><strong>@item.CAD_PESSOA.NM_NOME_PESSOA</strong></h4>"+
+                        "<strong>Distância: </strong>"+ distancia +" Km"+
                         "<br><br>"+
-                        "<button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModalAvaliacao"+'@item.CAD_PESSOA.DS_APELIDO_SITE'+"'>Avaliar o Prestador!</button>"+"<br><br>");
+                        "<strong>Aceita:</strong>"+
+                        "<br>"+
+                            @if(item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.DINHEIRO == true)
+                            {
+                                dinheiro = "Dinheiro | ";
+                            }
+                            @if(item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.CHEQUE == true)
+                                    {
+                                cheque = "Cheque | ";
+                            }
+                            @if (item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.DEBITO == true)
+                                    {
+                                debito = "Débito | ";
+                            }
+                            @if (item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.CREDITO == true)
+                                    {
+                                credito = "Crédito | ";
+                            }
+                            @if (item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.OUTROS == true)
+                                    {
+                                outros = "Entre outras formas a conversar...";
+                            }
+                    "@dinheiro.ToString()"+
+                    "@cheque.ToString()"+
+                    "@debito.ToString()"+
+                    "@credito.ToString()"+
+                    "<br>"+
+                    "@outros.ToString()"+
+                    "<br><br>"+
+                    "<strong>Telefones para contato:</strong>"+
+                    "<br>"+
+                    @foreach(var telefone in item.CAD_PESSOA.CAD_PES_FONE)
+                            {
+                                <text>
+                                    "@telefone.CD_FIXO"+"  |  "+
+                                    "@telefone.CD_CELULAR"+
+                                    "<br>"+
+                                </text>
+                            }
+                    "<br>"+
+
+                    @if(item.CAD_PESSOA.CAD_PES_JURIDICA.TODO_DIA == true)
+                    {
+                        <text>
+                                "<div class='alert alert-success' role='alert'>"+
+                                "<strong>Está aberto agora :)</strong>"+
+                                "</div>"+
+                        </text>
+                    }
+                    else
+                    {
+                        DateTime agora = DateTime.Now;
+                        foreach (var hora in item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_HORA_ATENDIMENTO)
+                        {
+
+                            if(hora.DIA_SEMANA == (int)agora.DayOfWeek)
+                            {
+                                if(hora.HORA_INICIO <= agora.Hour && hora.HORA_FIM > agora.Hour)
+                                {
+                                    <text>
+                                        "<div class='alert alert-success' role='alert'>"+
+                                        "<strong>Está aberto agora :)</strong>"+
+                                        "</div>"+
+                                    </text>
+                                    break;
+                                }
+                                else
+                                {
+                                    <text>
+                                        "<div class='alert alert-danger' role='alert'>"+
+                                        "<strong>Está fechado agora :(</strong>"+
+                                        "</div>"+
+                                    </text>
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+
+                     "<br>"+
+                    "<button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModal"+'@item.CAD_PESSOA.Id'+"'>Acessar mais informações!</button>"+
+                    "  |  "+
+                    "<button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModalAvaliacao"+'@item.CAD_PESSOA.Id'+"'>Avaliar o Prestador!</button>");
                     infowindow.open(map, marker1);
                 }
             })(marker1))
@@ -316,7 +392,7 @@ else
 {
     foreach (var item in Model)
     {
-        var idmodal = "myModal" + @item.CAD_PESSOA.DS_APELIDO_SITE;
+        var idmodal = "myModal" + @item.CAD_PESSOA.Id;
         <div class="modal fade" id='@idmodal' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -324,11 +400,191 @@ else
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <h4 class="modal-title" id="myModalLabel">@item.CAD_PESSOA.NM_NOME_PESSOA</h4>
+                        <h4 class="modal-title" id="myModalLabel" style="border-bottom: 1px solid rgb(229, 229, 229);" >@item.CAD_PESSOA.NM_NOME_PESSOA</h4>
                     </div>
                     <div class="modal-body">
                         @item.CAD_PESSOA.CAD_PES_ENDERECO.Single().NM_LOGRADOURO
                         <br />
+                        <div class="row">
+                            <div class="col-sm-3" id="myrating">
+                                <h4>Rating breakdown</h4>
+                                <div class="pull-left">
+                                    <div class="pull-left" style="width:35px; line-height:1;">
+                                        <div style="height:9px; margin:5px 0;">5 <span class="glyphicon glyphicon-star"></span></div>
+                                    </div>
+                                    <div class="pull-left" style="width:180px;">
+                                        <div class="progress" style="height:9px; margin:8px 0;">
+                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: 10%">
+                                                <span class="sr-only">80% Complete (danger)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pull-right" style="margin-left:10px;">1</div>
+                                </div>
+                                <div class="pull-left">
+                                    <div class="pull-left" style="width:35px; line-height:1;">
+                                        <div style="height:9px; margin:5px 0;">4 <span class="glyphicon glyphicon-star"></span></div>
+                                    </div>
+                                    <div class="pull-left" style="width:180px;">
+                                        <div class="progress" style="height:9px; margin:8px 0;">
+                                            <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="4" aria-valuemin="0" aria-valuemax="5" style="width: 80%">
+                                                <span class="sr-only">80% Complete (danger)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pull-right" style="margin-left:10px;">1</div>
+                                </div>
+                                <div class="pull-left">
+                                    <div class="pull-left" style="width:35px; line-height:1;">
+                                        <div style="height:9px; margin:5px 0;">3 <span class="glyphicon glyphicon-star"></span></div>
+                                    </div>
+                                    <div class="pull-left" style="width:180px;">
+                                        <div class="progress" style="height:9px; margin:8px 0;">
+                                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax="5" style="width: 60%">
+                                                <span class="sr-only">80% Complete (danger)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pull-right" style="margin-left:10px;">0</div>
+                                </div>
+                                <div class="pull-left">
+                                    <div class="pull-left" style="width:35px; line-height:1;">
+                                        <div style="height:9px; margin:5px 0;">2 <span class="glyphicon glyphicon-star"></span></div>
+                                    </div>
+                                    <div class="pull-left" style="width:180px;">
+                                        <div class="progress" style="height:9px; margin:8px 0;">
+                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="5" style="width: 40%">
+                                                <span class="sr-only">80% Complete (danger)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pull-right" style="margin-left:10px;">0</div>
+                                </div>
+                                <div class="pull-left">
+                                    <div class="pull-left" style="width:35px; line-height:1;">
+                                        <div style="height:9px; margin:5px 0;">1 <span class="glyphicon glyphicon-star"></span></div>
+                                    </div>
+                                    <div class="pull-left" style="width:180px;">
+                                        <div class="progress" style="height:9px; margin:8px 0;">
+                                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="5" style="width: 20%">
+                                                <span class="sr-only">80% Complete (danger)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pull-right" style="margin-left:10px;">0</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-7">
+                                <hr />
+                                <div class="review-block">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            
+                                            <div class="review-block-name"><a href="#">nktailor</a></div>
+                                            <div class="review-block-date">January 29, 2016<br />1 day ago</div>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <div class="review-block-rate">
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                            </div>
+                                            <div class="review-block-title">this was nice in buy</div>
+                                            <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy. this was nice in buy this was nice in buy this was nice in buy this was nice in buy this was nice in buy</div>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="review-block-name"><a href="#">nktailor</a></div>
+                                            <div class="review-block-date">January 29, 2016<br />1 day ago</div>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <div class="review-block-rate">
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                            </div>
+                                            <div class="review-block-title">this was nice in buy</div>
+                                            <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy. this was nice in buy this was nice in buy this was nice in buy this was nice in buy this was nice in buy</div>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="review-block-name"><a href="#">nktailor</a></div>
+                                            <div class="review-block-date">January 29, 2016<br />1 day ago</div>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <div class="review-block-rate">
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                            </div>
+                                            <div class="review-block-title">this was nice in buy</div>
+                                            <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy. this was nice in buy this was nice in buy this was nice in buy this was nice in buy this was nice in buy</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+                        @*<div style="border-bottom: 1px solid rgb(229, 229, 229);">
+                            <div style="border-bottom: 1px solid rgb(229, 229, 229);">
+                                <h3>Avaliação:</h3>
+                            </div>
+
+
+
+
+                        </div>*@
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -337,7 +593,7 @@ else
                 </div>
             </div>
         </div>
-        var idavaliacao = "myModalAvaliacao" + @item.CAD_PESSOA.DS_APELIDO_SITE;
+        var idavaliacao = "myModalAvaliacao" + @item.CAD_PESSOA.Id;
         <div class="modal fade" id='@idavaliacao' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">

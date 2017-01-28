@@ -37,9 +37,7 @@ namespace DIVULGA_SERVICOS.Controllers
                     x => x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().DS_DESCRICAO.Contains(texto) ||
                     x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().DS_DESCRICAO.Contains(pesquisa) ||
                     x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().NM_NOME.Contains(texto) ||
-                    x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().NM_NOME.Contains(pesquisa) ||
-                    x.CAD_PESSOA.DS_APELIDO_SITE.Contains(texto) ||
-                    x.CAD_PESSOA.DS_APELIDO_SITE.Contains(pesquisa)).ToList();
+                    x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().NM_NOME.Contains(pesquisa)).ToList();
                 ////enderecos = db.CAD_PES_ENDERECO.Where(c => c.localizacao.Distance(localusuário) < 10).ToList<CAD_PES_ENDERECO>();
                 //foreach (var i in enderecos)
                 //{

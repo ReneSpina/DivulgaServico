@@ -10,7 +10,7 @@ namespace DIVULGA_SERVICOS.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
-        public string DS_APELIDO_SITE { get; set; }
+        //public string DS_APELIDO_SITE { get; set; }
         //public string TF_TEL_FIXO { get; set; }
         //public string TF_TEL_CEL { get; set; }
         public DateTime DT_DATA_CADASTRO { get; set; }

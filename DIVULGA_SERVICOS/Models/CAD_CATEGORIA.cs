@@ -28,7 +28,6 @@ namespace DIVULGA_SERVICOS.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string CD_PES_JURIDICA { get; set; }
 
-
         [Required]
         [StringLength(255)]
         public string NM_NOME { get; set; }

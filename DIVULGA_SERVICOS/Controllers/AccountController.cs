@@ -192,7 +192,7 @@ namespace DIVULGA_SERVICOS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterPrestadorViewModel model)
         {
-            string link_site;
+            //string link_site;
             //long indicacao;
             if (ModelState.IsValid)
             {
@@ -201,7 +201,6 @@ namespace DIVULGA_SERVICOS.Controllers
                 {
                     NM_NOME_PESSOA = model.NM_NOME_PESSOA,
                     UserName = model.UserName,
-                    DS_APELIDO_SITE = model.DS_APELIDO_SITE,
                     //TF_TEL_CEL = model.TF_TEL_CEL,
                     //TF_TEL_FIXO = model.TF_TEL_FIXO,
                     DT_DATA_CADASTRO = System.DateTime.Today,
@@ -217,21 +216,10 @@ namespace DIVULGA_SERVICOS.Controllers
                         //IdentityResult resultClaim = await UserManager
                         //  .AddClaimAsync(user.Id, new Claim("Nome", model.NM_NOME_PESSOA));
                         //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
-
-
-                        if (model.DS_LINK_SITE == "")
-                        {
-                            link_site = "vazio";
-                        }
-                        else
-                        {
-                            link_site = model.DS_LINK_SITE;
-                        }
+                        
                         CAD_PES_JURIDICA juridica = new CAD_PES_JURIDICA
                         {
                             CD_PESSOA = user.Id,
-                            DS_LINK_SITE = link_site,
                             CD_CNPJ = model.CD_CNPJ,
                             TODO_DIA = model.TODO_DIA,
                         };
@@ -278,7 +266,7 @@ namespace DIVULGA_SERVICOS.Controllers
 
                         CAD_HORA_ATENDIMENTO horaAtendimentoDomingo = new CAD_HORA_ATENDIMENTO
                         {
-                            CD_HORA_ATENDIMENTO = user.Id,
+                            CD_PES_JURIDICA = user.Id,
                             DIA_SEMANA = 0,
                             HORA_INICIO = model.DOMINGO_HORA_INICIO,
                             HORA_FIM = model.DOMINGO_HORA_FIM
@@ -289,7 +277,7 @@ namespace DIVULGA_SERVICOS.Controllers
 
                         CAD_HORA_ATENDIMENTO horaAtendimentoSegunda = new CAD_HORA_ATENDIMENTO
                         {
-                            CD_HORA_ATENDIMENTO = user.Id,
+                            CD_PES_JURIDICA = user.Id,
                             DIA_SEMANA = 1,
                             HORA_INICIO = model.SEGUNDA_HORA_INICIO,
                             HORA_FIM = model.SEGUNDA_HORA_FIM
@@ -300,7 +288,7 @@ namespace DIVULGA_SERVICOS.Controllers
 
                         CAD_HORA_ATENDIMENTO horaAtendimentoTerca = new CAD_HORA_ATENDIMENTO
                         {
-                            CD_HORA_ATENDIMENTO = user.Id,
+                            CD_PES_JURIDICA = user.Id,
                             DIA_SEMANA = 2,
                             HORA_INICIO = model.TERCA_HORA_INICIO,
                             HORA_FIM = model.TERCA_HORA_FIM
@@ -311,7 +299,7 @@ namespace DIVULGA_SERVICOS.Controllers
 
                         CAD_HORA_ATENDIMENTO horaAtendimentoQuarta = new CAD_HORA_ATENDIMENTO
                         {
-                            CD_HORA_ATENDIMENTO = user.Id,
+                            CD_PES_JURIDICA = user.Id,
                             DIA_SEMANA = 3,
                             HORA_INICIO = model.QUARTA_HORA_INICIO,
                             HORA_FIM = model.QUINTA_HORA_FIM
@@ -322,7 +310,7 @@ namespace DIVULGA_SERVICOS.Controllers
 
                         CAD_HORA_ATENDIMENTO horaAtendimentoQuinta = new CAD_HORA_ATENDIMENTO
                         {
-                            CD_HORA_ATENDIMENTO = user.Id,
+                            CD_PES_JURIDICA = user.Id,
                             DIA_SEMANA = 4,
                             HORA_INICIO = model.QUINTA_HORA_INICIO,
                             HORA_FIM = model.QUINTA_HORA_FIM
@@ -333,7 +321,7 @@ namespace DIVULGA_SERVICOS.Controllers
 
                         CAD_HORA_ATENDIMENTO horaAtendimentoSexta = new CAD_HORA_ATENDIMENTO
                         {
-                            CD_HORA_ATENDIMENTO = user.Id,
+                            CD_PES_JURIDICA = user.Id,
                             DIA_SEMANA = 5,
                             HORA_INICIO = model.SEXTA_HORA_INICIO,
                             HORA_FIM = model.SEXTA_HORA_FIM
@@ -344,7 +332,7 @@ namespace DIVULGA_SERVICOS.Controllers
 
                         CAD_HORA_ATENDIMENTO horaAtendimentoSabado = new CAD_HORA_ATENDIMENTO
                         {
-                            CD_HORA_ATENDIMENTO = user.Id,
+                            CD_PES_JURIDICA = user.Id,
                             DIA_SEMANA = 6,
                             HORA_INICIO = model.SABADO_HORA_INICIO,
                             HORA_FIM = model.SABADO_HORA_FIM
@@ -591,7 +579,6 @@ namespace DIVULGA_SERVICOS.Controllers
                 {
                     NM_NOME_PESSOA = info.ExternalIdentity.Name,
                     UserName = model.Email,
-                    DS_APELIDO_SITE = info.DefaultUserName,
                     DT_DATA_CADASTRO = System.DateTime.Today,
                     Email = model.Email
                 };

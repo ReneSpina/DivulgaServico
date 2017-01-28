@@ -25,11 +25,11 @@ namespace DIVULGA_SERVICOS.Models
         [StringLength(255)]
         public string NM_NOME_PESSOA { get; set; }
 
-        [Required(ErrorMessage = "INSIRA UM NOME PARA O SEU SITE! (EX.: MEUSITE)")]
-        [RegularExpression("^[a-zA-Z]{1,255}$", ErrorMessage = "INSIRA UM NOME VÁLIDO PARA O SEU SITE(SOMENTE LETRAS, SEM ESPAÇO)")]
-        //[Remote("Valida_NM_Site", "CADASTRO_PRESTADOR", ErrorMessage = "Esse nome já está cadastrado!")]
-        [StringLength(100)]
-        public string DS_APELIDO_SITE { get; set; }
+        //[Required(ErrorMessage = "INSIRA UM NOME PARA O SEU SITE! (EX.: MEUSITE)")]
+        //[RegularExpression("^[a-zA-Z]{1,255}$", ErrorMessage = "INSIRA UM NOME VÁLIDO PARA O SEU SITE(SOMENTE LETRAS, SEM ESPAÇO)")]
+        ////[Remote("Valida_NM_Site", "CADASTRO_PRESTADOR", ErrorMessage = "Esse nome já está cadastrado!")]
+        //[StringLength(100)]
+        //public string DS_APELIDO_SITE { get; set; }
 
         //[Required (ErrorMessage = "O EMAIL É OBRIGATÓRIO!")]
         //[StringLength(255)]

@@ -3,7 +3,7 @@ namespace DIVULGA_SERVICOS.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class principal3 : DbMigration
+    public partial class principal1 : DbMigration
     {
         public override void Up()
         {
@@ -13,21 +13,18 @@ namespace DIVULGA_SERVICOS.Migrations
                     {
                         CD_PES_JURIDICA = c.String(nullable: false, maxLength: 128),
                         CD_PES_USUARIO = c.String(nullable: false, maxLength: 128),
-                        NT_MEDIA = c.Int(nullable: false),
                         PRECO_QUALIDADE = c.Int(nullable: false),
                         PONTUALIDADE = c.Int(nullable: false),
                         ORGANIZACAO = c.Int(nullable: false),
                         INDICACAO = c.Int(nullable: false),
-                        SATISFACAO_ATENDIMENTO = c.Int(nullable: false),
                         SATISFACAO_SERVICO = c.Int(nullable: false),
                         DS_DESCRICAO = c.String(nullable: false, unicode: false, storeType: "text"),
-                        CAD_PES_JURIDICA_CD_PESSOA = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => new { t.CD_PES_JURIDICA, t.CD_PES_USUARIO })
-                .ForeignKey("dbo.CAD_PES_JURIDICA", t => t.CAD_PES_JURIDICA_CD_PESSOA)
+                .ForeignKey("dbo.CAD_PES_JURIDICA", t => t.CD_PES_JURIDICA)
                 .ForeignKey("dbo.CAD_PES_USUARIO", t => t.CD_PES_USUARIO)
-                .Index(t => t.CD_PES_USUARIO)
-                .Index(t => t.CAD_PES_JURIDICA_CD_PESSOA);
+                .Index(t => t.CD_PES_JURIDICA)
+                .Index(t => t.CD_PES_USUARIO);
             
             CreateTable(
                 "dbo.CAD_PES_JURIDICA",
@@ -35,7 +32,6 @@ namespace DIVULGA_SERVICOS.Migrations
                     {
                         CD_PESSOA = c.String(nullable: false, maxLength: 128),
                         CD_CNPJ = c.String(nullable: false, maxLength: 30),
-                        DS_LINK_SITE = c.String(maxLength: 500),
                         DS_SOBRE = c.String(unicode: false, storeType: "text"),
                         DS_QUEM_SOMOS = c.String(unicode: false, storeType: "text"),
                         TODO_DIA = c.Boolean(nullable: false),
@@ -76,15 +72,14 @@ namespace DIVULGA_SERVICOS.Migrations
                 "dbo.CAD_HORA_ATENDIMENTO",
                 c => new
                     {
-                        CD_HORA_ATENDIMENTO = c.String(nullable: false, maxLength: 128),
                         DIA_SEMANA = c.Int(nullable: false),
+                        CD_PES_JURIDICA = c.String(nullable: false, maxLength: 128),
                         HORA_INICIO = c.Int(nullable: false),
                         HORA_FIM = c.Int(nullable: false),
-                        CAD_PES_JURIDICA_CD_PESSOA = c.String(maxLength: 128),
                     })
-                .PrimaryKey(t => new { t.CD_HORA_ATENDIMENTO, t.DIA_SEMANA })
-                .ForeignKey("dbo.CAD_PES_JURIDICA", t => t.CAD_PES_JURIDICA_CD_PESSOA)
-                .Index(t => t.CAD_PES_JURIDICA_CD_PESSOA);
+                .PrimaryKey(t => new { t.DIA_SEMANA, t.CD_PES_JURIDICA })
+                .ForeignKey("dbo.CAD_PES_JURIDICA", t => t.CD_PES_JURIDICA, cascadeDelete: true)
+                .Index(t => t.CD_PES_JURIDICA);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -92,7 +87,6 @@ namespace DIVULGA_SERVICOS.Migrations
                     {
                         Id = c.String(nullable: false, maxLength: 128),
                         NM_NOME_PESSOA = c.String(nullable: false, maxLength: 255),
-                        DS_APELIDO_SITE = c.String(nullable: false, maxLength: 100),
                         DT_DATA_CADASTRO = c.DateTime(nullable: false, storeType: "date"),
                         Email = c.String(),
                         EmailConfirmed = c.Boolean(nullable: false),
@@ -213,10 +207,10 @@ namespace DIVULGA_SERVICOS.Migrations
             DropForeignKey("dbo.CAD_PES_JURIDICA", "CD_PESSOA", "dbo.AspNetUsers");
             DropForeignKey("dbo.CAD_PES_FONE", "CD_PESSOA", "dbo.AspNetUsers");
             DropForeignKey("dbo.CAD_PES_ENDERECO", "CD_PESSOA", "dbo.AspNetUsers");
-            DropForeignKey("dbo.CAD_HORA_ATENDIMENTO", "CAD_PES_JURIDICA_CD_PESSOA", "dbo.CAD_PES_JURIDICA");
+            DropForeignKey("dbo.CAD_HORA_ATENDIMENTO", "CD_PES_JURIDICA", "dbo.CAD_PES_JURIDICA");
             DropForeignKey("dbo.CAD_FORMA_PAGAMENTO", "CD_PESSOA", "dbo.CAD_PES_JURIDICA");
             DropForeignKey("dbo.CAD_CATEGORIA", "CD_PES_JURIDICA", "dbo.CAD_PES_JURIDICA");
-            DropForeignKey("dbo.CAD_AVALIACAO", "CAD_PES_JURIDICA_CD_PESSOA", "dbo.CAD_PES_JURIDICA");
+            DropForeignKey("dbo.CAD_AVALIACAO", "CD_PES_JURIDICA", "dbo.CAD_PES_JURIDICA");
             DropIndex("dbo.AspNetUserRoles", new[] { "IdentityRole_Id" });
             DropIndex("dbo.AspNetUserRoles", new[] { "CAD_PESSOA_Id" });
             DropIndex("dbo.AspNetUserLogins", new[] { "CAD_PESSOA_Id" });
@@ -224,12 +218,12 @@ namespace DIVULGA_SERVICOS.Migrations
             DropIndex("dbo.CAD_PES_USUARIO", new[] { "CD_PESSOA" });
             DropIndex("dbo.CAD_PES_FONE", new[] { "CD_PESSOA" });
             DropIndex("dbo.CAD_PES_ENDERECO", new[] { "CD_PESSOA" });
-            DropIndex("dbo.CAD_HORA_ATENDIMENTO", new[] { "CAD_PES_JURIDICA_CD_PESSOA" });
+            DropIndex("dbo.CAD_HORA_ATENDIMENTO", new[] { "CD_PES_JURIDICA" });
             DropIndex("dbo.CAD_FORMA_PAGAMENTO", new[] { "CD_PESSOA" });
             DropIndex("dbo.CAD_CATEGORIA", new[] { "CD_PES_JURIDICA" });
             DropIndex("dbo.CAD_PES_JURIDICA", new[] { "CD_PESSOA" });
-            DropIndex("dbo.CAD_AVALIACAO", new[] { "CAD_PES_JURIDICA_CD_PESSOA" });
             DropIndex("dbo.CAD_AVALIACAO", new[] { "CD_PES_USUARIO" });
+            DropIndex("dbo.CAD_AVALIACAO", new[] { "CD_PES_JURIDICA" });
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
