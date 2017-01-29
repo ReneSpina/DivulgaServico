@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<DIVULGA_SERVICOS.Models.CAD_PES_ENDERECO>
 @using System.Data.Entity.Spatial
 @using Microsoft.AspNet.Identity
+@using Microsoft.Owin.Security
 
 @{
     Layout = null;
@@ -363,7 +364,20 @@
                      "<br>"+
                     "<button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModal"+'@item.CAD_PESSOA.Id'+"'>Acessar mais informações!</button>"+
                     "  |  "+
-                    "<button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModalAvaliacao"+'@item.CAD_PESSOA.Id'+"'>Avaliar o Prestador!</button>");
+
+                    @if (Request.IsAuthenticated)
+                    {
+                        <text>
+                            "<button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModalAvaliacao"+'@item.CAD_PESSOA.Id'+"'>Avaliar o Prestador!</button>"+
+                        </text>
+                    }
+                    else
+                    {
+                        <text>
+                            "<button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModalLogin'>Login para Avaliar</button>"+
+                        </text>
+                    }
+                     "");
                     infowindow.open(map, marker1);
                 }
             })(marker1))
@@ -400,7 +414,7 @@ else
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <h4 class="modal-title" id="myModalLabel" style="border-bottom: 1px solid rgb(229, 229, 229);" >@item.CAD_PESSOA.NM_NOME_PESSOA</h4>
+                        <h4 class="modal-title" id="myModalLabel" style="border-bottom: 1px solid rgb(229, 229, 229);">@item.CAD_PESSOA.NM_NOME_PESSOA</h4>
                     </div>
                     <div class="modal-body">
                         @item.CAD_PESSOA.CAD_PES_ENDERECO.Single().NM_LOGRADOURO
@@ -482,7 +496,7 @@ else
                                 <div class="review-block">
                                     <div class="row">
                                         <div class="col-sm-3">
-                                            
+
                                             <div class="review-block-name"><a href="#">nktailor</a></div>
                                             <div class="review-block-date">January 29, 2016<br />1 day ago</div>
                                         </div>
@@ -576,14 +590,14 @@ else
 
 
                         @*<div style="border-bottom: 1px solid rgb(229, 229, 229);">
-                            <div style="border-bottom: 1px solid rgb(229, 229, 229);">
-                                <h3>Avaliação:</h3>
-                            </div>
+                                <div style="border-bottom: 1px solid rgb(229, 229, 229);">
+                                    <h3>Avaliação:</h3>
+                                </div>
 
 
 
 
-                        </div>*@
+                            </div>*@
 
                     </div>
                     <div class="modal-footer">
@@ -719,6 +733,35 @@ else
                                 </div>
 
                                 <div class="form-group">
+                                    <label class="control-label col-md-2" for="SATISFACAO_SERVICO">Você o Indicaria?</label>
+                                    <div class="col-md-10">
+                                        <div class="btn-group" data-toggle="buttons">
+                                            <label class="btn btn-xs btn-success btn-gradient active">
+                                                <input type="radio" name="SATISFACAO_SERVICO" id="SATISFACAO_SERVICO" value="1" autocomplete="off" chacked>
+                                                <span class="glyphicon glyphicon-ok"></span>
+                                            </label>
+                                            <label class="btn btn-xs btn-primary">
+                                                <input type="radio" name="SATISFACAO_SERVICO" id="SATISFACAO_SERVICO" value="2" autocomplete="off">
+                                                <span class="glyphicon glyphicon-ok"></span>
+                                            </label>
+                                            <label class="btn btn-xs btn-default">
+                                                <input type="radio" name="SATISFACAO_SERVICO" id="SATISFACAO_SERVICO" value="3" autocomplete="off">
+                                                <span class="glyphicon glyphicon-ok"></span>
+                                            </label>
+                                            <label class="btn btn-xs btn-warning">
+                                                <input type="radio" name="SATISFACAO_SERVICO" id="SATISFACAO_SERVICO" value="4" autocomplete="off">
+                                                <span class="glyphicon glyphicon-ok"></span>
+                                            </label>
+                                            <label class="btn btn-xs btn-danger">
+                                                <input type="radio" name="SATISFACAO_SERVICO" id="SATISFACAO_SERVICO" value="5" autocomplete="off">
+                                                <span class="glyphicon glyphicon-ok"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
                                     <label class="control-label col-md-2" for="DS_DESCRICAO">Descrição</label>
                                     <div class="col-md-10">
                                         <textarea class="form-control" name="DS_DESCRICAO" id="DS_DESCRICAO" rows="3" placeholder="Um breve texto para expor sua opinião..."></textarea>
@@ -727,18 +770,9 @@ else
 
                                 <input type="text" id="CD_PES_JURIDICA" class="hidden" name="CD_PES_JURIDICA" value="@item.CD_PESSOA">
                                 <input type="text" id="CD_PES_USUARIO" class="hidden" name="CD_PES_USUARIO" value="@User.Identity.GetUserId()">
-                                @if (Request.IsAuthenticated)
-                                {
-                                    <div class="col-md-offset-2 col-md-10">
-                                        <input type="submit" value="Avaliar" class="btn btn-default" />
-                                    </div>
-                                }
-                                else
-                                {
-                                    //Html.RenderPartial("_LoginPartial");
-                                    <a id="loginparaavaliar" href="~/Account/Login">Faça login para avaliar</a>
-
-                                }
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Avaliar" class="btn btn-default" />
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -748,5 +782,55 @@ else
                 </div>
             </div>
         </div>
-    }
-}
+
+
+        <div class="modal fade" id="myModalLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Faça Login para Avaliar</h4>
+                    </div>
+                    <div class="modal-body">
+                        @{
+                            var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
+                            if (loginProviders.Count() == 0)
+                            {
+                                <div>
+                                    <p>
+                                        There are no external authentication services configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                                        for details on setting up this ASP.NET application to support logging in via external services.
+                                    </p>
+                                </div>
+                            }
+                            else {
+                                using (Html.BeginForm("ExternalLogin", "Account"))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <div id="socialLoginList">
+                                        <p>
+                                            @foreach (AuthenticationDescription p in loginProviders)
+                                            {
+                                                <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">@p.AuthenticationType</button>
+                                            }
+                                        </p>
+                                    </div>
+                                }
+                            }
+                        }
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+                                }
+                            }

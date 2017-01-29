@@ -222,6 +222,7 @@ $("#segundasexta").change(function () {
     }
     else
     {
+        $("#todo_dia").prop("disabled", false);
         $(".segundasextainicio").prop("disabled", true);
         $(".segundasextafim").prop("disabled", true);
         $("#segundasexta").prop('checked', false);
@@ -252,12 +253,16 @@ $("#segunda").change(function () {
     if($("#segunda").is(":checked")) {
         $("#segunda_inicio").prop("disabled", false);
         $("#segunda_fim").prop("disabled", false);
+        $("#segunda_inicio").show();
+        $("#segunda_fim").show();
     }
     else {
         $("#segunda_inicio").prop("disabled", true);
         $("#segunda_fim").prop("disabled", true);
-        $("#segunda_inicio").val("");
-        $("#segunda_fim").val("");
+        $("#segunda_inicio").hide();
+        $("#segunda_fim").hide();
+        $("#segunda_inicio").val(1);
+        $("#segunda_fim").val(1);
     }
 });
 
@@ -266,12 +271,16 @@ $("#terca").change(function () {
     if ($("#terca").is(":checked")) {
         $("#terca_inicio").prop("disabled", false);
         $("#terca_fim").prop("disabled", false);
+        $("#terca_inicio").show();
+        $("#terca_fim").show();
     }
     else {
         $("#terca_inicio").prop("disabled", true);
         $("#terca_fim").prop("disabled", true);
-        $("#terca_inicio").val("");
-        $("#terca_fim").val("");
+        $("#terca_inicio").hide();
+        $("#terca_fim").hide();
+        $("#terca_inicio").val(1);
+        $("#terca_fim").val(1);
     }
 });
 
@@ -279,12 +288,16 @@ $("#quarta").change(function () {
     if ($("#quarta").is(":checked")) {
         $("#quarta_inicio").prop("disabled", false);
         $("#quarta_fim").prop("disabled", false);
+        $("#quarta_inicio").show();
+        $("#quarta_fim").show();
     }
     else {
         $("#quarta_inicio").prop("disabled", true);
         $("#quarta_fim").prop("disabled", true);
-        $("#quarta_inicio").val("");
-        $("#quarta_fim").val("");
+        $("#quarta_inicio").hide();
+        $("#quarta_fim").hide();
+        $("#quarta_inicio").val(1);
+        $("#quarta_fim").val(1);
     }
 });
 
@@ -293,12 +306,16 @@ $("#quinta").change(function () {
     if ($("#quinta").is(":checked")) {
         $("#quinta_inicio").prop("disabled", false);
         $("#quinta_fim").prop("disabled", false);
+        $("#quinta_inicio").show();
+        $("#quinta_fim").show();
     }
     else {
         $("#quinta_inicio").prop("disabled", true);
         $("#quinta_fim").prop("disabled", true);
-        $("#quinta_inicio").val("");
-        $("#quinta_fim").val("");
+        $("#quinta_inicio").hide();
+        $("#quinta_fim").hide();
+        $("#quinta_inicio").val(1);
+        $("#quinta_fim").val(1);
     }
 });
 
@@ -306,12 +323,16 @@ $("#sexta").change(function () {
     if ($("#sexta").is(":checked")) {
         $("#sexta_inicio").prop("disabled", false);
         $("#sexta_fim").prop("disabled", false);
+        $("#sexta_inicio").show();
+        $("#sexta_fim").show();
     }
     else {
         $("#sexta_inicio").prop("disabled", true);
         $("#sexta_fim").prop("disabled", true);
-        $("#sexta_inicio").val("");
-        $("#sexta_fim").val("");
+        $("#sexta_inicio").hide();
+        $("#sexta_fim").hide();
+        $("#sexta_inicio").val(1);
+        $("#sexta_fim").val(1);
     }
 });
 
@@ -319,12 +340,16 @@ $("#sabado").change(function () {
     if ($("#sabado").is(":checked")) {
         $("#sabado_inicio").prop("disabled", false);
         $("#sabado_fim").prop("disabled", false);
+        $("#sabado_inicio").show();
+        $("#sabado_fim").show();
     }
     else {
         $("#sabado_inicio").prop("disabled", true);
         $("#sabado_fim").prop("disabled", true);
-        $("#sabado_inicio").val("");
-        $("#sabado_fim").val("");
+        $("#sabado_inicio").hide();
+        $("#sabado_fim").hide();
+        $("#sabado_inicio").val(1);
+        $("#sabado_fim").val(1);
     }
 });
 
@@ -332,12 +357,16 @@ $("#domingo").change(function () {
     if ($("#domingo").is(":checked")) {
         $("#domingo_inicio").prop("disabled", false);
         $("#domingo_fim").prop("disabled", false);
+        $("#domingo_inicio").show();
+        $("#domingo_fim").show();
     }
     else {
         $("#domingo_inicio").prop("disabled", true);
         $("#domingo_fim").prop("disabled", true);
-        $("#domingo_inicio").val("");
-        $("#domingo_fim").val("");
+        $("#domingo_inicio").hide();
+        $("#domingo_fim").hide();
+        $("#domingo_inicio").val(1);
+        $("#domingo_fim").val(1);
     }
 });
 
@@ -372,21 +401,36 @@ $("#DS_APELIDO_SITE").keyup(function () {
 
 $("#segunda_inicio").val(1);
 $("#segunda_fim").val(1);
+$("#segunda_inicio").hide();
+$("#segunda_fim").hide();
 
 $("#terca_inicio").val(1);
-$("#terca_fim").val(23);
+$("#terca_fim").val(1);
+$("#terca_inicio").hide();
+$("#terca_fim").hide();
 
 $("#quarta_inicio").val(1);
 $("#quarta_fim").val(1);
+$("#quarta_inicio").hide();
+$("#quarta_fim").hide();
 
 $("#quinta_inicio").val(1);
 $("#quinta_fim").val(1);
+$("#quinta_inicio").hide();
+$("#quinta_fim").hide();
+
 
 $("#sexta_inicio").val(1);
 $("#sexta_fim").val(1);
+$("#sexta_inicio").hide();
+$("#sexta_fim").hide();
 
 $("#sabado_inicio").val(1);
 $("#sabado_fim").val(1);
+$("#sabado_inicio").hide();
+$("#sabado_fim").hide();
 
 $("#domingo_inicio").val(1);
 $("#domingo_fim").val(1);
+$("#domingo_inicio").hide();
+$("#domingo_fim").hide();

@@ -485,8 +485,9 @@ namespace DIVULGA_SERVICOS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
+            string url = Request.UrlReferrer.PathAndQuery;
             // Request a redirect to the external login provider
-            return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
+            return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = url }));
         }
 
         //
@@ -623,8 +624,9 @@ namespace DIVULGA_SERVICOS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+            string url = Request.UrlReferrer.PathAndQuery;
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToLocal(url);
         }
 
         //

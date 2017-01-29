@@ -193,46 +193,46 @@ namespace DIVULGA_SERVICOS.Models
         [StringLength(100)]
         public string CD_LONG { get; set; }
 
-        
+        [Required]
         public int SEGUNDA_HORA_INICIO { get; set; }
 
-        
+        [Required]
         public int SEGUNDA_HORA_FIM { get; set; }
 
-       
+        [Required]
         public int TERCA_HORA_INICIO { get; set; }
 
-        
+        [Required]
         public int TERCA_HORA_FIM { get; set; }
 
-        
+        [Required]
         public int QUARTA_HORA_INICIO { get; set; }
 
-        
+        [Required]
         public int QUARTA_HORA_FIM { get; set; }
 
-        
+        [Required]
         public int QUINTA_HORA_INICIO { get; set; }
 
-        
+        [Required]
         public int QUINTA_HORA_FIM { get; set; }
 
-        
+        [Required]
         public int SEXTA_HORA_INICIO { get; set; }
 
-        
+        [Required]
         public int SEXTA_HORA_FIM { get; set; }
 
-        
+        [Required]
         public int SABADO_HORA_INICIO { get; set; }
 
-        
+        [Required]
         public int SABADO_HORA_FIM { get; set; }
 
-        
+        [Required]
         public int DOMINGO_HORA_INICIO { get; set; }
 
-        
+        [Required]
         public int DOMINGO_HORA_FIM { get; set; }
 
         [Required]

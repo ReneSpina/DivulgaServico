@@ -456,6 +456,7 @@
     <Content Include="Views\Avaliacao\Edit.cshtml" />
     <Content Include="Views\Avaliacao\Index.cshtml" />
     <Content Include="Views\CAD_PES_JURIDICA\Index.cshtml" />
+    <Content Include="Views\Shared\_LoginModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
