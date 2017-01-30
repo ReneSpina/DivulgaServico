@@ -9,6 +9,7 @@ using Microsoft.Owin.Security;
 using DIVULGA_SERVICOS.Models;
 using System.Net;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 
 namespace DIVULGA_SERVICOS.Controllers
 {
@@ -666,6 +667,57 @@ namespace DIVULGA_SERVICOS.Controllers
 
         //Fim dos métodos para o gerenciamento dos serviços
 
+
+        //Inicio dos métodos para gerenciamento do Perfil
+        [Authorize]
+        public ActionResult EditPerfilJuridico()
+        {
+            if (User.Identity.GetUserId() == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            CAD_PESSOA cAD_PES_JURIDICA = db.CAD_PESSOA.Find(User.Identity.GetUserId());
+            if (cAD_PES_JURIDICA == null)
+            {
+                return HttpNotFound();
+            }
+            //CAD_PES_JURIDICA cAD_CATEGORIA = db.CAD_CATEGORIA.Where(x => x.SQ_CATEGORIA == id).FirstOrDefault();
+            return View("EditarPerfil" ,cAD_PES_JURIDICA);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPerfilJuridico(EditPerfilJuridico cAD_PES_JURIDICA)
+        {
+            if (ModelState.IsValid)
+            {
+                CAD_PES_JURIDICA PesJuridica = new CAD_PES_JURIDICA
+                {
+                   CD_PESSOA = User.Identity.GetUserId(),
+                   DS_QUEM_SOMOS = cAD_PES_JURIDICA.DS_QUEM_SOMOS,
+                   DS_SOBRE = cAD_PES_JURIDICA.DS_SOBRE,
+                   CD_CNPJ = cAD_PES_JURIDICA.CD_CNPJ
+                };
+                db.CAD_PES_JURIDICA.AddOrUpdate(PesJuridica);
+
+                CAD_PESSOA user = new CAD_PESSOA
+                {
+                    Id = User.Identity.GetUserId(),
+                    Email = cAD_PES_JURIDICA.Email,
+                    UserName = cAD_PES_JURIDICA.Email,
+                    NM_NOME_PESSOA = cAD_PES_JURIDICA.NM_NOME_PESSOA
+                };
+                db.CAD_PESSOA.AddOrUpdate(user);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+
+                //db.Entry(cAD_PES_JURIDICA).State = EntityState.Modified;
+
+            }
+            return View("EditarPerfil", cAD_PES_JURIDICA);
+        }
+
+        //Fim dos métodos para gerenciamento do Perfil
 
         #region Helpers
         // Used for XSRF protection when adding external logins

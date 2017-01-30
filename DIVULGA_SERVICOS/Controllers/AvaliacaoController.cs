@@ -48,7 +48,7 @@ namespace DIVULGA_SERVICOS.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create([Bind(Include = "CD_PES_JURIDICA,CD_PES_USUARIO,PRECO_QUALIDADE,PONTUALIDADE,ORGANIZACAO,INDICACAO,SATISFACAO_SERVICO,DS_DESCRICAO")] CAD_AVALIACAO cAD_AVALIACAO, string returnUrl)
+        public ActionResult Create([Bind(Include = "CD_PES_JURIDICA,CD_PES_USUARIO,PRECO_QUALIDADE,PONTUALIDADE,ORGANIZACAO,INDICACAO,SATISFACAO_SERVICO,DS_DESCRICAO, NM_ASSUNTO")] CAD_AVALIACAO cAD_AVALIACAO, string returnUrl)
         {
             string url = Request.UrlReferrer.PathAndQuery;
             if (ModelState.IsValid)
@@ -56,6 +56,7 @@ namespace DIVULGA_SERVICOS.Controllers
                 //CAD_AVALIACAO avaliacaoExiste = db.CAD_AVALIACAO.Where(x => x.CD_PES_JURIDICA == cAD_AVALIACAO.CD_PES_JURIDICA && x.CD_PES_USUARIO == cAD_AVALIACAO.CD_PES_USUARIO).First();
                 //if(avaliacaoExiste == null)
                 //{
+                cAD_AVALIACAO.DIA_AVALIACAO = System.DateTime.Today;
                     db.CAD_AVALIACAO.AddOrUpdate(cAD_AVALIACAO);
                     db.SaveChanges();
                     return Redirect(url);

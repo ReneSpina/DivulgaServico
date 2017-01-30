@@ -223,9 +223,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201701272303496_principal1.cs" />
-    <Compile Include="Migrations\201701272303496_principal1.Designer.cs">
-      <DependentUpon>201701272303496_principal1.cs</DependentUpon>
+    <Compile Include="Migrations\201701291536178_principal.cs" />
+    <Compile Include="Migrations\201701291536178_principal.Designer.cs">
+      <DependentUpon>201701291536178_principal.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -254,6 +254,9 @@
     <Content Include="Content\cropper.min.css" />
     <Content Include="Content\Empty.png" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\Imagens\icone1.png" />
+    <Content Include="Content\Imagens\logo2.png" />
+    <Content Include="Content\Imagens\logosemslogan2.png" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\Site.css" />
     <Content Include="favicon.ico" />
@@ -424,14 +427,6 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\Info.cshtml" />
-    <Content Include="Views\Manage\Gerenciamento_Clientes.cshtml" />
-    <Content Include="Views\Manage\Criar.cshtml" />
-    <Content Include="Views\Manage\Detalhes.cshtml" />
-    <Content Include="Views\Manage\Editar.cshtml" />
-    <Content Include="Views\Manage\Gerenciamento_Dicas.cshtml" />
-    <Content Include="Views\Manage\CriarDicas.cshtml" />
-    <Content Include="Views\Manage\DetalhesDica.cshtml" />
-    <Content Include="Views\Manage\EditarDicas.cshtml" />
     <Content Include="Views\CAD_CATEGORIA\Create.cshtml" />
     <Content Include="Views\CAD_CATEGORIA\Delete.cshtml" />
     <Content Include="Views\CAD_CATEGORIA\Details.cshtml" />
@@ -457,6 +452,8 @@
     <Content Include="Views\Avaliacao\Index.cshtml" />
     <Content Include="Views\CAD_PES_JURIDICA\Index.cshtml" />
     <Content Include="Views\Shared\_LoginModal.cshtml" />
+    <Content Include="Views\Manage\EditarPerfil.cshtml" />
+    <Content Include="Views\Shared\_LayoutSecundario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -469,8 +466,8 @@
     <Content Include="Scripts\jquery-3.1.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701272303496_principal1.resx">
-      <DependentUpon>201701272303496_principal1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201701291536178_principal.resx">
+      <DependentUpon>201701291536178_principal.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

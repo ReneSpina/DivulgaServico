@@ -3,7 +3,7 @@ namespace DIVULGA_SERVICOS.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class principal1 : DbMigration
+    public partial class principal : DbMigration
     {
         public override void Up()
         {
@@ -19,6 +19,8 @@ namespace DIVULGA_SERVICOS.Migrations
                         INDICACAO = c.Int(nullable: false),
                         SATISFACAO_SERVICO = c.Int(nullable: false),
                         DS_DESCRICAO = c.String(nullable: false, unicode: false, storeType: "text"),
+                        NM_ASSUNTO = c.String(nullable: false, unicode: false, storeType: "text"),
+                        DIA_AVALIACAO = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => new { t.CD_PES_JURIDICA, t.CD_PES_USUARIO })
                 .ForeignKey("dbo.CAD_PES_JURIDICA", t => t.CD_PES_JURIDICA)

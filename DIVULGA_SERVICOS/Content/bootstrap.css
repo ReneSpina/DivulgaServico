@@ -14,6 +14,31 @@ body {
     margin: 0;
 }
 
+/*Menu principal*/
+.navbar-inverse #menuPrincipal > li > a,
+.navbar-right #menuPrincipalDireita > li > a
+{
+    color: rgb(56, 133, 186);
+    font-weight: bolder;
+}
+
+.navbar-inverse #menuPrincipal > li > a:focus,
+.navbar-right #menuPrincipalDireita > li > a:focus,
+.navbar-right #menuPrincipalDireita > li > a:hover,
+.navbar-inverse #menuPrincipal > li > a:hover {
+    font-weight: bold;
+    color: white;
+    background-color: transparent;
+}
+
+
+
+#navbarPrincipal
+{
+    background-color: rgb(200, 200, 200);
+    border-color: rgb(200, 200, 200);
+}
+/*Menu principal*/
 
 /*Início rating*/
 
@@ -84,19 +109,20 @@ body {
     z-index: 4;
     top: 0;
     left: 0;
-    background-color: #3885ba;
+    background-color: rgb(51, 122, 183);
     overflow-x: hidden;
-    transition: 0.3s;
+    transition: 0.4s;
     padding-top: 60px;
     color: #fff;
+    box-shadow: 3px 10px 30px rgba(0, 0, 0, 1);
 }
 
     .sidenav a {
         padding: 8px 8px 8px 32px;
         text-decoration: none;
-        font-size: 25px;
-        color: #fff;
-        transition: 0.3s;
+        font-size: 16px;
+        color: rgb(255, 255, 255);
+        transition: 0.4s;
     }
 
         .sidenav a:hover, .offcanvas a:focus {
@@ -125,7 +151,7 @@ body {
     }
 
         .sidenav a {
-            font-size: 18px;
+            font-size: 16px;
         }
 }
 
@@ -231,8 +257,33 @@ width: 94%;
     z-index: 1;
     margin-top: 10px;
 }*/
+
+
+#adv-search
+{
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    margin-top: 0px;
+}
+
+ #pesquisaM
+ {
+     width: 67%;
+ }
+
+
 #lupa {
     opacity: 1;
+}
+
+#avaliacaoStar {
+    opacity: 1;
+}
+
+.comentarioAvaliacao
+{
+    margin-left:15px;
 }
 
 #lupaAvancada
@@ -241,10 +292,10 @@ width: 94%;
     border-radius: 4px;
 }
 
-#menudropdown{
+/*#menudropdown{
     right: 188px;
     border-radius: 0px;
-}
+}*/
 
 
 #boxhamburguermap {
@@ -257,10 +308,13 @@ width: 94%;
     background-color: rgb(51, 122, 183);
 }
 
-
 .dropdown.dropdown-lg .dropdown-menu {
     margin-top: -1px;
     padding: 6px 20px;
+    right: 100%;
+    border-radius: 0px 0px 4px 4px;
+    text-align: center;
+    width: 214px;
 }
 
 .input-group-btn .btn-group {
@@ -306,7 +360,9 @@ width: 94%;
     }
 
         .dropdown.dropdown-lg .dropdown-menu {
-            min-width: 279px;
+            min-width: 149%;
+            right: 188px;
+            border-radius: 0px;
         }
 }
 
@@ -1911,7 +1967,7 @@ h2,
 .h2,
 h3,
 .h3 {
-    margin-top: 20px;
+    margin-top: 55px;
     margin-bottom: 10px;
 }
 

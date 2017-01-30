@@ -291,4 +291,29 @@ namespace DIVULGA_SERVICOS.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
+
+    public class EditPerfilJuridico
+    {
+        [Required]
+        [Display(Name = "EMAIL")]
+        public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "NOME")]
+        public string NM_NOME_PESSOA { get; set; }
+
+        [Required(ErrorMessage = "O CPF/CNPJ É OBRIGATÓRIO!")]
+        [RegularExpression("^(\\d{14})|(\\d{11})$", ErrorMessage = "INSIRA UM CPF OU UM CNPJ VÁLIDO (DIGITE SOMENTE NÚMEROS)!")]
+        [StringLength(30)]
+        [Display(Name = "CPF OU CNPJ")]
+        public string CD_CNPJ { get; set; }
+
+        [Column(TypeName = "text")]
+        [DataType(DataType.MultilineText)]
+        public string DS_SOBRE { get; set; }
+
+        [Column(TypeName = "text")]
+        [DataType(DataType.MultilineText)]
+        public string DS_QUEM_SOMOS { get; set; }
+    }
 }

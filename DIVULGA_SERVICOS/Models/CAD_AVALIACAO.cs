@@ -32,6 +32,12 @@ namespace DIVULGA_SERVICOS.Models
         [Required]
         public string DS_DESCRICAO { get; set; }
 
+        [Column(TypeName = "text")]
+        [Required]
+        public string NM_ASSUNTO { get; set; }
+
+        public DateTime DIA_AVALIACAO { get; set; }
+
         public virtual CAD_PES_JURIDICA CAD_PES_JURIDICA { get; set; }
 
         public virtual CAD_PES_USUARIO CAD_PES_USUARIO { get; set; }
