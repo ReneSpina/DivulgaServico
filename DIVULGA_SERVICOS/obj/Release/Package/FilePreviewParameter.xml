@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="mercadodeservicos" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Rene\ Novo\\Desenvolvimento\\DIVULGA_SERVICOS\\DIVULGA_SERVICOS\\obj\\Release\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\Rene\ Novo\\Desenvolvimento\\DIVULGA_SERVICOS\\DIVULGA_SERVICOS\\obj\\Release\\Package\\PackageTmp$" />
+  </parameter>
+  <parameter name="connectionstring-Web.config Connection String" description="" value="Data Source=tcp:basemercadodeservicos.database.windows.net,1433;Initial Catalog=servicos;User Id=renespina@basemercadodeservicos.database.windows.net;Password=Rflsd@745" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\Rene\ Novo\\Desenvolvimento\\DIVULGA_SERVICOS\\DIVULGA_SERVICOS\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='connectionstring']/@connectionString" />
+  </parameter>
+  <parameter name="Models-Web.config Connection String" description="" value="data source=tcp:basemercadodeservicos.database.windows.net,1433;initial catalog=servicos;user id=renespina@basemercadodeservicos.database.windows.net;password=Rflsd@745;MultipleActiveResultSets=True" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\Rene\ Novo\\Desenvolvimento\\DIVULGA_SERVICOS\\DIVULGA_SERVICOS\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='Models']/@connectionString" />
+  </parameter>
+</parameters>

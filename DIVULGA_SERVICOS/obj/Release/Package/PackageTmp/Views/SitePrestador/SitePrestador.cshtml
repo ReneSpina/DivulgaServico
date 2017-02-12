@@ -1,0 +1,145 @@
+﻿@model DIVULGA_SERVICOS.Models.CAD_PESSOA
+@using Microsoft.AspNet.Identity
+
+
+@{
+    ViewBag.Title = "Site Prestador";
+    var servicos = ViewData["DadosServicos"] as IEnumerable<DIVULGA_SERVICOS.Models.CAD_CATEGORIA>;
+    Layout = null;
+}
+
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+
+
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">@Html.DisplayFor(model => model.NM_NOME_PESSOA)</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active">@Html.ActionLink("Serviços", "Servico", Html.DisplayFor(model => model.DS_APELIDO_SITE).ToString(), routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                <li>@Html.ActionLink("Clientes", "Cliente", Html.DisplayFor(model => model.DS_APELIDO_SITE).ToString(), routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">One more separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="navbar-form navbar-left">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+                @if (Request.IsAuthenticated)
+                {
+
+                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                @Html.ActionLink("Olá " + @Html.DisplayFor(model => model.NM_NOME_PESSOA) + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                            </li>
+                            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                        </ul>
+                    }
+                }
+                else
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>@Html.ActionLink("Cadastrar", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                        <li>@Html.ActionLink("Pesquisar outros serviços", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                    </ul>
+                }
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<h4>Prestador de Serviço - @Html.DisplayFor(model => model.NM_NOME_PESSOA)</h4>
+<br />
+<br />
+<div>
+    
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NM_NOME_PESSOA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NM_NOME_PESSOA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CAD_PES_JURIDICA.CD_CODIGO_INDICACAO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CAD_PES_JURIDICA.CD_CODIGO_INDICACAO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CAD_PES_JURIDICA.CD_CNPJ)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CAD_PES_JURIDICA.CD_CNPJ)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CAD_PES_JURIDICA.DS_LINK_SITE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CAD_PES_JURIDICA.DS_LINK_SITE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CAD_PES_JURIDICA.DS_SOBRE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CAD_PES_JURIDICA.DS_SOBRE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CAD_PES_JURIDICA.DS_QUEM_SOMOS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CAD_PES_JURIDICA.DS_QUEM_SOMOS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CAD_PES_JURIDICA.ID_PLANO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CAD_PES_JURIDICA.ID_PLANO)
+        </dd>
+
+    </dl>
+</div>

@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <ApplicationInsightsResourceId>/subscriptions/b2f58176-6906-4180-b3f5-f3e35f67d3a4/resourcegroups/mercadodeservicos/providers/microsoft.insights/components/DIVULGA_SERVICOS</ApplicationInsightsResourceId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,6 +35,27 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PublishDatabases>true</PublishDatabases>
+    <PublishDatabaseSettings>
+      <Objects>
+        <ObjectGroup Name="connectionstring-Deployment" Order="1">
+          <Destination Path="" />
+          <Object Type="DbFullSql">
+            <PreSource Path="data source=RENESPINA-PC\SQLEXPRESS%3binitial catalog=servicos%3bintegrated security=True%3bmultipleactiveresultsets=True%3bapplication name=EntityFramework" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Debug\AutoScripts\connectionstring-Deployment_SchemaOnly.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+        <ObjectGroup Name="Models-Deployment" Order="2">
+          <Destination Path="" />
+          <Object Type="DbFullSql">
+            <PreSource Path="Data Source=%28localdb%29\MSSQLLocalDB%3bAttachDbFilename=|DataDirectory|Models-20160926075150.mdf%3bInitial Catalog=Models-20160926075150%3bIntegrated Security=True" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Debug\AutoScripts\Models-Deployment_SchemaOnly.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+      </Objects>
+    </PublishDatabaseSettings>
+    <FilesToIncludeForPublish>AllFilesInTheProject</FilesToIncludeForPublish>
+    <ExcludeGeneratedDebugSymbol>false</ExcludeGeneratedDebugSymbol>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -242,6 +264,11 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PRINCIPAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -264,6 +291,7 @@
     <Content Include="Global.asax" />
     <Content Include="Imagens\Map-Marker.ico" />
     <Content Include="Imagens\place-128.png" />
+    <Content Include="Imagens\Pointer-You.png" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -357,8 +385,31 @@
     <Content Include="Content\bootstrap\bootstrap.css" />
     <Content Include="Content\bootstrap\badges.less" />
     <Content Include="Content\bootstrap\alerts.less" />
+    <Content Include="app.config" />
     <None Include="Content\_bootstrap-datetimepicker.less" />
     <None Include="Content\bootstrap-datetimepicker-build.less" />
+    <None Include="Properties\PublishProfiles\DeployTeste.pubxml" />
+    <None Include="Properties\PublishProfiles\mercadodeservico - FTP %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\mercadodeservico - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\mercadodeservico - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\mercadodeservico - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\mercadodeservicos - FTP %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\mercadodeservicos - FTP %283%29.pubxml" />
+    <None Include="Properties\PublishProfiles\mercadodeservicos - FTP %284%29.pubxml" />
+    <None Include="Properties\PublishProfiles\mercadodeservicos - FTP %285%29.pubxml" />
+    <None Include="Properties\PublishProfiles\mercadodeservicos - FTP %286%29.pubxml" />
+    <None Include="Properties\PublishProfiles\mercadodeservicos - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\mercadodeservicos - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\mercadodeservicos - Web Deploy %283%29.pubxml" />
+    <None Include="Properties\PublishProfiles\mercadodeservicos - Web Deploy %284%29.pubxml" />
+    <None Include="Properties\PublishProfiles\mercadodeservicos - Web Deploy %285%29.pubxml" />
+    <None Include="Properties\PublishProfiles\mercadodeservicos - Web Deploy %286%29.pubxml" />
+    <None Include="Properties\PublishProfiles\mercadodeservicos - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\uolhost.pubxml" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
@@ -454,6 +505,7 @@
     <Content Include="Views\Shared\_LoginModal.cshtml" />
     <Content Include="Views\Manage\EditarPerfil.cshtml" />
     <Content Include="Views\Shared\_LayoutSecundario.cshtml" />
+    <Content Include="Service References\Application Insights\ConnectedService.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -470,9 +522,18 @@
       <DependentUpon>201701291536178_principal.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
@@ -484,16 +545,10 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>54597</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44300/</IISUrl>
-          <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
-          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
+          <servers defaultServer="SelfHostServer">
+            <server name="SelfHostServer" exePath="" cmdArgs="" url="http://localhost:54597/" workingDir="" />
+          </servers>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>
