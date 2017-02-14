@@ -1,0 +1,65 @@
+﻿#navbarPrincipal{
+    background:none;
+    border:none;
+    margin-top:15px;
+}
+
+#navbarPrincipal img{
+    width:10%;
+}
+
+body {
+    background-image: url('Imagens/stock-photo-smartphone-on-wooden-table-on-light-background-300114263.jpg');
+    background-repeat:no-repeat;
+}
+
+.container body-content h2{
+    margin-top:150px;
+}
+
+#login{
+    margin-left:30%;
+    margin-top:90px;
+    padding:20px;
+    
+}
+
+.bloco{
+    background-color: rgba(255,255,255,0.5);
+    padding:20px;
+    padding-right:-10px;
+    text-align:center;
+}
+
+.checkbox{
+    text-align:left;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+
+    color: #3885ba;
+    font-family: Calibri;
+   font-weight:bold;
+   font-size:16px;
+}
+
+.navbar-fixed-top{
+    position:inherit;
+}
+
+
+/* 
+ Pra dispositivos que tem uma largura mínima de 768 pixels. Tablets, por exemplo.
+*/
+@media screen and (max-width: 768px) {
+  #login{
+    margin-left: 0%;
+    margin-top: -10px;
+    padding: 20px;
+  }
+
+    #navbarPrincipal img {
+    margin-top: -60px;
+    width: 20%;
+    }  
+}

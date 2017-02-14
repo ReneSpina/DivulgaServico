@@ -55,7 +55,7 @@
             {
                 @Html.AntiForgeryToken()
                 @Html.ActionLink("Olá " + User.Identity.Name + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })<br /><br />
-                @Html.ActionLink("Mapa de Busca", "Index", "CAD_PES_JURIDICA")<br />
+                @Html.ActionLink("Pesquisar Serviços", "Index", "Busca")<br />
                 @Html.ActionLink("Sobre", "About", "Home")<br />
                 @Html.ActionLink("Contatos", "Contact", "Home")<br />
                 <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a><br />
@@ -63,7 +63,7 @@
         }
         else
         {
-            @Html.ActionLink("Mapa de Busca", "Index", "CAD_PES_JURIDICA")<br />
+            @Html.ActionLink("Pesquisar Serviços", "Index", "Busca")<br />
             @Html.ActionLink("Sobre", "About", "Home")<br />
             @Html.ActionLink("Contatos", "Contact", "Home")<br />
             @Html.ActionLink("Criar Conta", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })<br />
@@ -85,7 +85,6 @@
     @RenderBody()
     <div class="container body-content">
         
-        <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>

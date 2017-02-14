@@ -308,14 +308,14 @@ width: 94%;
     background-color: rgb(51, 122, 183);
 }
 
-.dropdown.dropdown-lg .dropdown-menu {
+/*.dropdown.dropdown-lg .dropdown-menu {
     margin-top: -1px;
     padding: 6px 20px;
     right: 100%;
     border-radius: 0px 0px 4px 4px;
     text-align: center;
     width: 214px;
-}
+}*/
 
 .input-group-btn .btn-group {
     display: flex !important;
@@ -359,11 +359,11 @@ width: 94%;
         position: static !important;
     }
 
-        .dropdown.dropdown-lg .dropdown-menu {
+        /*.dropdown.dropdown-lg .dropdown-menu {
             min-width: 149%;
             right: 188px;
             border-radius: 0px;
-        }
+        }*/
 }
 
 

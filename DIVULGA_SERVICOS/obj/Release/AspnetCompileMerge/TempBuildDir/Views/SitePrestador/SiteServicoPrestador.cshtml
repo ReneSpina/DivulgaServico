@@ -1,0 +1,33 @@
+﻿@model IEnumerable<DIVULGA_SERVICOS.Models.CAD_CATEGORIA>
+
+@{
+    ViewBag.Title = "Serviços";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Serviços Prestador</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NM_NOME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DS_DESCRICAO)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NM_NOME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DS_DESCRICAO)
+            </td>
+        </tr>
+    }
+
+</table>

@@ -14,9 +14,8 @@
     <WebStackScaffolding_DbContextDialogWidth>600</WebStackScaffolding_DbContextDialogWidth>
     <WebStackScaffolding_AreaDialogWidth>600</WebStackScaffolding_AreaDialogWidth>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>
-    </IISExpressSSLPort>
-    <NameOfLastUsedPublishProfile>mercadodeservicos - Web Deploy %286%29</NameOfLastUsedPublishProfile>
+    <IISExpressSSLPort>44301</IISExpressSSLPort>
+    <NameOfLastUsedPublishProfile>mercadodeservicos - Web Deploy %287%29</NameOfLastUsedPublishProfile>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -47,7 +46,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>54597</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:44300/</IISUrl>
+          <IISUrl>https://localhost:44300/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
