@@ -443,238 +443,248 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h4 class="modal-title" id="myModalLabel" style="border-bottom: 1px solid rgb(229, 229, 229);">@item.CAD_PESSOA.NM_NOME_PESSOA</h4>
+                            <h4 class="modal-title" id="myModalLabel">@item.CAD_PESSOA.NM_NOME_PESSOA</h4>
                         </div>
                         <div class="modal-body">
-                            <br />
                             <div class="row">
-                                <div class="col-sm-3" id="myrating">
-
-                                    @if (item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count == 1)
-                                    {
-                                        <h4>
-                                            @item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count avaliação!
-                                        </h4>
-                                    }
-                                    else
-                                    {
-                                        <h4>
-                                            @item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count avaliações!
-                                        </h4>
-                                    }
-
-                                    <div class="pull-left">
-                                        <div class="pull-left" style="line-height:1;">
-                                            <div style="height:9px; margin:5px 0;">Qualidade do Serviço: <span class="glyphicon glyphicon-star"></span></div>
-                                        </div>
-                                        <div class="pull-left" style="width:180px;">
-                                            <div class="progress" style="height:9px; margin:8px 0;">
-
-                                                @if (mediaQualidade > 90)
-                                                {
-                                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaQualidade%">
-                                                        @*<span class="sr-only">80% Complete (danger)</span>*@
-                                                    </div>
-                                                }
-                                                else if (mediaQualidade > 60)
-                                                {
-                                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaQualidade%">
-                                                        @*<span class="sr-only">80% Complete (danger)</span>*@
-                                                    </div>
-                                                }
-                                                else if (mediaQualidade > 40)
-                                                {
-                                                    <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaQualidade%">
-                                                        @*<span class="sr-only">80% Complete (danger)</span>*@
-                                                    </div>
-                                                }
-                                                else if (mediaQualidade > 20)
-                                                {
-                                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaQualidade%">
-                                                        @*<span class="sr-only">80% Complete (danger)</span>*@
-                                                    </div>
-                                                }
-                                                else
-                                                {
-                                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaQualidade%">
-                                                        @*<span class="sr-only">80% Complete (danger)</span>*@
-                                                    </div>
-                                                }
-                                            </div>
-                                        </div>
-                                        @*<div class="pull-right" style="margin-left:10px;">1</div>*@
+                                <div class="col-sm-3" style="width:100%">
+                                    <h4>Endereço:</h4>
+                                    <div class="well">
+                                        <p><b>Estado:</b> @item.NM_ESTADO</p>
+                                        <p><b>Cidade:</b> @item.NM_CIDADE</p>
+                                        <p><b>Rua:</b> @item.NM_LOGRADOURO</p>
+                                        <p><b>Número:</b> @item.NUMERO</p>
                                     </div>
-                                    <div class="pull-left">
-                                        <div class="pull-left" style=" line-height:1;">
-                                            <div style="height:9px; margin:5px 0;">Pontualidade: <span class="glyphicon glyphicon-star"></span></div>
-                                        </div>
-                                        <div class="pull-left" style="width:180px;">
-                                            <div class="progress" style="height:9px; margin:8px 0;">
-                                                @if (mediaPontualidade > 50)
-                                                {
-                                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="4" aria-valuemin="0" aria-valuemax="5" style="width: @mediaPontualidade%">
-                                                        @*<span class="sr-only">80% Complete (danger)</span>*@
-                                                    </div>
-                                                }
-                                                else if (mediaPontualidade > 60)
-                                                {
-                                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaPontualidade%">
-                                                        @*<span class="sr-only">80% Complete (danger)</span>*@
-                                                    </div>
-                                                }
-                                                else if (mediaPontualidade > 40)
-                                                {
-                                                    <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaPontualidade%">
-                                                        @*<span class="sr-only">80% Complete (danger)</span>*@
-                                                    </div>
-                                                }
-                                                else if (mediaPontualidade > 20)
-                                                {
-                                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaPontualidade%">
-                                                        @*<span class="sr-only">80% Complete (danger)</span>*@
-                                                    </div>
-                                                }
-                                                else
-                                                {
-                                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaPontualidade%">
-                                                        @*<span class="sr-only">80% Complete (danger)</span>*@
-                                                    </div>
-                                                }
+                                </div>
+                            </div>
+                            <h4>Média da Avaliação:</h4>
+                            <div class="well">
+                                <div class="row">
+                                    <div class="col-sm-3" id="myrating">
+                                        @if (item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count == 1)
+                                        {
+                                            <h5>
+                                                @item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count avaliação!
+                                            </h5>
+                                        }
+                                        else
+                                        {
+                                            <h5>
+                                                @item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count avaliações!
+                                            </h5>
+                                        }
+                                        <div class="pull-left">
+                                            <div class="pull-left" style="line-height:1;">
+                                                <div style="height:9px; margin:5px 0;">Qualidade do Serviço: <span class="glyphicon glyphicon-star"></span></div>
                                             </div>
+                                            <div class="pull-left" style="width:180px;">
+                                                <div class="progress" style="height:9px; margin:8px 0;">
+
+                                                    @if (mediaQualidade > 90)
+                                                    {
+                                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaQualidade%">
+                                                            @*<span class="sr-only">80% Complete (danger)</span>*@
+                                                        </div>
+                                                    }
+                                                    else if (mediaQualidade > 60)
+                                                    {
+                                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaQualidade%">
+                                                            @*<span class="sr-only">80% Complete (danger)</span>*@
+                                                        </div>
+                                                    }
+                                                    else if (mediaQualidade > 40)
+                                                    {
+                                                        <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaQualidade%">
+                                                            @*<span class="sr-only">80% Complete (danger)</span>*@
+                                                        </div>
+                                                    }
+                                                    else if (mediaQualidade > 20)
+                                                    {
+                                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaQualidade%">
+                                                            @*<span class="sr-only">80% Complete (danger)</span>*@
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaQualidade%">
+                                                            @*<span class="sr-only">80% Complete (danger)</span>*@
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                            @*<div class="pull-right" style="margin-left:10px;">1</div>*@
                                         </div>
-                                        @*<div class="pull-right" style="margin-left:10px;">1</div>*@
-                                    </div>
-                                    <div class="pull-left">
-                                        <div class="pull-left" style="line-height:1;">
-                                            <div style="height:9px; margin:5px 0;">Organização: <span class="glyphicon glyphicon-star"></span></div>
+                                        <div class="pull-left">
+                                            <div class="pull-left" style=" line-height:1;">
+                                                <div style="height:9px; margin:5px 0;">Pontualidade: <span class="glyphicon glyphicon-star"></span></div>
+                                            </div>
+                                            <div class="pull-left" style="width:180px;">
+                                                <div class="progress" style="height:9px; margin:8px 0;">
+                                                    @if (mediaPontualidade > 50)
+                                                    {
+                                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="4" aria-valuemin="0" aria-valuemax="5" style="width: @mediaPontualidade%">
+                                                            @*<span class="sr-only">80% Complete (danger)</span>*@
+                                                        </div>
+                                                    }
+                                                    else if (mediaPontualidade > 60)
+                                                    {
+                                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaPontualidade%">
+                                                            @*<span class="sr-only">80% Complete (danger)</span>*@
+                                                        </div>
+                                                    }
+                                                    else if (mediaPontualidade > 40)
+                                                    {
+                                                        <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaPontualidade%">
+                                                            @*<span class="sr-only">80% Complete (danger)</span>*@
+                                                        </div>
+                                                    }
+                                                    else if (mediaPontualidade > 20)
+                                                    {
+                                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaPontualidade%">
+                                                            @*<span class="sr-only">80% Complete (danger)</span>*@
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaPontualidade%">
+                                                            @*<span class="sr-only">80% Complete (danger)</span>*@
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                            @*<div class="pull-right" style="margin-left:10px;">1</div>*@
                                         </div>
-                                        <div class="pull-left" style="width:180px;">
-                                            <div class="progress" style="height:9px; margin:8px 0;">
-                                                @if (mediaOrganizacao > 50)
-                                                {
-                                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax="5" style="width: @mediaOrganizacao%">
-                                                        @*<span class="sr-only">80% Complete (danger)</span>*@
-                                                    </div>
-                                                }
-                                                else if (mediaOrganizacao > 60)
-                                                {
-                                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaOrganizacao%">
-                                                        @*<span class="sr-only">80% Complete (danger)</span>*@
-                                                    </div>
-                                                }
-                                                else if (mediaOrganizacao > 40)
-                                                {
-                                                    <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaOrganizacao%">
-                                                        @*<span class="sr-only">80% Complete (danger)</span>*@
-                                                    </div>
-                                                }
-                                                else if (mediaOrganizacao > 20)
-                                                {
-                                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaOrganizacao%">
-                                                        @*<span class="sr-only">80% Complete (danger)</span>*@
-                                                    </div>
-                                                }
-                                                else
-                                                {
-                                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaOrganizacao%">
-                                                        @*<span class="sr-only">80% Complete (danger)</span>*@
-                                                    </div>
-                                                }
+                                        <div class="pull-left">
+                                            <div class="pull-left" style="line-height:1;">
+                                                <div style="height:9px; margin:5px 0;">Organização: <span class="glyphicon glyphicon-star"></span></div>
+                                            </div>
+                                            <div class="pull-left" style="width:180px;">
+                                                <div class="progress" style="height:9px; margin:8px 0;">
+                                                    @if (mediaOrganizacao > 50)
+                                                    {
+                                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax="5" style="width: @mediaOrganizacao%">
+                                                            @*<span class="sr-only">80% Complete (danger)</span>*@
+                                                        </div>
+                                                    }
+                                                    else if (mediaOrganizacao > 60)
+                                                    {
+                                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaOrganizacao%">
+                                                            @*<span class="sr-only">80% Complete (danger)</span>*@
+                                                        </div>
+                                                    }
+                                                    else if (mediaOrganizacao > 40)
+                                                    {
+                                                        <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaOrganizacao%">
+                                                            @*<span class="sr-only">80% Complete (danger)</span>*@
+                                                        </div>
+                                                    }
+                                                    else if (mediaOrganizacao > 20)
+                                                    {
+                                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaOrganizacao%">
+                                                            @*<span class="sr-only">80% Complete (danger)</span>*@
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaOrganizacao%">
+                                                            @*<span class="sr-only">80% Complete (danger)</span>*@
+                                                        </div>
+                                                    }
 
 
+                                                </div>
                                             </div>
+                                            @*<div class="pull-right" style="margin-left:10px;">0</div>*@
                                         </div>
-                                        @*<div class="pull-right" style="margin-left:10px;">0</div>*@
-                                    </div>
-                                    <div class="pull-left">
-                                        <div class="pull-left" style="line-height:1;">
-                                            <div style="height:9px; margin:5px 0;">Quem o Indicaria: <span class="glyphicon glyphicon-star"></span></div>
-                                        </div>
-                                        <div class="pull-left" style="width:180px;">
-                                            <div class="progress" style="height:9px; margin:8px 0;">
-                                                @if (mediaIndicacao > 50)
-                                                {
-                                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="5" style="width: @mediaIndicacao%">
-                                                        @*<span class="sr-only">80% Complete (danger)</span>*@
-                                                    </div>
-                                                }
-                                                else if (mediaIndicacao > 60)
-                                                {
-                                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaIndicacao%">
-                                                        @*<span class="sr-only">80% Complete (danger)</span>*@
-                                                    </div>
-                                                }
-                                                else if (mediaIndicacao > 40)
-                                                {
-                                                    <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaIndicacao%">
-                                                        @*<span class="sr-only">80% Complete (danger)</span>*@
-                                                    </div>
-                                                }
-                                                else if (mediaIndicacao > 20)
-                                                {
-                                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaIndicacao%">
-                                                        @*<span class="sr-only">80% Complete (danger)</span>*@
-                                                    </div>
-                                                }
-                                                else
-                                                {
-                                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaIndicacao%">
-                                                        @*<span class="sr-only">80% Complete (danger)</span>*@
-                                                    </div>
-                                                }
+                                        <div class="pull-left">
+                                            <div class="pull-left" style="line-height:1;">
+                                                <div style="height:9px; margin:5px 0;">Quem o Indicaria: <span class="glyphicon glyphicon-star"></span></div>
+                                            </div>
+                                            <div class="pull-left" style="width:180px;">
+                                                <div class="progress" style="height:9px; margin:8px 0;">
+                                                    @if (mediaIndicacao > 50)
+                                                    {
+                                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="5" style="width: @mediaIndicacao%">
+                                                            @*<span class="sr-only">80% Complete (danger)</span>*@
+                                                        </div>
+                                                    }
+                                                    else if (mediaIndicacao > 60)
+                                                    {
+                                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaIndicacao%">
+                                                            @*<span class="sr-only">80% Complete (danger)</span>*@
+                                                        </div>
+                                                    }
+                                                    else if (mediaIndicacao > 40)
+                                                    {
+                                                        <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaIndicacao%">
+                                                            @*<span class="sr-only">80% Complete (danger)</span>*@
+                                                        </div>
+                                                    }
+                                                    else if (mediaIndicacao > 20)
+                                                    {
+                                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaIndicacao%">
+                                                            @*<span class="sr-only">80% Complete (danger)</span>*@
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaIndicacao%">
+                                                            @*<span class="sr-only">80% Complete (danger)</span>*@
+                                                        </div>
+                                                    }
 
+                                                </div>
                                             </div>
+                                            @*<div class="pull-right" style="margin-left:10px;">0</div>*@
                                         </div>
-                                        @*<div class="pull-right" style="margin-left:10px;">0</div>*@
-                                    </div>
-                                    <div class="pull-left">
-                                        <div class="pull-left" style="line-height:1;">
-                                            <div style="height:9px; margin:5px 0;">Satisfação pelo Serviço <span class="glyphicon glyphicon-star"></span></div>
-                                        </div>
-                                        <div class="pull-left" style="width:180px;">
-                                            <div class="progress" style="height:9px; margin:8px 0;">
-                                                @if (mediaSatisfacao > 50)
-                                                {
-                                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="5" style="width: @mediaSatisfacao%">
-                                                        @*<span class="sr-only">80% Complete (danger)</span>*@
-                                                    </div>
-                                                }
-                                                else if (mediaSatisfacao > 60)
-                                                {
-                                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaSatisfacao%">
-                                                        @*<span class="sr-only">80% Complete (danger)</span>*@
-                                                    </div>
-                                                }
-                                                else if (mediaSatisfacao > 40)
-                                                {
-                                                    <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaSatisfacao%">
-                                                        @*<span class="sr-only">80% Complete (danger)</span>*@
-                                                    </div>
-                                                }
-                                                else if (mediaSatisfacao > 20)
-                                                {
-                                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaSatisfacao%">
-                                                        @*<span class="sr-only">80% Complete (danger)</span>*@
-                                                    </div>
-                                                }
-                                                else
-                                                {
-                                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaSatisfacao%">
-                                                        @*<span class="sr-only">80% Complete (danger)</span>*@
-                                                    </div>
-                                                }
+                                        <div class="pull-left">
+                                            <div class="pull-left" style="line-height:1;">
+                                                <div style="height:9px; margin:5px 0;">Satisfação pelo Serviço <span class="glyphicon glyphicon-star"></span></div>
+                                            </div>
+                                            <div class="pull-left" style="width:180px;">
+                                                <div class="progress" style="height:9px; margin:8px 0;">
+                                                    @if (mediaSatisfacao > 50)
+                                                    {
+                                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="5" style="width: @mediaSatisfacao%">
+                                                            @*<span class="sr-only">80% Complete (danger)</span>*@
+                                                        </div>
+                                                    }
+                                                    else if (mediaSatisfacao > 60)
+                                                    {
+                                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaSatisfacao%">
+                                                            @*<span class="sr-only">80% Complete (danger)</span>*@
+                                                        </div>
+                                                    }
+                                                    else if (mediaSatisfacao > 40)
+                                                    {
+                                                        <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaSatisfacao%">
+                                                            @*<span class="sr-only">80% Complete (danger)</span>*@
+                                                        </div>
+                                                    }
+                                                    else if (mediaSatisfacao > 20)
+                                                    {
+                                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaSatisfacao%">
+                                                            @*<span class="sr-only">80% Complete (danger)</span>*@
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaSatisfacao%">
+                                                            @*<span class="sr-only">80% Complete (danger)</span>*@
+                                                        </div>
+                                                    }
 
+                                                </div>
                                             </div>
+                                            @*<div class="pull-right" style="margin-left:10px;">0</div>*@
                                         </div>
-                                        @*<div class="pull-right" style="margin-left:10px;">0</div>*@
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-sm-7">
-                                    <hr />
-                                    <div class="review-block">
+                                    <div class="well">
                                         @foreach (var avaliacao in item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO)
                                         {
                                             int media = 0;
@@ -684,7 +694,7 @@
                                             <div class="row" style="border-bottom: 1px solid rgb(229, 229, 229);">
                                                 <div class="comentarioAvaliacao">
                                                     <div class="review-block-name"><a href="#">@avaliacao.CAD_PES_USUARIO.CAD_PESSOA.NM_NOME_PESSOA</a></div>
-                                                    <div class="review-block-date">@avaliacao.DIA_AVALIACAO.ToString("R")</div>
+                                                    <div class="review-block-date">@avaliacao.DIA_AVALIACAO.ToString("dd'/'MM'/'yyyy")</div>
                                                 </div>
                                                 <div class="col-sm-9">
                                                     <div class="review-block-rate">
