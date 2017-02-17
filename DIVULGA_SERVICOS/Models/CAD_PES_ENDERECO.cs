@@ -18,23 +18,26 @@ namespace DIVULGA_SERVICOS.Models
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int SQ_ENDERECO { get; set; }
 
+        [Required]
         [StringLength(255)]
         public string NM_CIDADE { get; set; }
 
+        [Required]
         [StringLength(255)]
         public string NM_LOGRADOURO { get; set; }
 
         [StringLength(255)]
         public string NM_BAIRRO { get; set; }
 
+        [Required]
         [StringLength(255)]
         public string NM_ESTADO { get; set; }
 
-        [Required]
+        //[Required]
         [StringLength(20)]
         public string CD_CEP { get; set; }
-        
 
+        [Required]
         public int NUMERO { get; set; }
 
         //[StringLength(20)]
