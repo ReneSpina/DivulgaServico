@@ -745,9 +745,6 @@ namespace DIVULGA_SERVICOS.Controllers
                 var userName = User.Identity.Name;
                 var usuario = db.CAD_PESSOA.Where(x => x.UserName == userName).FirstOrDefault();
                 var endereco = db.CAD_PES_ENDERECO.Where(x => x.CD_PESSOA == usuario.Id).ToList();
-
-
-
                 if (endereco != null)
                 {
                     //var cliente = db.CAD_CLIENTE.Include(x => x.CD_PESSOA == pes_juridica.CD_PESSOA);
@@ -795,6 +792,7 @@ namespace DIVULGA_SERVICOS.Controllers
             }
         }
 
+        [Authorize]
         public ActionResult CriarEndereco()
         {
             //ViewBag.CD_PES_JURIDICA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ");
@@ -833,9 +831,168 @@ namespace DIVULGA_SERVICOS.Controllers
             return View("Error");
         }
 
+        // GET: CAD_CATEGORIA/Delete/5
+        [Authorize]
+        public ActionResult DeletarEndereco(int id)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var userName = User.Identity.Name;
+                var usuario = db.CAD_PESSOA.Where(x => x.UserName == userName).FirstOrDefault();
+                CAD_PES_ENDERECO cAD_ENDERECO = db.CAD_PES_ENDERECO.Where(x => x.CD_PESSOA == usuario.Id && x.SQ_ENDERECO == id).FirstOrDefault();
+                if (cAD_ENDERECO != null)
+                {
+                    return View("DeletarEndereco", cAD_ENDERECO);
+                }
+                ViewBag.errorMessage = "Não conseguimos identificar o endereço. Por favor tente novamente com um endereço válido";
+                return View("Error");
 
+            }
+            ViewBag.errorMessage = "Você precisa ser um prestador de serviço e deve estar logado para acessar essa página.";
+            return View("Error");
 
+        }
+
+        // POST: CAD_CATEGORIA/Delete/5
+        [HttpPost ActionName("DeletarEndereco")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeletarEnderecoOk(int id)
+        {
+            CAD_PES_ENDERECO cAD_ENDERECO = db.CAD_PES_ENDERECO.Where(x => x.SQ_ENDERECO == id).FirstOrDefault();
+            db.CAD_PES_ENDERECO.Remove(cAD_ENDERECO);
+            db.SaveChanges();
+            return RedirectToAction("Enderecos");
+        }
         /*Fim dos métodos para gerenciamento de endereços*/
+
+        /*Início dos métodos para gerenciamento de telefones*/
+        [Authorize]
+        public ActionResult Telefones()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var userName = User.Identity.Name;
+                var usuario = db.CAD_PESSOA.Where(x => x.UserName == userName).FirstOrDefault();
+                var telefone = db.CAD_PES_FONE.Where(x => x.CD_PESSOA == usuario.Id).ToList();
+                if (telefone != null)
+                {
+                    //var cliente = db.CAD_CLIENTE.Include(x => x.CD_PESSOA == pes_juridica.CD_PESSOA);
+                    return View("Telefones", telefone);
+                }
+                else
+                {
+                    ViewBag.errorMessage = "Você precisa ser um prestador de serviço e deve estar logado para acessar essa página.";
+                    return View("Error");
+                }
+            }
+            else
+            {
+                ViewBag.errorMessage = "Você precisa ser um prestador de serviço e deve estar logado para acessar essa página.";
+                return View("Error");
+            }
+        }
+
+
+        // GET: CAD_PES_ENDERECO/Details/5
+        [Authorize]
+        public ActionResult DetalhesTelefone(int id)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var userName = User.Identity.Name;
+                var usuario = db.CAD_PESSOA.Where(x => x.UserName == userName).FirstOrDefault();
+                var telefone = db.CAD_PES_FONE.Where(x => x.CD_PESSOA == usuario.Id && x.SQ_FONE== id).FirstOrDefault();
+
+                if (telefone != null)
+                {
+                    //var cliente = db.CAD_CLIENTE.Include(x => x.CD_PESSOA == pes_juridica.CD_PESSOA);
+                    return View("DetalhesTelefone", telefone);
+                }
+                else
+                {
+                    ViewBag.errorMessage = "Não conseguimos identificar o telefone. Por favor tente novamente com um telefone válido";
+                    return View("Error");
+                }
+            }
+            else
+            {
+                ViewBag.errorMessage = "Você precisa ser um prestador de serviço e deve estar logado para acessar essa página.";
+                return View("Error");
+            }
+        }
+
+        [Authorize]
+        public ActionResult CriarTelefone()
+        {
+            //ViewBag.CD_PES_JURIDICA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ");
+            return View("CriarTelefone");
+        }
+
+        // POST: CAD_CATEGORIA/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CriarTelefone(CAD_PES_FONE cAD_PES_FONE)
+        {
+            if (ModelState.IsValid)
+            {
+                var userName = User.Identity.Name;
+                var usuario = db.CAD_PESSOA.Where(x => x.UserName == userName).FirstOrDefault();
+                CAD_PES_FONE telefone = new CAD_PES_FONE
+                {
+                    CD_PESSOA = usuario.Id,
+                    CD_FIXO = cAD_PES_FONE.CD_FIXO,
+                    CD_CELULAR = cAD_PES_FONE.CD_CELULAR
+                };
+                db.CAD_PES_FONE.Add(telefone);
+                db.SaveChanges();
+                return RedirectToAction("Telefones");
+            }
+
+            //ViewBag.CD_PESSOA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ", cAD_PES_ENDERECO.CD_PESSOA);
+            ViewBag.errorMessage = "Não foi possível adicionar o telefone. Tenha certeza de que você escolheu um telefone válido e tente novamente!";
+            return View("Error");
+        }
+
+        // GET: CAD_CATEGORIA/Delete/5
+        [Authorize]
+        public ActionResult DeletarTelefone(int id)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var userName = User.Identity.Name;
+                var usuario = db.CAD_PESSOA.Where(x => x.UserName == userName).FirstOrDefault();
+                CAD_PES_FONE cAD_PES_FONE = db.CAD_PES_FONE.Where(x => x.CD_PESSOA == usuario.Id && x.SQ_FONE == id).FirstOrDefault();
+                if (cAD_PES_FONE != null)
+                {
+                    return View("DeletarTelefone", cAD_PES_FONE);
+                }
+                ViewBag.errorMessage = "Não conseguimos identificar o telefone. Por favor tente novamente com um telefone válido";
+                return View("Error");
+
+            }
+            ViewBag.errorMessage = "Você precisa ser um prestador de serviço e deve estar logado para acessar essa página.";
+            return View("Error");
+
+        }
+
+        // POST: CAD_CATEGORIA/Delete/5
+        [HttpPost ActionName("DeletarTelefone")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeletarTelefoneOk(int id)
+        {
+            CAD_PES_FONE cAD_PES_FONE = db.CAD_PES_FONE.Where(x => x.SQ_FONE == id).FirstOrDefault();
+            db.CAD_PES_FONE.Remove(cAD_PES_FONE);
+            db.SaveChanges();
+            return RedirectToAction("Telefones");
+        }
+
+
+        /*Fim dos métodos para gerenciamento de telefones*/
+
+
+
 
 
         #region Helpers

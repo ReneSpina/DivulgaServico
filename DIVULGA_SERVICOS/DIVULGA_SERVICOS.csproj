@@ -528,6 +528,11 @@
     <Content Include="Views\Manage\Enderecos.cshtml" />
     <Content Include="Views\Manage\DetalhesEndereco.cshtml" />
     <Content Include="Views\Manage\CriarEndereco.cshtml" />
+    <Content Include="Views\Manage\DeletarEndereco.cshtml" />
+    <Content Include="Views\Manage\DeletarTelefone.cshtml" />
+    <Content Include="Views\Manage\CriarTelefone.cshtml" />
+    <Content Include="Views\Manage\Telefones.cshtml" />
+    <Content Include="Views\Manage\DetalhesTelefone.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

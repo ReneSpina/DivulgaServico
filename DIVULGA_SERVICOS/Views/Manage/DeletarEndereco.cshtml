@@ -1,15 +1,16 @@
 ﻿@model DIVULGA_SERVICOS.Models.CAD_PES_ENDERECO
 
-
 @{
-    ViewBag.Title = "Detalhes do Endereço";
+    ViewBag.Title = "Deletar Endereco";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Detalhes do Endereço</h2>
+<h2>Delete</h2>
 
+<h3>Você tem certeza de que quer deletar este endereço?</h3>
 <div>
     <dl class="dl-horizontal">
+
         <dt>
             Logradouro
         </dt>
@@ -49,9 +50,16 @@
         <dd>
             @Html.DisplayFor(model => model.CD_CEP)
         </dd>
+
     </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Deletar" class="btn btn-default" /> |
+            @Html.ActionLink("Voltar a lista de endereços", "Enderecos")
+        </div>
+    }
 </div>
-<p>
-    @Html.ActionLink("Deletar Endereco", "DeletarEndereco", new {id = Model.SQ_ENDERECO }) |
-    @Html.ActionLink("Voltar a lista de endereços", "Enderecos")
-</p>
