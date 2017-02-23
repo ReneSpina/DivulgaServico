@@ -295,15 +295,16 @@ namespace DIVULGA_SERVICOS.Models
 
     public class EditPerfilJuridico
     {
-        [Required]
+
+        [Required(ErrorMessage = "O EMAIL É OBRIGATÓRIO!")]
         [Display(Name = "EMAIL")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "O NOME É OBRIGATÓRIO!")]
         [Display(Name = "NOME")]
         public string NM_NOME_PESSOA { get; set; }
 
-        [Required(ErrorMessage = "O CPF/CNPJ É OBRIGATÓRIO!")]
+        [Required(ErrorMessage = "O CPF OU CNPJ É OBRIGATÓRIO!")]
         [RegularExpression("^(\\d{14})|(\\d{11})$", ErrorMessage = "INSIRA UM CPF OU UM CNPJ VÁLIDO (DIGITE SOMENTE NÚMEROS)!")]
         [StringLength(30)]
         [Display(Name = "CPF OU CNPJ")]
@@ -316,5 +317,7 @@ namespace DIVULGA_SERVICOS.Models
         [Column(TypeName = "text")]
         [DataType(DataType.MultilineText)]
         public string DS_QUEM_SOMOS { get; set; }
+        
+        public bool LockoutEnabled { get; set; }
     }
 }

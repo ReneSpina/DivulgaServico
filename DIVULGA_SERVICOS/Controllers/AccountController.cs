@@ -23,7 +23,6 @@ namespace DIVULGA_SERVICOS.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        //private string dominio = "http://localhost:54597/";
         private PRINCIPAL db = new PRINCIPAL();
 
         public AccountController()
@@ -205,6 +204,7 @@ namespace DIVULGA_SERVICOS.Controllers
                     //TF_TEL_FIXO = model.TF_TEL_FIXO,
                     DT_DATA_CADASTRO = System.DateTime.Today,
                     Email = model.UserName,
+                    LockoutEnabled = false
                     //DS_EMAIL = model.UserName,
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);

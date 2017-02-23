@@ -434,8 +434,3 @@ $("#CD_CEP").mask("00000-000");
 
 //    $("#nomesite").html("www.mercadodeservicos.com.br/" + $(this).val());
 //})
-
-$("#cadastrogeral").click(function () {
-    
-
-});

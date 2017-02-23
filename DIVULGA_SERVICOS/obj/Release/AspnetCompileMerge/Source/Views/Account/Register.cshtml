@@ -1,9 +1,10 @@
 ﻿@model DIVULGA_SERVICOS.Models.RegisterPrestadorViewModel
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "Cadastrar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@ViewBag.Title.</h2>
+@*<h2>@ViewBag.Title.</h2>*@
 
 <style>
     #nomesite {
@@ -20,13 +21,20 @@
 </style>
 
 
-
+<br><br>
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    <h4>Create a new account.</h4>
+    @*<h4>Create a new account.</h4>*@
     <hr />
     @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
+
+    <div class="form-group">
+        <div class="control-label col-md-2"></div>
+        <div id="informacao" class="alert alert-warning col-md-10" style="max-width: 280px; margin-left: 15px;">
+            Os campos com * são obrigatórios!
+        </div>
+    </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.NM_NOME_PESSOA, new { @class = "control-label col-md-2" })
@@ -89,7 +97,7 @@
             <div class="form-group">
                 <label class="control-label col-md-2" for="autocomplete">ENDEREÇO</label>
                 <div class="col-md-10">
-                    <input id="autocomplete" placeholder="Enter your address" onfocus="geolocate()" type="text" class="form-control" />
+                    <input id="autocomplete" placeholder="Endereço com número" onfocus="geolocate()" type="text" class="form-control" />
                 </div>
                 @*<div id="map" style="height: 300px; width: 500px" type="hidden">
                     </div>*@
@@ -100,7 +108,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.NM_LOGRADOURO, new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.NM_LOGRADOURO, new { htmlAttributes = new { id = "route", @class = "form-control" } })
+                    @Html.EditorFor(model => model.NM_LOGRADOURO, new { htmlAttributes = new { id = "route", @class = "form-control", @placeholder = "Automático ao selecionar endereço!", @disabled = "disabled" } })
                     @Html.ValidationMessageFor(model => model.NM_LOGRADOURO, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -139,7 +147,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.NM_CIDADE, new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.NM_CIDADE, new { htmlAttributes = new { id = "locality", @class = "form-control" } })
+                    @Html.EditorFor(model => model.NM_CIDADE, new { htmlAttributes = new { id = "locality", @class = "form-control", @placeholder = "Automático ao selecionar endereço!", @disabled = "disabled" } })
                     @Html.ValidationMessageFor(model => model.NM_CIDADE, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -147,7 +155,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.NM_ESTADO, new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.NM_ESTADO, new { htmlAttributes = new { id = "administrative_area_level_1", @class = "form-control" } })
+                    @Html.EditorFor(model => model.NM_ESTADO, new { htmlAttributes = new { id = "administrative_area_level_1", @class = "form-control", @placeholder = "Automático ao selecionar endereço!", @disabled = "disabled" } })
                     @Html.ValidationMessageFor(model => model.NM_ESTADO, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -192,7 +200,7 @@
             <div class="form-group">
                 @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
                 <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @onpaste = "return false", @ondrop = "return false" })
                     @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -200,7 +208,7 @@
             <div class="form-group">
                 @Html.LabelFor(m => m.ConfirmUserName, new { @class = "col-md-2 control-label" })
                 <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.ConfirmUserName, new { @class = "form-control" })
+                    @Html.TextBoxFor(m => m.ConfirmUserName, new { @class = "form-control", @onpaste = "return false", @ondrop = "return false" })
                     @Html.ValidationMessageFor(m => m.ConfirmUserName, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -397,8 +405,29 @@
                             <h4 class="modal-title" id="myModalLabel">Cadastre as primeiras palavras chave:</h4>
                         </div>
                         <div class="modal-body">
-                            <div class="alert alert-info">
-                                <strong>Info!</strong> Cadastre o maior números de palavras relacionadas com suas atividades possível. É por essas palavras que as pessoas vão te encontrar!
+                            <div class="well">
+                                <div class="alert alert-info">
+                                    <strong>Escreva o máximo de palavras relacionadas ao seu serviço. Escreva, inclusive, o nome dos equipamentos!</strong>
+                                    <br />
+                                    <br />
+                                    <strong>Imagine como podem pesquisar por você!</strong>
+                                    <br />
+                                    <br />
+                                    <strong>Segue um exemplo simples de cadastro:</strong>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">Nome</label>
+                                    <div class="col-md-10">
+                                        <input placeholder="Chaveiro" class="form-control text-box single-line" disabled="disabled">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" for="DS_DESCRICAO">Descrição</label>
+                                    <div class="col-md-10">
+                                        <textarea placeholder="Chave, fechadura, Conserto de fechadura, porta, portão..." class="form-control text-box single-line" rows="4" disabled="disabled"></textarea>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="form-group">
@@ -412,7 +441,7 @@
                             <div class="form-group">
                                 <label class="control-label col-md-2" for="DS_DESCRICAO">Descrição</label>
                                 <div class="col-md-10">
-                                    <input placeholder="Ex.: chave, fechadura, conserto de fechadura, porta, portão, fechadura de carro..." class="form-control text-box single-line" data-val="true" data-val-length="O campo DS_DESCRICAO deve ser uma cadeia de caracteres com um comprimento máximo de 255." data-val-length-max="255" data-val-required="O campo DS_DESCRICAO é obrigatório." id="DS_DESCRICAO_ATIVIDADE" name="DS_DESCRICAO_ATIVIDADE" type="text" value="">
+                                    <textarea  placeholder="Ex.: chave, fechadura, conserto de fechadura, porta, portão, fechadura de carro..." class="form-control text-box single-line" data-val="true" data-val-length="O campo DS_DESCRICAO deve ser uma cadeia de caracteres com um comprimento máximo de 255." data-val-length-max="255" data-val-required="O campo DS_DESCRICAO é obrigatório." id="DS_DESCRICAO_ATIVIDADE" name="DS_DESCRICAO_ATIVIDADE" type="text" value="" rows="4"></textarea>
                                     <span class="field-validation-valid text-danger" data-valmsg-for="DS_DESCRICAO" data-valmsg-replace="true"></span>
                                 </div>
                             </div>
@@ -438,6 +467,8 @@
 <script src="~/Scripts/jquery-3.1.1.min.js"></script>
 <script src="~/Scripts/jquery-ui.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 <script src="~/Scripts/jquery.mask.min.js"></script>
 <script src="~/Scripts/Register.js"></script>
 

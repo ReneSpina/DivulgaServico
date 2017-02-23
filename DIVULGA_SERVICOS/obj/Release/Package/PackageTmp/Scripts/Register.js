@@ -370,35 +370,6 @@ $("#domingo").change(function () {
     }
 });
 
-
-$("#TF_TEL_CEL").mask("(00) 90000-0000");
-$("#TF_TEL_FIXO").mask("(00) 0000-0000");
-$("#CD_CEP").mask("00000-000");
-$("#DS_APELIDO_SITE").attr("placeholder", "SEUSITE").blur();
-//document.getElementById("latitude").disabled = true;
-//document.getElementById("longitude").disabled = true;
-
-$("#DS_APELIDO_SITE").focus(function () {
-    $("#nomesite").show("fold", 1000);
-    //$("#DS_APELIDO_SITE").tooltip();
-});
-
-$("#CD_LONG").focus(function () {
-    $("#nomelong").show("fold", 1000);
-    $("#nomelong").html("NÃO ALTERE ESTE VALOR!");
-});
-
-$("#CD_LAT").focus(function () {
-    $("#nomelat").show("fold", 1000);
-    $("#nomelat").html("NÃO ALTERE ESTE VALOR!");
-    //$("#DS_APELIDO_SITE").tooltip();
-});
-
-$("#DS_APELIDO_SITE").keyup(function () {
-
-    $("#nomesite").html("www.mercadodeservicos.com.br/" + $(this).val());
-})
-
 $("#segunda_inicio").val(1);
 $("#segunda_fim").val(1);
 $("#segunda_inicio").hide();
@@ -434,3 +405,32 @@ $("#domingo_inicio").val(1);
 $("#domingo_fim").val(1);
 $("#domingo_inicio").hide();
 $("#domingo_fim").hide();
+
+
+$("#TF_TEL_CEL").mask("(00) 90000-0000");
+$("#TF_TEL_FIXO").mask("(00) 0000-0000");
+$("#CD_CEP").mask("00000-000");
+//$("#DS_APELIDO_SITE").attr("placeholder", "SEUSITE").blur();
+//document.getElementById("latitude").disabled = true;
+//document.getElementById("longitude").disabled = true;
+
+//$("#DS_APELIDO_SITE").focus(function () {
+//    $("#nomesite").show("fold", 1000);
+//    //$("#DS_APELIDO_SITE").tooltip();
+//});
+
+//$("#CD_LONG").focus(function () {
+//    $("#nomelong").show("fold", 1000);
+//    $("#nomelong").html("NÃO ALTERE ESTE VALOR!");
+//});
+
+//$("#CD_LAT").focus(function () {
+//    $("#nomelat").show("fold", 1000);
+//    $("#nomelat").html("NÃO ALTERE ESTE VALOR!");
+//    //$("#DS_APELIDO_SITE").tooltip();
+//});
+
+//$("#DS_APELIDO_SITE").keyup(function () {
+
+//    $("#nomesite").html("www.mercadodeservicos.com.br/" + $(this).val());
+//})

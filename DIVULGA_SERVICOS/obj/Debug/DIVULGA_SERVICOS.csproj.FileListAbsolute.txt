@@ -1,5 +1,3 @@
-C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Debug\DIVULGA_SERVICOS.Migrations.principal.resources
-C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Debug\DIVULGA_SERVICOS.csproj.GenerateResource.Cache
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\ApplicationInsights.config
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\roslyn\csc.exe
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\roslyn\csc.exe.config
@@ -104,4 +102,6 @@ C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Debug\DIVULGA
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Debug\DIVULGA_SERVICOS.pdb
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\Microsoft.Maps.MapControl.WPF.dll
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\Microsoft.Maps.MapControl.WPF.xml
+C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Debug\DIVULGA_SERVICOS.Migrations.Principal1.resources
+C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Debug\DIVULGA_SERVICOS.csproj.GenerateResource.Cache
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Debug\DIVULGA_SERVICOS.csprojResolveAssemblyReference.cache

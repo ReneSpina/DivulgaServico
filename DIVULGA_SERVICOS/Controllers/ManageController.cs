@@ -10,6 +10,7 @@ using DIVULGA_SERVICOS.Models;
 using System.Net;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
+using System.Data.Entity.Spatial;
 
 namespace DIVULGA_SERVICOS.Controllers
 {
@@ -691,12 +692,17 @@ namespace DIVULGA_SERVICOS.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                CAD_PESSOA pessoajuridica = db.CAD_PESSOA.Find(User.Identity.GetUserId());
+                CAD_PES_JURIDICA usuario = db.CAD_PES_JURIDICA.Find(User.Identity.GetUserId());
+
                 CAD_PES_JURIDICA PesJuridica = new CAD_PES_JURIDICA
                 {
                    CD_PESSOA = User.Identity.GetUserId(),
                    DS_QUEM_SOMOS = cAD_PES_JURIDICA.DS_QUEM_SOMOS,
                    DS_SOBRE = cAD_PES_JURIDICA.DS_SOBRE,
-                   CD_CNPJ = cAD_PES_JURIDICA.CD_CNPJ
+                   CD_CNPJ = cAD_PES_JURIDICA.CD_CNPJ,
+                   TODO_DIA = usuario.TODO_DIA
                 };
                 db.CAD_PES_JURIDICA.AddOrUpdate(PesJuridica);
 
@@ -705,7 +711,17 @@ namespace DIVULGA_SERVICOS.Controllers
                     Id = User.Identity.GetUserId(),
                     Email = cAD_PES_JURIDICA.Email,
                     UserName = cAD_PES_JURIDICA.Email,
-                    NM_NOME_PESSOA = cAD_PES_JURIDICA.NM_NOME_PESSOA
+                    NM_NOME_PESSOA = cAD_PES_JURIDICA.NM_NOME_PESSOA,
+                    DT_DATA_CADASTRO = pessoajuridica.DT_DATA_CADASTRO,
+                    EmailConfirmed = pessoajuridica.EmailConfirmed,
+                    PasswordHash =  pessoajuridica.PasswordHash,
+                    SecurityStamp = pessoajuridica.SecurityStamp,
+                    PhoneNumber = pessoajuridica.PhoneNumber,
+                    PhoneNumberConfirmed = pessoajuridica.PhoneNumberConfirmed,
+                    TwoFactorEnabled = pessoajuridica.TwoFactorEnabled,
+                    LockoutEndDateUtc = pessoajuridica.LockoutEndDateUtc,
+                    AccessFailedCount = pessoajuridica.AccessFailedCount,
+                    LockoutEnabled = cAD_PES_JURIDICA.LockoutEnabled,
                 };
                 db.CAD_PESSOA.AddOrUpdate(user);
                 db.SaveChanges();
@@ -718,6 +734,109 @@ namespace DIVULGA_SERVICOS.Controllers
         }
 
         //Fim dos métodos para gerenciamento do Perfil
+
+
+        /*Início dos métodos para gerenciamento de endereços*/
+        [Authorize]
+        public ActionResult Enderecos()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var userName = User.Identity.Name;
+                var usuario = db.CAD_PESSOA.Where(x => x.UserName == userName).FirstOrDefault();
+                var endereco = db.CAD_PES_ENDERECO.Where(x => x.CD_PESSOA == usuario.Id).ToList();
+
+
+
+                if (endereco != null)
+                {
+                    //var cliente = db.CAD_CLIENTE.Include(x => x.CD_PESSOA == pes_juridica.CD_PESSOA);
+                    return View("Enderecos", endereco);
+                }
+                else
+                {
+                    ViewBag.errorMessage = "Você precisa ser um prestador de serviço e deve estar logado para acessar essa página.";
+                    return View("Error");
+                }
+            }
+            else
+            {
+                ViewBag.errorMessage = "Você precisa ser um prestador de serviço e deve estar logado para acessar essa página.";
+                return View("Error");
+            }
+        }
+
+
+        // GET: CAD_PES_ENDERECO/Details/5
+        [Authorize]
+        public ActionResult DetalhesEndereco(int id)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var userName = User.Identity.Name;
+                var usuario = db.CAD_PESSOA.Where(x => x.UserName == userName).FirstOrDefault();
+                var endereco = db.CAD_PES_ENDERECO.Where(x => x.CD_PESSOA == usuario.Id && x.SQ_ENDERECO == id).FirstOrDefault();
+
+                if (endereco != null)
+                {
+                    //var cliente = db.CAD_CLIENTE.Include(x => x.CD_PESSOA == pes_juridica.CD_PESSOA);
+                    return View("DetalhesEndereco", endereco);
+                }
+                else
+                {
+                    ViewBag.errorMessage = "Não conseguimos identificar o endereço. Por favor tente novamente com um endereço válido";
+                    return View("Error");
+                }
+            }
+            else
+            {
+                ViewBag.errorMessage = "Você precisa ser um prestador de serviço e deve estar logado para acessar essa página.";
+                return View("Error");
+            }
+        }
+
+        public ActionResult CriarEndereco()
+        {
+            //ViewBag.CD_PES_JURIDICA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ");
+            return View("CriarEndereco");
+        }
+
+        // POST: CAD_CATEGORIA/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CriarEndereco(CAD_PES_ENDERECO cAD_PES_ENDERECO, string LAT, string LONG)
+        {
+            if (ModelState.IsValid)
+            {
+                var userName = User.Identity.Name;
+                var usuario = db.CAD_PESSOA.Where(x => x.UserName == userName).FirstOrDefault();
+                CAD_PES_ENDERECO endereco = new CAD_PES_ENDERECO
+                {
+                    CD_PESSOA = usuario.Id,
+                    NM_CIDADE = cAD_PES_ENDERECO.NM_CIDADE,
+                    NM_LOGRADOURO = cAD_PES_ENDERECO.NM_LOGRADOURO,
+                    NM_BAIRRO = "NULL",
+                    NUMERO = cAD_PES_ENDERECO.NUMERO,
+                    NM_ESTADO = cAD_PES_ENDERECO.NM_ESTADO,
+                    CD_CEP = cAD_PES_ENDERECO.CD_CEP,
+                    localizacao = DbGeography.FromText("POINT(" + LAT + " " + LONG + ")")
+                };
+                db.CAD_PES_ENDERECO.Add(endereco);
+                db.SaveChanges();
+                return RedirectToAction("Enderecos");
+            }
+
+            //ViewBag.CD_PESSOA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ", cAD_PES_ENDERECO.CD_PESSOA);
+            ViewBag.errorMessage = "Não foi possível adicionar o endereço. Tenha certeza de que você escolheu um endereço válido e tente novamente!";
+            return View("Error");
+        }
+
+
+
+        /*Fim dos métodos para gerenciamento de endereços*/
+
 
         #region Helpers
         // Used for XSRF protection when adding external logins

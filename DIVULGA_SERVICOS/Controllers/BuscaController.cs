@@ -39,11 +39,10 @@ namespace DIVULGA_SERVICOS.Controllers
                 string[] words = pesquisa.Split(' ');
                 foreach(var word in words)
                 {
-                    enderecosTemp = db.CAD_PES_ENDERECO.Where(
-                    x => x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().DS_DESCRICAO.Contains(word) ||
+                    enderecosTemp = db.CAD_PES_ENDERECO.Where(x =>
+                    x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().DS_DESCRICAO.Contains(word) ||
                     x.CAD_PESSOA.NM_NOME_PESSOA.Contains(word) ||
                     x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().NM_NOME.Contains(word)).ToList();
-
 
                     if(enderecos.Any((item => enderecosTemp.Contains(item))))
                     {
@@ -51,10 +50,10 @@ namespace DIVULGA_SERVICOS.Controllers
                     }
                     else
                     {
-                        enderecos.AddRange(db.CAD_PES_ENDERECO.Where(
-                        x => x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().DS_DESCRICAO.Contains(word) ||
-                        x.CAD_PESSOA.NM_NOME_PESSOA.Contains(word) ||
-                        x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().NM_NOME.Contains(word)).ToList());
+                        enderecos.AddRange(db.CAD_PES_ENDERECO.Where(x =>
+                        (x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().DS_DESCRICAO.Contains(word)) ||
+                        (x.CAD_PESSOA.NM_NOME_PESSOA.Contains(word)) ||
+                        (x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().NM_NOME.Contains(word))).ToList());
                     }
                 }
             } 
@@ -62,12 +61,12 @@ namespace DIVULGA_SERVICOS.Controllers
             {
                 var texto = "";
                 texto = RemoveAcento(pesquisa);
-                enderecos = db.CAD_PES_ENDERECO.Where(
-                    x => x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().DS_DESCRICAO.Contains(texto) ||
-                    x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().DS_DESCRICAO.Contains(pesquisa) ||
-                    x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().NM_NOME.Contains(texto) ||
-                    x.CAD_PESSOA.NM_NOME_PESSOA.Contains(texto) ||
-                    x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().NM_NOME.Contains(pesquisa)).ToList();
+                enderecos = db.CAD_PES_ENDERECO.Where(x =>
+                    (x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().DS_DESCRICAO.Contains(texto)) ||
+                    (x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().DS_DESCRICAO.Contains(pesquisa)) ||
+                    (x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().NM_NOME.Contains(texto)) ||
+                    (x.CAD_PESSOA.NM_NOME_PESSOA.Contains(texto)) ||
+                    (x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().NM_NOME.Contains(pesquisa))).ToList();
                 ////enderecos = db.CAD_PES_ENDERECO.Where(c => c.localizacao.Distance(localusuário) < 10).ToList<CAD_PES_ENDERECO>();
                 //foreach (var i in enderecos)
                 //{
@@ -83,6 +82,8 @@ namespace DIVULGA_SERVICOS.Controllers
                 //ViewData["DadosEndereco"] = enderecos;
                 return RedirectToAction("Index");
             }
+
+            //enderecos.OrderByDescending(x => x.localizacao.Distance((DbGeography.FromText("POINT(" + ViewBag.latitude + " " + ViewBag.longitude + ")"))));
             return View("Index", enderecos);
         }
 

@@ -25,3 +25,17 @@ $(document).ready(function () {
 });
 
 /*Fim Jquery Home*/
+
+/*Início do Jquary de validação da tela de manutenção de perfil do prestador de serviço (EditarPerfil)*/
+
+$('#salvarPerfil').click(function () {
+
+    if ($("#NM_NOME_PESSOA").val() == "" || $("#NM_NOME_PESSOA").val() == null || $("#CD_CNPJ").val() == "" || $("#CD_CNPJ").val() == null || $("#Email").val() == "" || $("#Email").val() == null)
+    {
+        alert("Os campos com * não podem ser vazios!");
+        return false;
+    }
+});
+    
+
+/*Fim do Jquary de validação da tela de manutenção de perfil do prestador de serviço (EditarPerfil)*/

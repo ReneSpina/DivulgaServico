@@ -1,0 +1,80 @@
+﻿@model DIVULGA_SERVICOS.Models.CAD_PES_ENDERECO
+
+@{
+    ViewBag.Title = "Criar Endereço";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Criar Endereço</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="autocomplete">ENDEREÇO</label>
+        <div class="col-md-10">
+            <input id="autocomplete" placeholder="Endereço com número" onfocus="geolocate()" type="text" class="form-control" />
+        </div>
+    </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.NM_LOGRADOURO, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NM_LOGRADOURO, new { htmlAttributes = new { id = "route", @class = "form-control", @placeholder = "Automático ao selecionar endereço!", @disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.NM_LOGRADOURO, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.NUMERO, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NUMERO, new { htmlAttributes = new { id = "street_number", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NUMERO, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CD_CEP, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CD_CEP, new { htmlAttributes = new { id = "postal_code", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CD_CEP, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.NM_CIDADE, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NM_CIDADE, new { htmlAttributes = new { id = "locality", @class = "form-control", @placeholder = "Automático ao selecionar endereço!", @disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.NM_CIDADE, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.NM_ESTADO, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NM_ESTADO, new { htmlAttributes = new { id = "administrative_area_level_1", @class = "form-control", @placeholder = "Automático ao selecionar endereço!", @disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.NM_ESTADO, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group" hidden="hidden">
+                    <input class="form-control text-box single-line" data-val="true" id="longitude" name="LONG" type="text" value="">
+            </div>
+
+            <div class="form-group" hidden="hidden">
+                <input class="form-control text-box single-line" data-val="true" id="latitude" name="LAT" type="text" value="">
+            </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+}
+
+<div>
+    @Html.ActionLink("Voltar a lista de endereços", "Enderecos")
+</div>
+
+<script src="~/Scripts/mapa.js"></script>
