@@ -20,6 +20,8 @@ namespace DIVULGA_SERVICOS.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string CD_PESSOA { get; set; }
 
+        public int CD_INDICACAO { get; set; }
+
         //[Required (ErrorMessage = "Por favor, digite sua data de nascimento.")]
         //[DisplayName("2016/12/26")]
         //[Column(TypeName = "date")]

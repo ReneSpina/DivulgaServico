@@ -318,6 +318,6 @@ namespace DIVULGA_SERVICOS.Models
         [DataType(DataType.MultilineText)]
         public string DS_QUEM_SOMOS { get; set; }
         
-        public bool LockoutEnabled { get; set; }
+        public bool ATIVADO { get; set; }
     }
 }

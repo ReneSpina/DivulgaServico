@@ -22,9 +22,11 @@ namespace DIVULGA_SERVICOS.Models
         public virtual DbSet<CAD_HORA_ATENDIMENTO> CAD_HORA_ATENDIMENTO { get; set; }
         //public virtual DbSet<CAD_IMAGEM> CAD_IMAGEM { get; set; }
         public virtual DbSet<CAD_PES_ENDERECO> CAD_PES_ENDERECO { get; set; }
+        public virtual DbSet<CAD_CIDADES_DIVULGA_FORNECEDOR> CAD_CIDADES_DIVULGA_FORNECEDOR { get; set; }
         public virtual DbSet<CAD_PES_FONE> CAD_PES_FONE { get; set; }
         public virtual DbSet<CAD_PES_JURIDICA> CAD_PES_JURIDICA { get; set; }
         public virtual DbSet<CAD_PES_USUARIO> CAD_PES_USUARIO { get; set; }
+        public virtual DbSet<CAD_PES_FORNECEDOR> CAD_PES_FORNECEDOR { get; set; }
         public virtual DbSet<CAD_PESSOA> CAD_PESSOA { get; set; }
         //public virtual DbSet<CAD_SERV_JURIDICA> CAD_SERV_JURIDICA { get; set; }
         //public virtual DbSet<CAD_SLIDESHOW> CAD_SLIDESHOW { get; set; }
@@ -189,7 +191,11 @@ namespace DIVULGA_SERVICOS.Models
                 .HasRequired(c => c.CAD_PESSOA)
                 .WithMany(p => p.CAD_PES_FONE)
                 .HasForeignKey(p => p.CD_PESSOA);
-            
+
+            modelBuilder.Entity<CAD_CIDADES_DIVULGA_FORNECEDOR>()
+                .Property(p => p.SQ_CIDADE)
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+
             //modelBuilder.Entity<CAD_PES_FONE>()
             //    .Property(e => e.CD_FIXO)
             //    .IsUnicode(false);
@@ -273,6 +279,16 @@ namespace DIVULGA_SERVICOS.Models
             //    .Property(e => e.TF_TEL_CEL)
             //    .IsUnicode(false);
 
+            modelBuilder.Entity<CAD_PES_FORNECEDOR>()
+                .HasMany(e => e.CAD_CIDADES_DIVULGA_FORNECEDOR)
+                .WithRequired(e => e.CAD_PES_FORNECEDOR)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<CAD_PES_FORNECEDOR>()
+                .HasMany(e => e.CAD_PRODUTO_FORNECEDOR)
+                .WithRequired(e => e.CAD_PES_FORNECEDOR)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<CAD_PESSOA>()
                 .HasMany(e => e.CAD_PES_ENDERECO)
                 .WithRequired(e => e.CAD_PESSOA)
@@ -287,9 +303,12 @@ namespace DIVULGA_SERVICOS.Models
                 .HasOptional(e => e.CAD_PES_JURIDICA)
                 .WithRequired(e => e.CAD_PESSOA);
 
-
             modelBuilder.Entity<CAD_PESSOA>()
                 .HasOptional(e => e.CAD_PES_USUARIO)
+                .WithRequired(e => e.CAD_PESSOA);
+
+            modelBuilder.Entity<CAD_PESSOA>()
+                .HasOptional(e => e.CAD_PES_FORNECEDOR)
                 .WithRequired(e => e.CAD_PESSOA);
 
             modelBuilder.Entity<CAD_PES_JURIDICA>()

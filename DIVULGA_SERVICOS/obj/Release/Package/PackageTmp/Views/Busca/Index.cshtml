@@ -298,111 +298,111 @@
 
             }
             var marker1 = new google.maps.Marker({
-                position: new google.maps.LatLng(@item.CAD_PESSOA.CAD_PES_ENDERECO.Single().localizacao.Longitude.ToString().Replace(",", "."), @item.CAD_PESSOA.CAD_PES_ENDERECO.Single().localizacao.Latitude.ToString().Replace(",", ".")),
+                position: new google.maps.LatLng(@item.localizacao.Longitude.ToString().Replace(",", "."), @item.localizacao.Latitude.ToString().Replace(",", ".")),
                 map: map,
                 icon: image1,
             });
             google.maps.event.addListener(marker1, 'click', (function(marker1, i) {
                 return function() {
-                    var distancia = parseInt((@item.localizacao.Distance(DbGeography.FromText("POINT(" + ViewBag.latitude.ToString().Replace(",", ".") + " " + ViewBag.longitude.ToString().Replace(",", ".") + ")")).ToString().Replace(",", ".")/0.62137)/1000, 10);
+                    var distancia = parseInt((@item.localizacao.Distance(DbGeography.FromText("POINT(" + ViewBag.latitude.ToString().Replace(",", ".") + " " + ViewBag.longitude.ToString().Replace(",", ".") + ")")).ToString().Replace(",", ".") / 0.62137) / 1000, 10);
                     infowindow.setContent(
-                        "<h4 style='color: rgb(51, 122, 183); border-bottom: 1px solid rgb(229, 229, 229);'><strong>@item.CAD_PESSOA.NM_NOME_PESSOA - @i</strong></h4>"+
-                        "<strong>Distância: </strong>"+ distancia +" Km"+
-                        "<br><br>"+
-                        "<strong>Aceita:</strong>"+
-                        "<br>"+
-                            @if (item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.DINHEIRO == true)
-                                    {
-                            dinheiro = "Dinheiro | ";
-                        }
-                    @if (item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.CHEQUE == true)
-                                    {
-                            cheque = "Cheque | ";
-                        }
-                    @if (item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.DEBITO == true)
-                                    {
-                            debito = "Débito | ";
-                        }
-                    @if (item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.CREDITO == true)
-                                    {
-                            credito = "Crédito | ";
-                        }
-                    @if (item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.OUTROS == true)
-                                    {
-                            outros = "Entre outras formas a conversar...";
-                        }
-                    "@dinheiro.ToString()"+
-                    "@cheque.ToString()"+
-                    "@debito.ToString()"+
-                    "@credito.ToString()"+
-                    "<br>"+
-                    "@outros.ToString()"+
-                    "<br><br>"+
-                    "<strong>Telefones para contato:</strong>"+
-                    "<br>"+
-                    @foreach (var telefone in item.CAD_PESSOA.CAD_PES_FONE)
-                            {
-                                <text>
-                                "@telefone.CD_FIXO"+"  |  "+
-                                "@telefone.CD_CELULAR"+
-                                "<br>"+
-                            </text>
+                        "<h4 style='color: rgb(51, 122, 183); border-bottom: 1px solid rgb(229, 229, 229);'><strong>@item.CAD_PESSOA.NM_NOME_PESSOA - @i</strong></h4>" +
+                        "<strong>Distância: </strong>" + distancia + " Km" +
+                        "<br><br>" +
+                        "<strong>Aceita:</strong>" +
+                        "<br>" +
+                            @if(item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.DINHEIRO == true)
+                                        {
+                        dinheiro = "Dinheiro | ";
                     }
-                    "<br>"+
+                    @if(item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.CHEQUE == true)
+                                        {
+                        cheque = "Cheque | ";
+                    }
+                    @if(item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.DEBITO == true)
+                                        {
+                        debito = "Débito | ";
+                    }
+                    @if(item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.CREDITO == true)
+                                        {
+                        credito = "Crédito | ";
+                    }
+                    @if(item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.OUTROS == true)
+                                        {
+                        outros = "Entre outras formas a conversar...";
+                    }
+                    "@dinheiro.ToString()" +
+                    "@cheque.ToString()" +
+                    "@debito.ToString()" +
+                    "@credito.ToString()" +
+                    "<br>" +
+                    "@outros.ToString()" +
+                    "<br><br>" +
+                    "<strong>Telefones para contato:</strong>" +
+                    "<br>" +
+                    @foreach(var telefone in item.CAD_PESSOA.CAD_PES_FONE)
+                    { 
+                                <text>
+                                "@telefone.CD_FIXO" + "  |  " +
+                                "@telefone.CD_CELULAR" +
+                                "<br>" +
+                                </text>
+                    }
+                    "<br>" +
 
-                    @if (item.CAD_PESSOA.CAD_PES_JURIDICA.TODO_DIA == true)
-                            {
+                    @if(item.CAD_PESSOA.CAD_PES_JURIDICA.TODO_DIA == true)
+                                {
                         <text>
-                            "<div class='alert alert-success' role='alert'>"+
-                            "<strong>Está aberto agora :)</strong>"+
-                            "</div>"+
-                    </text>
+                            "<div class='alert alert-success' role='alert'>" +
+                            "<strong>Está aberto agora :)</strong>" +
+                            "</div>" +
+                        </text>
                     }
                     else
                     {
-                            DateTime agora = DateTime.Now;
-                            foreach (var hora in item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_HORA_ATENDIMENTO)
-                            {
+                        DateTime agora = DateTime.Now;
+                        foreach (var hora in item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_HORA_ATENDIMENTO)
+                        {
 
-                                if (hora.DIA_SEMANA == (int)agora.DayOfWeek)
+                            if (hora.DIA_SEMANA == (int)agora.DayOfWeek)
+                            {
+                                if (hora.HORA_INICIO <= agora.Hour && hora.HORA_FIM > agora.Hour)
                                 {
-                                    if (hora.HORA_INICIO <= agora.Hour && hora.HORA_FIM > agora.Hour)
-                                    {
                                     <text>
-                                    "<div class='alert alert-success' role='alert'>"+
-                                    "<strong>Está aberto agora :)</strong>"+
-                                    "</div>"+
+                                    "<div class='alert alert-success' role='alert'>" +
+                                    "<strong>Está aberto agora :)</strong>" +
+                                    "</div>" +
                                 </text>
-                                            break;
-                                    }
-                                    else
-                                    {
+                                                break;
+                                }
+                                else
+                                {
                                     <text>
-                                    "<div class='alert alert-danger' role='alert'>"+
-                                    "<strong>Está fechado agora :(</strong>"+
-                                    "</div>"+
+                                    "<div class='alert alert-danger' role='alert'>" +
+                                    "<strong>Está fechado agora :(</strong>" +
+                                    "</div>" +
                                 </text>
-                                            break;
-                                    }
+                                                break;
                                 }
                             }
                         }
+                    }
 
 
-                    "<br>"+
-                   "<button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModal"+'@item.CAD_PESSOA.Id'+"'>Acessar mais informações!</button>"+
-                   "  |  "+
+                    "<br>" +
+                   "<button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModal" + '@item.CAD_PESSOA.Id' + "'>Acessar mais informações!</button>" +
+                   "  |  " +
 
-                   @if (Request.IsAuthenticated)
-                            {
+                   @if(Request.IsAuthenticated)
+                                {
                         <text>
-                        "<button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModalAvaliacao"+'@item.CAD_PESSOA.Id'+"'>Avaliar o Prestador!</button>"+
-                    </text>
+                        "<button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModalAvaliacao" + '@item.CAD_PESSOA.Id' + "'>Avaliar o Prestador!</button>" +
+                        </text>
                     }
                     else
                     {
                         <text>
-                        "<button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModalLogin'>Login para Avaliar</button>"+
+                        "<button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModalLogin'>Login para Avaliar</button>" +
                     </text>
                     }
                     "");
@@ -411,18 +411,18 @@
             })(marker1))
             markers.push(marker1);
             </text>
-                }
-            }
+        }
+    }
 
                 if(i == 0)
                 {
                     <text>
-                        var pos = {
-                            lat: @ViewBag.latitude.ToString().Replace(",", "."),
-                            lng: @ViewBag.longitude.ToString().Replace(",", "."),
-                        };
-                        map.setCenter(pos);
-                    </text>
+            var pos = {
+                lat: @ViewBag.latitude.ToString().Replace(",", "."),
+                lng: @ViewBag.longitude.ToString().Replace(",", "."),
+            };
+            map.setCenter(pos);
+            </text>
                 }
                     <text>
             var markerCluster = new MarkerClusterer(map, markers, {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
@@ -542,7 +542,7 @@
                                             @*<div class="pull-right" style="margin-left:10px;">1</div>*@
                                         </div>
                                         <div class="pull-left">
-                                            <div class="pull-left" style=" line-height:1;">
+                                            <div class="pull-left" style="line-height:1;">
                                                 <div style="height:9px; margin:5px 0;">Pontualidade: <span class="glyphicon glyphicon-star"></span></div>
                                             </div>
                                             <div class="pull-left" style="width:180px;">
@@ -1000,13 +1000,13 @@
                                 }
 
     <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-92330679-1', 'auto');
-  ga('send', 'pageview');
+        ga('create', 'UA-92330679-1', 'auto');
+        ga('send', 'pageview');
 
     </script>
 </body>

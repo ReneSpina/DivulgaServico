@@ -24,6 +24,11 @@ namespace DIVULGA_SERVICOS.Models
         [StringLength(30)]
         public string CD_CELULAR { get; set; }
 
+        [StringLength(6)]
+        public string NM_OPERADORA { get; set; }
+
+        public bool WHATSAPP { get; set; }
+
         public virtual CAD_PESSOA CAD_PESSOA { get; set; }
     }
 }

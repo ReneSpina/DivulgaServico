@@ -1,0 +1,83 @@
+﻿@model DIVULGA_SERVICOS.Models.CAD_PES_ENDERECO
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CAD_PES_ENDERECO</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CAD_PESSOA.NM_NOME_PESSOA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CAD_PESSOA.NM_NOME_PESSOA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NM_CIDADE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NM_CIDADE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NM_LOGRADOURO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NM_LOGRADOURO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NM_BAIRRO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NM_BAIRRO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NM_ESTADO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NM_ESTADO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CD_CEP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CD_CEP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NUMERO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NUMERO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.localizacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.localizacao)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

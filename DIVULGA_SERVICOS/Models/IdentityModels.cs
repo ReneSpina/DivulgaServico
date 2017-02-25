@@ -15,6 +15,7 @@ namespace DIVULGA_SERVICOS.Models
         //public string TF_TEL_CEL { get; set; }
         public DateTime DT_DATA_CADASTRO { get; set; }
         public string NM_NOME_PESSOA { get; set; }
+        public bool ATIVADO { get; set; }
         //public string DS_EMAIL { get; set; }
         //public string CD_CNPJ { get; set; }
         //public string DS_LINK_SITE { get; set; }

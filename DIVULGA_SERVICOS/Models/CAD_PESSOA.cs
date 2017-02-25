@@ -24,6 +24,8 @@ namespace DIVULGA_SERVICOS.Models
         [StringLength(255)]
         public string NM_NOME_PESSOA { get; set; }
 
+        public bool ATIVADO { get; set; }
+
         //[Required(ErrorMessage = "INSIRA UM NOME PARA O SEU SITE! (EX.: MEUSITE)")]
         //[RegularExpression("^[a-zA-Z]{1,255}$", ErrorMessage = "INSIRA UM NOME VÁLIDO PARA O SEU SITE(SOMENTE LETRAS, SEM ESPAÇO)")]
         ////[Remote("Valida_NM_Site", "CADASTRO_PRESTADOR", ErrorMessage = "Esse nome já está cadastrado!")]
@@ -60,5 +62,7 @@ namespace DIVULGA_SERVICOS.Models
         public virtual CAD_PES_JURIDICA CAD_PES_JURIDICA { get; set; }
 
         public virtual CAD_PES_USUARIO CAD_PES_USUARIO { get; set; }
+
+        public virtual CAD_PES_FORNECEDOR CAD_PES_FORNECEDOR { get; set; }
     }
 }

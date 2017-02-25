@@ -251,9 +251,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201702170049054_Principal1.cs" />
-    <Compile Include="Migrations\201702170049054_Principal1.Designer.cs">
-      <DependentUpon>201702170049054_Principal1.cs</DependentUpon>
+    <Compile Include="Migrations\201702250353421_principal.cs" />
+    <Compile Include="Migrations\201702250353421_principal.Designer.cs">
+      <DependentUpon>201702250353421_principal.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -262,9 +262,12 @@
     <Compile Include="Models\CAD_FORMA_PAGAMENTO.cs" />
     <Compile Include="Models\CAD_HORA_ATENDIMENTO.cs" />
     <Compile Include="Models\CAD_PESSOA.cs" />
+    <Compile Include="Models\CAD_CIDADES_DIVULGA_FORNECEDOR.cs" />
     <Compile Include="Models\CAD_PES_ENDERECO.cs" />
+    <Compile Include="Models\CAD_PRODUTO_FORNECEDOR.cs" />
     <Compile Include="Models\CAD_PES_FONE.cs" />
     <Compile Include="Models\CAD_PES_JURIDICA.cs" />
+    <Compile Include="Models\CAD_PES_FORNECEDOR.cs" />
     <Compile Include="Models\CAD_PES_USUARIO.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -548,8 +551,8 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201702170049054_Principal1.resx">
-      <DependentUpon>201702170049054_Principal1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201702250353421_principal.resx">
+      <DependentUpon>201702250353421_principal.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

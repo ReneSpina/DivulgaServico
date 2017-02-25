@@ -1,0 +1,33 @@
+﻿@model DIVULGA_SERVICOS.Models.CAD_PES_FONE
+
+
+@{
+    ViewBag.Title = "Detalhes do Telefone";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalhes do Telefone</h2>
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            Celular
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CD_CELULAR)
+        </dd>
+
+        <dt>
+            Fixo
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CD_FIXO)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Deletar Telefone", "DeletarTelefone", new {id = Model.SQ_FONE }) |
+    @Html.ActionLink("Voltar a lista de telefones", "Telefones")
+</p>

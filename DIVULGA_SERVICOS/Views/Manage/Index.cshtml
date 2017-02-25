@@ -23,11 +23,11 @@
             }
             ]
         </dd>
-        <dt>Logins Externos (Facebook, Gmail...):</dt>
+        @*<dt>Logins Externos (Facebook, Gmail...):</dt>
         <dd>
             @Model.Logins.Count [
             @Html.ActionLink("Gerenciar", "ManageLogins")]
-        </dd>
+        </dd>*@
         <dt>Perfil:</dt>
         <dd>
             [ @Html.ActionLink("Gerenciar", "EditPerfilJuridico") ]
@@ -36,6 +36,11 @@
         <dt>Endereços:</dt>
         <dd>
             [ @Html.ActionLink("Gerenciar", "Enderecos") ]
+        </dd>
+
+        <dt>Telefones:</dt>
+        <dd>
+            [ @Html.ActionLink("Gerenciar", "Telefones") ]
         </dd>
 
         <dt>Serviços:</dt>

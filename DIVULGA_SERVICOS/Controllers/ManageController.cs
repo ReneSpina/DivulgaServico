@@ -721,7 +721,8 @@ namespace DIVULGA_SERVICOS.Controllers
                     TwoFactorEnabled = pessoajuridica.TwoFactorEnabled,
                     LockoutEndDateUtc = pessoajuridica.LockoutEndDateUtc,
                     AccessFailedCount = pessoajuridica.AccessFailedCount,
-                    LockoutEnabled = cAD_PES_JURIDICA.LockoutEnabled,
+                    LockoutEnabled = pessoajuridica.LockoutEnabled,
+                    ATIVADO = cAD_PES_JURIDICA.ATIVADO,
                 };
                 db.CAD_PESSOA.AddOrUpdate(user);
                 db.SaveChanges();

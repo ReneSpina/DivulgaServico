@@ -1,0 +1,41 @@
+﻿@model IEnumerable<DIVULGA_SERVICOS.Models.CAD_PES_FONE>
+
+@{
+    ViewBag.Title = "Telefones";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Endereços</h2>
+
+<p>
+    @Html.ActionLink("Adicionar Telefone", "CriarTelefone")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Celular
+        </th>
+        <th>
+            Fixo
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CD_CELULAR)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CD_FIXO)
+            </td>
+            <td>
+                @*@Html.ActionLink("Editar", "EditarEndereco", new {  id=item.SQ_ENDERECO }) |*@
+                @Html.ActionLink("Detalhes", "DetalhesTelefone", new { id=item.SQ_FONE }) |
+                @Html.ActionLink("Deletar", "DeletarTelefone", new { id=item.SQ_FONE })
+            </td>
+        </tr>
+    }
+
+</table>
