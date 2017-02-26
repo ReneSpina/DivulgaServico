@@ -7,37 +7,54 @@
 
 <h2>Criar Telefone</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("CriarTelefone", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.CD_CELULAR, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.CD_CELULAR, new { htmlAttributes = new {@class = "form-control"} })
-                    @Html.ValidationMessageFor(model => model.CD_CELULAR, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.CD_FIXO, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.CD_FIXO, new { htmlAttributes = new {@class = "form-control" } })
-                    <select>
-                        <option value="Tim">Tim</option>
-                        <option value="Claro">Claro</option>
-                        <option value="Vivo">Vivo</option>
-                        <option value="Oi">Oi</option>
-                    </select>
-                    @Html.ValidationMessageFor(model => model.CD_FIXO, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.CD_FIXO, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.CD_FIXO, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.CD_FIXO, "", new { @class = "text-danger" })
         </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CD_CELULAR, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-5">
+            @Html.EditorFor(model => model.CD_CELULAR, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.CD_CELULAR, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="autocomplete">OPERADORA*</label>
+        <div class="col-md-5">
+            <select name="NM_OPERADORA" class="form-control">
+                <option value="Tim">Tim</option>
+                <option value="Claro">Claro</option>
+                <option value="Vivo">Vivo</option>
+                <option value="Oi">Oi</option>
+                <option value="Outro">Outro</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="autocomplete">WHATSAPP*</label>
+        <div class="col-md-5">
+            <select name="WHATSAPP" class="form-control">
+                <option value="true">Sim</option>
+                <option value="false">Não</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
 }
 
 <div>

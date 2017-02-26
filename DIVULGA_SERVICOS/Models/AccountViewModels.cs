@@ -254,6 +254,11 @@ namespace DIVULGA_SERVICOS.Models
         [Required]
         public bool OUTROS { get; set; }
 
+        [StringLength(6)]
+        public string NM_OPERADORA { get; set; }
+        
+        public bool WHATSAPP { get; set; }
+
         [Required]
         [StringLength(255)]
         public string NM_NOME_ATIVIDADE { get; set; }
@@ -261,6 +266,103 @@ namespace DIVULGA_SERVICOS.Models
         [Required]
         [StringLength(255)]
         public string DS_DESCRICAO_ATIVIDADE { get; set; }
+    }
+
+    public class RegisterFornecedorViewModel
+    {
+        [Required(ErrorMessage = "O NOME É OBRIGATÓRIO!")]
+        [RegularExpression("^[a-zA-Z''-'\\s]{1,255}$", ErrorMessage = "INSIRA UM NOME VÁLIDO (SOMENTE LETRAS MAIÚSCULAS E/OU MINÚSCULAS)!")]
+        [Display(Name = "NOME*")]
+        public string NM_NOME_PESSOA { get; set; }
+
+        [Required(ErrorMessage = "O TELEFONE FIXO É OBRIGATÓRIO!")]
+        [StringLength(15)]
+        //[RegularExpression("^\\([1-9]{2}\\) [2-9][0-9]{3,3}\\-[0-9]{4}$", ErrorMessage = "INSIRA UM TELEONE VÁLIDO (Ex.: (##) ####-#### ou (##) #####-####)")]
+        [Display(Name = "TELEFONE FIXO*")]
+        //[DisplayFormat(DataFormatString = "{0:(##) ####-####}", ApplyFormatInEditMode =true)]
+        public string TF_TEL_FIXO { get; set; }
+
+        [Required(ErrorMessage = "O TELEFONE CELULAR É OBRIGATÓRIO")]
+        [StringLength(15)]
+        //[RegularExpression("^\\([1-9]{2}\\) [2-9][0-9]{3,3}\\-[0-9]{4}$", ErrorMessage = "INSIRA UM TELEONE VÁLIDO (Ex.: (##) ####-#### ou (##) #####-####!")]
+        [Display(Name = "CELULAR*")]
+        //[DisplayFormat(DataFormatString = "{0:(##) #####-####}", ApplyFormatInEditMode = true)]
+        public string TF_TEL_CEL { get; set; }
+
+        [Required(ErrorMessage = "O CPF/CNPJ É OBRIGATÓRIO!")]
+        [RegularExpression("^(\\d{14})|(\\d{11})$", ErrorMessage = "INSIRA UM CPF OU UM CNPJ VÁLIDO (DIGITE SOMENTE NÚMEROS)!")]
+        [StringLength(30)]
+        [Display(Name = "CPF OU CNPJ*")]
+        public string CD_CNPJ { get; set; }
+
+        [Required(ErrorMessage = "O LOGRADOURO É OBRIGATÓRIO!")]
+        [Display(Name = "LOGRADOURO*")]
+        [StringLength(1000)]
+        public string NM_LOGRADOURO { get; set; }
+
+        [Required(ErrorMessage = "O NÚMERO É OBRIGATÓRIO!")]
+        [Display(Name = "NÚMERO*")]
+        public int NUMERO { get; set; }
+
+        //[Required(ErrorMessage = "O CEP É OBRIGATÓRIO!")]
+        [Display(Name = "CEP")]
+        [StringLength(20)]
+        public string CD_CEP { get; set; }
+
+        [Required(ErrorMessage = "O NOME DA CIDADE É OBRIGATÓRIO!")]
+        [Display(Name = "CIDADE*")]
+        [StringLength(255)]
+        public string NM_CIDADE { get; set; }
+
+        [Required(ErrorMessage = "O ESTADO É OBRIGATÓRIO!")]
+        [Display(Name = "ESTADO*")]
+        [StringLength(50)]
+        public string NM_ESTADO { get; set; }
+
+        [Required(ErrorMessage = "O EMAIL É OBRIGATÓRIO!")]
+        [Display(Name = "EMAIL*")]
+        public string UserName { get; set; }
+
+        [Required(ErrorMessage = "A CONFIRMAÇÃO DO EMAIL É OBRIGATÓRIA!")]
+        [Display(Name = "CONFIRME SEU EMAIL*")]
+        [System.ComponentModel.DataAnnotations.Compare("UserName", ErrorMessage = "Os Emails não são iguais!")]
+        public string ConfirmUserName { get; set; }
+
+        [Required(ErrorMessage = "A SENHA É OBRIGATÓRIA!")]
+        //[StringLength(100, ErrorMessage = "A SENHA DEVE CONTER NO MÍNIMO 6 CARACTERES!", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "SENHA*")]
+        public string Password { get; set; }
+
+        [Required(ErrorMessage = "A CONFIRMAÇÃO DA SENHA É OBRIGATÓRIA!")]
+        [DataType(DataType.Password)]
+        [Display(Name = "CONFIRME SUA SENHA*")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "AS SENHAS NÃO SÃO IGUAIS!")]
+        public string ConfirmPassword { get; set; }
+
+        [Column(TypeName = "date")]
+        public DateTime DT_DATA_CADASTRO { get; set; }
+
+        [StringLength(100)]
+        public string CD_LAT { get; set; }
+
+        [StringLength(100)]
+        public string CD_LONG { get; set; }
+
+        public int CD_INDICACAO { get; set; }
+
+        [StringLength(6)]
+        public string NM_OPERADORA { get; set; }
+
+        public bool WHATSAPP { get; set; }
+
+        //[Required]
+        //[StringLength(255)]
+        //public string NM_NOME_ATIVIDADE { get; set; }
+
+        //[Required]
+        //[StringLength(255)]
+        //public string DS_DESCRICAO_ATIVIDADE { get; set; }
     }
 
 

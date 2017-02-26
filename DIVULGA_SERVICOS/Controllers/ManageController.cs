@@ -944,7 +944,9 @@ namespace DIVULGA_SERVICOS.Controllers
                 {
                     CD_PESSOA = usuario.Id,
                     CD_FIXO = cAD_PES_FONE.CD_FIXO,
-                    CD_CELULAR = cAD_PES_FONE.CD_CELULAR
+                    CD_CELULAR = cAD_PES_FONE.CD_CELULAR,
+                    WHATSAPP = cAD_PES_FONE.WHATSAPP,
+                    NM_OPERADORA = cAD_PES_FONE.NM_OPERADORA
                 };
                 db.CAD_PES_FONE.Add(telefone);
                 db.SaveChanges();

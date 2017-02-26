@@ -68,15 +68,37 @@
                     @Html.ValidationMessageFor(model => model.TF_TEL_FIXO, "", new { @class = "text-danger" })
                 </div>
             </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.TF_TEL_CEL, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.TF_TEL_CEL, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.TF_TEL_CEL, "", new { @class = "text-danger" })
+            
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TF_TEL_CEL, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.TF_TEL_CEL, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TF_TEL_CEL, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
 
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="autocomplete">OPERADORA*</label>
+                    <div class="col-md-5">
+                        <select name="NM_OPERADORA" class="form-control">
+                            <option value="Tim">Tim</option>
+                            <option value="Claro">Claro</option>
+                            <option value="Vivo">Vivo</option>
+                            <option value="Oi">Oi</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="autocomplete">WHATSAPP*</label>
+                    <div class="col-md-5">
+                        <select name="WHATSAPP" class="form-control">
+                            <option value="true">Sim</option>
+                            <option value="false">Não</option>
+                        </select>
+                    </div>
+                </div>
             <div class="form-group">
                 @Html.LabelFor(m => m.CD_CNPJ, new { @class = "control-label col-md-2" })
 

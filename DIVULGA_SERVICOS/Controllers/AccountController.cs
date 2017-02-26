@@ -216,7 +216,7 @@ namespace DIVULGA_SERVICOS.Controllers
                         //IdentityResult resultClaim = await UserManager
                         //  .AddClaimAsync(user.Id, new Claim("Nome", model.NM_NOME_PESSOA));
                         //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        
+
                         CAD_PES_JURIDICA juridica = new CAD_PES_JURIDICA
                         {
                             CD_PESSOA = user.Id,
@@ -230,11 +230,13 @@ namespace DIVULGA_SERVICOS.Controllers
                         {
                             CD_PESSOA = user.Id,
                             CD_FIXO = model.TF_TEL_FIXO,
-                            CD_CELULAR = model.TF_TEL_CEL
+                            CD_CELULAR = model.TF_TEL_CEL,
+                            NM_OPERADORA = model.NM_OPERADORA,
+                            WHATSAPP = model.WHATSAPP
                         };
                         db.CAD_PES_FONE.Add(telefone);
                         db.SaveChanges();
-                        
+
                         CAD_PES_ENDERECO endereco = new CAD_PES_ENDERECO
                         {
                             CD_PESSOA = user.Id,
@@ -378,6 +380,116 @@ namespace DIVULGA_SERVICOS.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+        [AllowAnonymous]
+        public ActionResult CadatrarFornecedor()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Account/Register
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CadatrarFornecedor(RegisterFornecedorViewModel model)
+        {
+            //string link_site;
+            //long indicacao;
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser
+                {
+                    NM_NOME_PESSOA = model.NM_NOME_PESSOA,
+                    UserName = model.UserName,
+                    //TF_TEL_CEL = model.TF_TEL_CEL,
+                    //TF_TEL_FIXO = model.TF_TEL_FIXO,
+                    DT_DATA_CADASTRO = System.DateTime.Today,
+                    Email = model.UserName,
+                    ATIVADO = true
+                    //DS_EMAIL = model.UserName,
+                };
+                var result = await UserManager.CreateAsync(user, model.Password);
+
+                var addrole = UserManager.AddToRole(user.Id, "Fornecedor");
+
+                if (addrole.Succeeded)
+                {
+                    DbContextTransaction transacao = db.Database.BeginTransaction();
+                    try
+                    {
+                        if (result.Succeeded)
+                        {
+                            //IdentityResult resultClaim = await UserManager
+                            //  .AddClaimAsync(user.Id, new Claim("Nome", model.NM_NOME_PESSOA));
+                            //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                            CAD_PES_FORNECEDOR fornecedor = new CAD_PES_FORNECEDOR
+                            {
+                                CD_PESSOA = user.Id,
+                                CD_CNPJ = model.CD_CNPJ,
+                                CD_INDICACAO = model.CD_INDICACAO,
+                            };
+                            db.CAD_PES_FORNECEDOR.Add(fornecedor);
+                            db.SaveChanges();
+
+                            CAD_PES_FONE telefone = new CAD_PES_FONE
+                            {
+                                CD_PESSOA = user.Id,
+                                CD_FIXO = model.TF_TEL_FIXO,
+                                CD_CELULAR = model.TF_TEL_CEL,
+                                NM_OPERADORA = model.NM_OPERADORA,
+                                WHATSAPP = model.WHATSAPP
+                            };
+                            db.CAD_PES_FONE.Add(telefone);
+                            db.SaveChanges();
+
+                            CAD_PES_ENDERECO endereco = new CAD_PES_ENDERECO
+                            {
+                                CD_PESSOA = user.Id,
+                                NM_CIDADE = model.NM_CIDADE,
+                                NM_LOGRADOURO = model.NM_LOGRADOURO,
+                                NM_BAIRRO = "NULL",
+                                NUMERO = model.NUMERO,
+                                NM_ESTADO = model.NM_ESTADO,
+                                CD_CEP = model.CD_CEP,
+                                localizacao = DbGeography.FromText("POINT(" + model.CD_LAT + " " + model.CD_LONG + ")")
+                                //TP_TIPO_LOGRADOURO = model.TP_TIPO_LOGRADOURO,
+                            };
+                            db.CAD_PES_ENDERECO.Add(endereco);
+                            db.SaveChanges();
+
+                            //Envio de email para confirmação da conta cadastrada.
+                            //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                            //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                            //await UserManager.SendEmailAsync(user.Id, "Confirme sua conta", "Por favor, confirme sua conta clicando <a href=\"" + callbackUrl + "\">aqui</a>");
+
+                            //ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
+                            // + "before you can log in.";
+                            return View("Login");
+                            //AddErrors(result);
+                            // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                            // Send an email with this link
+                        }
+                        else
+                        {
+                            AddErrors(result);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        transacao.Rollback();
+                        throw ex;
+                    }
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+
+
 
         //
         // GET: /Account/ConfirmEmail

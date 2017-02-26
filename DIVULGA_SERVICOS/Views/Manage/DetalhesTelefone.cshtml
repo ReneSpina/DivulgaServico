@@ -19,6 +19,39 @@
         </dd>
 
         <dt>
+            Operadora
+        </dt>
+
+        <dd>
+            @if(@Html.DisplayFor(model => model.NM_OPERADORA).ToString() != "Outros")
+            {
+                @Html.DisplayFor(model => model.NM_OPERADORA)
+            }
+            else
+            {
+                var outros = "";
+                @outros
+            }
+        </dd>
+
+        <dt>
+            WhatsApp
+        </dt>
+
+        <dd>
+            @if(@Html.ValueFor(model => model.WHATSAPP).ToString() == "True")
+            {
+                var sim = "Sim";
+                @sim
+            }
+            else
+            {
+                var nao = "Não";
+                @nao
+            }
+        </dd>
+
+        <dt>
             Fixo
         </dt>
 
