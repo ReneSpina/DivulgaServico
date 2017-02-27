@@ -22,7 +22,7 @@
 
 
 <br><br>
-@using (Html.BeginForm("CadatrarFornecedor", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("CadastrarFornecedor", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @*<h4>Create a new account.</h4>*@
@@ -209,6 +209,5 @@
 <script>
     $("#TF_TEL_CEL").mask("(00) 90000-0000");
     $("#TF_TEL_FIXO").mask("(00) 0000-0000");
-    $("#CD_CEP").mask("00000-000");
 </script>
 

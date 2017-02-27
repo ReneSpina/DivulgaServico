@@ -28,26 +28,48 @@
             @Model.Logins.Count [
             @Html.ActionLink("Gerenciar", "ManageLogins")]
         </dd>*@
-        <dt>Perfil:</dt>
-        <dd>
-            [ @Html.ActionLink("Gerenciar", "EditPerfilJuridico") ]
-        </dd>
+        @if (User.IsInRole("Fornecedor"))
+        {
+            <dt>Perfil:</dt>
+            <dd>
+                [ @Html.ActionLink("Gerenciar", "EditarPerfilFornecedor") ]
+            </dd>
 
-        <dt>Endereços:</dt>
-        <dd>
-            [ @Html.ActionLink("Gerenciar", "Enderecos") ]
-        </dd>
+            <dt>Produtos:</dt>
+            <dd>
+                [ @Html.ActionLink("Gerenciar", "Produtos") ]
+            </dd>
+            <dt>Telefones:</dt>
+            <dd>
+                [ @Html.ActionLink("Gerenciar", "Telefones") ]
+            </dd>
 
-        <dt>Telefones:</dt>
-        <dd>
-            [ @Html.ActionLink("Gerenciar", "Telefones") ]
-        </dd>
+        }
+        else if (User.IsInRole("Prestador"))
+        {
+            <dt>Perfil:</dt>
+            <dd>
+                [ @Html.ActionLink("Gerenciar", "EditPerfilJuridico") ]
+            </dd>
+            <dt>Endereços:</dt>
+            <dd>
+                [ @Html.ActionLink("Gerenciar", "Enderecos") ]
+            </dd>
+            <dt>Telefones:</dt>
+            <dd>
+                [ @Html.ActionLink("Gerenciar", "Telefones") ]
+            </dd>
 
-        <dt>Serviços:</dt>
-        <dd>
-            [ @Html.ActionLink("Gerenciar", "Servicos") ]
-        </dd>
+            <dt>Serviços:</dt>
+            <dd>
+                [ @Html.ActionLink("Gerenciar", "Servicos") ]
+            </dd>
 
+            <dt>Fornecedores:</dt>
+            <dd>
+                [ @Html.ActionLink("Gerenciar", "MeusFornecedores") ]
+            </dd>
+        }
         @*
             Phone Numbers can used as a second factor of verification in a two-factor authentication system.
              

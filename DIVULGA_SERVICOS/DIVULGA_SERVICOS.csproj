@@ -243,6 +243,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AvaliacaoController.cs" />
+    <Compile Include="Controllers\CadastrarProdutosController.cs" />
     <Compile Include="Controllers\CAD_CATEGORIAController.cs" />
     <Compile Include="Controllers\BuscaController.cs" />
     <Compile Include="Controllers\CAD_PES_ENDERECOController.cs" />
@@ -251,9 +252,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201702252146441_principal.cs" />
-    <Compile Include="Migrations\201702252146441_principal.Designer.cs">
-      <DependentUpon>201702252146441_principal.cs</DependentUpon>
+    <Compile Include="Migrations\201702261906520_Principal.cs" />
+    <Compile Include="Migrations\201702261906520_Principal.Designer.cs">
+      <DependentUpon>201702261906520_Principal.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -463,7 +464,7 @@
     <Content Include="Views\CAD_CATEGORIA\Edit.cshtml" />
     <Content Include="Views\CAD_CATEGORIA\Index.cshtml" />
     <Content Include="Views\Manage\CriarServico.cshtml" />
-    <Content Include="Views\Manage\Gerenciamento_Servicos.cshtml" />
+    <Content Include="Views\Manage\Servicos.cshtml" />
     <Content Include="Views\Manage\DetalhesServico.cshtml" />
     <Content Include="Views\Manage\EditarServico.cshtml" />
     <Content Include="Views\Manage\DeletarServico.cshtml" />
@@ -536,7 +537,18 @@
     <Content Include="Views\Manage\CriarTelefone.cshtml" />
     <Content Include="Views\Manage\Telefones.cshtml" />
     <Content Include="Views\Manage\DetalhesTelefone.cshtml" />
-    <Content Include="Views\Account\CadatrarFornecedor.cshtml" />
+    <Content Include="Views\Account\CadastrarFornecedor.cshtml" />
+    <Content Include="Views\CadastrarProdutos\Create.cshtml" />
+    <Content Include="Views\CadastrarProdutos\Delete.cshtml" />
+    <Content Include="Views\CadastrarProdutos\Details.cshtml" />
+    <Content Include="Views\CadastrarProdutos\Edit.cshtml" />
+    <Content Include="Views\CadastrarProdutos\Index.cshtml" />
+    <Content Include="Views\Manage\Produtos.cshtml" />
+    <Content Include="Views\Manage\CriarProduto.cshtml" />
+    <Content Include="Views\Manage\DetalhesProduto.cshtml" />
+    <Content Include="Views\Manage\DeletarProduto.cshtml" />
+    <Content Include="Views\Manage\EditarProduto.cshtml" />
+    <Content Include="Views\Manage\Fornecedores.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -552,8 +564,8 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201702252146441_principal.resx">
-      <DependentUpon>201702252146441_principal.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201702261906520_Principal.resx">
+      <DependentUpon>201702261906520_Principal.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

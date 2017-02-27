@@ -196,6 +196,10 @@ namespace DIVULGA_SERVICOS.Models
                 .Property(p => p.SQ_CIDADE)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
+            modelBuilder.Entity<CAD_PRODUTO_FORNECEDOR>()
+                .Property(p => p.SQ_PRODUTO)
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+
             //modelBuilder.Entity<CAD_PES_FONE>()
             //    .Property(e => e.CD_FIXO)
             //    .IsUnicode(false);
@@ -373,5 +377,7 @@ namespace DIVULGA_SERVICOS.Models
                .HasKey(t => t.Id);
 
         }
+
+        public System.Data.Entity.DbSet<DIVULGA_SERVICOS.Models.CAD_PRODUTO_FORNECEDOR> CAD_PRODUTO_FORNECEDOR { get; set; }
     }
 }

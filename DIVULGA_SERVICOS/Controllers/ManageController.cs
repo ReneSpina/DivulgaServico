@@ -11,6 +11,7 @@ using System.Net;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.Spatial;
+using System.Collections.Generic;
 
 namespace DIVULGA_SERVICOS.Controllers
 {
@@ -38,9 +39,9 @@ namespace DIVULGA_SERVICOS.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -546,14 +547,14 @@ namespace DIVULGA_SERVICOS.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var userName = User.Identity.Name;
-                var usuario = db.CAD_PESSOA.Where(x => x.UserName == userName).FirstOrDefault();
-                var servico = db.CAD_CATEGORIA.Where(x => x.CD_PES_JURIDICA == usuario.Id);
+                var userId = User.Identity.GetUserId();
+                var usuario = db.CAD_PESSOA.Where(x => x.Id == userId).FirstOrDefault();
+                var servico = db.CAD_CATEGORIA.Where(x => x.CD_PES_JURIDICA == usuario.Id).ToList();
 
                 if (servico != null)
                 {
                     //var cliente = db.CAD_CLIENTE.Include(x => x.CD_PESSOA == pes_juridica.CD_PESSOA);
-                    return View("Gerenciamento_Servicos", servico.ToList());
+                    return View("Servicos", servico);
                 }
                 return View();
             }
@@ -602,7 +603,7 @@ namespace DIVULGA_SERVICOS.Controllers
             {
                 return HttpNotFound();
             }
-            return View("DetalhesServico",cAD_CATEGORIA);
+            return View("DetalhesServico", cAD_CATEGORIA);
         }
 
         // GET: CAD_CATEGORIA/Edit/5
@@ -683,7 +684,7 @@ namespace DIVULGA_SERVICOS.Controllers
                 return HttpNotFound();
             }
             //CAD_PES_JURIDICA cAD_CATEGORIA = db.CAD_CATEGORIA.Where(x => x.SQ_CATEGORIA == id).FirstOrDefault();
-            return View("EditarPerfil" ,cAD_PES_JURIDICA);
+            return View("EditarPerfil", cAD_PES_JURIDICA);
         }
 
         [HttpPost]
@@ -698,11 +699,11 @@ namespace DIVULGA_SERVICOS.Controllers
 
                 CAD_PES_JURIDICA PesJuridica = new CAD_PES_JURIDICA
                 {
-                   CD_PESSOA = User.Identity.GetUserId(),
-                   DS_QUEM_SOMOS = cAD_PES_JURIDICA.DS_QUEM_SOMOS,
-                   DS_SOBRE = cAD_PES_JURIDICA.DS_SOBRE,
-                   CD_CNPJ = cAD_PES_JURIDICA.CD_CNPJ,
-                   TODO_DIA = usuario.TODO_DIA
+                    CD_PESSOA = User.Identity.GetUserId(),
+                    DS_QUEM_SOMOS = cAD_PES_JURIDICA.DS_QUEM_SOMOS,
+                    DS_SOBRE = cAD_PES_JURIDICA.DS_SOBRE,
+                    CD_CNPJ = cAD_PES_JURIDICA.CD_CNPJ,
+                    TODO_DIA = usuario.TODO_DIA
                 };
                 db.CAD_PES_JURIDICA.AddOrUpdate(PesJuridica);
 
@@ -714,7 +715,7 @@ namespace DIVULGA_SERVICOS.Controllers
                     NM_NOME_PESSOA = cAD_PES_JURIDICA.NM_NOME_PESSOA,
                     DT_DATA_CADASTRO = pessoajuridica.DT_DATA_CADASTRO,
                     EmailConfirmed = pessoajuridica.EmailConfirmed,
-                    PasswordHash =  pessoajuridica.PasswordHash,
+                    PasswordHash = pessoajuridica.PasswordHash,
                     SecurityStamp = pessoajuridica.SecurityStamp,
                     PhoneNumber = pessoajuridica.PhoneNumber,
                     PhoneNumberConfirmed = pessoajuridica.PhoneNumberConfirmed,
@@ -811,19 +812,23 @@ namespace DIVULGA_SERVICOS.Controllers
             {
                 var userName = User.Identity.Name;
                 var usuario = db.CAD_PESSOA.Where(x => x.UserName == userName).FirstOrDefault();
-                CAD_PES_ENDERECO endereco = new CAD_PES_ENDERECO
-                {
-                    CD_PESSOA = usuario.Id,
-                    NM_CIDADE = cAD_PES_ENDERECO.NM_CIDADE,
-                    NM_LOGRADOURO = cAD_PES_ENDERECO.NM_LOGRADOURO,
-                    NM_BAIRRO = "NULL",
-                    NUMERO = cAD_PES_ENDERECO.NUMERO,
-                    NM_ESTADO = cAD_PES_ENDERECO.NM_ESTADO,
-                    CD_CEP = cAD_PES_ENDERECO.CD_CEP,
-                    localizacao = DbGeography.FromText("POINT(" + LAT + " " + LONG + ")")
-                };
-                db.CAD_PES_ENDERECO.Add(endereco);
-                db.SaveChanges();
+                
+                //for(var i = 0; i < 1000000; i++)
+                //{
+                    CAD_PES_ENDERECO endereco = new CAD_PES_ENDERECO
+                    {
+                        CD_PESSOA = usuario.Id,
+                        NM_CIDADE = cAD_PES_ENDERECO.NM_CIDADE,
+                        NM_LOGRADOURO = cAD_PES_ENDERECO.NM_LOGRADOURO,
+                        NM_BAIRRO = "NULL",
+                        NUMERO = cAD_PES_ENDERECO.NUMERO,
+                        NM_ESTADO = cAD_PES_ENDERECO.NM_ESTADO,
+                        CD_CEP = cAD_PES_ENDERECO.CD_CEP,
+                        localizacao = DbGeography.FromText("POINT(" + LAT + " " + LONG + ")")
+                    };
+                    db.CAD_PES_ENDERECO.Add(endereco);
+                    db.SaveChanges();
+                //}
                 return RedirectToAction("Enderecos");
             }
 
@@ -867,7 +872,7 @@ namespace DIVULGA_SERVICOS.Controllers
         /*Fim dos métodos para gerenciamento de endereços*/
 
         /*Início dos métodos para gerenciamento de telefones*/
-        [Authorize]
+        [Authorize/* (Roles ="Prestador")*/]
         public ActionResult Telefones()
         {
             if (User.Identity.IsAuthenticated)
@@ -902,7 +907,7 @@ namespace DIVULGA_SERVICOS.Controllers
             {
                 var userName = User.Identity.Name;
                 var usuario = db.CAD_PESSOA.Where(x => x.UserName == userName).FirstOrDefault();
-                var telefone = db.CAD_PES_FONE.Where(x => x.CD_PESSOA == usuario.Id && x.SQ_FONE== id).FirstOrDefault();
+                var telefone = db.CAD_PES_FONE.Where(x => x.CD_PESSOA == usuario.Id && x.SQ_FONE == id).FirstOrDefault();
 
                 if (telefone != null)
                 {
@@ -990,13 +995,251 @@ namespace DIVULGA_SERVICOS.Controllers
             db.SaveChanges();
             return RedirectToAction("Telefones");
         }
-
-
         /*Fim dos métodos para gerenciamento de telefones*/
 
 
 
 
+        /*Início dos métodos para gerenciamento de produtos do fornecedor*/
+
+        [Authorize(Roles = "Fornecedor")]
+        public ActionResult Produtos()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+                var usuario = db.CAD_PES_FORNECEDOR.Where(x => x.CD_PESSOA == userId).FirstOrDefault();
+                var produtos = db.CAD_PRODUTO_FORNECEDOR.Where(x => x.CD_PESSOA == usuario.CD_PESSOA).ToList();
+
+                if (produtos != null)
+                {
+                    //var cliente = db.CAD_CLIENTE.Include(x => x.CD_PESSOA == pes_juridica.CD_PESSOA);
+                    return View("Produtos", produtos);
+                }
+                else
+                {
+                    ViewBag.errorMessage = "Você precisa ser um fornecedor e deve estar logado para acessar essa página.";
+                    return View("Error");
+                }
+            }
+            else
+            {
+                ViewBag.errorMessage = "Você precisa ser um fornecedor e deve estar logado para acessar essa página.";
+                return View("Error");
+            }
+        }
+
+        [Authorize(Roles = "Fornecedor")]
+        public ActionResult CriarProduto()
+        {
+            //ViewBag.CD_PES_JURIDICA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ");
+            return View("CriarProduto");
+        }
+
+        // POST: CAD_CATEGORIA/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [Authorize(Roles = "Fornecedor")]
+        [ValidateAntiForgeryToken]
+        public ActionResult CriarProduto(CAD_PRODUTO_FORNECEDOR cAD_PRODUTO_FORNECEDOR)
+        {
+            if (ModelState.IsValid)
+            {
+                var userId = User.Identity.GetUserId();
+                var usuario = db.CAD_PES_FORNECEDOR.Where(x => x.CD_PESSOA == userId).FirstOrDefault();
+                CAD_PRODUTO_FORNECEDOR produto = new CAD_PRODUTO_FORNECEDOR
+                {
+                    CD_PESSOA = usuario.CD_PESSOA,
+                    NM_PRODUTO = cAD_PRODUTO_FORNECEDOR.NM_PRODUTO,
+                    DS_DESCRICAO = cAD_PRODUTO_FORNECEDOR.DS_DESCRICAO,
+                    VALOR_PRODUTO = cAD_PRODUTO_FORNECEDOR.VALOR_PRODUTO,
+                    DT_CRIACAO = DateTime.Today,
+                    ATIVO = cAD_PRODUTO_FORNECEDOR.ATIVO,
+                    TAGS = cAD_PRODUTO_FORNECEDOR.TAGS
+                };
+                db.CAD_PRODUTO_FORNECEDOR.Add(produto);
+                db.SaveChanges();
+                return RedirectToAction("Produtos");
+            }
+
+            //ViewBag.CD_PESSOA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ", cAD_PES_ENDERECO.CD_PESSOA);
+            ViewBag.errorMessage = "Não foi possível adicionar o produto. Tenha certeza de que você escolheu um produto válido e tente novamente!";
+            return View("Error");
+        }
+
+        [Authorize(Roles = "Fornecedor")]
+        public ActionResult DeletarProduto(int id)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+                var usuario = db.CAD_PES_FORNECEDOR.Where(x => x.CD_PESSOA == userId).FirstOrDefault();
+
+                CAD_PRODUTO_FORNECEDOR cAD_PRODUTO_FORNECEDOR = db.CAD_PRODUTO_FORNECEDOR.Where(x => x.CD_PESSOA == usuario.CD_PESSOA && x.SQ_PRODUTO == id).FirstOrDefault();
+                if (cAD_PRODUTO_FORNECEDOR != null)
+                {
+                    return View("DeletarProduto", cAD_PRODUTO_FORNECEDOR);
+                }
+                ViewBag.errorMessage = "Não conseguimos identificar o produto. Por favor tente novamente com um produto válido.";
+                return View("Error");
+
+            }
+            ViewBag.errorMessage = "Você precisa ser um fornecedor e deve estar logado para acessar essa página.";
+            return View("Error");
+
+        }
+
+        [HttpPost ActionName("DeletarProduto")]
+        [Authorize(Roles = "Fornecedor")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeletarProdutoOk(int id)
+        {
+            CAD_PRODUTO_FORNECEDOR cAD_PRODUTO_FORNECEDOR = db.CAD_PRODUTO_FORNECEDOR.Where(x => x.SQ_PRODUTO == id).FirstOrDefault();
+            db.CAD_PRODUTO_FORNECEDOR.Remove(cAD_PRODUTO_FORNECEDOR);
+            db.SaveChanges();
+            return RedirectToAction("Produtos");
+        }
+
+        [Authorize(Roles = "Fornecedor")]
+        public ActionResult DetalhesProduto(int id)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+                var usuario = db.CAD_PRODUTO_FORNECEDOR.Where(x => x.CD_PESSOA == userId).FirstOrDefault();
+                var produto = db.CAD_PRODUTO_FORNECEDOR.Where(x => x.CD_PESSOA == usuario.CD_PESSOA && x.SQ_PRODUTO == id).FirstOrDefault();
+
+                if (produto != null)
+                {
+                    //var cliente = db.CAD_CLIENTE.Include(x => x.CD_PESSOA == pes_juridica.CD_PESSOA);
+                    return View("DetalhesProduto", produto);
+                }
+                else
+                {
+                    ViewBag.errorMessage = "Não conseguimos identificar o produto. Por favor tente novamente com um produto válido";
+                    return View("Error");
+                }
+            }
+            else
+            {
+                ViewBag.errorMessage = "Você precisa ser um fornecedor e deve estar logado para acessar essa página.";
+                return View("Error");
+            }
+        }
+
+        [Authorize(Roles = "Fornecedor")]
+        public ActionResult EditarProduto(int id)
+        {
+            if (User.Identity.GetUserId() == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var userId = User.Identity.GetUserId();
+            var produto = db.CAD_PRODUTO_FORNECEDOR.Where(x => x.CD_PESSOA == userId && x.SQ_PRODUTO == id).FirstOrDefault();
+
+            //CAD_PRODUTO_FORNECEDOR cAD_PRODUTO_FORNECEDOR = db.CAD_PRODUTO_FORNECEDOR.Find(User.Identity.GetUserId());
+            if (produto == null)
+            {
+                return HttpNotFound();
+            }
+            //CAD_PES_JURIDICA cAD_CATEGORIA = db.CAD_CATEGORIA.Where(x => x.SQ_CATEGORIA == id).FirstOrDefault();
+            return View("EditarProduto", produto);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Fornecedor")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditarProduto(CAD_PRODUTO_FORNECEDOR cAD_PRODUTO_FORNECEDOR, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                var userId = User.Identity.GetUserId();
+                var cad_produto = db.CAD_PRODUTO_FORNECEDOR.Where(x => x.CD_PESSOA == userId && x.SQ_PRODUTO == id).FirstOrDefault();
+                //CAD_PRODUTO_FORNECEDOR cad_produto = db.CAD_PRODUTO_FORNECEDOR.Find(User.Identity.GetUserId());
+
+                CAD_PRODUTO_FORNECEDOR produto = new CAD_PRODUTO_FORNECEDOR
+                {
+                    CD_PESSOA = cad_produto.CD_PESSOA,
+                    SQ_PRODUTO = cad_produto.SQ_PRODUTO,
+                    NM_PRODUTO = cAD_PRODUTO_FORNECEDOR.NM_PRODUTO,
+                    DS_DESCRICAO = cAD_PRODUTO_FORNECEDOR.DS_DESCRICAO,
+                    VALOR_PRODUTO = cAD_PRODUTO_FORNECEDOR.VALOR_PRODUTO,
+                    DT_CRIACAO = DateTime.Today,
+                    ATIVO = cAD_PRODUTO_FORNECEDOR.ATIVO,
+                    TAGS = cAD_PRODUTO_FORNECEDOR.TAGS
+                };
+                db.CAD_PRODUTO_FORNECEDOR.AddOrUpdate(produto);
+                db.SaveChanges();
+                return RedirectToAction("Produtos");
+
+                //db.Entry(cAD_PES_JURIDICA).State = EntityState.Modified;
+
+            }
+            return View("EditarProduto", cAD_PRODUTO_FORNECEDOR);
+        }
+        /*Fim dos métodos para gerenciamento de produtos do fornecedor*/
+
+
+        /*Início do método que mostra os fornecedores para cada tipo de prestador de serviço*/
+
+        [Authorize]
+        public ActionResult MeusFornecedores()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+                var usuario = db.CAD_PES_JURIDICA.Where(x => x.CD_PESSOA == userId).FirstOrDefault();
+                var servicos = db.CAD_CATEGORIA.Where(x => x.CD_PES_JURIDICA == userId).ToList();
+                var produtoTemp = new List<CAD_PRODUTO_FORNECEDOR>();
+                var produtos = new List<CAD_PRODUTO_FORNECEDOR>();
+
+                foreach (var item in servicos)
+                {
+                    string[] words = item.DS_DESCRICAO.Split(' ');
+
+                    foreach (var word in words)
+                    {
+                        if (word != "de" && word != "para")
+                        {
+                            produtoTemp = db.CAD_PRODUTO_FORNECEDOR.Where(x =>
+                            x.TAGS.Contains(word) ||
+                            x.TAGS.Contains(item.NM_NOME) ||
+                            x.NM_PRODUTO.Contains(word) ||
+                            x.TAGS.Contains(usuario.CAD_PESSOA.NM_NOME_PESSOA)).ToList();
+
+                            if (produtos.Any((x => produtoTemp.Contains(x))))
+                            {
+
+                            }
+                            else
+                            {
+                                produtos.AddRange(produtoTemp);
+                            }
+                        }
+                    }
+
+
+                }
+                if (produtos != null)
+                {
+                    //var cliente = db.CAD_CLIENTE.Include(x => x.CD_PESSOA == pes_juridica.CD_PESSOA);
+                    return View("Fornecedores", produtos);
+                }
+                else
+                {
+                    ViewBag.errorMessage = "Você precisa ser um fornecedor e deve estar logado para acessar essa página.";
+                    return View("Error");
+                }
+            }
+            else
+            {
+                ViewBag.errorMessage = "Você precisa ser um fornecedor e deve estar logado para acessar essa página.";
+                return View("Error");
+            }
+        }
+        /*Início do método que mostra os fornecedores para cada tipo de prestador de serviço*/
 
         #region Helpers
         // Used for XSRF protection when adding external logins
@@ -1049,6 +1292,6 @@ namespace DIVULGA_SERVICOS.Controllers
             Error
         }
 
-#endregion
+        #endregion
     }
 }

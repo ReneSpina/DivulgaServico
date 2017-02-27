@@ -27,7 +27,9 @@ namespace DIVULGA_SERVICOS.Models
         public string CD_CNPJ { get; set; }
 
         public int CD_INDICACAO { get; set; }
-        
+
+        public bool ATIVO { get; set; }
+
         public int CD_STATUS_PAGT { get; set; }
         
         public virtual CAD_PESSOA CAD_PESSOA { get; set; }

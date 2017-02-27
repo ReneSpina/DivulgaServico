@@ -24,7 +24,8 @@ namespace DIVULGA_SERVICOS.Models
         [StringLength(255)]
         public string DS_DESCRICAO { get; set; }
 
-        public float VALOR_PRODUTO { get; set; }
+        [DataType(DataType.Currency)]
+        public decimal VALOR_PRODUTO { get; set; }
 
         public DateTime DT_CRIACAO { get; set; }
 

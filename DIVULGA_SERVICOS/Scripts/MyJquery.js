@@ -37,5 +37,6 @@ $('#salvarPerfil').click(function () {
     }
 });
     
-
 /*Fim do Jquary de validação da tela de manutenção de perfil do prestador de serviço (EditarPerfil)*/
+
+$('#VALOR_PRODUTO').mask('000000000000000,00', { reverse: true });

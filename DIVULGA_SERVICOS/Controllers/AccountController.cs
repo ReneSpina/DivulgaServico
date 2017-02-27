@@ -208,172 +208,177 @@ namespace DIVULGA_SERVICOS.Controllers
                     //DS_EMAIL = model.UserName,
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
-                DbContextTransaction transacao = db.Database.BeginTransaction();
-                try
+                var addrole = UserManager.AddToRole(user.Id, "Prestador");
+
+                if (addrole.Succeeded)
                 {
-                    if (result.Succeeded)
+                    DbContextTransaction transacao = db.Database.BeginTransaction();
+                    try
                     {
-                        //IdentityResult resultClaim = await UserManager
-                        //  .AddClaimAsync(user.Id, new Claim("Nome", model.NM_NOME_PESSOA));
-                        //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
-                        CAD_PES_JURIDICA juridica = new CAD_PES_JURIDICA
+                        if (result.Succeeded)
                         {
-                            CD_PESSOA = user.Id,
-                            CD_CNPJ = model.CD_CNPJ,
-                            TODO_DIA = model.TODO_DIA,
-                        };
-                        db.CAD_PES_JURIDICA.Add(juridica);
-                        db.SaveChanges();
+                            //IdentityResult resultClaim = await UserManager
+                            //  .AddClaimAsync(user.Id, new Claim("Nome", model.NM_NOME_PESSOA));
+                            //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-                        CAD_PES_FONE telefone = new CAD_PES_FONE
+                            CAD_PES_JURIDICA juridica = new CAD_PES_JURIDICA
+                            {
+                                CD_PESSOA = user.Id,
+                                CD_CNPJ = model.CD_CNPJ,
+                                TODO_DIA = model.TODO_DIA,
+                            };
+                            db.CAD_PES_JURIDICA.Add(juridica);
+                            db.SaveChanges();
+
+                            CAD_PES_FONE telefone = new CAD_PES_FONE
+                            {
+                                CD_PESSOA = user.Id,
+                                CD_FIXO = model.TF_TEL_FIXO,
+                                CD_CELULAR = model.TF_TEL_CEL,
+                                NM_OPERADORA = model.NM_OPERADORA,
+                                WHATSAPP = model.WHATSAPP
+                            };
+                            db.CAD_PES_FONE.Add(telefone);
+                            db.SaveChanges();
+
+                            CAD_PES_ENDERECO endereco = new CAD_PES_ENDERECO
+                            {
+                                CD_PESSOA = user.Id,
+                                NM_CIDADE = model.NM_CIDADE,
+                                NM_LOGRADOURO = model.NM_LOGRADOURO,
+                                NM_BAIRRO = "NULL",
+                                NUMERO = model.NUMERO,
+                                NM_ESTADO = model.NM_ESTADO,
+                                CD_CEP = model.CD_CEP,
+                                localizacao = DbGeography.FromText("POINT(" + model.CD_LAT + " " + model.CD_LONG + ")")
+                                //TP_TIPO_LOGRADOURO = model.TP_TIPO_LOGRADOURO,
+                            };
+                            db.CAD_PES_ENDERECO.Add(endereco);
+                            db.SaveChanges();
+
+                            CAD_FORMA_PAGAMENTO formaPagamento = new CAD_FORMA_PAGAMENTO
+                            {
+                                //CAD_PES_JURIDICA = null,
+                                CD_PESSOA = user.Id,
+                                DINHEIRO = model.DINHEIRO,
+                                CHEQUE = model.CHEQUE,
+                                DEBITO = model.DEBITO,
+                                CREDITO = model.CREDITO,
+                                OUTROS = model.OUTROS
+                            };
+                            db.CAD_FORMA_PAGAMENTO.Add(formaPagamento);
+                            db.SaveChanges();
+                            //transacao.Commit();
+
+                            CAD_HORA_ATENDIMENTO horaAtendimentoDomingo = new CAD_HORA_ATENDIMENTO
+                            {
+                                CD_PES_JURIDICA = user.Id,
+                                DIA_SEMANA = 0,
+                                HORA_INICIO = model.DOMINGO_HORA_INICIO,
+                                HORA_FIM = model.DOMINGO_HORA_FIM
+                            };
+                            db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoDomingo);
+                            db.SaveChanges();
+                            //transacao.Commit();
+
+                            CAD_HORA_ATENDIMENTO horaAtendimentoSegunda = new CAD_HORA_ATENDIMENTO
+                            {
+                                CD_PES_JURIDICA = user.Id,
+                                DIA_SEMANA = 1,
+                                HORA_INICIO = model.SEGUNDA_HORA_INICIO,
+                                HORA_FIM = model.SEGUNDA_HORA_FIM
+                            };
+                            db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoSegunda);
+                            db.SaveChanges();
+                            //transacao.Commit();
+
+                            CAD_HORA_ATENDIMENTO horaAtendimentoTerca = new CAD_HORA_ATENDIMENTO
+                            {
+                                CD_PES_JURIDICA = user.Id,
+                                DIA_SEMANA = 2,
+                                HORA_INICIO = model.TERCA_HORA_INICIO,
+                                HORA_FIM = model.TERCA_HORA_FIM
+                            };
+                            db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoTerca);
+                            db.SaveChanges();
+                            //transacao.Commit();
+
+                            CAD_HORA_ATENDIMENTO horaAtendimentoQuarta = new CAD_HORA_ATENDIMENTO
+                            {
+                                CD_PES_JURIDICA = user.Id,
+                                DIA_SEMANA = 3,
+                                HORA_INICIO = model.QUARTA_HORA_INICIO,
+                                HORA_FIM = model.QUINTA_HORA_FIM
+                            };
+                            db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoQuarta);
+                            db.SaveChanges();
+                            //transacao.Commit();
+
+                            CAD_HORA_ATENDIMENTO horaAtendimentoQuinta = new CAD_HORA_ATENDIMENTO
+                            {
+                                CD_PES_JURIDICA = user.Id,
+                                DIA_SEMANA = 4,
+                                HORA_INICIO = model.QUINTA_HORA_INICIO,
+                                HORA_FIM = model.QUINTA_HORA_FIM
+                            };
+                            db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoQuinta);
+                            db.SaveChanges();
+                            //transacao.Commit();
+
+                            CAD_HORA_ATENDIMENTO horaAtendimentoSexta = new CAD_HORA_ATENDIMENTO
+                            {
+                                CD_PES_JURIDICA = user.Id,
+                                DIA_SEMANA = 5,
+                                HORA_INICIO = model.SEXTA_HORA_INICIO,
+                                HORA_FIM = model.SEXTA_HORA_FIM
+                            };
+                            db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoSexta);
+                            db.SaveChanges();
+                            //transacao.Commit();
+
+                            CAD_HORA_ATENDIMENTO horaAtendimentoSabado = new CAD_HORA_ATENDIMENTO
+                            {
+                                CD_PES_JURIDICA = user.Id,
+                                DIA_SEMANA = 6,
+                                HORA_INICIO = model.SABADO_HORA_INICIO,
+                                HORA_FIM = model.SABADO_HORA_FIM
+                            };
+                            db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoSabado);
+                            db.SaveChanges();
+                            //transacao.Commit();
+
+                            CAD_CATEGORIA atividade = new CAD_CATEGORIA
+                            {
+                                CD_PES_JURIDICA = user.Id,
+                                NM_NOME = model.NM_NOME_ATIVIDADE,
+                                DS_DESCRICAO = model.DS_DESCRICAO_ATIVIDADE
+                            };
+                            db.CAD_CATEGORIA.Add(atividade);
+                            db.SaveChanges();
+                            transacao.Commit();
+
+                            //Envio de email para confirmação da conta cadastrada.
+                            //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                            //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                            //await UserManager.SendEmailAsync(user.Id, "Confirme sua conta", "Por favor, confirme sua conta clicando <a href=\"" + callbackUrl + "\">aqui</a>");
+
+                            //ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
+                            // + "before you can log in.";
+                            return View("Login");
+                            //AddErrors(result);
+                            // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                            // Send an email with this link
+                        }
+                        else
                         {
-                            CD_PESSOA = user.Id,
-                            CD_FIXO = model.TF_TEL_FIXO,
-                            CD_CELULAR = model.TF_TEL_CEL,
-                            NM_OPERADORA = model.NM_OPERADORA,
-                            WHATSAPP = model.WHATSAPP
-                        };
-                        db.CAD_PES_FONE.Add(telefone);
-                        db.SaveChanges();
-
-                        CAD_PES_ENDERECO endereco = new CAD_PES_ENDERECO
-                        {
-                            CD_PESSOA = user.Id,
-                            NM_CIDADE = model.NM_CIDADE,
-                            NM_LOGRADOURO = model.NM_LOGRADOURO,
-                            NM_BAIRRO = "NULL",
-                            NUMERO = model.NUMERO,
-                            NM_ESTADO = model.NM_ESTADO,
-                            CD_CEP = model.CD_CEP,
-                            localizacao = DbGeography.FromText("POINT(" + model.CD_LAT + " " + model.CD_LONG + ")")
-                            //TP_TIPO_LOGRADOURO = model.TP_TIPO_LOGRADOURO,
-                        };
-                        db.CAD_PES_ENDERECO.Add(endereco);
-                        db.SaveChanges();
-
-                        CAD_FORMA_PAGAMENTO formaPagamento = new CAD_FORMA_PAGAMENTO
-                        {
-                            //CAD_PES_JURIDICA = null,
-                            CD_PESSOA = user.Id,
-                            DINHEIRO = model.DINHEIRO,
-                            CHEQUE = model.CHEQUE,
-                            DEBITO = model.DEBITO,
-                            CREDITO = model.CREDITO,
-                            OUTROS = model.OUTROS
-                        };
-                        db.CAD_FORMA_PAGAMENTO.Add(formaPagamento);
-                        db.SaveChanges();
-                        //transacao.Commit();
-
-                        CAD_HORA_ATENDIMENTO horaAtendimentoDomingo = new CAD_HORA_ATENDIMENTO
-                        {
-                            CD_PES_JURIDICA = user.Id,
-                            DIA_SEMANA = 0,
-                            HORA_INICIO = model.DOMINGO_HORA_INICIO,
-                            HORA_FIM = model.DOMINGO_HORA_FIM
-                        };
-                        db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoDomingo);
-                        db.SaveChanges();
-                        //transacao.Commit();
-
-                        CAD_HORA_ATENDIMENTO horaAtendimentoSegunda = new CAD_HORA_ATENDIMENTO
-                        {
-                            CD_PES_JURIDICA = user.Id,
-                            DIA_SEMANA = 1,
-                            HORA_INICIO = model.SEGUNDA_HORA_INICIO,
-                            HORA_FIM = model.SEGUNDA_HORA_FIM
-                        };
-                        db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoSegunda);
-                        db.SaveChanges();
-                        //transacao.Commit();
-
-                        CAD_HORA_ATENDIMENTO horaAtendimentoTerca = new CAD_HORA_ATENDIMENTO
-                        {
-                            CD_PES_JURIDICA = user.Id,
-                            DIA_SEMANA = 2,
-                            HORA_INICIO = model.TERCA_HORA_INICIO,
-                            HORA_FIM = model.TERCA_HORA_FIM
-                        };
-                        db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoTerca);
-                        db.SaveChanges();
-                        //transacao.Commit();
-
-                        CAD_HORA_ATENDIMENTO horaAtendimentoQuarta = new CAD_HORA_ATENDIMENTO
-                        {
-                            CD_PES_JURIDICA = user.Id,
-                            DIA_SEMANA = 3,
-                            HORA_INICIO = model.QUARTA_HORA_INICIO,
-                            HORA_FIM = model.QUINTA_HORA_FIM
-                        };
-                        db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoQuarta);
-                        db.SaveChanges();
-                        //transacao.Commit();
-
-                        CAD_HORA_ATENDIMENTO horaAtendimentoQuinta = new CAD_HORA_ATENDIMENTO
-                        {
-                            CD_PES_JURIDICA = user.Id,
-                            DIA_SEMANA = 4,
-                            HORA_INICIO = model.QUINTA_HORA_INICIO,
-                            HORA_FIM = model.QUINTA_HORA_FIM
-                        };
-                        db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoQuinta);
-                        db.SaveChanges();
-                        //transacao.Commit();
-
-                        CAD_HORA_ATENDIMENTO horaAtendimentoSexta = new CAD_HORA_ATENDIMENTO
-                        {
-                            CD_PES_JURIDICA = user.Id,
-                            DIA_SEMANA = 5,
-                            HORA_INICIO = model.SEXTA_HORA_INICIO,
-                            HORA_FIM = model.SEXTA_HORA_FIM
-                        };
-                        db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoSexta);
-                        db.SaveChanges();
-                        //transacao.Commit();
-
-                        CAD_HORA_ATENDIMENTO horaAtendimentoSabado = new CAD_HORA_ATENDIMENTO
-                        {
-                            CD_PES_JURIDICA = user.Id,
-                            DIA_SEMANA = 6,
-                            HORA_INICIO = model.SABADO_HORA_INICIO,
-                            HORA_FIM = model.SABADO_HORA_FIM
-                        };
-                        db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoSabado);
-                        db.SaveChanges();
-                        //transacao.Commit();
-
-                        CAD_CATEGORIA atividade = new CAD_CATEGORIA
-                        {
-                            CD_PES_JURIDICA = user.Id,
-                            NM_NOME = model.NM_NOME_ATIVIDADE,
-                            DS_DESCRICAO = model.DS_DESCRICAO_ATIVIDADE
-                        };
-                        db.CAD_CATEGORIA.Add(atividade);
-                        db.SaveChanges();
-                        transacao.Commit();
-
-                        //Envio de email para confirmação da conta cadastrada.
-                        //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                        //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                        //await UserManager.SendEmailAsync(user.Id, "Confirme sua conta", "Por favor, confirme sua conta clicando <a href=\"" + callbackUrl + "\">aqui</a>");
-
-                        //ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
-                        // + "before you can log in.";
-                        return View("Login");
-                        //AddErrors(result);
-                        // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                        // Send an email with this link
+                            AddErrors(result);
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        AddErrors(result);
+                        transacao.Rollback();
+                        throw ex;
                     }
-                }
-                catch (Exception ex)
-                {
-                    transacao.Rollback();
-                    throw ex;
                 }
             }
 
@@ -382,7 +387,7 @@ namespace DIVULGA_SERVICOS.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult CadatrarFornecedor()
+        public ActionResult CadastrarFornecedor()
         {
             return View();
         }
@@ -392,7 +397,7 @@ namespace DIVULGA_SERVICOS.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CadatrarFornecedor(RegisterFornecedorViewModel model)
+        public async Task<ActionResult> CadastrarFornecedor(RegisterFornecedorViewModel model)
         {
             //string link_site;
             //long indicacao;
@@ -458,6 +463,7 @@ namespace DIVULGA_SERVICOS.Controllers
                             };
                             db.CAD_PES_ENDERECO.Add(endereco);
                             db.SaveChanges();
+                            transacao.Commit();
 
                             //Envio de email para confirmação da conta cadastrada.
                             //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -695,26 +701,30 @@ namespace DIVULGA_SERVICOS.Controllers
                     DT_DATA_CADASTRO = System.DateTime.Today,
                     Email = model.Email
                 };
-
-
                 var result = await UserManager.CreateAsync(user);
-                if (result.Succeeded)
+                var addrole = UserManager.AddToRole(user.Id, "Usuario");
+
+                if (addrole.Succeeded)
                 {
-                    DbContextTransaction transacao = db.Database.BeginTransaction();
-                    try
+
+                    if (result.Succeeded)
                     {
-                        var cAD_PES_USUARIO = new CAD_PES_USUARIO
+                        DbContextTransaction transacao = db.Database.BeginTransaction();
+                        try
                         {
-                            CD_PESSOA = user.Id
-                        };
-                        db.CAD_PES_USUARIO.Add(cAD_PES_USUARIO);
-                        db.SaveChanges();
-                        transacao.Commit();
-                    }
-                    catch (Exception ex)
-                    {
-                        transacao.Rollback();
-                        throw ex;
+                            var cAD_PES_USUARIO = new CAD_PES_USUARIO
+                            {
+                                CD_PESSOA = user.Id
+                            };
+                            db.CAD_PES_USUARIO.Add(cAD_PES_USUARIO);
+                            db.SaveChanges();
+                            transacao.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            transacao.Rollback();
+                            throw ex;
+                        }
                     }
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)

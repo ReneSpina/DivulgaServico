@@ -3,7 +3,7 @@ namespace DIVULGA_SERVICOS.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class principal : DbMigration
+    public partial class Principal : DbMigration
     {
         public override void Up()
         {
@@ -145,6 +145,7 @@ namespace DIVULGA_SERVICOS.Migrations
                         CD_PESSOA = c.String(nullable: false, maxLength: 128),
                         CD_CNPJ = c.String(nullable: false, maxLength: 30),
                         CD_INDICACAO = c.Int(nullable: false),
+                        ATIVO = c.Boolean(nullable: false),
                         CD_STATUS_PAGT = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.CD_PESSOA)
@@ -170,10 +171,10 @@ namespace DIVULGA_SERVICOS.Migrations
                 c => new
                     {
                         CD_PESSOA = c.String(nullable: false, maxLength: 128),
-                        SQ_PRODUTO = c.Int(nullable: false),
+                        SQ_PRODUTO = c.Int(nullable: false, identity: true),
                         NM_PRODUTO = c.String(maxLength: 100),
                         DS_DESCRICAO = c.String(maxLength: 255),
-                        VALOR_PRODUTO = c.Single(nullable: false),
+                        VALOR_PRODUTO = c.Decimal(nullable: false, precision: 18, scale: 2),
                         DT_CRIACAO = c.DateTime(nullable: false),
                         ATIVO = c.Boolean(nullable: false),
                         TAGS = c.String(maxLength: 1000),
