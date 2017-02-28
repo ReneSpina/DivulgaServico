@@ -64,6 +64,10 @@ namespace DIVULGA_SERVICOS.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            if(User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -376,6 +380,7 @@ namespace DIVULGA_SERVICOS.Controllers
                     }
                     catch (Exception ex)
                     {
+                        UserManager.Delete(user);
                         transacao.Rollback();
                         throw ex;
                     }
@@ -418,16 +423,13 @@ namespace DIVULGA_SERVICOS.Controllers
 
                 var addrole = UserManager.AddToRole(user.Id, "Fornecedor");
 
-                if (addrole.Succeeded)
+                DbContextTransaction transacao = db.Database.BeginTransaction();
+                try
                 {
-                    DbContextTransaction transacao = db.Database.BeginTransaction();
-                    try
+                    if (result.Succeeded)
                     {
-                        if (result.Succeeded)
+                        if (addrole.Succeeded)
                         {
-                            //IdentityResult resultClaim = await UserManager
-                            //  .AddClaimAsync(user.Id, new Claim("Nome", model.NM_NOME_PESSOA));
-                            //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                             CAD_PES_FORNECEDOR fornecedor = new CAD_PES_FORNECEDOR
                             {
@@ -477,16 +479,19 @@ namespace DIVULGA_SERVICOS.Controllers
                             // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                             // Send an email with this link
                         }
-                        else
-                        {
-                            AddErrors(result);
-                        }
                     }
-                    catch (Exception ex)
+                    else
                     {
+                        UserManager.Delete(user);
                         transacao.Rollback();
-                        throw ex;
+                        AddErrors(result);
                     }
+                }
+                catch (Exception ex)
+                {
+                    UserManager.Delete(user);
+                    transacao.Rollback();
+                    throw ex;
                 }
             }
 

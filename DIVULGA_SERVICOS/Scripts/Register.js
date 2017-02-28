@@ -410,6 +410,8 @@ $("#domingo_fim").hide();
 $("#TF_TEL_CEL").mask("(00) 90000-0000");
 $("#TF_TEL_FIXO").mask("(00) 0000-0000");
 $("#CD_CEP").mask("00000-000");
+
+
 //$("#DS_APELIDO_SITE").attr("placeholder", "SEUSITE").blur();
 //document.getElementById("latitude").disabled = true;
 //document.getElementById("longitude").disabled = true;

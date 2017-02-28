@@ -43,7 +43,6 @@ namespace DIVULGA_SERVICOS.Controllers
                     x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().DS_DESCRICAO.Contains(word) ||
                     x.CAD_PESSOA.NM_NOME_PESSOA.Contains(word) ||
                     x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().NM_NOME.Contains(word)).ToList();
-
                     if(enderecos.Any((item => enderecosTemp.Contains(item))))
                     {
 

@@ -540,16 +540,14 @@ namespace DIVULGA_SERVICOS.Controllers
 
 
 
-
-
         //Início dos métodos para o gerenciamento dos serviços
+        [Authorize (Roles = "Prestador")]
         public ActionResult Servicos()
         {
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Identity.GetUserId();
-                var usuario = db.CAD_PESSOA.Where(x => x.Id == userId).FirstOrDefault();
-                var servico = db.CAD_CATEGORIA.Where(x => x.CD_PES_JURIDICA == usuario.Id).ToList();
+                var servico = db.CAD_CATEGORIA.Where(x => x.CD_PES_JURIDICA == userId).ToList();
 
                 if (servico != null)
                 {
@@ -566,6 +564,7 @@ namespace DIVULGA_SERVICOS.Controllers
         }
 
         // GET: CAD_CATEGORIA/Create
+        [Authorize(Roles = "Prestador")]
         public ActionResult CriarServico()
         {
             //ViewBag.CD_PES_JURIDICA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ");
@@ -812,22 +811,22 @@ namespace DIVULGA_SERVICOS.Controllers
             {
                 var userName = User.Identity.Name;
                 var usuario = db.CAD_PESSOA.Where(x => x.UserName == userName).FirstOrDefault();
-                
+
                 //for(var i = 0; i < 1000000; i++)
                 //{
-                    CAD_PES_ENDERECO endereco = new CAD_PES_ENDERECO
-                    {
-                        CD_PESSOA = usuario.Id,
-                        NM_CIDADE = cAD_PES_ENDERECO.NM_CIDADE,
-                        NM_LOGRADOURO = cAD_PES_ENDERECO.NM_LOGRADOURO,
-                        NM_BAIRRO = "NULL",
-                        NUMERO = cAD_PES_ENDERECO.NUMERO,
-                        NM_ESTADO = cAD_PES_ENDERECO.NM_ESTADO,
-                        CD_CEP = cAD_PES_ENDERECO.CD_CEP,
-                        localizacao = DbGeography.FromText("POINT(" + LAT + " " + LONG + ")")
-                    };
-                    db.CAD_PES_ENDERECO.Add(endereco);
-                    db.SaveChanges();
+                CAD_PES_ENDERECO endereco = new CAD_PES_ENDERECO
+                {
+                    CD_PESSOA = usuario.Id,
+                    NM_CIDADE = cAD_PES_ENDERECO.NM_CIDADE,
+                    NM_LOGRADOURO = cAD_PES_ENDERECO.NM_LOGRADOURO,
+                    NM_BAIRRO = "NULL",
+                    NUMERO = cAD_PES_ENDERECO.NUMERO,
+                    NM_ESTADO = cAD_PES_ENDERECO.NM_ESTADO,
+                    CD_CEP = cAD_PES_ENDERECO.CD_CEP,
+                    localizacao = DbGeography.FromText("POINT(" + LAT + " " + LONG + ")")
+                };
+                db.CAD_PES_ENDERECO.Add(endereco);
+                db.SaveChanges();
                 //}
                 return RedirectToAction("Enderecos");
             }
@@ -1033,7 +1032,18 @@ namespace DIVULGA_SERVICOS.Controllers
         public ActionResult CriarProduto()
         {
             //ViewBag.CD_PES_JURIDICA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ");
-            return View("CriarProduto");
+            var userId = User.Identity.GetUserId();
+            //var usuario = db.CAD_PES_FORNECEDOR.Where(x => x.CD_PESSOA == userId);
+            var cidade = db.CAD_CIDADES_DIVULGA_FORNECEDOR.Where(x => x.CD_PESSOA == userId).FirstOrDefault();
+            if(cidade != null)
+            {
+                return View("CriarProduto");
+            }
+            else
+            {
+                ViewBag.errorMessage = "Você precisa cadastrar as cidades onde quer divulgar seus produtos antes de casdastrar os produtos!";
+                return View("CadastrarCidade");
+            }
         }
 
         // POST: CAD_CATEGORIA/Create
@@ -1179,6 +1189,152 @@ namespace DIVULGA_SERVICOS.Controllers
             }
             return View("EditarProduto", cAD_PRODUTO_FORNECEDOR);
         }
+
+        [Authorize/* (Roles ="Prestador")*/]
+        public ActionResult CidadesFornecedor()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+                var cidades = db.CAD_CIDADES_DIVULGA_FORNECEDOR.Where(x => x.CD_PESSOA == userId).ToList();
+                if (cidades != null)
+                {
+                    //var cliente = db.CAD_CLIENTE.Include(x => x.CD_PESSOA == pes_juridica.CD_PESSOA);
+                    return View("CidadesFornecedor", cidades);
+                }
+                else
+                {
+                    ViewBag.errorMessage = "Você precisa cadastrar uma cidade!";
+                    return View("CadastrarCidade");
+                }
+            }
+            else
+            {
+                ViewBag.errorMessage = "Você precisa ser um fornecedor e deve estar logado para acessar essa página.";
+                return View("Error");
+            }
+        }
+
+
+
+        [Authorize(Roles = "Fornecedor")]
+        public ActionResult CadastrarCidade()
+        {
+            //ViewBag.CD_PES_JURIDICA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ");
+            return View("CadastrarCidade");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CadastrarCidade(CAD_CIDADES_DIVULGA_FORNECEDOR cAD_CIDADES_DIVULGA_FORNECEDOR)
+        {
+            if (ModelState.IsValid)
+            {
+                var userId = User.Identity.GetUserId();
+                var usuario = db.CAD_PES_FORNECEDOR.Where(x => x.CD_PESSOA == userId).FirstOrDefault();
+                if (usuario != null)
+                {
+                    if (cAD_CIDADES_DIVULGA_FORNECEDOR.BRASIL == true)
+                    {
+                        var cidade = "Brasil";
+                        var estado = "Brasil";
+                        CAD_CIDADES_DIVULGA_FORNECEDOR brasil = new CAD_CIDADES_DIVULGA_FORNECEDOR
+                        {
+                            CD_PESSOA = usuario.CD_PESSOA,
+                            NM_CIDADE = cidade,
+                            NM_ESTADO = estado,
+                            BRASIL = cAD_CIDADES_DIVULGA_FORNECEDOR.BRASIL
+                        };
+                        db.CAD_CIDADES_DIVULGA_FORNECEDOR.Add(brasil);
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        CAD_CIDADES_DIVULGA_FORNECEDOR endereco = new CAD_CIDADES_DIVULGA_FORNECEDOR
+                        {
+                            CD_PESSOA = usuario.CD_PESSOA,
+                            NM_CIDADE = cAD_CIDADES_DIVULGA_FORNECEDOR.NM_CIDADE,
+                            NM_ESTADO = cAD_CIDADES_DIVULGA_FORNECEDOR.NM_ESTADO,
+                            BRASIL = cAD_CIDADES_DIVULGA_FORNECEDOR.BRASIL
+                        };
+                        db.CAD_CIDADES_DIVULGA_FORNECEDOR.Add(endereco);
+                        db.SaveChanges();
+                    }
+                }
+                else
+                {
+                    ViewBag.errorMessage = "Você precisa ser um fornecedor e deve estar logado para acessar essa página.";
+                    return View("Error");
+                }
+                return RedirectToAction("CidadesFornecedor");
+            }
+
+            //ViewBag.CD_PESSOA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ", cAD_PES_ENDERECO.CD_PESSOA);
+            ViewBag.errorMessage = "Não foi possível adicionar o endereço. Tenha certeza de que você escolheu um endereço válido e tente novamente!";
+            return View("Error");
+        }
+
+        [Authorize (Roles = "Fornecedor")]
+        public ActionResult DeletarCidade(int id)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+                var usuario = db.CAD_PES_FORNECEDOR.Where(x => x.CD_PESSOA == userId).FirstOrDefault();
+                CAD_CIDADES_DIVULGA_FORNECEDOR cAD_CIDADES_DIVULGA_FORNECEDOR = db.CAD_CIDADES_DIVULGA_FORNECEDOR.Where(x => x.CD_PESSOA == usuario.CD_PESSOA && x.SQ_CIDADE == id).FirstOrDefault();
+                if (cAD_CIDADES_DIVULGA_FORNECEDOR != null)
+                {
+                    return View("DeletarCidade", cAD_CIDADES_DIVULGA_FORNECEDOR);
+                }
+                ViewBag.errorMessage = "Não conseguimos identificar a cidade. Por favor tente novamente com uma cidade válido";
+                return View("Error");
+
+            }
+            ViewBag.errorMessage = "Você precisa ser um fornecedor e deve estar logado para acessar essa página.";
+            return View("Error");
+
+        }
+
+        // POST: CAD_CATEGORIA/Delete/5
+        [HttpPost ActionName("DeletarCidade")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeletarCidadeOk(int id)
+        {
+            CAD_CIDADES_DIVULGA_FORNECEDOR cAD_CIDADES_DIVULGA_FORNECEDOR = db.CAD_CIDADES_DIVULGA_FORNECEDOR.Where(x => x.SQ_CIDADE == id).FirstOrDefault();
+            db.CAD_CIDADES_DIVULGA_FORNECEDOR.Remove(cAD_CIDADES_DIVULGA_FORNECEDOR);
+            db.SaveChanges();
+            return RedirectToAction("CidadesFornecedor");
+        }
+
+        [Authorize(Roles = "Fornecedor")]
+        public ActionResult DetalhesCidade(int id)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+                var usuario = db.CAD_PES_FORNECEDOR.Where(x => x.CD_PESSOA == userId).FirstOrDefault();
+                var cidade = db.CAD_CIDADES_DIVULGA_FORNECEDOR.Where(x => x.CD_PESSOA == usuario.CD_PESSOA && x.SQ_CIDADE == id).FirstOrDefault();
+
+                if (cidade != null)
+                {
+                    //var cliente = db.CAD_CLIENTE.Include(x => x.CD_PESSOA == pes_juridica.CD_PESSOA);
+                    return View("DetalhesCidade", cidade);
+                }
+                else
+                {
+                    ViewBag.errorMessage = "Não conseguimos identificar a cidade. Por favor tente novamente com uma cidade válida";
+                    return View("Error");
+                }
+            }
+            else
+            {
+                ViewBag.errorMessage = "Você precisa ser um fornecedor e deve estar logado para acessar essa página.";
+                return View("Error");
+            }
+        }
+
+
+
         /*Fim dos métodos para gerenciamento de produtos do fornecedor*/
 
 

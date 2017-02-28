@@ -18,11 +18,9 @@ namespace DIVULGA_SERVICOS.Models
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int SQ_CIDADE { get; set; }
 
-        [Required]
         [StringLength(255)]
         public string NM_CIDADE { get; set; }
         
-        [Required]
         [StringLength(255)]
         public string NM_ESTADO { get; set; }
         
