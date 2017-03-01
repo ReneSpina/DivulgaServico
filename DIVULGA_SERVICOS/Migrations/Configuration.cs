@@ -28,6 +28,7 @@ namespace DIVULGA_SERVICOS.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
             var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             string[] roleNames = { "Fornecedor", "Prestador", "Usuario" };
             IdentityResult roleResult;
@@ -38,7 +39,6 @@ namespace DIVULGA_SERVICOS.Migrations
                     roleResult = RoleManager.Create(new IdentityRole(roleName));
                 }
             }
-
         }
     }
 }

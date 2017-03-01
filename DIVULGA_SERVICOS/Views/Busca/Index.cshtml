@@ -50,6 +50,14 @@
 
 
     <div class="input-group" id="adv-search">
+        
+            @if (ViewBag.erro != null || ViewBag.erro != "" && ViewBag.Status == 1)
+            {
+                <script>
+                    alert('@ViewBag.erro');
+                </script>
+            }
+                
         <form class="form-horizontal" id="searchgroup" action="~/Busca/Pesquisa" method="get" role="form">
             @*<div class="input-group-addon" id="boxhamburguermap"><span class="opennav" id="hamburguermap" onclick="openNav()">&#9776;</span></div>*@
             <span class="glyphicon glyphicon-menu-hamburger" id="boxhamburguermap" onclick="openNav()"></span>
@@ -279,8 +287,6 @@
             foreach (var item in Model.OrderBy(x => x.localizacao.Distance((DbGeography.FromText("POINT(" + ViewBag.latitude + " " + ViewBag.longitude + ")")))))
             {
                 i++;
-                if(item.CAD_PESSOA.ATIVADO == true)
-                {
                     var dinheiro = "";
                     var cheque = "";
                     var debito = "";
@@ -411,7 +417,6 @@
             })(marker1))
             markers.push(marker1);
             </text>
-        }
     }
 
                 if(i == 0)
@@ -443,26 +448,26 @@
     {
         foreach (var item in Model)
         {
-            float mediaQualidade = 0;
-            float mediaPontualidade = 0;
-            float mediaOrganizacao = 0;
-            float mediaIndicacao = 0;
-            float mediaSatisfacao = 0;
-            foreach (var avaliacao in item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO)
-            {
-                mediaQualidade = mediaQualidade + avaliacao.PRECO_QUALIDADE;
-                mediaPontualidade = mediaPontualidade + avaliacao.PONTUALIDADE;
-                mediaOrganizacao = mediaOrganizacao + avaliacao.ORGANIZACAO;
-                mediaIndicacao = mediaIndicacao + avaliacao.INDICACAO;
-                mediaSatisfacao = mediaSatisfacao + avaliacao.SATISFACAO_SERVICO;
-            }
-            mediaQualidade = (((mediaQualidade) * 100) / item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count) / 5;
-            mediaPontualidade = (((mediaPontualidade) * 100) / item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count) / 5;
-            mediaOrganizacao = (((mediaOrganizacao) * 100) / item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count) / 5;
-            mediaIndicacao = (((mediaIndicacao) * 100) / item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count) / 5;
-            mediaSatisfacao = (((mediaSatisfacao) * 100) / item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count) / 5;
+                float mediaQualidade = 0;
+                float mediaPontualidade = 0;
+                float mediaOrganizacao = 0;
+                float mediaIndicacao = 0;
+                float mediaSatisfacao = 0;
+                foreach (var avaliacao in item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO)
+                {
+                    mediaQualidade = mediaQualidade + avaliacao.PRECO_QUALIDADE;
+                    mediaPontualidade = mediaPontualidade + avaliacao.PONTUALIDADE;
+                    mediaOrganizacao = mediaOrganizacao + avaliacao.ORGANIZACAO;
+                    mediaIndicacao = mediaIndicacao + avaliacao.INDICACAO;
+                    mediaSatisfacao = mediaSatisfacao + avaliacao.SATISFACAO_SERVICO;
+                }
+                mediaQualidade = (((mediaQualidade) * 100) / item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count) / 5;
+                mediaPontualidade = (((mediaPontualidade) * 100) / item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count) / 5;
+                mediaOrganizacao = (((mediaOrganizacao) * 100) / item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count) / 5;
+                mediaIndicacao = (((mediaIndicacao) * 100) / item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count) / 5;
+                mediaSatisfacao = (((mediaSatisfacao) * 100) / item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count) / 5;
 
-            var idmodal = "myModal" + @item.CAD_PESSOA.Id;
+                var idmodal = "myModal" + @item.CAD_PESSOA.Id;
             <div class="modal fade" id='@idmodal' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -991,11 +996,6 @@
                     </div>
                 </div>
             </div>
-
-
-
-
-
                                     }
                                 }
 

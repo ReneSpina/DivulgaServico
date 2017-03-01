@@ -541,7 +541,7 @@ namespace DIVULGA_SERVICOS.Controllers
 
 
         //Início dos métodos para o gerenciamento dos serviços
-        [Authorize (Roles = "Prestador")]
+        [Authorize(Roles = "Prestador")]
         public ActionResult Servicos()
         {
             if (User.Identity.IsAuthenticated)
@@ -1035,7 +1035,7 @@ namespace DIVULGA_SERVICOS.Controllers
             var userId = User.Identity.GetUserId();
             //var usuario = db.CAD_PES_FORNECEDOR.Where(x => x.CD_PESSOA == userId);
             var cidade = db.CAD_CIDADES_DIVULGA_FORNECEDOR.Where(x => x.CD_PESSOA == userId).FirstOrDefault();
-            if(cidade != null)
+            if (cidade != null)
             {
                 return View("CriarProduto");
             }
@@ -1274,7 +1274,7 @@ namespace DIVULGA_SERVICOS.Controllers
             return View("Error");
         }
 
-        [Authorize (Roles = "Fornecedor")]
+        [Authorize(Roles = "Fornecedor")]
         public ActionResult DeletarCidade(int id)
         {
             if (User.Identity.IsAuthenticated)
@@ -1347,47 +1347,87 @@ namespace DIVULGA_SERVICOS.Controllers
             {
                 var userId = User.Identity.GetUserId();
                 var usuario = db.CAD_PES_JURIDICA.Where(x => x.CD_PESSOA == userId).FirstOrDefault();
+                var enderecosUsuario = db.CAD_PES_ENDERECO.Where(x => x.CD_PESSOA == userId);
                 var servicos = db.CAD_CATEGORIA.Where(x => x.CD_PES_JURIDICA == userId).ToList();
                 var produtoTemp = new List<CAD_PRODUTO_FORNECEDOR>();
                 var produtos = new List<CAD_PRODUTO_FORNECEDOR>();
+                var cidades = new List<CAD_CIDADES_DIVULGA_FORNECEDOR>();
+                var fornecedores = new List<CAD_PES_FORNECEDOR>();
+                var status = 0;
+                var count = 0;
 
-                foreach (var item in servicos)
+                fornecedores = db.CAD_PES_FORNECEDOR.Where(x => x.CAD_PESSOA.ATIVADO == true).ToList();
+                foreach (var forn in fornecedores)
                 {
-                    string[] words = item.DS_DESCRICAO.Split(' ');
-
-                    foreach (var word in words)
+                    cidades = db.CAD_CIDADES_DIVULGA_FORNECEDOR.Where(x => x.CD_PESSOA == forn.CD_PESSOA).ToList();
+                    foreach (var ItemEndereco in enderecosUsuario)
                     {
-                        if (word != "de" && word != "para")
+
+                        foreach(var cidade in cidades)
                         {
-                            produtoTemp = db.CAD_PRODUTO_FORNECEDOR.Where(x =>
-                            x.TAGS.Contains(word) ||
-                            x.TAGS.Contains(item.NM_NOME) ||
-                            x.NM_PRODUTO.Contains(word) ||
-                            x.TAGS.Contains(usuario.CAD_PESSOA.NM_NOME_PESSOA)).ToList();
-
-                            if (produtos.Any((x => produtoTemp.Contains(x))))
+                            if (ItemEndereco.NM_CIDADE != cidade.NM_CIDADE && cidade.BRASIL == false)
                             {
-
-                            }
-                            else
-                            {
-                                produtos.AddRange(produtoTemp);
+                                count = count + 1;
                             }
                         }
+                        count = count + 1;
                     }
-
-
+                    if (count == (cidades.Count + enderecosUsuario.Count()))
+                    {
+                        fornecedores.Remove(forn);
+                    }
+                    if(fornecedores.Count() == 0)
+                    {
+                        status = 1;
+                        break;
+                    }
                 }
-                if (produtos != null)
+                if (status == 1)
                 {
-                    //var cliente = db.CAD_CLIENTE.Include(x => x.CD_PESSOA == pes_juridica.CD_PESSOA);
                     return View("Fornecedores", produtos);
                 }
                 else
                 {
-                    ViewBag.errorMessage = "Você precisa ser um fornecedor e deve estar logado para acessar essa página.";
-                    return View("Error");
+                    foreach (var item in servicos)
+                    {
+                        string[] words = item.DS_DESCRICAO.Split(' ');
+
+                        foreach (var word in words)
+                        {
+                            if (word != "de" || word != "para")
+                            {
+                                foreach (var forn in fornecedores)
+                                {
+                                    produtoTemp = db.CAD_PRODUTO_FORNECEDOR.Where(x =>
+                                     (x.TAGS.Contains(word)) ||
+                                     (x.TAGS.Contains(item.NM_NOME)) ||
+                                     (x.NM_PRODUTO.Contains(word)) ||
+                                     (x.TAGS.Contains(usuario.CAD_PESSOA.NM_NOME_PESSOA))).ToList();
+                                }
+
+                                if (produtos.Any((x => produtoTemp.Contains(x))))
+                                {
+
+                                }
+                                else
+                                {
+                                    produtos.AddRange(produtoTemp);
+                                }
+                            }
+                        }
+                    }
+                    return View("Fornecedores", produtos);
                 }
+                //if (produtos != null)
+                //{
+                //    //var cliente = db.CAD_CLIENTE.Include(x => x.CD_PESSOA == pes_juridica.CD_PESSOA);
+                //    return View("Fornecedores", produtos);
+                //}
+                //else
+                //{
+                //    ViewBag.errorMessage = "Você precisa ser um fornecedor e deve estar logado para acessar essa página.";
+                //    return View("Error");
+                //}
             }
             else
             {

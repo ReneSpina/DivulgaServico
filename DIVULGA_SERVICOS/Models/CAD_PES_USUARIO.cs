@@ -22,6 +22,8 @@ namespace DIVULGA_SERVICOS.Models
 
         public int CD_INDICACAO { get; set; }
 
+        public bool ATIVO { get; set; }
+
         //[Required (ErrorMessage = "Por favor, digite sua data de nascimento.")]
         //[DisplayName("2016/12/26")]
         //[Column(TypeName = "date")]

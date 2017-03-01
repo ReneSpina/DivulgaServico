@@ -158,8 +158,8 @@ namespace DIVULGA_SERVICOS.Migrations
                     {
                         CD_PESSOA = c.String(nullable: false, maxLength: 128),
                         SQ_CIDADE = c.Int(nullable: false, identity: true),
-                        NM_CIDADE = c.String(nullable: false, maxLength: 255),
-                        NM_ESTADO = c.String(nullable: false, maxLength: 255),
+                        NM_CIDADE = c.String(maxLength: 255),
+                        NM_ESTADO = c.String(maxLength: 255),
                         BRASIL = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => new { t.CD_PESSOA, t.SQ_CIDADE })
@@ -189,6 +189,7 @@ namespace DIVULGA_SERVICOS.Migrations
                     {
                         CD_PESSOA = c.String(nullable: false, maxLength: 128),
                         CD_INDICACAO = c.Int(nullable: false),
+                        ATIVO = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.CD_PESSOA)
                 .ForeignKey("dbo.AspNetUsers", t => t.CD_PESSOA)

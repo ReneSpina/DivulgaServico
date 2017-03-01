@@ -105,4 +105,3 @@ C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\Microsoft.Map
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Debug\DIVULGA_SERVICOS.csprojResolveAssemblyReference.cache
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Debug\DIVULGA_SERVICOS.Migrations.Principal.resources
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Debug\DIVULGA_SERVICOS.csproj.GenerateResource.Cache
-C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Debug\DIVULGA_SERVICOS.Migrations.Principal1.resources
