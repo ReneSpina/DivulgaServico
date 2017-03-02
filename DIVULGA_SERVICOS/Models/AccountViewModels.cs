@@ -422,4 +422,25 @@ namespace DIVULGA_SERVICOS.Models
         
         public bool ATIVADO { get; set; }
     }
+
+
+    public class EditarPerfilFornecedor
+    {
+        [Required(ErrorMessage = "O EMAIL É OBRIGATÓRIO!")]
+        [Display(Name = "EMAIL")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "O NOME É OBRIGATÓRIO!")]
+        [Display(Name = "NOME")]
+        public string NM_NOME_PESSOA { get; set; }
+
+        [Required(ErrorMessage = "O CPF OU CNPJ É OBRIGATÓRIO!")]
+        [RegularExpression("^(\\d{14})|(\\d{11})$", ErrorMessage = "INSIRA UM CPF OU UM CNPJ VÁLIDO (DIGITE SOMENTE NÚMEROS)!")]
+        [StringLength(30)]
+        [Display(Name = "CPF OU CNPJ")]
+        public string CD_CNPJ { get; set; }
+
+        public bool ATIVO { get; set; }
+    }
+
 }

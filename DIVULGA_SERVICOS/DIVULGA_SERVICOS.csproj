@@ -560,6 +560,7 @@
     <Content Include="Views\Manage\CadastrarCidade.cshtml" />
     <Content Include="Views\Manage\DeletarCidade.cshtml" />
     <Content Include="Views\Manage\DetalhesCidade.cshtml" />
+    <Content Include="Views\Manage\EditPerfilFornecedor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

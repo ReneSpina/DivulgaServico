@@ -1332,15 +1332,80 @@ namespace DIVULGA_SERVICOS.Controllers
                 return View("Error");
             }
         }
-
-
-
         /*Fim dos métodos para gerenciamento de produtos do fornecedor*/
 
 
-        /*Início do método que mostra os fornecedores para cada tipo de prestador de serviço*/
+        /*Início dos métodos para gerenciamento do perfil do fornecedor*/
 
         [Authorize]
+        public ActionResult EditarPerfilFornecedor()
+        {
+            if (User.Identity.GetUserId() == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            CAD_PESSOA cAD_PES_FORNECEDOR = db.CAD_PESSOA.Find(User.Identity.GetUserId());
+            if (cAD_PES_FORNECEDOR == null)
+            {
+                ViewBag.errorMessage = "Não conseguimos identificar seu perfil. Por favor, recarregue a página ou tente novamente mais tarde!";
+                return View("Error");
+            }
+            //CAD_PES_JURIDICA cAD_CATEGORIA = db.CAD_CATEGORIA.Where(x => x.SQ_CATEGORIA == id).FirstOrDefault();
+            return View("EditPerfilFornecedor", cAD_PES_FORNECEDOR);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditarPerfilFornecedor(EditarPerfilFornecedor cAD_PES_FORNECEDOR)
+        {
+            CAD_PESSOA fornecedorAntes = db.CAD_PESSOA.Find(User.Identity.GetUserId());
+            if (ModelState.IsValid)
+            {
+                CAD_PES_FORNECEDOR usuarioFornecedor = db.CAD_PES_FORNECEDOR.Find(User.Identity.GetUserId());
+
+                CAD_PES_FORNECEDOR fornecedorDepois = new CAD_PES_FORNECEDOR
+                {
+                    CD_PESSOA = fornecedorAntes.Id,
+                    CD_CNPJ = cAD_PES_FORNECEDOR.CD_CNPJ,
+                    ATIVO = cAD_PES_FORNECEDOR.ATIVO
+                };
+                db.CAD_PES_FORNECEDOR.AddOrUpdate(fornecedorDepois);
+
+                CAD_PESSOA user = new CAD_PESSOA
+                {
+                    Id = fornecedorAntes.Id,
+                    Email = cAD_PES_FORNECEDOR.Email,
+                    UserName = cAD_PES_FORNECEDOR.Email,
+                    NM_NOME_PESSOA = cAD_PES_FORNECEDOR.NM_NOME_PESSOA,
+                    DT_DATA_CADASTRO = fornecedorAntes.DT_DATA_CADASTRO,
+                    EmailConfirmed = fornecedorAntes.EmailConfirmed,
+                    PasswordHash = fornecedorAntes.PasswordHash,
+                    SecurityStamp = fornecedorAntes.SecurityStamp,
+                    PhoneNumber = fornecedorAntes.PhoneNumber,
+                    PhoneNumberConfirmed = fornecedorAntes.PhoneNumberConfirmed,
+                    TwoFactorEnabled = fornecedorAntes.TwoFactorEnabled,
+                    LockoutEndDateUtc = fornecedorAntes.LockoutEndDateUtc,
+                    AccessFailedCount = fornecedorAntes.AccessFailedCount,
+                    LockoutEnabled = fornecedorAntes.LockoutEnabled,
+                    ATIVADO = fornecedorAntes.ATIVADO,
+                };
+                db.CAD_PESSOA.AddOrUpdate(user);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+
+                //db.Entry(cAD_PES_JURIDICA).State = EntityState.Modified;
+
+            }
+            return View("EditPerfilFornecedor", fornecedorAntes);
+    }
+
+/*Fim dos métodos para gerenciamento do perfil do fornecedor*/
+
+
+
+
+/*Início do método que mostra os fornecedores para cada tipo de prestador de serviço*/
+[Authorize (Roles="Prestadores")]
         public ActionResult MeusFornecedores()
         {
             if (User.Identity.IsAuthenticated)
@@ -1418,16 +1483,6 @@ namespace DIVULGA_SERVICOS.Controllers
                     }
                     return View("Fornecedores", produtos);
                 }
-                //if (produtos != null)
-                //{
-                //    //var cliente = db.CAD_CLIENTE.Include(x => x.CD_PESSOA == pes_juridica.CD_PESSOA);
-                //    return View("Fornecedores", produtos);
-                //}
-                //else
-                //{
-                //    ViewBag.errorMessage = "Você precisa ser um fornecedor e deve estar logado para acessar essa página.";
-                //    return View("Error");
-                //}
             }
             else
             {
@@ -1435,7 +1490,7 @@ namespace DIVULGA_SERVICOS.Controllers
                 return View("Error");
             }
         }
-        /*Início do método que mostra os fornecedores para cada tipo de prestador de serviço*/
+        /*Fim do método que mostra os fornecedores para cada tipo de prestador de serviço*/
 
         #region Helpers
         // Used for XSRF protection when adding external logins
