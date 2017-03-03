@@ -60,10 +60,10 @@ namespace DIVULGA_SERVICOS.Models
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Senha")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Relembrar?")]
         public bool RememberMe { get; set; }
     }
 
@@ -77,19 +77,18 @@ namespace DIVULGA_SERVICOS.Models
         [Required]
         [StringLength(100, ErrorMessage = "O EMAIL DEVE CONTER NO MÍNIMO 6 CARACTERES!", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Senha")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "Confirmar Senha")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "As senhas não são iguais.")]
         public string ConfirmPassword { get; set; }
     }
     
     public class RegisterPrestadorViewModel
     {
         [Required(ErrorMessage = "O NOME É OBRIGATÓRIO!")]
-        [RegularExpression("^[a-zA-Z''-'\\s]{1,255}$", ErrorMessage = "INSIRA UM NOME VÁLIDO (SOMENTE LETRAS MAIÚSCULAS E/OU MINÚSCULAS)!")]
         [Display(Name = "NOME*")]
         public string NM_NOME_PESSOA { get; set; }
 
@@ -108,7 +107,7 @@ namespace DIVULGA_SERVICOS.Models
         public string TF_TEL_CEL { get; set; }
 
         [Required(ErrorMessage = "O CPF/CNPJ É OBRIGATÓRIO!")]
-        [RegularExpression("^(\\d{14})|(\\d{11})$", ErrorMessage = "INSIRA UM CPF OU UM CNPJ VÁLIDO (DIGITE SOMENTE NÚMEROS)!")]
+        //[RegularExpression("^(\\d{14})|(\\d{11})$", ErrorMessage = "INSIRA UM CPF OU UM CNPJ VÁLIDO (DIGITE SOMENTE NÚMEROS)!")]
         [StringLength(30)]
         [Display(Name = "CPF OU CNPJ*")]
         public string CD_CNPJ { get; set; }
@@ -271,7 +270,6 @@ namespace DIVULGA_SERVICOS.Models
     public class RegisterFornecedorViewModel
     {
         [Required(ErrorMessage = "O NOME É OBRIGATÓRIO!")]
-        [RegularExpression("^[a-zA-Z''-'\\s]{1,255}$", ErrorMessage = "INSIRA UM NOME VÁLIDO (SOMENTE LETRAS MAIÚSCULAS E/OU MINÚSCULAS)!")]
         [Display(Name = "NOME*")]
         public string NM_NOME_PESSOA { get; set; }
 

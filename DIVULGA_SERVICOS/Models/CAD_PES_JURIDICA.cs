@@ -26,7 +26,7 @@ namespace DIVULGA_SERVICOS.Models
         public string CD_PESSOA { get; set; }
         
         [Required(ErrorMessage = "O CPF/CNPJ é obrigatório!")]
-        [RegularExpression("^(\\d{14})|(\\d{11})$", ErrorMessage = "Insira um CPF ou CNPJ válido (digite somente números)!")]
+        //[RegularExpression("^(\\d{14})|(\\d{11})$", ErrorMessage = "Insira um CPF ou CNPJ válido (digite somente números)!")]
         [StringLength(30)]
         public string CD_CNPJ { get; set; }
         
