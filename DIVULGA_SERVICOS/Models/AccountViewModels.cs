@@ -288,7 +288,7 @@ namespace DIVULGA_SERVICOS.Models
         public string TF_TEL_CEL { get; set; }
 
         [Required(ErrorMessage = "O CPF/CNPJ É OBRIGATÓRIO!")]
-        [RegularExpression("^(\\d{14})|(\\d{11})$", ErrorMessage = "INSIRA UM CPF OU UM CNPJ VÁLIDO (DIGITE SOMENTE NÚMEROS)!")]
+        //[RegularExpression("^(\\d{14})|(\\d{11})$", ErrorMessage = "INSIRA UM CPF OU UM CNPJ VÁLIDO (DIGITE SOMENTE NÚMEROS)!")]
         [StringLength(30)]
         [Display(Name = "CPF OU CNPJ*")]
         public string CD_CNPJ { get; set; }
