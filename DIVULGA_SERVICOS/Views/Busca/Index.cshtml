@@ -50,14 +50,14 @@
 
 
     <div class="input-group" id="adv-search">
-        
-            @if (ViewBag.erro != null || ViewBag.erro != "" && ViewBag.Status == 1)
+
+        @if (ViewBag.erro != null || ViewBag.erro != "" && ViewBag.Status == 1)
             {
-                <script>
+            <script>
                     alert('@ViewBag.erro');
-                </script>
-            }
-                
+            </script>
+        }
+
         <form class="form-horizontal" id="searchgroup" action="~/Busca/Pesquisa" method="get" role="form">
             @*<div class="input-group-addon" id="boxhamburguermap"><span class="opennav" id="hamburguermap" onclick="openNav()">&#9776;</span></div>*@
             <span class="glyphicon glyphicon-menu-hamburger" id="boxhamburguermap" onclick="openNav()"></span>
@@ -75,10 +75,10 @@
                             </div>
                             <div class="form-group">
                                 <label for="distancia">
-                                    Distante até  
+                                    Distante até
                                 </label>
                                 <input class="form-control" id="distancia" name="distancia" placeholder="Valor em Km"
-                                      type="number">
+                                       type="number">
                             </div>
                             <div class="form-group">
                                 <div class="checkbox segunda_check">
@@ -91,7 +91,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="checkbox segunda_check">
-                                    <label for="cartão">
+                                    <label for="aberto">
                                         Aberto Agora
                                         <input id="aberto" type="checkbox" value="true" name="aberto" />
                                         <input type="hidden" value="false" name="aberto" />
@@ -100,8 +100,10 @@
                             </div>
                             <div class="form-group">
                                 <div class="checkbox segunda_check">
-                                    <label for="cartão">
-                                        Trabalha 24/7 <input name="vintequatro" id="vintequatro" type="checkbox">
+                                    <label for="vintequatro">
+                                        Trabalha 24/7
+                                        <input name="vintequatro" id="vintequatro" value="true" type="checkbox">
+                                        <input type="hidden" value="false" name="vintequatro" />
                                     </label>
                                 </div>
                             </div>
@@ -209,7 +211,7 @@
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 14,
-                center: { lat: -15.7217174, lng: -48.0783226 },
+                center: { lat: -15.7931832, lng: -47.8825426 },
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
             setMarkers(map);
@@ -371,16 +373,24 @@
                     "@credito.ToString()" +
                     "<br>" +
                     "@outros.ToString()" +
-                    "<br><br>" +
+                    "<br>" +
                     "<strong>Telefones para contato:</strong>" +
                     "<br>" +
                     @foreach(var telefone in item.CAD_PESSOA.CAD_PES_FONE)
                     {
                                 <text>
-                                "@telefone.CD_FIXO" + "  |  " +
-                                "@telefone.CD_CELULAR" +
-                                "<br>" +
+                                "@telefone.CD_FIXO" + "  <br>  " +
+                                "@telefone.CD_CELULAR" + " - @telefone.NM_OPERADORA" +
                                 </text>
+                        if(@telefone.WHATSAPP == true)
+                        {
+                            <text>
+                                "  <img src='~/Content/Imagens/Icon_Whatsapp.png' style='width:25px; margin-top:-14px;' />" +
+                            </text>
+                         }
+                        <text>
+                            "<br>" +
+                        </text>
                     }
                     "<br>" +
 
@@ -388,7 +398,7 @@
                                 {
                         <text>
                             "<div class='alert alert-success' role='alert'>" +
-                            "<strong>Está aberto agora :)</strong>" +
+                            "<strong>Está aberto agora ;)</strong>" +
                             "</div>" +
                         </text>
                     }
@@ -424,7 +434,7 @@
 
 
                     "<br>" +
-                   "<button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModal" + '@item.CAD_PESSOA.Id' + "'>Acessar mais informações!</button>" +
+                   "<button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModal" + '@item.CAD_PESSOA.Id' + "'>Mais informações!</button>" +
                    "  |  " +
 
                    @if(Request.IsAuthenticated)
@@ -476,26 +486,26 @@
     {
         foreach (var item in Model)
         {
-                float mediaQualidade = 0;
-                float mediaPontualidade = 0;
-                float mediaOrganizacao = 0;
-                float mediaIndicacao = 0;
-                float mediaSatisfacao = 0;
-                foreach (var avaliacao in item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO)
-                {
-                    mediaQualidade = mediaQualidade + avaliacao.PRECO_QUALIDADE;
-                    mediaPontualidade = mediaPontualidade + avaliacao.PONTUALIDADE;
-                    mediaOrganizacao = mediaOrganizacao + avaliacao.ORGANIZACAO;
-                    mediaIndicacao = mediaIndicacao + avaliacao.INDICACAO;
-                    mediaSatisfacao = mediaSatisfacao + avaliacao.SATISFACAO_SERVICO;
-                }
-                mediaQualidade = (((mediaQualidade) * 100) / item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count) / 5;
-                mediaPontualidade = (((mediaPontualidade) * 100) / item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count) / 5;
-                mediaOrganizacao = (((mediaOrganizacao) * 100) / item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count) / 5;
-                mediaIndicacao = (((mediaIndicacao) * 100) / item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count) / 5;
-                mediaSatisfacao = (((mediaSatisfacao) * 100) / item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count) / 5;
+            float mediaQualidade = 0;
+            float mediaPontualidade = 0;
+            float mediaOrganizacao = 0;
+            float mediaIndicacao = 0;
+            float mediaSatisfacao = 0;
+            foreach (var avaliacao in item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO)
+            {
+                mediaQualidade = mediaQualidade + avaliacao.PRECO_QUALIDADE;
+                mediaPontualidade = mediaPontualidade + avaliacao.PONTUALIDADE;
+                mediaOrganizacao = mediaOrganizacao + avaliacao.ORGANIZACAO;
+                mediaIndicacao = mediaIndicacao + avaliacao.INDICACAO;
+                mediaSatisfacao = mediaSatisfacao + avaliacao.SATISFACAO_SERVICO;
+            }
+            mediaQualidade = (((mediaQualidade) * 100) / item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count) / 5;
+            mediaPontualidade = (((mediaPontualidade) * 100) / item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count) / 5;
+            mediaOrganizacao = (((mediaOrganizacao) * 100) / item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count) / 5;
+            mediaIndicacao = (((mediaIndicacao) * 100) / item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count) / 5;
+            mediaSatisfacao = (((mediaSatisfacao) * 100) / item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count) / 5;
 
-                var idmodal = "myModal" + @item.CAD_PESSOA.Id;
+            var idmodal = "myModal" + @item.CAD_PESSOA.Id;
             <div class="modal fade" id='@idmodal' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -510,19 +520,95 @@
                                 <div class="col-sm-3" style="width:100%">
                                     <h4>Endereço:</h4>
                                     <div class="well">
-                                        <p><b>Estado:</b> @item.NM_ESTADO</p>
-                                        <p><b>Cidade:</b> @item.NM_CIDADE</p>
                                         <p><b>Rua:</b> @item.NM_LOGRADOURO</p>
                                         <p><b>Número:</b> @item.NUMERO</p>
+                                        <p><b>Cidade:</b> @item.NM_CIDADE</p>
+                                        <p><b>Estado:</b> @item.NM_ESTADO</p>
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="row">
+                                <div class="col-sm-3" style="width:100%">
+                                    <h4>Telefones:</h4>
+                                    <div class="well">
+                                        @foreach (var telefone in item.CAD_PESSOA.CAD_PES_FONE)
+                                        {
+                                            <p><b>Fixo: </b>@telefone.CD_FIXO</p>
+                                            <p><b>Cel: </b>@telefone.CD_CELULAR - @telefone.NM_OPERADORA
+                                                @if(@telefone.WHATSAPP == true)
+                                                {
+                                                <img src="~/Content/Imagens/Icon_Whatsapp.png" style="width:25px; margin-top:-14px;" />
+                                                }
+                                        </p>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                            @if (@item.CAD_PESSOA.CAD_PES_JURIDICA.DS_QUEM_SOMOS != null)
+                            {
+                                <div class="row">
+                                    <div class="col-sm-3" style="width:100%">
+                                        <h4>Quem Somos:</h4>
+                                        <div class="well">
+                                            @item.CAD_PESSOA.CAD_PES_JURIDICA.DS_QUEM_SOMOS
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                            @if (@item.CAD_PESSOA.CAD_PES_JURIDICA.DS_SOBRE != null)
+                            {
+                                <div class="row">
+                                    <div class="col-sm-3" style="width:100%">
+                                        <h4>Quem Somos:</h4>
+                                        <div class="well">
+                                            @item.CAD_PESSOA.CAD_PES_JURIDICA.DS_SOBRE
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                            @if (item.CAD_PESSOA.CAD_PES_JURIDICA.TODO_DIA == true)
+                            {
+                                <div class="row">
+                                    <div class="col-sm-3" style="width:100%">
+                                        <h4>Nossos horários:</h4>
+                                        <div class="well">
+                                                <strong>Nós trabalhamos 24/7</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="row">
+                                    <div class="col-sm-3" style="width:100%">
+                                        <h4>Nossos horários:</h4>
+                                        <div class="well">
+                                            @foreach (var hora in item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_HORA_ATENDIMENTO)
+                                            {
+                                                <div>
+                                                    @{ 
+                                                        var culture = new System.Globalization.CultureInfo("pt-BR");
+                                                    }
+                                                    <strong>@culture.DateTimeFormat.GetDayName((DayOfWeek)@hora.DIA_SEMANA)
+                                                    </strong> de @hora.HORA_INICIO às @hora.HORA_FIM
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+
                             <h4>Média da Avaliação:</h4>
                             <div class="well">
                                 <div class="row">
                                     <div class="col-sm-3" id="myrating">
                                         @if (item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count == 1)
-                                        {
+                                                        {
                                             <h5>
                                                 @item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count avaliação!
                                             </h5>

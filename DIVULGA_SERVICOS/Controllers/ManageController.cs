@@ -690,10 +690,9 @@ namespace DIVULGA_SERVICOS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditPerfilJuridico(EditPerfilJuridico cAD_PES_JURIDICA)
         {
+            CAD_PESSOA pessoajuridica = db.CAD_PESSOA.Find(User.Identity.GetUserId());
             if (ModelState.IsValid)
             {
-
-                CAD_PESSOA pessoajuridica = db.CAD_PESSOA.Find(User.Identity.GetUserId());
                 CAD_PES_JURIDICA usuario = db.CAD_PES_JURIDICA.Find(User.Identity.GetUserId());
 
                 CAD_PES_JURIDICA PesJuridica = new CAD_PES_JURIDICA
@@ -731,7 +730,7 @@ namespace DIVULGA_SERVICOS.Controllers
                 //db.Entry(cAD_PES_JURIDICA).State = EntityState.Modified;
 
             }
-            return View("EditarPerfil", cAD_PES_JURIDICA);
+            return View("EditarPerfil", pessoajuridica);
         }
 
         //Fim dos métodos para gerenciamento do Perfil

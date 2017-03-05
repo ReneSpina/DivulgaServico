@@ -26,6 +26,7 @@ namespace DIVULGA_SERVICOS.Controllers
             var atendimentos = new List<CAD_HORA_ATENDIMENTO>();
             ViewBag.latitude = lat;
             ViewBag.longitude = lng;
+            ViewBag.Status = 0;
             var status = 0;
             var localusuario = DbGeography.FromText("POINT (" + lat + " " + lng + ")", 4326);
 
@@ -78,16 +79,16 @@ namespace DIVULGA_SERVICOS.Controllers
                         {
                             if (aberto == true)
                             {
-                                foreach (var endereco in enderecosTemp)
+                                for (int i = enderecosTemp.Count - 1; i >= 0; i--)
                                 {
-                                    if (endereco.CAD_PESSOA.CAD_PES_JURIDICA.TODO_DIA == true)
+                                    if (enderecosTemp[i].CAD_PESSOA.CAD_PES_JURIDICA.TODO_DIA == true)
                                     {
 
                                     }
                                     else
                                     {
                                         status = 0;
-                                        atendimentos = db.CAD_HORA_ATENDIMENTO.Where(x => x.CD_PES_JURIDICA == endereco.CD_PESSOA &&
+                                        atendimentos = db.CAD_HORA_ATENDIMENTO.Where(x => x.CD_PES_JURIDICA == enderecosTemp[i].CD_PESSOA &&
                                         x.DIA_SEMANA == (int)DateTime.Today.DayOfWeek).ToList();
                                         foreach (var atendimento in atendimentos)
                                         {
@@ -102,7 +103,7 @@ namespace DIVULGA_SERVICOS.Controllers
                                         }
                                         if (status == 1)
                                         {
-                                            enderecosTemp.Remove(endereco);
+                                            enderecosTemp.Remove(enderecosTemp[i]);
                                         }
                                     }
 
@@ -110,15 +111,15 @@ namespace DIVULGA_SERVICOS.Controllers
                             }
                             if (vintequatro == true)
                             {
-                                foreach (var endereco in enderecosTemp)
+                                for (int i = enderecosTemp.Count - 1; i >= 0; i--)
                                 {
-                                    if (endereco.CAD_PESSOA.CAD_PES_JURIDICA.TODO_DIA == true)
+                                    if (enderecosTemp[i].CAD_PESSOA.CAD_PES_JURIDICA.TODO_DIA == true)
                                     {
 
                                     }
                                     else
                                     {
-                                        enderecosTemp.Remove(endereco);
+                                        enderecosTemp.Remove(enderecosTemp[i]);
                                     }
 
                                 }
@@ -126,16 +127,16 @@ namespace DIVULGA_SERVICOS.Controllers
 
                             if (aceitacartao == true)
                             {
-                                foreach (var endereco in enderecosTemp)
+                                for (int i = enderecosTemp.Count - 1; i >= 0; i--)
                                 {
-                                    if (endereco.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.CREDITO == true ||
-                                        endereco.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.DEBITO == true)
+                                    if (enderecosTemp[i].CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.CREDITO == true ||
+                                        enderecosTemp[i].CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.DEBITO == true)
                                     {
 
                                     }
                                     else
                                     {
-                                        enderecosTemp.Remove(endereco);
+                                        enderecosTemp.Remove(enderecosTemp[i]);
                                     }
 
                                 }
@@ -165,27 +166,28 @@ namespace DIVULGA_SERVICOS.Controllers
                 else
                 {
                     texto = RemoveAcento(pesquisa);
-                    enderecos = db.CAD_PES_ENDERECO.Where(x =>
-                    x.CAD_PESSOA.ATIVADO == true &&
-                    x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().DS_DESCRICAO.Contains(texto) ||
-                    x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().DS_DESCRICAO.Contains(pesquisa) ||
-                    x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().NM_NOME.Contains(texto) ||
-                    x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().NM_NOME.Contains(pesquisa) ||
-                    x.CAD_PESSOA.NM_NOME_PESSOA.Contains(texto) ||
-                    x.CAD_PESSOA.NM_NOME_PESSOA.Contains(pesquisa)).ToList();
+                    enderecos = db.CAD_PES_ENDERECO
+                    .Where(x => x.CAD_PESSOA.ATIVADO == true)
+                    .Where(x =>
+                                x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().DS_DESCRICAO.Contains(texto) ||
+                                x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().DS_DESCRICAO.Contains(pesquisa) ||
+                                x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().NM_NOME.Contains(texto) ||
+                                x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().NM_NOME.Contains(pesquisa) ||
+                                x.CAD_PESSOA.NM_NOME_PESSOA.Contains(texto) ||
+                                x.CAD_PESSOA.NM_NOME_PESSOA.Contains(pesquisa)).ToList();
                 }
                 if (aberto == true)
                 {
-                    foreach (var endereco in enderecos)
+                    for (int i = enderecos.Count - 1; i >= 0; i--)
                     {
-                        if (endereco.CAD_PESSOA.CAD_PES_JURIDICA.TODO_DIA == true)
+                        if (enderecos[i].CAD_PESSOA.CAD_PES_JURIDICA.TODO_DIA == true)
                         {
 
                         }
                         else
                         {
                             status = 0;
-                            atendimentos = db.CAD_HORA_ATENDIMENTO.Where(x => x.CD_PES_JURIDICA == endereco.CD_PESSOA &&
+                            atendimentos = db.CAD_HORA_ATENDIMENTO.Where(x => x.CD_PES_JURIDICA == enderecos[i].CD_PESSOA &&
                             x.DIA_SEMANA == (int)DateTime.Today.DayOfWeek).ToList();
                             foreach (var atendimento in atendimentos)
                             {
@@ -200,7 +202,7 @@ namespace DIVULGA_SERVICOS.Controllers
                             }
                             if (status == 1)
                             {
-                                enderecos.Remove(endereco);
+                                enderecos.Remove(enderecos[i]);
                             }
                         }
 
@@ -208,15 +210,15 @@ namespace DIVULGA_SERVICOS.Controllers
                 }
                 if (vintequatro == true)
                 {
-                    foreach (var endereco in enderecos)
+                    for (int i = enderecos.Count - 1; i >= 0; i--)
                     {
-                        if (endereco.CAD_PESSOA.CAD_PES_JURIDICA.TODO_DIA == true)
+                        if (enderecos[i].CAD_PESSOA.CAD_PES_JURIDICA.TODO_DIA == true)
                         {
 
                         }
                         else
                         {
-                            enderecos.Remove(endereco);
+                            enderecos.Remove(enderecos[i]);
                         }
 
                     }
@@ -224,16 +226,16 @@ namespace DIVULGA_SERVICOS.Controllers
 
                 if (aceitacartao == true)
                 {
-                    foreach (var endereco in enderecos)
+                    for (int i = enderecos.Count - 1; i >= 0; i--)
                     {
-                        if (endereco.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.CREDITO == true ||
-                            endereco.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.DEBITO == true)
+                        if (enderecos[i].CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.CREDITO == true ||
+                            enderecos[i].CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.DEBITO == true)
                         {
 
                         }
                         else
                         {
-                            enderecos.Remove(endereco);
+                            enderecos.Remove(enderecos[i]);
                         }
 
                     }
