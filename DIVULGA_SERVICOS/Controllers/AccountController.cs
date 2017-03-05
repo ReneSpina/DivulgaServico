@@ -203,12 +203,13 @@ namespace DIVULGA_SERVICOS.Controllers
                 var user = new ApplicationUser
                 {
                     NM_NOME_PESSOA = model.NM_NOME_PESSOA,
-                    UserName = model.UserName,
+                    UserName = model.NM_NOME_PESSOA,
                     //TF_TEL_CEL = model.TF_TEL_CEL,
                     //TF_TEL_FIXO = model.TF_TEL_FIXO,
                     DT_DATA_CADASTRO = System.DateTime.Today,
                     Email = model.UserName,
-                    ATIVADO = true
+                    ATIVADO = true,
+                    EmailConfirmed = true
                     //DS_EMAIL = model.UserName,
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
@@ -543,7 +544,7 @@ namespace DIVULGA_SERVICOS.Controllers
                 // Send an email with this link
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                await UserManager.SendEmailAsync(user.Id, "Reset de Senha", "Por favor, altere sua senha clicando <a href=\"" + callbackUrl + "\">aqui</a>");
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
