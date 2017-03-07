@@ -44,6 +44,13 @@ $("#fechaModalAtividade").click(function () {
 });
 
 $("#cadastrogeral").click(function () {
+    
+    if (!$("#ACEITE_CONTRATO").is(":checked"))
+    {
+        alert("Você precisa estar de acordo com nossos termos de uso para utilizar nossos serviços!");
+        return false;
+    }
+
     if (!$("#todo_dia").is(":checked") & !$("#segundasexta").is(":checked") & !$("#segunda").is(":checked") & !$("#terca").is(":checked") & !$("#quarta").is(":checked") & !$("#quinta").is(":checked") & !$("#sexta").is(":checked") & !$("#sabado").is(":checked") & !$("#domingo").is(":checked")) {
         alert("Você deve selecionar ao menos um horário de atendimento!");
         return false;
@@ -411,6 +418,29 @@ $("#TF_TEL_CEL").mask("(00) 90000-0000");
 $("#TF_TEL_FIXO").mask("(00) 0000-0000");
 $("#CD_CEP").mask("00000-000");
 
+
+$("#ACEITE_CONTRATO").change(function () {
+    if ($("#ACEITE_CONTRATO").is(":checked")) {
+        $("#ACEITE_CONTRATO").attr("checked", true);
+    }
+    else {
+        $("#ACEITE_CONTRATO").attr("checked", false);
+    }
+});
+
+$("#fechaModalContrato").click(function () {
+    if (!$("#ACEITE_CONTRATO").is(":checked"))
+    {
+        alert("Você não aceitou nossos termos de uso!");
+        $("#closeModalContrato").trigger("click");
+        $("#closeModalContrato").trigger("click");
+    }
+    else
+    {
+        $("#closeModalContrato").trigger("click");
+        $("#closeModalContrato").trigger("click");
+    }
+});
 
 //$("#DS_APELIDO_SITE").attr("placeholder", "SEUSITE").blur();
 //document.getElementById("latitude").disabled = true;

@@ -31,7 +31,10 @@ namespace DIVULGA_SERVICOS.Models
         public bool ATIVO { get; set; }
 
         public int CD_STATUS_PAGT { get; set; }
-        
+
+        [Required]
+        public bool ACEITE_CONTRATO { get; set; }
+
         public virtual CAD_PESSOA CAD_PESSOA { get; set; }
         
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

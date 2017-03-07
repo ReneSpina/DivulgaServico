@@ -197,13 +197,13 @@ namespace DIVULGA_SERVICOS.Controllers
         {
             //string link_site;
             //long indicacao;
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && model.ACEITE_CONTRATO == true)
             {
 
                 var user = new ApplicationUser
                 {
                     NM_NOME_PESSOA = model.NM_NOME_PESSOA,
-                    UserName = model.NM_NOME_PESSOA,
+                    UserName = model.UserName,
                     //TF_TEL_CEL = model.TF_TEL_CEL,
                     //TF_TEL_FIXO = model.TF_TEL_FIXO,
                     DT_DATA_CADASTRO = System.DateTime.Today,
@@ -231,6 +231,7 @@ namespace DIVULGA_SERVICOS.Controllers
                                 CD_PESSOA = user.Id,
                                 CD_CNPJ = model.CD_CNPJ,
                                 TODO_DIA = model.TODO_DIA,
+                                ACEITE_CONTRATO = model.ACEITE_CONTRATO
                             };
                             db.CAD_PES_JURIDICA.Add(juridica);
                             db.SaveChanges();
@@ -436,7 +437,6 @@ namespace DIVULGA_SERVICOS.Controllers
                             {
                                 CD_PESSOA = user.Id,
                                 CD_CNPJ = model.CD_CNPJ,
-                                CD_INDICACAO = model.CD_INDICACAO,
                             };
                             db.CAD_PES_FORNECEDOR.Add(fornecedor);
                             db.SaveChanges();

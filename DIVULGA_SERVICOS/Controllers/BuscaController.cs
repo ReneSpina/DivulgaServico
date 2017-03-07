@@ -4,18 +4,48 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using DIVULGA_SERVICOS.Models;
 using System.Text;
 using System.Globalization;
 using System.Data.Entity.Spatial;
+using Microsoft.AspNet.Identity;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using System.Threading;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Security.Principal;
+using System.Web;
 
 namespace DIVULGA_SERVICOS.Controllers
 {
     public class BuscaController : Controller
     {
+        private ApplicationUserManager _userManager;
         private PRINCIPAL db = new PRINCIPAL();
+
+        public BuscaController()
+        {
+        }
+
+        public BuscaController(ApplicationUserManager userManager)
+        {
+            UserManager = userManager;
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
 
         [HttpGet]
         public ActionResult Pesquisa(string pesquisa = "", string lat = "", string lng = "", int distancia = 0, bool aberto = false, bool vintequatro = false, bool aceitacartao = false)
@@ -257,6 +287,21 @@ namespace DIVULGA_SERVICOS.Controllers
             //ViewBag.lati = "";
             //ViewBag.longi = "";
             return View();
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> AlertaPrestador(string email = "")
+        {
+            var user = db.CAD_PESSOA.Where(x => x.Email == email).FirstOrDefault();
+            if (user == null)
+            {
+                ViewBag.errorMessage = "Não conseguimos identificar este prestador de serviços";
+                return View("Error");
+            }
+            //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+            //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+            await UserManager.SendEmailAsync(user.Id, "Alerta Sobre Prestador de Servico", "Atenção ao prestador "+user.NM_NOME_PESSOA+"!");
+            return Redirect(Request.UrlReferrer.PathAndQuery);
         }
 
         // GET: CAD_PES_JURIDICA/Details/5

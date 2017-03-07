@@ -172,6 +172,9 @@ namespace DIVULGA_SERVICOS.Models
         [Column(TypeName = "date")]
         public DateTime DT_DATA_CADASTRO { get; set; }
 
+        [Required]
+        public bool ACEITE_CONTRATO { get; set; }
+
         //[StringLength(500)]
         //public string DS_LINK_SITE { get; set; }
 
@@ -347,7 +350,10 @@ namespace DIVULGA_SERVICOS.Models
         [StringLength(100)]
         public string CD_LONG { get; set; }
 
-        public int CD_INDICACAO { get; set; }
+        //public int CD_INDICACAO { get; set; }
+
+        [Required]
+        public bool ACEITE_CONTRATO { get; set; }
 
         [StringLength(6)]
         public string NM_OPERADORA { get; set; }
@@ -433,7 +439,7 @@ namespace DIVULGA_SERVICOS.Models
         public string NM_NOME_PESSOA { get; set; }
 
         [Required(ErrorMessage = "O CPF OU CNPJ É OBRIGATÓRIO!")]
-        [RegularExpression("^(\\d{14})|(\\d{11})$", ErrorMessage = "INSIRA UM CPF OU UM CNPJ VÁLIDO (DIGITE SOMENTE NÚMEROS)!")]
+        //[RegularExpression("^(\\d{14})|(\\d{11})$", ErrorMessage = "INSIRA UM CPF OU UM CNPJ VÁLIDO (DIGITE SOMENTE NÚMEROS)!")]
         [StringLength(30)]
         [Display(Name = "CPF OU CNPJ")]
         public string CD_CNPJ { get; set; }

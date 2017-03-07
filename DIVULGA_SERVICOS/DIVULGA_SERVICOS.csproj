@@ -257,6 +257,14 @@
     <Compile Include="Migrations\201702282212110_Principal.Designer.cs">
       <DependentUpon>201702282212110_Principal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703052017462_Principal1.cs" />
+    <Compile Include="Migrations\201703052017462_Principal1.Designer.cs">
+      <DependentUpon>201703052017462_Principal1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703062344019_Principal11.cs" />
+    <Compile Include="Migrations\201703062344019_Principal11.Designer.cs">
+      <DependentUpon>201703062344019_Principal11.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CAD_AVALIACAO.cs" />
@@ -384,6 +392,7 @@
     <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
     <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery-ui.min.js" />
+    <Content Include="Scripts\jquery.confirm.min.js" />
     <Content Include="Scripts\jquery.fileupload-ui.js" />
     <Content Include="Scripts\jquery.fileupload.js" />
     <Content Include="Scripts\jquery.iframe-transport.js" />
@@ -579,6 +588,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201702282212110_Principal.resx">
       <DependentUpon>201702282212110_Principal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703052017462_Principal1.resx">
+      <DependentUpon>201703052017462_Principal1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703062344019_Principal11.resx">
+      <DependentUpon>201703062344019_Principal11.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -32,7 +32,7 @@ namespace DIVULGA_SERVICOS
 
             var mail = new MailMessage();
             mail.From = new MailAddress("noreply@mercadodeservicos.com.br", "Mercado de Serviços");
-            mail.To.Add(message.Destination);
+            mail.To.Add("noreply@mercadodeservicos.com.br");
             mail.Subject = message.Subject;
             mail.Body = message.Body;
             mail.IsBodyHtml = true;
