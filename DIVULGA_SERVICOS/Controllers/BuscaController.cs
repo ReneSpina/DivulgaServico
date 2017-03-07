@@ -290,7 +290,7 @@ namespace DIVULGA_SERVICOS.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> AlertaPrestador(string email = "")
+        public async Task<ActionResult> AlertaPrestador(string email = "", string descricao = "")
         {
             var user = db.CAD_PESSOA.Where(x => x.Email == email).FirstOrDefault();
             if (user == null)
@@ -300,7 +300,7 @@ namespace DIVULGA_SERVICOS.Controllers
             }
             //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
             //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-            await UserManager.SendEmailAsync(user.Id, "Alerta Sobre Prestador de Servico", "Atenção ao prestador "+user.NM_NOME_PESSOA+"!");
+            await UserManager.SendEmailAsync(user.Id, "Alerta Sobre Prestador de Servico", "Atenção ao prestador "+user.NM_NOME_PESSOA+ "!<br /><br />Descrição da Denúncia: "+descricao+" ");
             return Redirect(Request.UrlReferrer.PathAndQuery);
         }
 
