@@ -17,6 +17,7 @@ using System.Threading;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Security.Principal;
 using System.Web;
+using System.Net.Mail;
 
 namespace DIVULGA_SERVICOS.Controllers
 {
@@ -298,10 +299,33 @@ namespace DIVULGA_SERVICOS.Controllers
                 ViewBag.errorMessage = "Não conseguimos identificar este prestador de serviços";
                 return View("Error");
             }
+
+            var body = "Atenção ao prestador "+user.NM_NOME_PESSOA+ "!<br /><br />Descrição da Denúncia: "+descricao+" ";
+            var message = new MailMessage();
+            message.To.Add(new MailAddress("noreply@mercadodeservicos.com.br"));  // replace with valid value 
+            message.From = new MailAddress("noreply@mercadodeservicos.com.br");  // replace with valid value
+            message.Subject = "Alerta Sobre Prestador de Servico";
+            message.Body = body;
+            message.IsBodyHtml = true;
+
+            using (var smtp = new SmtpClient())
+            {
+                var credential = new NetworkCredential
+                {
+                    UserName = "noreply@mercadodeservicos.com.br",  // replace with valid value
+                    Password = "noreply@745"  // replace with valid value
+                };
+                smtp.Credentials = credential;
+                smtp.Host = "smtp.mercadodeservicos.com.br";
+                smtp.Port = 587;
+                smtp.EnableSsl = false;
+                await smtp.SendMailAsync(message);
+                return Redirect(Request.UrlReferrer.PathAndQuery);
+            }
             //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
             //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-            await UserManager.SendEmailAsync(user.Id, "Alerta Sobre Prestador de Servico", "Atenção ao prestador "+user.NM_NOME_PESSOA+ "!<br /><br />Descrição da Denúncia: "+descricao+" ");
-            return Redirect(Request.UrlReferrer.PathAndQuery);
+            //await UserManager.SendEmailAsync(user.Id, "Alerta Sobre Prestador de Servico", "Atenção ao prestador "+user.NM_NOME_PESSOA+ "!<br /><br />Descrição da Denúncia: "+descricao+" ");
+            
         }
 
         // GET: CAD_PES_JURIDICA/Details/5

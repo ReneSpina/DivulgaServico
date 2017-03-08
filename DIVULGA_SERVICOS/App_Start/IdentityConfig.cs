@@ -19,25 +19,25 @@ namespace DIVULGA_SERVICOS
     {
         public Task SendAsync(IdentityMessage message)
         {
-            // Plug in your email service here to send an email.
-            SmtpClient client = new SmtpClient();
-            client.Port = 587;
-            client.Host = "smtp.mercadodeservicos.com.br";
-            client.EnableSsl = false;
-            //client.Timeout = 10000;
-            //client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            //client.UseDefaultCredentials = false;
-            client.Credentials = new NetworkCredential("noreply@mercadodeservicos.com.br", "noreply@745");
-            //var from = new MailAddress("noreply@mercadodeservicos.com.br", "Mercado de Serviços");
+            //// Plug in your email service here to send an email.
+            //SmtpClient client = new SmtpClient();
+            //client.Port = 587;
+            //client.Host = "smtp.mercadodeservicos.com.br";
+            //client.EnableSsl = false;
+            ////client.Timeout = 10000;
+            ////client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            ////client.UseDefaultCredentials = false;
+            //client.Credentials = new NetworkCredential("noreply@mercadodeservicos.com.br", "noreply@745");
+            ////var from = new MailAddress("noreply@mercadodeservicos.com.br", "Mercado de Serviços");
 
-            var mail = new MailMessage();
-            mail.From = new MailAddress("noreply@mercadodeservicos.com.br", "Mercado de Serviços");
-            mail.To.Add("noreply@mercadodeservicos.com.br");
-            mail.Subject = message.Subject;
-            mail.Body = message.Body;
-            mail.IsBodyHtml = true;
-            return client.SendMailAsync(mail);
-            //return Task.FromResult(0);
+            //var mail = new MailMessage();
+            //mail.From = new MailAddress("noreply@mercadodeservicos.com.br", "Mercado de Serviços");
+            //mail.To.Add("noreply@mercadodeservicos.com.br");
+            //mail.Subject = message.Subject;
+            //mail.Body = message.Body;
+            //mail.IsBodyHtml = true;
+            //return client.SendMailAsync(mail);
+            return Task.FromResult(0);
         }
     }
 
