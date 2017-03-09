@@ -4486,7 +4486,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
   .navbar-right {
     float: right !important;
-    margin-right: -15px;
+    margin-right: 0px;
+    /*alterado de margin-right: -15px;*/
   }
   .navbar-right ~ .navbar-right {
     margin-right: 0;
@@ -4495,7 +4496,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 
 @media (max-width: 767px) {
     #menu_mobile {
-        background: rgba(51, 122, 183, 0.9);
+        background: rgb(255, 255, 255);
     }
 }
 
@@ -4542,7 +4543,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   background-color: #ddd;
 }
 .navbar-default .navbar-toggle .icon-bar {
-  background-color: #888;
+  background-color: rgb(255, 255, 255);
 }
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {

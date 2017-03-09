@@ -1,0 +1,73 @@
+﻿@model DIVULGA_SERVICOS.Models.CAD_CIDADES_DIVULGA_FORNECEDOR
+
+@{
+    ViewBag.Title = "Cadastrar Cidade";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Cadastrar Cidade</h2>
+
+@if (ViewBag.errorMessage != "" || ViewBag.errorMessage != null)
+{
+    <h3>
+        @ViewBag.errorMessage
+    </h3>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        <div class="form-group">
+            <label class="control-label col-md-2">Nivel Brasil</label>
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.BRASIL)
+                    @Html.ValidationMessageFor(model => model.BRASIL, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="control-label col-md-2" for="autocomplete">Escolha a Cidade</label>
+            <div class="col-md-10">
+                <input id="autocomplete" placeholder="Digite o Nome da Cidade" onfocus="geolocate()" type="text" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Cidade</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NM_CIDADE, new { htmlAttributes = new { id = "locality", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NM_CIDADE, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Estado</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NM_ESTADO, new { htmlAttributes = new { id = "administrative_area_level_1", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NM_ESTADO, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Cadastrar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Voltar a lista de cidades", "EnderecosFornecedor")
+</div>
+
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="~/Scripts/jquery.mask.min.js"></script>
+<script src="~/Scripts/CadCidadeFornecedor.js"></script>

@@ -39,23 +39,38 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/jquery.mask.min.js"></script>
+    <script src="~/Scripts/MyJquery.js"></script>
     @Scripts.Render("~/bundles/bootstrap")
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAj3JcRIELfHhMvmfLqmSdezusDvIA9Sao&signed_in=true&libraries=places&callback=initAutocomplete"
             async defer></script>
     @RenderSection("scripts", required: false)
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-92330679-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
 </body>
 </html>
 
 @*@using Microsoft.AspNet.Identity
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-</head>*@
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewBag.Title - My ASP.NET Application</title>
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+    </head>*@
 @*<body>
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
@@ -92,56 +107,56 @@
 *@
 @*<body>
 
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a><br />
-        Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })<br />
-        
-        @if (Request.IsAuthenticated)
-        {
-            
-            using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a><br />
+            Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })<br />
+
+            @if (Request.IsAuthenticated)
             {
-                @Html.AntiForgeryToken()
-                @Html.ActionLink("Olá " + User.Identity.Name + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })<br /><br />
+
+                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ActionLink("Olá " + User.Identity.Name + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })<br /><br />
+                    @Html.ActionLink("Pesquisar Serviços", "Index", "Busca")<br />
+                    @Html.ActionLink("Sobre", "About", "Home")<br />
+                    @Html.ActionLink("Contatos", "Contact", "Home")<br />
+                    <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a><br />
+                }
+            }
+            else
+            {
                 @Html.ActionLink("Pesquisar Serviços", "Index", "Busca")<br />
                 @Html.ActionLink("Sobre", "About", "Home")<br />
                 @Html.ActionLink("Contatos", "Contact", "Home")<br />
-                <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a><br />
+                @Html.ActionLink("Criar Conta", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })<br />
+                @Html.ActionLink("Entrar", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })<br />
             }
-        }
-        else
-        {
-            @Html.ActionLink("Pesquisar Serviços", "Index", "Busca")<br />
-            @Html.ActionLink("Sobre", "About", "Home")<br />
-            @Html.ActionLink("Contatos", "Contact", "Home")<br />
-            @Html.ActionLink("Criar Conta", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })<br />
-            @Html.ActionLink("Entrar", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })<br />
-        }
-    </div>
-
-    
-    <form class="form-inline" action="~/CAD_PES_JURIDICA/Pesquisa" method="post">
-        <div class="form-group">
-            <div class="input-group">
-                <div class="input-group-addon"><span class="opennav" onclick="openNav()">&#9776;</span></div>
-                <input type="text" class="form-control" id="exampleInputAmount" placeholder="Costureira, Chaveiro, Eletricista">
-            </div>
         </div>
-        <input type="submit" class="btn btn-default" value="Buscar">
-    </form>
 
-    @RenderBody()
-    <div class="container body-content">
-        
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
-    
-    @Scripts.Render("~/bundles/jquery")
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAj3JcRIELfHhMvmfLqmSdezusDvIA9Sao&signed_in=true&libraries=places&callback=initAutocomplete"
-            async defer></script>
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-</body>
-</html>*@ 
+
+        <form class="form-inline" action="~/CAD_PES_JURIDICA/Pesquisa" method="post">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon"><span class="opennav" onclick="openNav()">&#9776;</span></div>
+                    <input type="text" class="form-control" id="exampleInputAmount" placeholder="Costureira, Chaveiro, Eletricista">
+                </div>
+            </div>
+            <input type="submit" class="btn btn-default" value="Buscar">
+        </form>
+
+        @RenderBody()
+        <div class="container body-content">
+
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAj3JcRIELfHhMvmfLqmSdezusDvIA9Sao&signed_in=true&libraries=places&callback=initAutocomplete"
+                async defer></script>
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </body>
+    </html>*@

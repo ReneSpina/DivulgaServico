@@ -1,0 +1,65 @@
+﻿@model DIVULGA_SERVICOS.Models.CAD_PRODUTO_FORNECEDOR
+@{
+    ViewBag.Title = "Criar Produto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        <div class="form-group">
+            <label class="control-label col-md-2" for="NM_PRODUTO">Nome</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NM_PRODUTO, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NM_PRODUTO, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="DS_DESCRICAO">Descrição</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DS_DESCRICAO, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DS_DESCRICAO, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="VALOR_PRODUTO">Valor</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.VALOR_PRODUTO, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.VALOR_PRODUTO, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="ATIVO">Ativo</label>
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.ATIVO)
+                    @Html.ValidationMessageFor(model => model.ATIVO, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="TAGS">Tags</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TAGS, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TAGS, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Criar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Voltar a lista de produtos", "Produtos")
+</div>

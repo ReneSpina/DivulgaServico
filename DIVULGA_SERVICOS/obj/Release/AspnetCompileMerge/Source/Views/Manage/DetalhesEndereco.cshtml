@@ -1,0 +1,57 @@
+﻿@model DIVULGA_SERVICOS.Models.CAD_PES_ENDERECO
+
+
+@{
+    ViewBag.Title = "Detalhes do Endereço";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalhes do Endereço</h2>
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            Logradouro
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NM_LOGRADOURO)
+        </dd>
+
+        <dt>
+            Número
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NUMERO)
+        </dd>
+
+        <dt>
+            Cidade
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NM_CIDADE)
+        </dd>
+
+        <dt>
+            Estado
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NM_ESTADO)
+        </dd>
+
+        <dt>
+            CEP
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CD_CEP)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Deletar Endereco", "DeletarEndereco", new {id = Model.SQ_ENDERECO }) |
+    @Html.ActionLink("Voltar a lista de endereços", "Enderecos")
+</p>

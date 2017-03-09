@@ -5,7 +5,6 @@
 }
 
 @*<h2>@ViewBag.Title.</h2>*@
-
 <style>
     #nomesite {
         display: none;
@@ -18,457 +17,608 @@
     #nomelat {
         display: none;
     }
+.stepwizard-step p {
+    margin-top: 10px;
+}
+
+.stepwizard-row {
+    display: table-row;
+}
+
+.stepwizard {
+    display: table;
+    width: 100%;
+    position: relative;
+}
+
+.stepwizard-step button[disabled] {
+    opacity: 1 !important;
+    filter: alpha(opacity=100) !important;
+}
+
+.stepwizard-row:before {
+    top: 14px;
+    bottom: 0;
+    position: absolute;
+    content: " ";
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    z-order: 0;
+
+}
+
+.stepwizard-step {
+    display: table-cell;
+    text-align: center;
+    position: relative;
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
 </style>
 
 
-<br><br>
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+<br />
+<br />
+<hr class="colorgraph">
+<div class="stepwizard">
+    <div class="stepwizard-row setup-panel">
+        <div class="stepwizard-step">
+            <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
+        </div>
+        <div class="stepwizard-step">
+            <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
+        </div>
+        <div class="stepwizard-step">
+            <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
+        </div>
+        <div class="stepwizard-step">
+            <a href="#step-4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
+        </div>
+        <div class="stepwizard-step">
+            <a href="#step-5" type="button" class="btn btn-default btn-circle" disabled="disabled">5</a>
+        </div>
+        <div class="stepwizard-step">
+            <a href="#step-6" type="button" class="btn btn-default btn-circle" disabled="disabled">6</a>
+        </div>
+        <div class="stepwizard-step">
+            <a href="#step-7" type="button" class="btn btn-default btn-circle" disabled="disabled">7</a>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", @name = "register" }))
 {
-    @Html.AntiForgeryToken()
-    @*<h4>Create a new account.</h4>*@
-    <hr />
-    @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
+        @Html.AntiForgeryToken()
+        <div class="row setup-content" id="step-1">
+            <div class="col-xs-12">
+                <div class="col-md-12">
+                    <h3> Informações Básicas </h3>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.NM_NOME_PESSOA, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.NM_NOME_PESSOA, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                            @Html.ValidationMessageFor(model => model.NM_NOME_PESSOA, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TF_TEL_FIXO, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.TF_TEL_FIXO, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                            @Html.ValidationMessageFor(model => model.TF_TEL_FIXO, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-    <div class="form-group">
-        <div class="control-label col-md-2"></div>
-        <div id="informacao" class="alert alert-warning col-md-10" style="max-width: 280px; margin-left: 15px;">
-            Os campos com * são obrigatórios!
-        </div>
-    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TF_TEL_CEL, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.TF_TEL_CEL, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                            @Html.ValidationMessageFor(model => model.TF_TEL_CEL, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.NM_NOME_PESSOA, new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.NM_NOME_PESSOA, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.NM_NOME_PESSOA, "", new { @class = "text-danger" })
-        </div>
-    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="autocomplete">OPERADORA*</label>
+                        <div class="col-md-5">
+                            <select name="NM_OPERADORA" class="form-control" required = "required">
+                                <option value="Tim">Tim</option>
+                                <option value="Claro">Claro</option>
+                                <option value="Vivo">Vivo</option>
+                                <option value="Oi">Oi</option>
+                                <option value="Outro">Outro</option>
+                            </select>
+                        </div>
+                    </div>
 
-    @*<div class="form-group">
-        @Html.LabelFor(model => model.DS_LINK_SITE, new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DS_LINK_SITE, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.DS_LINK_SITE, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="autocomplete">WHATSAPP*</label>
+                        <div class="col-md-5">
+                            <select name="WHATSAPP" class="form-control" required = "required">
+                                <option value="true">Sim</option>
+                                <option value="false">Não</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @*<label class="control-label col-md-2" for="CD_CNPJ">CPF OU CNPJ*</label>*@
+                        <label class="control-label col-md-2" for="autocomplete">
+                            <input type="radio" value="cpf" name="rad" onClick=0>CPF
+                            <input type="radio" value="cnpj" name="rad" onClick=0>CNPJ*
+                        </label>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line" OnKeyUp="cnpj_cpf(this.name,this.value,'register',this.form)" onKeypress="campo_numerico()" id="CD_CNPJ" name="CD_CNPJ" type="text" value="" required = "required">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Próximo</button>
+                </div>
+            </div>
         </div>
-    </div>*@
+
+        <div class="row setup-content" id="step-2">
+            <div class="col-xs-12">
+                <div class="col-md-12">
+                    <h3>Digite o nome da rua com número e escolha um dos endereços listados</h3>
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="autocomplete">ENDEREÇO*</label>
+                        <div class="col-md-10">
+                            <input id="autocomplete" placeholder="Endereço com número" onfocus="geolocate()" type="text" class="form-control" required = "required" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.NM_LOGRADOURO, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.NM_LOGRADOURO, new { htmlAttributes = new { id = "route", @class = "form-control", @placeholder = "Automático ao selecionar endereço!", @disabled = "disabled" } })
+                            @Html.ValidationMessageFor(model => model.NM_LOGRADOURO, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.NUMERO, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.NUMERO, new { htmlAttributes = new { id = "street_number", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.NUMERO, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CD_CEP, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.CD_CEP, new { htmlAttributes = new { id = "postal_code", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.CD_CEP, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.NM_CIDADE, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.NM_CIDADE, new { htmlAttributes = new { id = "locality", @class = "form-control", @placeholder = "Automático ao selecionar endereço!", @disabled = "disabled" } })
+                            @Html.ValidationMessageFor(model => model.NM_CIDADE, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.NM_ESTADO, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.NM_ESTADO, new { htmlAttributes = new { id = "administrative_area_level_1", @class = "form-control", @placeholder = "Automático ao selecionar endereço!", @disabled = "disabled" } })
+                            @Html.ValidationMessageFor(model => model.NM_ESTADO, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group" hidden>
+                        @Html.LabelFor(model => model.CD_LONG, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.CD_LONG, new { htmlAttributes = new { id = "longitude", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.CD_LONG, "", new { @class = "text-danger" })
+                        </div>
+                        <div id="nomelong" class="alert alert-info" role="alert">
+                        </div>
+                    </div>
+                    <div class="form-group" hidden>
+                        @Html.LabelFor(model => model.CD_LAT, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.CD_LAT, new { htmlAttributes = new { id = "latitude", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.CD_LAT, "", new { @class = "text-danger" })
+                        </div>
+                        <div id="nomelat" class="alert alert-info" role="alert">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Próximo</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row setup-content" id="step-3">
+            <div class="col-xs-12">
+                <div class="col-md-12">
+                    <h3> Cadastro dos horários de atendimento</h3>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label for="todo_dia">
+                                <input name="TODO_DIA" id="todo_dia" value="false" type="checkbox">
+                                <b>24h por dia, 7 dias da semana</b>
+                            </label>
+                        </div>
+
+                        <div class="checkbox segundasexta">
+                            <label for="project_parts-0">
+                                <input name="segundasexta" id="segundasexta" value="false" type="checkbox">
+                                Mesmo horário de seg à sex:
+                            </label>
+                            <b>
+                                De: <input class="segundasextainicio" type="number" max="23" min="00" disabled>
+                                às: <input class="segundasextafim" type="number" max="23" min="00" disabled>
+                            </b>
+                        </div>
+
+                        <div class="checkbox segunda_check">
+                            <label for="segunda">
+                                <input name="segunda" id="segunda" type="checkbox">
+                                Segunda
+                            </label>
+                            <b>
+                                De: <input name="SEGUNDA_HORA_INICIO" id="segunda_inicio" type="number" max="23" min="00" disabled>
+                                às: <input name="SEGUNDA_HORA_FIM" id="segunda_fim" type="number" max="23" min="00" disabled>
+                            </b>
+                        </div>
+                        <div class="checkbox terca_check">
+                            <label for="project_parts-1">
+                                <input name="terca" id="terca" value="false" type="checkbox">
+                                Terça
+                            </label>
+                            <b>
+                                De: <input name="TERCA_HORA_INICIO" id="terca_inicio" type="number" max="23" min="00" disabled>
+                                às: <input name="TERCA_HORA_FIM" id="terca_fim" type="number" max="23" min="00" disabled>
+                            </b>
+                        </div>
+                        <div class="checkbox quarta_check">
+                            <label for="project_parts-2">
+                                <input name="quarta" id="quarta" value="false" type="checkbox">
+                                Quarta
+                            </label>
+                            <b>
+                                De: <input name="QUARTA_HORA_INICIO" id="quarta_inicio" type="number" max="23" min="00" disabled>
+                                às: <input name="QUARTA_HORA_FIM" id="quarta_fim" type="number" max="23" min="00" disabled>
+                            </b>
+                        </div>
+                        <div class="checkbox quinta_check">
+                            <label for="project_parts-3">
+                                <input name="quinta" id="quinta" value="false" type="checkbox">
+                                Quinta
+                            </label>
+                            <b>
+                                De: <input name="QUINTA_HORA_INICIO" id="quinta_inicio" type="number" max="23" min="00" disabled>
+                                às: <input name="QUINTA_HORA_FIM" id="quinta_fim" type="number" max="23" min="00" disabled>
+                            </b>
+                        </div>
+                        <div class="checkbox sexta_check">
+                            <label for="project_parts-4">
+                                <input name="sexta" id="sexta" value="false" type="checkbox">
+                                Sexta
+                            </label>
+                            <b>
+                                De: <input name="SEXTA_HORA_INICIO" id="sexta_inicio" type="number" max="23" min="00" disabled>
+                                às: <input name="SEXTA_HORA_FIM" id="sexta_fim" type="number" max="23" min="00" disabled>
+                            </b>
+                        </div>
+                        <div class="checkbox sabado_check">
+                            <label for="project_parts-5">
+                                <input name="sabado" id="sabado" value="false" type="checkbox">
+                                Sábado
+                            </label>
+                            <b>
+                                De: <input name="SABADO_HORA_INICIO" id="sabado_inicio" type="number" max="23" min="00" disabled>
+                                às: <input name="SABADO_HORA_FIM" id="sabado_fim" type="number" max="23" min="00" disabled>
+                            </b>
+                        </div>
+                        <div class="checkbox domingo_check">
+                            <label for="project_parts-6">
+                                <input name="domingo" id="domingo" value="false" type="checkbox">
+                                Domingo
+                            </label>
+                            <b>
+                                De: <input name="DOMINGO_HORA_INICIO" id="domingo_inicio" type="number" max="23" min="00" disabled>
+                                às: <input name="DOMINGO_HORA_FIM" id="domingo_fim" type="number" max="23" min="00" disabled>
+                            </b>
+                        </div>
+                    </div>
+
+                    <button id="ProximoHora" class="btn btn-primary nextBtn btn-lg pull-right" type="button">Próximo</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row setup-content" id="step-4">
+            <div class="col-xs-12">
+                <div class="col-md-12">
+                    <h3> Formas de pagamentos que você aceita</h3>
+                    <div class="checkbox">
+                        <label for="dinheiro">
+                            <input name="DINHEIRO" id="dinheiro" type="checkbox" value="false">
+                            <b>Dinheiro</b>
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label for="cheque">
+                            <input name="CHEQUE" id="cheque" type="checkbox" value="false">
+                            <b>Cheque</b>
+                        </label>
+                    </div>
+
+                    <div class="checkbox">
+                        <label for="cartao_debito">
+                            <input name="DEBITO" id="debito" type="checkbox" value="false">
+                            <b>Cartão de Débito</b>
+                        </label>
+                    </div>
+
+                    <div class="checkbox">
+                        <label for="cartao_credito">
+                            <input name="CREDITO" id="credito" type="checkbox" value="false">
+                            <b>Cartão de Crédito</b>
+                        </label>
+                    </div>
+
+                    <div class="checkbox">
+                        <label for="outros">
+                            <input name="OUTROS" id="outros" type="checkbox" value="false">
+                            <b>Outras formas de pagamento</b>
+                        </label>
+                    </div>
+
+
+                    <button id="ProximoPgamento" class="btn btn-primary nextBtn btn-lg pull-right" type="button">Próximo</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row setup-content" id="step-5">
+            <div class="col-xs-12">
+                <div class="col-md-12">
+                    <h3>Palavras relacionadas a sua atividade</h3>
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="NM_NOME">Nome</label>
+                        <div class="col-md-10">
+                            <input required = "required" placeholder="Ex.: Chaveiro" class="form-control text-box single-line" data-val="true" data-val-length="O campo NM_NOME deve ser uma cadeia de caracteres com um comprimento máximo de 255." data-val-length-max="255" data-val-required="O campo NM_NOME é obrigatório." id="NM_NOME_ATIVIDADE" name="NM_NOME_ATIVIDADE" type="text" value="">
+                            <span class="field-validation-valid text-danger" data-valmsg-for="NM_NOME" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="DS_DESCRICAO">Descrição</label>
+                        <div class="col-md-10">
+                            <textarea required = "required" placeholder="Ex.: chave, fechadura, conserto de fechadura, porta, portão, fechadura de carro... ou seja, o máximo de palavras relacionadas com suas atividades" class="form-control text-box single-line" data-val="true" data-val-length="O campo DS_DESCRICAO deve ser uma cadeia de caracteres com um comprimento máximo de 255." data-val-length-max="255" data-val-required="O campo DS_DESCRICAO é obrigatório." id="DS_DESCRICAO_ATIVIDADE" name="DS_DESCRICAO_ATIVIDADE" type="text" value="" rows="4"></textarea>
+                            <span class="field-validation-valid text-danger" data-valmsg-for="DS_DESCRICAO" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                    <button id="ProximolAtividade" class="btn btn-primary nextBtn btn-lg pull-right" type="button">Próximo</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row setup-content" id="step-6">
+            <div class="col-xs-12">
+                <div class="col-md-12">
+                    <h3> Email e Senha</h3>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @onpaste = "return false", @ondrop = "return false", @required = "required" })
+                            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ConfirmUserName, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.ConfirmUserName, new { @class = "form-control", @onpaste = "return false", @ondrop = "return false", @required = "required" })
+                            @Html.ValidationMessageFor(m => m.ConfirmUserName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @required = "required" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @required = "required" })
+                            @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Próximo e Último</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row setup-content" id="step-7">
+            <div class="col-xs-12">
+                <div class="col-md-12">
+                    <h3> Aceitar o Termo e Cadastrar</h3>
+                    
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#ModalContrato">Termos de Serviço</button>
+                        </div>
+                    </div>
+                    <hr class="colorgraph">
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input id="cadastrogeral" type="submit" class="btn btn-success btn-lg pull-right" value="Cadastrar" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         @*<div class="form-group">
-            @Html.LabelFor(model => model.DS_APELIDO_SITE, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DS_APELIDO_SITE, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DS_APELIDO_SITE, "", new { @class = "text-danger" })
+            <div class="col-md-offset-2 col-md-10">
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#meuModal">Horário de Atendimento</button>
             </div>
-            <div id="nomesite" class="alert alert-info" role="alert">
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#meuModalPagamento">Formas de Pagamento</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#meuModalAtividade">Cadastrar Palavras Chave</button>
             </div>
         </div>*@
-            <div class="form-group">
-                @Html.LabelFor(model => model.TF_TEL_FIXO, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.TF_TEL_FIXO, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.TF_TEL_FIXO, "", new { @class = "text-danger" })
-                </div>
-            </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.TF_TEL_CEL, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.TF_TEL_CEL, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.TF_TEL_CEL, "", new { @class = "text-danger" })
-                </div>
-            </div>
+        
 
-            <div class="form-group">
-                @Html.LabelFor(m => m.CD_CNPJ, new { @class = "control-label col-md-2" })
-
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.CD_CNPJ, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.CD_CNPJ, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            @*<div class="form-group">
-                    @Html.LabelFor(model => model.CD_CODIGO_INDICACAO, new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.CD_CODIGO_INDICACAO, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.CD_CODIGO_INDICACAO, "", new { @class = "text-danger" })
+        <div class="modal fade" id='ModalContrato' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close closeModalContrato" id="closeModalContrato" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h3 class="modal-title" id="myModalLabel">TERMOS DE USO</h3>
                     </div>
-                </div>*@
-
-            <div class="form-group">
-                <label class="control-label col-md-2" for="autocomplete">ENDEREÇO</label>
-                <div class="col-md-10">
-                    <input id="autocomplete" placeholder="Endereço com número" onfocus="geolocate()" type="text" class="form-control" />
-                </div>
-                @*<div id="map" style="height: 300px; width: 500px" type="hidden">
-                    </div>*@
-
-
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.NM_LOGRADOURO, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.NM_LOGRADOURO, new { htmlAttributes = new { id = "route", @class = "form-control", @placeholder = "Automático ao selecionar endereço!", @disabled = "disabled" } })
-                    @Html.ValidationMessageFor(model => model.NM_LOGRADOURO, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.NUMERO, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.NUMERO, new { htmlAttributes = new { id = "street_number", @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.NUMERO, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.CD_CEP, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.CD_CEP, new { htmlAttributes = new { id = "postal_code", @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.CD_CEP, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            @*@Html.HiddenFor(model => model.TP_TIPO_LOGRADOURO)*@
-            @*@Html.LabelFor(model => model.TP_TIPO_LOGRADOURO, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.TP_TIPO_LOGRADOURO, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.TP_TIPO_LOGRADOURO, "", new { @class = "text-danger" })
-                </div>*@
-            @*<div class="form-group">
-                    @Html.HiddenFor(model => model.NM_BAIRRO)
-                    @Html.LabelFor(model => model.NM_BAIRRO, new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.NM_BAIRRO, new { htmlAttributes = new { @class = "form-control"} })
-                        @Html.ValidationMessageFor(model => model.NM_BAIRRO, "", new { @class = "text-danger" })
-                    </div>
-                </div>*@
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.NM_CIDADE, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.NM_CIDADE, new { htmlAttributes = new { id = "locality", @class = "form-control", @placeholder = "Automático ao selecionar endereço!", @disabled = "disabled" } })
-                    @Html.ValidationMessageFor(model => model.NM_CIDADE, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.NM_ESTADO, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.NM_ESTADO, new { htmlAttributes = new { id = "administrative_area_level_1", @class = "form-control", @placeholder = "Automático ao selecionar endereço!", @disabled = "disabled" } })
-                    @Html.ValidationMessageFor(model => model.NM_ESTADO, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group" hidden>
-                @Html.LabelFor(model => model.CD_LONG, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.CD_LONG, new { htmlAttributes = new { id = "longitude", @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.CD_LONG, "", new { @class = "text-danger" })
-                </div>
-                <div id="nomelong" class="alert alert-info" role="alert">
-                </div>
-            </div>
-            <div class="form-group" hidden>
-                @Html.LabelFor(model => model.CD_LAT, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.CD_LAT, new { htmlAttributes = new { id = "latitude", @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.CD_LAT, "", new { @class = "text-danger" })
-                </div>
-                <div id="nomelat" class="alert alert-info" role="alert">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#meuModal">Horário de Atendimento</button>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#meuModalPagamento">Formas de Pagamento</button>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#meuModalAtividade">Cadastrar Palavras Chave</button>
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @onpaste = "return false", @ondrop = "return false" })
-                    @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.ConfirmUserName, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.ConfirmUserName, new { @class = "form-control", @onpaste = "return false", @ondrop = "return false" })
-                    @Html.ValidationMessageFor(m => m.ConfirmUserName, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="modal fade" id='meuModal' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <h4 class="modal-title" id="myModalLabel">Horário de Atendimento</h4>
-                        </div>
-                        <div class="modal-body">
+                    <div class="modal-body">
+                        <div class="well">
                             <div class="form-group">
+                                <p>Olá, tudo bem?</p>
 
-                                <div class="checkbox">
-                                    <label for="todo_dia">
-                                        <input name="TODO_DIA" id="todo_dia" value="false" type="checkbox">
-                                        <b>24h por dia, 7 dias da semana</b>
-                                    </label>
-                                </div>
+                                <p>Primeiramente, o MS.com agradece o seu acesso a esta nova ferramenta, que traz a proposta de facilitar a vida do cliente/usuário em busca dos mais variados tipos de serviços do dia-a-dia. </p>
 
-                                <div class="checkbox segundasexta">
-                                    <label for="project_parts-0">
-                                        <input name="segundasexta" id="segundasexta" value="false" type="checkbox">
-                                        Mesmo horário de segunda a sexta:
-                                    </label>
-                                    <b>
-                                        De: <input class="segundasextainicio" type="number" max="23" min="00" disabled>
-                                        às: <input class="segundasextafim" type="number" max="23" min="00" disabled>
-                                    </b>
-                                </div>
+                                <p>De outro lado, possibilita que prestadores de serviços encontrem um local propício para divulgar seus trabalhos de forma simples, rápida e abrangente. Por este motivo, a MS.com tem por objetivo atingir as mais diversas áreas de atuação no campo da prestação de serviços, atuando como um elo facilitador entre você, usuário, e o serviço especializado mais próximo. </p>
 
-                                <div class="checkbox segunda_check">
-                                    <label for="segunda">
-                                        <input name="segunda" id="segunda" type="checkbox">
-                                        Segunda
-                                    </label>
-                                    <b>
-                                        De: <input name="SEGUNDA_HORA_INICIO" id="segunda_inicio" type="number" max="23" min="00" disabled>
-                                        às: <input name="SEGUNDA_HORA_FIM" id="segunda_fim" type="number" max="23" min="00" disabled>
-                                    </b>
-                                </div>
-                                <div class="checkbox terca_check">
-                                    <label for="project_parts-1">
-                                        <input name="terca" id="terca" value="false" type="checkbox">
-                                        Terça
-                                    </label>
-                                    <b>
-                                        De: <input name="TERCA_HORA_INICIO" id="terca_inicio" type="number" max="23" min="00" disabled>
-                                        às: <input name="TERCA_HORA_FIM" id="terca_fim" type="number" max="23" min="00" disabled>
-                                    </b>
-                                </div>
-                                <div class="checkbox quarta_check">
-                                    <label for="project_parts-2">
-                                        <input name="quarta" id="quarta" value="false" type="checkbox">
-                                        Quarta
-                                    </label>
-                                    <b>
-                                        De: <input name="QUARTA_HORA_INICIO" id="quarta_inicio" type="number" max="23" min="00" disabled>
-                                        às: <input name="QUARTA_HORA_FIM" id="quarta_fim" type="number" max="23" min="00" disabled>
-                                    </b>
-                                </div>
-                                <div class="checkbox quinta_check">
-                                    <label for="project_parts-3">
-                                        <input name="quinta" id="quinta" value="false" type="checkbox">
-                                        Quinta
-                                    </label>
-                                    <b>
-                                        De: <input name="QUINTA_HORA_INICIO" id="quinta_inicio" type="number" max="23" min="00" disabled>
-                                        às: <input name="QUINTA_HORA_FIM" id="quinta_fim" type="number" max="23" min="00" disabled>
-                                    </b>
-                                </div>
-                                <div class="checkbox sexta_check">
-                                    <label for="project_parts-4">
-                                        <input name="sexta" id="sexta" value="false" type="checkbox">
-                                        Sexta
-                                    </label>
-                                    <b>
-                                        De: <input name="SEXTA_HORA_INICIO" id="sexta_inicio" type="number" max="23" min="00" disabled>
-                                        às: <input name="SEXTA_HORA_FIM" id="sexta_fim" type="number" max="23" min="00" disabled>
-                                    </b>
-                                </div>
-                                <div class="checkbox sabado_check">
-                                    <label for="project_parts-5">
-                                        <input name="sabado" id="sabado" value="false" type="checkbox">
-                                        Sábado
-                                    </label>
-                                    <b>
-                                        De: <input name="SABADO_HORA_INICIO" id="sabado_inicio" type="number" max="23" min="00" disabled>
-                                        às: <input name="SABADO_HORA_FIM" id="sabado_fim" type="number" max="23" min="00" disabled>
-                                    </b>
-                                </div>
-                                <div class="checkbox domingo_check">
-                                    <label for="project_parts-6">
-                                        <input name="domingo" id="domingo" value="false" type="checkbox">
-                                        Domingo
-                                    </label>
-                                    <b>
-                                        De: <input name="DOMINGO_HORA_INICIO" id="domingo_inicio" type="number" max="23" min="00" disabled>
-                                        às: <input name="DOMINGO_HORA_FIM" id="domingo_fim" type="number" max="23" min="00" disabled>
-                                    </b>
-                                </div>
+                                <p>Para atingirmos esta finalidade, contamos com uma crescente rede de cadastros de prestadores de serviço, distribuídos por todo o país, permitindo assim que sua demanda seja atendida da forma mais rápida e satisfatória possível. Por isso, contamos com que você, usuário, desfrute desta nova ferramenta e deixe sua avaliação após ter utilizado o serviço. Dessa forma teremos a condição de oferecer sempre o melhor do que você precisa, ampliando a rede de ofertas e primando sempre pela melhor qualidade. </p>
+
+                                <br />
+                                <p>Termos e Condições de Contratação:</p>
+
+                                <br />
+                                <p>Os seguintes Termos e Condições aplicam-se aos serviços de publicidade oferecidos por (NOME DA EMPRESA), empresa devidamente inscrita no CNPJ sob o nº XXXXXXXXXXXXX, situada na (ENDEREÇO DA EMPRESA), doravante denominado "MS.com"), nas condições descritas abaixo:</p>
+
+                                <p>Qualquer pessoa que quiser se cadastrar no MS.com poderá fazê-lo sujeitando-se aos presentes Termos e Condições de Uso. A aceitação eletrônica dos Termos e Condições implica que o Usuário leu, compreendeu e se sujeita em total conformidade à sua aplicação. </p>
+
+                                <h2 dir="ltr">Reclamações sobre violação de direitos autorais</h2>
+
+                                <br />
+                                <p>O MS.com respeita a propriedade intelectual de outras pessoas ou empresas. </p>
+
+                                <p>Por isso, solicitamos aos nossos membros que façam o mesmo. Toda e qualquer violação de direitos autorais deverá ser notificada ao MS.com e acompanhada dos documentos e informações que confirmam a autoria. A notificação poderá ser enviada pelos e-mails constantes do site ou via postal para o seguinte endereço: ( ENDEREÇO DA MS.COM)</p>
+
+                                <p>As imagens contidas neste website são aqui incorporadas apenas para fins de visualização, e, salvo autorização expressa por escrito, não podem ser gravadas ou baixadas via download. A reprodução ou armazenamento de materiais recuperados a partir deste serviço sujeitará os infratores às penas da lei.</p>
+
+                                <br />
+                                <h2 dir="ltr">Restrições na Utilização dos Serviços </h2>
+
+                                <br />
+                                <p>O Usuário não deve utilizar os serviços do MS.com para:</p>
+
+                                <p>1) Divulgar conteúdos Sensuais ou Pornográficos, impróprios para menores ou que façam alusão a atividades ilegais.</p>
+
+                                <p>2) Divulgar informações ofensivas ou caluniosas a outras pessoas ou a empresas.</p>
+
+                                <p>3) Realizar atividades que não estejam ligadas diretamente às atividades comerciais ou de prestação de serviços permitidas no ordenamento jurídico brasileiro;</p>
+
+                                <p>4) Utilizar este sítio para veicular conteúdo político-partidário;</p>
+
+                                <p>5) Utilizar outro idioma que não seja a língua portuguesa, ressalvados os casos pertinentes e autorizados em lei;</p>
+
+                                <p>6) Utilizar formas de pagamento não usuais de mercado.</p>
+
+                                <br />
+                                <h2 dir="ltr">Cancelamento/alteração de Pedido</h2>
+
+                                <br />
+                                <p>Para solicitar cancelamento do pedido ou realizar alteração de agenda, o Cliente deverá entrar em contato diretamente com o Prestador de Serviços requisitado.</p>
+
+                                <p> Desa forma, o MS.com não se responsabiliza pelo acordo realizado entre o cliente/usuário e o prestador de serviços. </p>
+
+                                <p>Informações de eventuais cobranças de deslocamento deverão ser previamente informadas e acordadas entre o usuário e o prestador de serviços. O MS.com não se responsabiliza pelo acordo firmado entre as partes no que tange ao pagamento de valores de deslocamento, orçamento solicitado pelo usuário ou gastos realizados pelo prestador de serviço, além de casos de inadimplência do usuário ou mesmo deficiência do serviço prestado.</p>
+
+                                <p>O MS.com reitera que seu papel consiste em aproximar o usuário do prestador de serviço mais próximo, competindo àquele escolher, dentre as diversas opções oferecidas, a que melhor lhe aprouver. </p>
+
+                                <h2 dir="ltr">Limitação da responsabilidade</h2>
+
+                                <br />
+                                <p>O MS.com não garante o acesso ou uso contínuo e ininterrupto do Web Site, tendo em vista que este pode estar eventualmente indisponível devido a dificuldades técnicas ou falhas de internet nos links ou por qualquer outra circunstância alheia ao MS.com. </p>
+
+                                <p>Dessa forma, o Prestador de Serviço reconhece expressamente que não poderá imputar ao MS.com qualquer responsabilidade, nem exigir nenhum tipo de ressarcimento em virtude dos prejuízos que possa sofrer como consequência das dificuldades de acesso e funcionamento do Web Site. </p>
+
+                                <p>O MS.com não será responsável por nenhum lucro cessante ou por qualquer dano, inclusive moral, que de qualquer forma resulte ou se relacione direta ou indiretamente com a publicidade dos Serviços. </p>
+
+                                <p>O Prestador de serviços declara que os conteúdos dos Anúncios (palavras-chave, informação, url dos mesmos, imagem, etc.) assim como dos Web Sites, serviços e páginas de destino que se possam acessar a partir dos Anúncios, não possuem conteúdos ilícitos, sendo seu teor de exclusiva responsabilidade do Prestador de Serviços. </p>
+
+                                <p>Os prestadores de serviço cadastrados no MS.com devem estar cientes que se sujeitam às regras previstas no Código de Defesa do Consumido, Lei 8.078/90, bem como às normas de segurança previstas para cada ramo de atividade, não tendo o MS.com qualquer </p>
+
+                                <p>O Prestador de Serviços entende que é inerente às atividades online interrupções e eventuais falhas de desempenho ou segurança. Desta forma o MS.com não poderá ser responsabilizado por falhas decorrentes de erros técnicos, falhas de segurança ou invasão por parte de terceiros. </p>
+
+                                <br />
+                                <h2 dir="ltr">Usuário</h2>
+
+                                <p>O MS.com esclarece ao usuário que seu principal objetivo é localizar as opções de prestação de serviço localizadas mais próximas do usuário, por georreferenciamento, oferecendo um grande leque de variedades para a livre escolha.do usuário. </p>
+
+                                <p>É por esse motivo que o MS.com conta com a avaliação dos usuários sobre os serviços utilizados, que servirão de referência para outros usuários desta ferramenta.</p>
+
+                                <h2 dir="ltr">Prestador de Serviço</h2>
+
+                                <br />
+                                <p>O MS.com consiste em estabelecer uma ampla e abrangente rede de prestadores de serviço, todos georreferenciados, possibilitando a fácil localização do usuário e o contato com o prestador mais próximo. </p>
+
+                                <p>Para atingir essa finalidade, o MS.com conta com um complexo serviço de cadastro de prestadores de serviços dos mais variados segmentos, além de uma ampla estratégia de marketing virtual, fazendo com que o contato entre usuário e prestador de serviço seja sensivelmente facilitado, com rapidez e qualidade.</p>
+
+                                <p>O MS.com assegura a gratuidade de cadastramento de prestadores de serviço até o dia 31/12/2017. Até esta data, os clientes cadastrados poderão usufruir, de forma gratuita, das estratégias de marketing oferecidas pelo MS.com, tendo assegurada ampla visibilidade e oferta de seu serviço em nível nacional. </p>
+
+                                <p>Após essa data, o MS.com se reserva no direito de oferecer planos de adesão, que poderão ser mensais, trimestrais, semestrais ou anuais, onde serão cobrados os valores de manutenção do site e seus direitos autorais. Para tanto, os prestadores cadastrados serão previamente informados dos planos oferecidos, e poderão, se assim o quiserem, cancelar seu cadastro de forma gratuita.</p>
+
+                                <p> Tributos:</p>
+
+                                <p>O Prestador de Serviço é responsável pelo pagamento de todos os tributos, impostos e taxas incidentes sobre as atividades que realizar.</p>
+
+                                <br />
+                                <p>Legislação aplicável e Foro de eleição:</p>
+
+                                Os presentes Termos e Condições de Uso de contratação do MS.com são regidos pelas leis vigentes na República Federativa do Brasil. Para todos os assuntos referentes à interpretação e ao cumprimento deste, as partes se submetem ao Foro da Cidade de São Paulo.
                             </div>
                         </div>
-
-                        <div class="modal-footer">
-                            <button type="button" id="fechaModal" class="btn btn-secondary">Cadastrar</button>
-                            @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>*@
+                        <div class="form-group">
+                            <div class="checkbox ACEITE_CONTRATO">
+                                <label for="ACEITE_CONTRATO">
+                                    <input name="ACEITE_CONTRATO" id="ACEITE_CONTRATO" value="true" type="checkbox">
+                                    <input type="hidden" value="false" name="ACEITE_CONTRATO" />
+                                    Aceito os termos de serviço
+                                </label>
+                            </div>
                         </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="fechaModalContrato" class="btn btn-secondary">Fechar</button>
+                        @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>*@
                     </div>
                 </div>
             </div>
-
-            <div class="modal fade" id='meuModalPagamento' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close closePagamento" id="closePagamento" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <h4 class="modal-title" id="myModalLabel">Aceito as Seguintes Formas de Pagamento:</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="checkbox">
-                                <label for="dinheiro">
-                                    <input name="DINHEIRO" id="dinheiro" type="checkbox" value="false">
-                                    <b>Dinheiro</b>
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label for="cheque">
-                                    <input name="CHEQUE" id="cheque" type="checkbox" value="false">
-                                    <b>Cheque</b>
-                                </label>
-                            </div>
-
-                            <div class="checkbox">
-                                <label for="cartao_debito">
-                                    <input name="DEBITO" id="debito" type="checkbox" value="false">
-                                    <b>Cartão de Débito</b>
-                                </label>
-                            </div>
-
-                            <div class="checkbox">
-                                <label for="cartao_credito">
-                                    <input name="CREDITO" id="credito" type="checkbox" value="false">
-                                    <b>Cartão de Crédito</b>
-                                </label>
-                            </div>
-
-                            <div class="checkbox">
-                                <label for="outros">
-                                    <input name="OUTROS" id="outros" type="checkbox" value="false">
-                                    <b>Outras formas de pagamento</b>
-                                </label>
-                            </div>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" id="fechaModalPagamento" class="btn btn-secondary">Cadastrar</button>
-                            @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>*@
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal fade" id='meuModalAtividade' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close closeAtividade" id="closeAtividade" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <h4 class="modal-title" id="myModalLabel">Cadastre as primeiras palavras chave:</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="well">
-                                <div class="alert alert-info">
-                                    <strong>Escreva o máximo de palavras relacionadas ao seu serviço. Escreva, inclusive, o nome dos equipamentos!</strong>
-                                    <br />
-                                    <br />
-                                    <strong>Imagine como podem pesquisar por você!</strong>
-                                    <br />
-                                    <br />
-                                    <strong>Segue um exemplo simples de cadastro:</strong>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-2">Nome</label>
-                                    <div class="col-md-10">
-                                        <input placeholder="Chaveiro" class="form-control text-box single-line" disabled="disabled">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-2" for="DS_DESCRICAO">Descrição</label>
-                                    <div class="col-md-10">
-                                        <textarea placeholder="Chave, fechadura, Conserto de fechadura, porta, portão..." class="form-control text-box single-line" rows="4" disabled="disabled"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-2" for="NM_NOME">Nome</label>
-                                <div class="col-md-10">
-                                    <input placeholder="Ex.: Chaveiro" class="form-control text-box single-line" data-val="true" data-val-length="O campo NM_NOME deve ser uma cadeia de caracteres com um comprimento máximo de 255." data-val-length-max="255" data-val-required="O campo NM_NOME é obrigatório." id="NM_NOME_ATIVIDADE" name="NM_NOME_ATIVIDADE" type="text" value="">
-                                    <span class="field-validation-valid text-danger" data-valmsg-for="NM_NOME" data-valmsg-replace="true"></span>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-2" for="DS_DESCRICAO">Descrição</label>
-                                <div class="col-md-10">
-                                    <textarea  placeholder="Ex.: chave, fechadura, conserto de fechadura, porta, portão, fechadura de carro..." class="form-control text-box single-line" data-val="true" data-val-length="O campo DS_DESCRICAO deve ser uma cadeia de caracteres com um comprimento máximo de 255." data-val-length-max="255" data-val-required="O campo DS_DESCRICAO é obrigatório." id="DS_DESCRICAO_ATIVIDADE" name="DS_DESCRICAO_ATIVIDADE" type="text" value="" rows="4"></textarea>
-                                    <span class="field-validation-valid text-danger" data-valmsg-for="DS_DESCRICAO" data-valmsg-replace="true"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" id="fechaModalAtividade" class="btn btn-secondary">Cadastrar</button>
-                            @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>*@
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input id="cadastrogeral" type="submit" class="btn btn-default" value="Cadastrar" />
-                </div>
-            </div>
+        </div>
 }
-<script src="~/Scripts/mapa.js"></script>
-<script src="~/Scripts/jquery-3.1.1.min.js"></script>
-<script src="~/Scripts/jquery-ui.js"></script>
-<script src="~/Scripts/bootstrap.min.js"></script>
-<script src="~/Scripts/jquery.validate.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
-<script src="~/Scripts/jquery.mask.min.js"></script>
-<script src="~/Scripts/Register.js"></script>
-
+        <script src="~/Scripts/mapa.js"></script>
+        <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+        <script src="~/Scripts/jquery-ui.js"></script>
+        <script src="~/Scripts/bootstrap.min.js"></script>
+        <script src="~/Scripts/jquery.validate.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+        <script src="~/Scripts/jquery.mask.min.js"></script>
+        <script src="~/Scripts/Register.js"></script>

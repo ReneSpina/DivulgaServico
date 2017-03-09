@@ -1,0 +1,59 @@
+﻿@model IEnumerable<DIVULGA_SERVICOS.Models.CAD_PES_ENDERECO>
+
+@{
+    ViewBag.Title = "Endereços";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Endereços</h2>
+
+<p>
+    @Html.ActionLink("Adicionar Endereço", "CriarEndereco")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Logradouro
+        </th>
+        <th>
+            Número
+        </th>
+        <th>
+            Cidade
+        </th>
+        <th>
+            Estado
+        </th>
+        <th>
+            CEP
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NM_LOGRADOURO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NUMERO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NM_CIDADE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NM_ESTADO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CD_CEP)
+            </td>
+            <td>
+                @*@Html.ActionLink("Editar", "EditarEndereco", new {  id=item.SQ_ENDERECO }) |*@
+                @Html.ActionLink("Detalhes", "DetalhesEndereco", new { id=item.SQ_ENDERECO }) |
+                @Html.ActionLink("Deletar", "DeletarEndereco", new { id=item.SQ_ENDERECO })
+            </td>
+        </tr>
+    }
+
+</table>

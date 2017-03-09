@@ -1,0 +1,52 @@
+﻿@model IEnumerable<DIVULGA_SERVICOS.Models.CAD_CIDADES_DIVULGA_FORNECEDOR>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CAD_PES_FORNECEDOR.CD_CNPJ)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NM_CIDADE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NM_ESTADO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BRASIL)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CAD_PES_FORNECEDOR.CD_CNPJ)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NM_CIDADE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NM_ESTADO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BRASIL)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

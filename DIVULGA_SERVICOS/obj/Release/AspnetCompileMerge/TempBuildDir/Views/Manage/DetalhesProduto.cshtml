@@ -1,0 +1,66 @@
+﻿@model DIVULGA_SERVICOS.Models.CAD_PRODUTO_FORNECEDOR
+
+@{
+    ViewBag.Title = "Detalhes do Produto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalhes do Produto</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Nome
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NM_PRODUTO)
+        </dd>
+
+        <dt>
+            Descrição
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DS_DESCRICAO)
+        </dd>
+
+        <dt>
+            Valor
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VALOR_PRODUTO)
+        </dd>
+
+        <dt>
+            Data da Criação
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DT_CRIACAO)
+        </dd>
+
+        <dt>
+            Ativo
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ATIVO)
+        </dd>
+
+        <dt>
+            Tags
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TAGS)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar Produto", "EditarProduto", new { id = Model.SQ_PRODUTO }) |
+    @Html.ActionLink("Voltar a lista de produtos", "Produtos")
+</p>

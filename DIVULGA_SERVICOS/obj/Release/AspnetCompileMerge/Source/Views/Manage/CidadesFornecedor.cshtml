@@ -1,0 +1,46 @@
+﻿@model IEnumerable<DIVULGA_SERVICOS.Models.CAD_CIDADES_DIVULGA_FORNECEDOR>
+
+@{
+    ViewBag.Title = "Cidades Cadastradas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Cidades Cadastradas</h2>
+
+<p>
+    @Html.ActionLink("Adicionar Cidade", "CadastrarCidade")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NM_CIDADE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NM_ESTADO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BRASIL)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NM_CIDADE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NM_ESTADO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BRASIL)
+            </td>
+            <td>
+                @Html.ActionLink("Detalhes", "DetalhesCidade", new { id=item.SQ_CIDADE}) |
+                @Html.ActionLink("Deletar", "DeletarCidade", new { id = item.SQ_CIDADE })
+            </td>
+        </tr>
+    }
+
+</table>

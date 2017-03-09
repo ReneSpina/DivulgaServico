@@ -1,0 +1,215 @@
+﻿@model DIVULGA_SERVICOS.Models.RegisterFornecedorViewModel
+@{
+    ViewBag.Title = "Cadastrar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<h2>@ViewBag.Title.</h2>*@
+
+<style>
+    #nomesite {
+        display: none;
+    }
+
+    #nomelong {
+        display: none;
+    }
+
+    #nomelat {
+        display: none;
+    }
+</style>
+
+
+<br><br>
+@using (Html.BeginForm("CadastrarFornecedor", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", @name = "register" }))
+{
+    @Html.AntiForgeryToken()
+    @*<h4>Create a new account.</h4>*@
+    <hr />
+    @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
+
+    <div class="form-group">
+        <div class="control-label col-md-2"></div>
+        <div id="informacao" class="alert alert-warning col-md-10" style="max-width: 280px; margin-left: 15px;">
+            Os campos com * são obrigatórios!
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.NM_NOME_PESSOA, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.NM_NOME_PESSOA, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.NM_NOME_PESSOA, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TF_TEL_FIXO, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TF_TEL_FIXO, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TF_TEL_FIXO, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TF_TEL_CEL, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-5">
+                    @Html.EditorFor(model => model.TF_TEL_CEL, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TF_TEL_CEL, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="autocomplete">OPERADORA*</label>
+                    <div class="col-md-5">
+                        <select name="NM_OPERADORA" class="form-control">
+                            <option value="Tim">Tim</option>
+                            <option value="Claro">Claro</option>
+                            <option value="Vivo">Vivo</option>
+                            <option value="Oi">Oi</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="autocomplete">WHATSAPP*</label>
+                    <div class="col-md-5">
+                        <select name="WHATSAPP" class="form-control">
+                            <option value="true">Sim</option>
+                            <option value="false">Não</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    @*<label class="control-label col-md-2" for="CD_CNPJ">CPF OU CNPJ*</label>*@
+                    <label class="control-label col-md-2" for="autocomplete">
+                        <input type="radio" value="cpf" name="rad" onClick=0>CPF
+                        <input type="radio" value="cnpj" name="rad" onClick=0>CNPJ*
+                    </label>
+                    <div class="col-md-10">
+                        <input class="form-control text-box single-line" OnKeyUp="cnpj_cpf(this.name,this.value,'register',this.form)" onKeypress="campo_numerico()" id="CD_CNPJ" name="CD_CNPJ" type="text" value="">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="autocomplete">ENDEREÇO*</label>
+                    <div class="col-md-10">
+                        <input id="autocomplete" placeholder="Endereço com número" onfocus="geolocate()" type="text" class="form-control" />
+                    </div>
+                    @*<div id="map" style="height: 300px; width: 500px" type="hidden">
+                        </div>*@
+
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NM_LOGRADOURO, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.NM_LOGRADOURO, new { htmlAttributes = new { id = "route", @class = "form-control", @placeholder = "Automático ao selecionar endereço!", @disabled = "disabled" } })
+                        @Html.ValidationMessageFor(model => model.NM_LOGRADOURO, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NUMERO, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.NUMERO, new { htmlAttributes = new { id = "street_number", @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.NUMERO, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CD_CEP, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.CD_CEP, new { htmlAttributes = new { id = "postal_code", @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CD_CEP, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NM_CIDADE, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.NM_CIDADE, new { htmlAttributes = new { id = "locality", @class = "form-control", @placeholder = "Automático ao selecionar endereço!", @disabled = "disabled" } })
+                        @Html.ValidationMessageFor(model => model.NM_CIDADE, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NM_ESTADO, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.NM_ESTADO, new { htmlAttributes = new { id = "administrative_area_level_1", @class = "form-control", @placeholder = "Automático ao selecionar endereço!", @disabled = "disabled" } })
+                        @Html.ValidationMessageFor(model => model.NM_ESTADO, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group" hidden>
+                    @Html.LabelFor(model => model.CD_LONG, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.CD_LONG, new { htmlAttributes = new { id = "longitude", @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CD_LONG, "", new { @class = "text-danger" })
+                    </div>
+                    <div id="nomelong" class="alert alert-info" role="alert">
+                    </div>
+                </div>
+                <div class="form-group" hidden>
+                    @Html.LabelFor(model => model.CD_LAT, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.CD_LAT, new { htmlAttributes = new { id = "latitude", @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CD_LAT, "", new { @class = "text-danger" })
+                    </div>
+                    <div id="nomelat" class="alert alert-info" role="alert">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @onpaste = "return false", @ondrop = "return false" })
+                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ConfirmUserName, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.ConfirmUserName, new { @class = "form-control", @onpaste = "return false", @ondrop = "return false" })
+                        @Html.ValidationMessageFor(m => m.ConfirmUserName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input id="cadastrogeral" type="submit" class="btn btn-default" value="Cadastrar" />
+                    </div>
+                </div>
+}
+<script src="~/Scripts/mapa.js"></script>
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="~/Scripts/jquery.mask.min.js"></script>
+<script>
+    $("#TF_TEL_CEL").mask("(00) 90000-0000");
+    $("#TF_TEL_FIXO").mask("(00) 0000-0000");
+</script>
+

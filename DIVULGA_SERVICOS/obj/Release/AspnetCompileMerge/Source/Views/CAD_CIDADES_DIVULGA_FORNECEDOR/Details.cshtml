@@ -1,0 +1,51 @@
+﻿@model DIVULGA_SERVICOS.Models.CAD_CIDADES_DIVULGA_FORNECEDOR
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CAD_CIDADES_DIVULGA_FORNECEDOR</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CAD_PES_FORNECEDOR.CD_CNPJ)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CAD_PES_FORNECEDOR.CD_CNPJ)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NM_CIDADE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NM_CIDADE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NM_ESTADO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NM_ESTADO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BRASIL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BRASIL)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

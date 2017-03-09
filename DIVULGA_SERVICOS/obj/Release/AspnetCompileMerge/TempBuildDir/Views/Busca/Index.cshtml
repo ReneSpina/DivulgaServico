@@ -30,6 +30,7 @@
             {
                 @Html.AntiForgeryToken()
                 @Html.ActionLink("Olá " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })<br /><br />
+                @Html.ActionLink("Mercado de Serviços", "Index", "Home")<br />
                 @Html.ActionLink("Pesquisar Serviços", "Index", "Busca")<br />
                 @Html.ActionLink("Sobre", "About", "Home")<br />
                 @Html.ActionLink("Contatos", "Contact", "Home")<br />
@@ -38,6 +39,7 @@
         }
         else
         {
+            @Html.ActionLink("Mercado de Serviços", "Index", "Home")<br />
             @Html.ActionLink("Pesquisar Serviços", "Index", "Busca")<br />
             @Html.ActionLink("Sobre", "About", "Home")<br />
             @Html.ActionLink("Contatos", "Contact", "Home")<br />
@@ -48,6 +50,14 @@
 
 
     <div class="input-group" id="adv-search">
+
+        @if (ViewBag.erro != null || ViewBag.erro != "" && ViewBag.Status == 1)
+            {
+            <script>
+                    alert('@ViewBag.erro');
+            </script>
+        }
+
         <form class="form-horizontal" id="searchgroup" action="~/Busca/Pesquisa" method="get" role="form">
             @*<div class="input-group-addon" id="boxhamburguermap"><span class="opennav" id="hamburguermap" onclick="openNav()">&#9776;</span></div>*@
             <span class="glyphicon glyphicon-menu-hamburger" id="boxhamburguermap" onclick="openNav()"></span>
@@ -60,12 +70,42 @@
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
                         <div class="dropdown-menu dropdown-menu-right" id="menudropdown" role="menu">
                             <div class="form-group">
-                                <input class="form-control" type="text" />
-                            </div>
-                            <div class="form-group">
                                 <input class="form-control" id="autocomplete" placeholder="Digite um outro endereço"
                                        onFocus="geolocates()" type="text">
-
+                            </div>
+                            <div class="form-group">
+                                <label for="distancia">
+                                    Distante até
+                                </label>
+                                <input class="form-control" id="distancia" name="distancia" placeholder="Valor em Km"
+                                       type="number">
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox segunda_check">
+                                    <label for="cartão">
+                                        Aceita cartão
+                                        <input id="aceitacartao" type="checkbox" value="true" name="aceitacartao" />
+                                        <input type="hidden" value="false" name="aceitacartao" />
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox segunda_check">
+                                    <label for="aberto">
+                                        Aberto Agora
+                                        <input id="aberto" type="checkbox" value="true" name="aberto" />
+                                        <input type="hidden" value="false" name="aberto" />
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox segunda_check">
+                                    <label for="vintequatro">
+                                        Trabalha 24/7
+                                        <input name="vintequatro" id="vintequatro" value="true" type="checkbox">
+                                        <input type="hidden" value="false" name="vintequatro" />
+                                    </label>
+                                </div>
                             </div>
                             <button type="submit" class="btn btn-primary" id="lupaAvancada"><span class="glyphicon glyphicon-search" aria-hidden="true" id="lupa"></span></button>
                         </div>
@@ -104,7 +144,6 @@
     <div id="map">
     </div>
     <script>
-
         /*Início do JS do Sidenav Bar*/
         function openNav() {
             document.getElementById("mySidenav").style.width = "auto";
@@ -171,7 +210,7 @@
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 14,
-                center: { lat: -15.7217174, lng: -48.0783226 },
+                center: { lat: -15.7931832, lng: -47.8825426 },
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
             setMarkers(map);
@@ -247,16 +286,16 @@
             else
             {
                  <text>
-            var pos = {
+            @*var pos = {
                 lat: @ViewBag.latitude.ToString().Replace(",", "."),
                 lng: @ViewBag.longitude.ToString().Replace(",", "."),
             };
+            map.setCenter(pos);*@
 
             document.getElementById("lat").value = @ViewBag.latitude.ToString().Replace(",", ".");
             document.getElementById("lng").value = @ViewBag.longitude.ToString().Replace(",", ".");
 
             var posicaoatual = new google.maps.LatLng(@ViewBag.latitude.ToString().Replace(",", "."), @ViewBag.longitude.ToString().Replace(",", "."));
-            map.setCenter(pos);
             var marker = new google.maps.Marker({
                 map: map,
                 icon: image2,
@@ -273,74 +312,93 @@
 
             var markers=[];
             </text>
-                    foreach (var item in Model)
-                    {
-                        var dinheiro = "";
-                        var cheque = "";
-                        var debito = "";
-                        var credito = "";
-                        var outros = "";
+                var i = 0;
+            foreach (var item in Model.OrderBy(x => x.localizacao.Distance((DbGeography.FromText("POINT(" + ViewBag.latitude + " " + ViewBag.longitude + ")")))))
+            {
+                i++;
+                    var dinheiro = "";
+                    var cheque = "";
+                    var debito = "";
+                    var credito = "";
+                    var outros = "";
 
                             <text>
+            if(@i == 1)
+            {
+                var pos = {
+                    lat: @item.localizacao.Longitude.ToString().Replace(",", "."),
+                    lng: @item.localizacao.Latitude.ToString().Replace(",", "."),
+                };
+                map.setCenter(pos);
+
+            }
             var marker1 = new google.maps.Marker({
-                position: new google.maps.LatLng(@item.CAD_PESSOA.CAD_PES_ENDERECO.Single().localizacao.Longitude.ToString().Replace(",", "."), @item.CAD_PESSOA.CAD_PES_ENDERECO.Single().localizacao.Latitude.ToString().Replace(",", ".")),
+                position: new google.maps.LatLng(@item.localizacao.Longitude.ToString().Replace(",", "."), @item.localizacao.Latitude.ToString().Replace(",", ".")),
                 map: map,
                 icon: image1,
             });
             google.maps.event.addListener(marker1, 'click', (function(marker1, i) {
                 return function() {
-                    var distancia = parseInt((@item.localizacao.Distance(DbGeography.FromText("POINT("+ ViewBag.latitude.ToString().Replace(",", ".") + " "+ ViewBag.longitude.ToString().Replace(",", ".") + ")")).ToString().Replace(",", ".")/0.62137)/1000, 10);
+                    var distancia = parseInt((@item.localizacao.Distance(DbGeography.FromText("POINT(" + ViewBag.latitude.ToString().Replace(",", ".") + " " + ViewBag.longitude.ToString().Replace(",", ".") + ")")).ToString().Replace(",", ".") / 0.62137) / 1000, 10);
                     infowindow.setContent(
-                        "<h4 style='color: rgb(51, 122, 183); border-bottom: 1px solid rgb(229, 229, 229);'><strong>@item.CAD_PESSOA.NM_NOME_PESSOA</strong></h4>"+
-                        "<strong>Distância: </strong>"+ distancia +" Km"+
-                        "<br><br>"+
-                        "<strong>Aceita:</strong>"+
-                        "<br>"+
+                        "<h4 style='color: rgb(51, 122, 183); border-bottom: 1px solid rgb(229, 229, 229);'><strong>@item.CAD_PESSOA.NM_NOME_PESSOA</strong></h4>" +
+                        "<strong>Este é o "+@i+"º mais próximo e está a </strong>" + distancia + " Km" +
+                        "<br><br>" +
+                        "<strong>Aceita:</strong>" +
+                        "<br>" +
                             @if(item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.DINHEIRO == true)
-                            {
-                                dinheiro = "Dinheiro | ";
-                            }
-                            @if(item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.CHEQUE == true)
-                                    {
-                                cheque = "Cheque | ";
-                            }
-                            @if (item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.DEBITO == true)
-                                    {
-                                debito = "Débito | ";
-                            }
-                            @if (item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.CREDITO == true)
-                                    {
-                                credito = "Crédito | ";
-                            }
-                            @if (item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.OUTROS == true)
-                                    {
-                                outros = "Entre outras formas a conversar...";
-                            }
-                    "@dinheiro.ToString()"+
-                    "@cheque.ToString()"+
-                    "@debito.ToString()"+
-                    "@credito.ToString()"+
-                    "<br>"+
-                    "@outros.ToString()"+
-                    "<br><br>"+
-                    "<strong>Telefones para contato:</strong>"+
-                    "<br>"+
+                                        {
+                        dinheiro = "Dinheiro | ";
+                    }
+                    @if(item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.CHEQUE == true)
+                                        {
+                        cheque = "Cheque | ";
+                    }
+                    @if(item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.DEBITO == true)
+                                        {
+                        debito = "Débito | ";
+                    }
+                    @if(item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.CREDITO == true)
+                                        {
+                        credito = "Crédito | ";
+                    }
+                    @if(item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.OUTROS == true)
+                                        {
+                        outros = "Entre outras formas a conversar...";
+                    }
+                    "@dinheiro.ToString()" +
+                    "@cheque.ToString()" +
+                    "@debito.ToString()" +
+                    "@credito.ToString()" +
+                    "<br>" +
+                    "@outros.ToString()" +
+                    "<br>" +
+                    "<strong>Telefones para contato:</strong>" +
+                    "<br>" +
                     @foreach(var telefone in item.CAD_PESSOA.CAD_PES_FONE)
-                            {
+                    {
                                 <text>
-                                    "@telefone.CD_FIXO"+"  |  "+
-                                    "@telefone.CD_CELULAR"+
-                                    "<br>"+
+                                "@telefone.CD_FIXO" + "  <br>  " +
+                                "@telefone.CD_CELULAR" + " - @telefone.NM_OPERADORA" +
                                 </text>
-                            }
-                    "<br>"+
+                        if(@telefone.WHATSAPP == true)
+                        {
+                            <text>
+                                "  <img src='~/Content/Imagens/Icon_Whatsapp.png' style='width:25px; margin-top:-14px;' />" +
+                            </text>
+                         }
+                        <text>
+                            "<br>" +
+                        </text>
+                    }
+                    "<br>" +
 
                     @if(item.CAD_PESSOA.CAD_PES_JURIDICA.TODO_DIA == true)
-                    {
+                                {
                         <text>
-                                "<div class='alert alert-success' role='alert'>"+
-                                "<strong>Está aberto agora :)</strong>"+
-                                "</div>"+
+                            "<div class='alert alert-success' role='alert'>" +
+                            "<strong>Está aberto agora ;)</strong>" +
+                            "</div>" +
                         </text>
                     }
                     else
@@ -349,54 +407,69 @@
                         foreach (var hora in item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_HORA_ATENDIMENTO)
                         {
 
-                            if(hora.DIA_SEMANA == (int)agora.DayOfWeek)
+                            if (hora.DIA_SEMANA == (int)agora.DayOfWeek)
                             {
-                                if(hora.HORA_INICIO <= agora.Hour && hora.HORA_FIM > agora.Hour)
+                                if (hora.HORA_INICIO <= agora.Hour && hora.HORA_FIM > agora.Hour)
                                 {
                                     <text>
-                                        "<div class='alert alert-success' role='alert'>"+
-                                        "<strong>Está aberto agora :)</strong>"+
-                                        "</div>"+
-                                    </text>
-                                    break;
+                                    "<div class='alert alert-success' role='alert'>" +
+                                    "<strong>Está aberto agora :)</strong>" +
+                                    "</div>" +
+                                </text>
+                                                break;
                                 }
                                 else
                                 {
                                     <text>
-                                        "<div class='alert alert-danger' role='alert'>"+
-                                        "<strong>Está fechado agora :(</strong>"+
-                                        "</div>"+
-                                    </text>
-                                    break;
+                                    "<div class='alert alert-danger' role='alert'>" +
+                                    "<strong>Está fechado agora :(</strong>" +
+                                    "</div>" +
+                                </text>
+                                                break;
                                 }
                             }
                         }
                     }
 
 
-                     "<br>"+
-                    "<button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModal"+'@item.CAD_PESSOA.Id'+"'>Acessar mais informações!</button>"+
-                    "  |  "+
+                    "<br>" +
+                   "<button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModal" + '@item.CAD_PESSOA.Id' + "'>Mais informações!</button>" +
+                   "  |  " +
 
-                    @if (Request.IsAuthenticated)
-                    {
+                   @if(Request.IsAuthenticated)
+                                {
                         <text>
-                            "<button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModalAvaliacao"+'@item.CAD_PESSOA.Id'+"'>Avaliar o Prestador!</button>"+
+                        "<button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModalAvaliacao" + '@item.CAD_PESSOA.Id' + "'>Avaliar o Prestador!</button>" +
+                        "  |  " +
                         </text>
                     }
                     else
                     {
                         <text>
-                            "<button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModalLogin'>Login para Avaliar</button>"+
-                        </text>
+                        "<button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModalLogin'>Login para Avaliar</button>" +
+                        "  |  " +
+                    </text>
                     }
-                     "");
+                    "<button type='button' class='btn btn-danger btn-xs' data-toggle='modal' data-target='#myModalDenuncia" + '@item.CAD_PESSOA.Id' + "'>Alertar</button>" +
+                    "");
                     infowindow.open(map, marker1);
                 }
             })(marker1))
             markers.push(marker1);
             </text>
-                        }
+
+    }
+
+                if(i == 0)
+                {
+                    <text>
+            var pos = {
+                lat: @ViewBag.latitude.ToString().Replace(",", "."),
+                lng: @ViewBag.longitude.ToString().Replace(",", "."),
+            };
+            map.setCenter(pos);
+            </text>
+                }
                     <text>
             var markerCluster = new MarkerClusterer(map, markers, {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
             </text>
@@ -450,19 +523,95 @@
                                 <div class="col-sm-3" style="width:100%">
                                     <h4>Endereço:</h4>
                                     <div class="well">
-                                        <p><b>Estado:</b> @item.NM_ESTADO</p>
-                                        <p><b>Cidade:</b> @item.NM_CIDADE</p>
                                         <p><b>Rua:</b> @item.NM_LOGRADOURO</p>
                                         <p><b>Número:</b> @item.NUMERO</p>
+                                        <p><b>Cidade:</b> @item.NM_CIDADE</p>
+                                        <p><b>Estado:</b> @item.NM_ESTADO</p>
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="row">
+                                <div class="col-sm-3" style="width:100%">
+                                    <h4>Telefones:</h4>
+                                    <div class="well">
+                                        @foreach (var telefone in item.CAD_PESSOA.CAD_PES_FONE)
+                                        {
+                                            <p><b>Fixo: </b>@telefone.CD_FIXO</p>
+                                            <p><b>Cel: </b>@telefone.CD_CELULAR - @telefone.NM_OPERADORA
+                                                @if(@telefone.WHATSAPP == true)
+                                                {
+                                                <img src="~/Content/Imagens/Icon_Whatsapp.png" style="width:25px; margin-top:-14px;" />
+                                                }
+                                        </p>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                            @if (@item.CAD_PESSOA.CAD_PES_JURIDICA.DS_QUEM_SOMOS != null)
+                            {
+                                <div class="row">
+                                    <div class="col-sm-3" style="width:100%">
+                                        <h4>Quem Somos:</h4>
+                                        <div class="well">
+                                            @item.CAD_PESSOA.CAD_PES_JURIDICA.DS_QUEM_SOMOS
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                            @if (@item.CAD_PESSOA.CAD_PES_JURIDICA.DS_SOBRE != null)
+                            {
+                                <div class="row">
+                                    <div class="col-sm-3" style="width:100%">
+                                        <h4>Quem Somos:</h4>
+                                        <div class="well">
+                                            @item.CAD_PESSOA.CAD_PES_JURIDICA.DS_SOBRE
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                            @if (item.CAD_PESSOA.CAD_PES_JURIDICA.TODO_DIA == true)
+                            {
+                                <div class="row">
+                                    <div class="col-sm-3" style="width:100%">
+                                        <h4>Nossos horários:</h4>
+                                        <div class="well">
+                                                <strong>Nós trabalhamos 24/7</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="row">
+                                    <div class="col-sm-3" style="width:100%">
+                                        <h4>Nossos horários:</h4>
+                                        <div class="well">
+                                            @foreach (var hora in item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_HORA_ATENDIMENTO)
+                                            {
+                                                <div>
+                                                    @{ 
+                                                        var culture = new System.Globalization.CultureInfo("pt-BR");
+                                                    }
+                                                    <strong>@culture.DateTimeFormat.GetDayName((DayOfWeek)@hora.DIA_SEMANA)
+                                                    </strong> de @hora.HORA_INICIO às @hora.HORA_FIM
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+
                             <h4>Média da Avaliação:</h4>
                             <div class="well">
                                 <div class="row">
                                     <div class="col-sm-3" id="myrating">
                                         @if (item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count == 1)
-                                        {
+                                                        {
                                             <h5>
                                                 @item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count avaliação!
                                             </h5>
@@ -480,7 +629,7 @@
                                             <div class="pull-left" style="width:180px;">
                                                 <div class="progress" style="height:9px; margin:8px 0;">
 
-                                                    @if (mediaQualidade > 90)
+                                                    @if (mediaQualidade > 50)
                                                     {
                                                         <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: @mediaQualidade%">
                                                             @*<span class="sr-only">80% Complete (danger)</span>*@
@@ -515,7 +664,7 @@
                                             @*<div class="pull-right" style="margin-left:10px;">1</div>*@
                                         </div>
                                         <div class="pull-left">
-                                            <div class="pull-left" style=" line-height:1;">
+                                            <div class="pull-left" style="line-height:1;">
                                                 <div style="height:9px; margin:5px 0;">Pontualidade: <span class="glyphicon glyphicon-star"></span></div>
                                             </div>
                                             <div class="pull-left" style="width:180px;">
@@ -685,7 +834,7 @@
                             <div class="row">
                                 <div class="col-sm-7">
                                     <div class="well">
-                                        @foreach (var avaliacao in item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO)
+                                        @foreach (var avaliacao in item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.OrderBy(x => x.DIA_AVALIACAO))
                                         {
                                             int media = 0;
                                             int count = 0;
@@ -760,12 +909,12 @@
                                         <label class="control-label" for="ORGANIZACAO">Organização:</label>
                                         <div class="col-md-10">
                                             <div class="btn-group" data-toggle="buttons">
-                                                <label class="btn btn-xs btn-success  active">
-                                                    <input type="radio" name="ORGANIZACAO" id="ORGANIZACAO" value="1" autocomplete="off" chacked>
+                                                <label class="btn btn-xs btn-success">
+                                                    <input type="radio" name="ORGANIZACAO" id="ORGANIZACAO" value="5" autocomplete="off">
                                                     <span class="glyphicon glyphicon-ok"></span>
                                                 </label>
                                                 <label class="btn btn-xs btn-primary">
-                                                    <input type="radio" name="ORGANIZACAO" id="ORGANIZACAO" value="2" autocomplete="off">
+                                                    <input type="radio" name="ORGANIZACAO" id="ORGANIZACAO" value="4" autocomplete="off">
                                                     <span class="glyphicon glyphicon-ok"></span>
                                                 </label>
                                                 <label class="btn btn-xs btn-default">
@@ -773,11 +922,11 @@
                                                     <span class="glyphicon glyphicon-ok"></span>
                                                 </label>
                                                 <label class="btn btn-xs btn-warning">
-                                                    <input type="radio" name="ORGANIZACAO" id="ORGANIZACAO" value="4" autocomplete="off">
+                                                    <input type="radio" name="ORGANIZACAO" id="ORGANIZACAO" value="2" autocomplete="off">
                                                     <span class="glyphicon glyphicon-ok"></span>
                                                 </label>
                                                 <label class="btn btn-xs btn-danger">
-                                                    <input type="radio" name="ORGANIZACAO" id="ORGANIZACAO" value="5" autocomplete="off">
+                                                    <input type="radio" name="ORGANIZACAO" id="ORGANIZACAO" value="1" autocomplete="off">
                                                     <span class="glyphicon glyphicon-ok"></span>
                                                 </label>
                                             </div>
@@ -787,12 +936,12 @@
                                         <label class="control-label" for="PRECO_QUALIDADE">Qualidade do Serviço:</label>
                                         <div class="col-md-10">
                                             <div class="btn-group" data-toggle="buttons">
-                                                <label class="btn btn-xs btn-success btn-gradient active">
-                                                    <input type="radio" name="PRECO_QUALIDADE" id="PRECO_QUALIDADE" value="1" autocomplete="off" chacked>
+                                                <label class="btn btn-xs btn-success btn-gradient">
+                                                    <input type="radio" name="PRECO_QUALIDADE" id="PRECO_QUALIDADE" value="5" autocomplete="off">
                                                     <span class="glyphicon glyphicon-ok"></span>
                                                 </label>
                                                 <label class="btn btn-xs btn-primary">
-                                                    <input type="radio" name="PRECO_QUALIDADE" id="PRECO_QUALIDADE" value="2" autocomplete="off">
+                                                    <input type="radio" name="PRECO_QUALIDADE" id="PRECO_QUALIDADE" value="4" autocomplete="off">
                                                     <span class="glyphicon glyphicon-ok"></span>
                                                 </label>
                                                 <label class="btn btn-xs btn-default">
@@ -800,11 +949,11 @@
                                                     <span class="glyphicon glyphicon-ok"></span>
                                                 </label>
                                                 <label class="btn btn-xs btn-warning">
-                                                    <input type="radio" name="PRECO_QUALIDADE" id="PRECO_QUALIDADE" value="4" autocomplete="off">
+                                                    <input type="radio" name="PRECO_QUALIDADE" id="PRECO_QUALIDADE" value="2" autocomplete="off">
                                                     <span class="glyphicon glyphicon-ok"></span>
                                                 </label>
                                                 <label class="btn btn-xs btn-danger">
-                                                    <input type="radio" name="PRECO_QUALIDADE" id="PRECO_QUALIDADE" value="5" autocomplete="off">
+                                                    <input type="radio" name="PRECO_QUALIDADE" id="PRECO_QUALIDADE" value="1" autocomplete="off">
                                                     <span class="glyphicon glyphicon-ok"></span>
                                                 </label>
                                             </div>
@@ -814,12 +963,12 @@
                                         <label class="control-label" for="PONTUALIDADE">Pontualidade:</label>
                                         <div class="col-md-10">
                                             <div class="btn-group" data-toggle="buttons">
-                                                <label class="btn btn-xs btn-success btn-gradient active">
-                                                    <input type="radio" name="PONTUALIDADE" id="PONTUALIDADE" value="1" autocomplete="off" chacked>
+                                                <label class="btn btn-xs btn-success btn-gradient">
+                                                    <input type="radio" name="PONTUALIDADE" id="PONTUALIDADE" value="5" autocomplete="off">
                                                     <span class="glyphicon glyphicon-ok"></span>
                                                 </label>
                                                 <label class="btn btn-xs btn-primary">
-                                                    <input type="radio" name="PONTUALIDADE" id="PONTUALIDADE" value="2" autocomplete="off">
+                                                    <input type="radio" name="PONTUALIDADE" id="PONTUALIDADE" value="4" autocomplete="off">
                                                     <span class="glyphicon glyphicon-ok"></span>
                                                 </label>
                                                 <label class="btn btn-xs btn-default">
@@ -827,11 +976,11 @@
                                                     <span class="glyphicon glyphicon-ok"></span>
                                                 </label>
                                                 <label class="btn btn-xs btn-warning">
-                                                    <input type="radio" name="PONTUALIDADE" id="PONTUALIDADE" value="4" autocomplete="off">
+                                                    <input type="radio" name="PONTUALIDADE" id="PONTUALIDADE" value="2" autocomplete="off">
                                                     <span class="glyphicon glyphicon-ok"></span>
                                                 </label>
                                                 <label class="btn btn-xs btn-danger">
-                                                    <input type="radio" name="PONTUALIDADE" id="PONTUALIDADE" value="5" autocomplete="off">
+                                                    <input type="radio" name="PONTUALIDADE" id="PONTUALIDADE" value="1" autocomplete="off">
                                                     <span class="glyphicon glyphicon-ok"></span>
                                                 </label>
                                             </div>
@@ -841,12 +990,12 @@
                                         <label class="control-label" for="INDICACAO">Você o Indicaria?</label>
                                         <div class="col-md-10">
                                             <div class="btn-group" data-toggle="buttons">
-                                                <label class="btn btn-xs btn-success btn-gradient active">
-                                                    <input type="radio" name="INDICACAO" id="INDICACAO" value="1" autocomplete="off" chacked>
+                                                <label class="btn btn-xs btn-success btn-gradient">
+                                                    <input type="radio" name="INDICACAO" id="INDICACAO" value="5" autocomplete="off">
                                                     <span class="glyphicon glyphicon-ok"></span>
                                                 </label>
                                                 <label class="btn btn-xs btn-primary">
-                                                    <input type="radio" name="INDICACAO" id="INDICACAO" value="2" autocomplete="off">
+                                                    <input type="radio" name="INDICACAO" id="INDICACAO" value="4" autocomplete="off">
                                                     <span class="glyphicon glyphicon-ok"></span>
                                                 </label>
                                                 <label class="btn btn-xs btn-default">
@@ -854,11 +1003,11 @@
                                                     <span class="glyphicon glyphicon-ok"></span>
                                                 </label>
                                                 <label class="btn btn-xs btn-warning">
-                                                    <input type="radio" name="INDICACAO" id="INDICACAO" value="4" autocomplete="off">
+                                                    <input type="radio" name="INDICACAO" id="INDICACAO" value="2" autocomplete="off">
                                                     <span class="glyphicon glyphicon-ok"></span>
                                                 </label>
                                                 <label class="btn btn-xs btn-danger">
-                                                    <input type="radio" name="INDICACAO" id="INDICACAO" value="5" autocomplete="off">
+                                                    <input type="radio" name="INDICACAO" id="INDICACAO" value="1" autocomplete="off">
                                                     <span class="glyphicon glyphicon-ok"></span>
                                                 </label>
                                             </div>
@@ -868,12 +1017,12 @@
                                         <label class="control-label" for="SATISFACAO_SERVICO">Satisfação pelo Serviço:</label>
                                         <div class="col-md-10">
                                             <div class="btn-group" data-toggle="buttons">
-                                                <label class="btn btn-xs btn-success btn-gradient active">
-                                                    <input type="radio" name="SATISFACAO_SERVICO" id="SATISFACAO_SERVICO" value="1" autocomplete="off" chacked>
+                                                <label class="btn btn-xs btn-success btn-gradient">
+                                                    <input type="radio" name="SATISFACAO_SERVICO" id="SATISFACAO_SERVICO" value="5" autocomplete="off">
                                                     <span class="glyphicon glyphicon-ok"></span>
                                                 </label>
                                                 <label class="btn btn-xs btn-primary">
-                                                    <input type="radio" name="SATISFACAO_SERVICO" id="SATISFACAO_SERVICO" value="2" autocomplete="off">
+                                                    <input type="radio" name="SATISFACAO_SERVICO" id="SATISFACAO_SERVICO" value="4" autocomplete="off">
                                                     <span class="glyphicon glyphicon-ok"></span>
                                                 </label>
                                                 <label class="btn btn-xs btn-default">
@@ -881,11 +1030,11 @@
                                                     <span class="glyphicon glyphicon-ok"></span>
                                                 </label>
                                                 <label class="btn btn-xs btn-warning">
-                                                    <input type="radio" name="SATISFACAO_SERVICO" id="SATISFACAO_SERVICO" value="4" autocomplete="off">
+                                                    <input type="radio" name="SATISFACAO_SERVICO" id="SATISFACAO_SERVICO" value="2" autocomplete="off">
                                                     <span class="glyphicon glyphicon-ok"></span>
                                                 </label>
                                                 <label class="btn btn-xs btn-danger">
-                                                    <input type="radio" name="SATISFACAO_SERVICO" id="SATISFACAO_SERVICO" value="5" autocomplete="off">
+                                                    <input type="radio" name="SATISFACAO_SERVICO" id="SATISFACAO_SERVICO" value="1" autocomplete="off">
                                                     <span class="glyphicon glyphicon-ok"></span>
                                                 </label>
                                             </div>
@@ -966,10 +1115,54 @@
             </div>
 
 
-
-
-
+            var denuncia = "myModalDenuncia" + @item.CAD_PESSOA.Id;
+            <div class="modal fade" id='@denuncia' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">Denunciar</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class='alert alert-info' role='alert'>
+                                <strong>Informe o Motivo da Denúncia</strong>
+                            </div>
+                            <form class="formAvaliacao" action="~/Busca/AlertaPrestador" method="get">
+                                <div class="input-group">
+                                    <input class="form-control hidden" name="email" id="email" value="@item.CAD_PESSOA.Email">
+                                    
+                                    <div class="form-group">
+                                        <label class="control-label" for="descricao">Descrição:</label>
+                                        <div class="col-md-10">
+                                            <textarea class="form-control" name="descricao" id="descricao" rows="3" placeholder="Nos conte o motivo de sua denúncia..."></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Denunciar" class="btn btn-default" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
                                     }
                                 }
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-92330679-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
 </body>
 </html>
