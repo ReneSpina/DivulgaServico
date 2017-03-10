@@ -8,8 +8,10 @@
     @Html.AntiForgeryToken()
     <ul class="nav navbar-nav navbar-right" id="menu_mobile">
         <li>
-           @Html.ActionLink("Olá "+User.Identity.GetUserName()+"!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
+            <a href="~/Manage">
+                <span class="glyphicon glyphicon-user"></span>  @User.Identity.GetUserName()
+            </a>
+         </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
     </ul>
     }
