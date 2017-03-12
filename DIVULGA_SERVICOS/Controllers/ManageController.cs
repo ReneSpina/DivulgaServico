@@ -691,9 +691,45 @@ namespace DIVULGA_SERVICOS.Controllers
         public ActionResult EditPerfilJuridico(EditPerfilJuridico cAD_PES_JURIDICA)
         {
             CAD_PESSOA pessoajuridica = db.CAD_PESSOA.Find(User.Identity.GetUserId());
+            var newsletter = true;
+            var contaativa = true;
             if (ModelState.IsValid)
             {
                 CAD_PES_JURIDICA usuario = db.CAD_PES_JURIDICA.Find(User.Identity.GetUserId());
+
+                if(cAD_PES_JURIDICA.NEWSLETTER == true)
+                {
+                    if(pessoajuridica.NEWSLETTER == true)
+                    {
+                        newsletter = false;
+                    }
+                    else
+                    {
+                        newsletter = true;
+                    }
+                }
+                else
+                {
+                    newsletter = pessoajuridica.NEWSLETTER;
+                }
+
+                if (cAD_PES_JURIDICA.ATIVO == true)
+                {
+                    if (usuario.ATIVO == true)
+                    {
+                        contaativa = false;
+                    }
+                    else
+                    {
+                        contaativa = true;
+                    }
+                }
+                else
+                {
+                    contaativa = usuario.ATIVO;
+                }
+
+
 
                 CAD_PES_JURIDICA PesJuridica = new CAD_PES_JURIDICA
                 {
@@ -701,7 +737,8 @@ namespace DIVULGA_SERVICOS.Controllers
                     DS_QUEM_SOMOS = cAD_PES_JURIDICA.DS_QUEM_SOMOS,
                     DS_SOBRE = cAD_PES_JURIDICA.DS_SOBRE,
                     CD_CNPJ = cAD_PES_JURIDICA.CD_CNPJ,
-                    TODO_DIA = usuario.TODO_DIA
+                    TODO_DIA = usuario.TODO_DIA,
+                    ATIVO = contaativa
                 };
                 db.CAD_PES_JURIDICA.AddOrUpdate(PesJuridica);
 
@@ -721,7 +758,7 @@ namespace DIVULGA_SERVICOS.Controllers
                     LockoutEndDateUtc = pessoajuridica.LockoutEndDateUtc,
                     AccessFailedCount = pessoajuridica.AccessFailedCount,
                     LockoutEnabled = pessoajuridica.LockoutEnabled,
-                    ATIVADO = cAD_PES_JURIDICA.ATIVADO,
+                    NEWSLETTER = newsletter
                 };
                 db.CAD_PESSOA.AddOrUpdate(user);
                 db.SaveChanges();
@@ -1034,15 +1071,12 @@ namespace DIVULGA_SERVICOS.Controllers
             var userId = User.Identity.GetUserId();
             //var usuario = db.CAD_PES_FORNECEDOR.Where(x => x.CD_PESSOA == userId);
             var cidade = db.CAD_CIDADES_DIVULGA_FORNECEDOR.Where(x => x.CD_PESSOA == userId).FirstOrDefault();
-            if (cidade != null)
+            if (cidade == null)
             {
+                ViewBag.errorMessage = "Não esqueça de cadastrar as cidades onde quer divulgar seus produtos!";
                 return View("CriarProduto");
             }
-            else
-            {
-                ViewBag.errorMessage = "Você precisa cadastrar as cidades onde quer divulgar seus produtos antes de casdastrar os produtos!";
-                return View("CadastrarCidade");
-            }
+            return View("CriarProduto");
         }
 
         // POST: CAD_CATEGORIA/Create
@@ -1217,7 +1251,7 @@ namespace DIVULGA_SERVICOS.Controllers
 
 
         [Authorize(Roles = "Fornecedor")]
-        public ActionResult CadastrarCidade()
+        public ActionResult CadastrarCidade(string mensagem = "")
         {
             //ViewBag.CD_PES_JURIDICA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ");
             return View("CadastrarCidade");
@@ -1236,12 +1270,11 @@ namespace DIVULGA_SERVICOS.Controllers
                     if (cAD_CIDADES_DIVULGA_FORNECEDOR.BRASIL == true)
                     {
                         var cidade = "Brasil";
-                        var estado = "Brasil";
                         CAD_CIDADES_DIVULGA_FORNECEDOR brasil = new CAD_CIDADES_DIVULGA_FORNECEDOR
                         {
                             CD_PESSOA = usuario.CD_PESSOA,
                             NM_CIDADE = cidade,
-                            NM_ESTADO = estado,
+                            NM_ESTADO = cAD_CIDADES_DIVULGA_FORNECEDOR.NM_ESTADO,
                             BRASIL = cAD_CIDADES_DIVULGA_FORNECEDOR.BRASIL
                         };
                         db.CAD_CIDADES_DIVULGA_FORNECEDOR.Add(brasil);
@@ -1254,7 +1287,8 @@ namespace DIVULGA_SERVICOS.Controllers
                             CD_PESSOA = usuario.CD_PESSOA,
                             NM_CIDADE = cAD_CIDADES_DIVULGA_FORNECEDOR.NM_CIDADE,
                             NM_ESTADO = cAD_CIDADES_DIVULGA_FORNECEDOR.NM_ESTADO,
-                            BRASIL = cAD_CIDADES_DIVULGA_FORNECEDOR.BRASIL
+                            BRASIL = cAD_CIDADES_DIVULGA_FORNECEDOR.BRASIL,
+                            DILGAR_ESTADO = cAD_CIDADES_DIVULGA_FORNECEDOR.DILGAR_ESTADO
                         };
                         db.CAD_CIDADES_DIVULGA_FORNECEDOR.Add(endereco);
                         db.SaveChanges();
@@ -1386,7 +1420,7 @@ namespace DIVULGA_SERVICOS.Controllers
                     LockoutEndDateUtc = fornecedorAntes.LockoutEndDateUtc,
                     AccessFailedCount = fornecedorAntes.AccessFailedCount,
                     LockoutEnabled = fornecedorAntes.LockoutEnabled,
-                    ATIVADO = fornecedorAntes.ATIVADO,
+                    NEWSLETTER = fornecedorAntes.NEWSLETTER,
                 };
                 db.CAD_PESSOA.AddOrUpdate(user);
                 db.SaveChanges();
@@ -1404,14 +1438,14 @@ namespace DIVULGA_SERVICOS.Controllers
 
 
 /*Início do método que mostra os fornecedores para cada tipo de prestador de serviço*/
-[Authorize (Roles="Prestadores")]
+[Authorize (Roles="Prestador")]
         public ActionResult MeusFornecedores()
         {
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Identity.GetUserId();
                 var usuario = db.CAD_PES_JURIDICA.Where(x => x.CD_PESSOA == userId).FirstOrDefault();
-                var enderecosUsuario = db.CAD_PES_ENDERECO.Where(x => x.CD_PESSOA == userId);
+                var enderecosPrestador = db.CAD_PES_ENDERECO.Where(x => x.CD_PESSOA == userId);
                 var servicos = db.CAD_CATEGORIA.Where(x => x.CD_PES_JURIDICA == userId).ToList();
                 var produtoTemp = new List<CAD_PRODUTO_FORNECEDOR>();
                 var produtos = new List<CAD_PRODUTO_FORNECEDOR>();
@@ -1420,23 +1454,23 @@ namespace DIVULGA_SERVICOS.Controllers
                 var status = 0;
                 var count = 0;
 
-                fornecedores = db.CAD_PES_FORNECEDOR.Where(x => x.CAD_PESSOA.ATIVADO == true).ToList();
+                fornecedores = db.CAD_PES_FORNECEDOR.Where(x => x.CAD_PESSOA.CAD_PES_FORNECEDOR.ATIVO == true).ToList();
                 foreach (var forn in fornecedores)
                 {
                     cidades = db.CAD_CIDADES_DIVULGA_FORNECEDOR.Where(x => x.CD_PESSOA == forn.CD_PESSOA).ToList();
-                    foreach (var ItemEndereco in enderecosUsuario)
+                    foreach (var ItemEndereco in enderecosPrestador)
                     {
 
                         foreach(var cidade in cidades)
                         {
-                            if (ItemEndereco.NM_CIDADE != cidade.NM_CIDADE && cidade.BRASIL == false)
+                            if (ItemEndereco.NM_CIDADE != cidade.NM_CIDADE && cidade.BRASIL == false && cidade.DILGAR_ESTADO == false)
                             {
-                                count = count + 1;
+                                    count = count + 1;
                             }
                         }
                         count = count + 1;
                     }
-                    if (count == (cidades.Count + enderecosUsuario.Count()))
+                    if (count == (cidades.Count + enderecosPrestador.Count()))
                     {
                         fornecedores.Remove(forn);
                     }

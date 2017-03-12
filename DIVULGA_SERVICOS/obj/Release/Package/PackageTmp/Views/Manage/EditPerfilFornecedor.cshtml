@@ -37,11 +37,48 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-2" for="ATIVO">Desabilitar Conta</label>
+                <label class="control-label col-md-2" for="LockoutEnabled">RECEBER EMAILS</label>
                 <div class="col-md-10">
-                    @Html.CheckBoxFor(m => m.CAD_PES_FORNECEDOR.ATIVO)
+                    @if (Model.NEWSLETTER == true)
+                    {
+                        <span class="success">
+                            Você deve estar recebendo nossos emails.<br />
+                            Caso não queira mais recber, marque a caixa ao lado!
+                        </span>
+                        @Html.EditorFor(m => m.NEWSLETTER)
+                    }
+                    else
+                    {
+                        <span class="danger">
+                            Você não deve estar recebendo nossos emails.<br />
+                            Caso queira recber, marque a caixa ao lado!
+                        </span>
+                        @Html.EditorFor(m => m.NEWSLETTER)
+                    }
                 </div>
             </div>
+
+            @*<div class="form-group">
+                <label class="control-label col-md-2" for="LockoutEnabled">DESABILITAR CONTA</label>
+                <div class="col-md-10">
+                    @if (Model.CAD_PES_JURIDICA.ATIVO == true)
+                    {
+                        <span class="success">
+                            Sua conta está ativa.<br />
+                            Clique na caixa ao lado para desativar sua conta!
+                        </span>
+                        @Html.EditorFor(m => m.CAD_PES_JURIDICA.ATIVO)
+                    }
+                    else
+                    {
+                        <span class="danger">
+                            Sua conta está inativa.<br />
+                            Clique na caixa ao lado para ativar sua conta!
+                        </span>
+                        @Html.EditorFor(m => m.CAD_PES_FORNECEDOR.ATIVO)
+                    }
+                </div>
+            </div>*@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">

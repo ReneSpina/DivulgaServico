@@ -3,7 +3,4 @@
   <parameter name="connectionstring-Web.config Connection String" description="connectionstring Connection String used in web.config by the application to access the database." defaultValue="data source=RENESPINA-PC\SQLEXPRESS;initial catalog=servicos;integrated security=True;multipleactiveresultsets=True;application name=EntityFramework" tags="SqlConnectionString">
     <parameterEntry kind="XmlFile" scope="C:\\Rene\ Novo\\Desenvolvimento\\DIVULGA_SERVICOS\\DIVULGA_SERVICOS\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='connectionstring']/@connectionString" />
   </parameter>
-  <parameter name="connectionstring_DatabasePublish-Web.config Connection String" description="connectionstring_DatabasePublish Connection String used in web.config by the application to access the database." defaultValue="connectionstring_DatabasePublish.ConnetionString" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="C:\\Rene\ Novo\\Desenvolvimento\\DIVULGA_SERVICOS\\DIVULGA_SERVICOS\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='connectionstring_DatabasePublish']/@connectionString" />
-  </parameter>
 </parameters>

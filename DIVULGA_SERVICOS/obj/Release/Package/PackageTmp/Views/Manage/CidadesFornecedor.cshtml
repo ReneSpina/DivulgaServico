@@ -13,13 +13,16 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.NM_CIDADE)
+            Cidade
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NM_ESTADO)
+            Estado
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.BRASIL)
+            Divulga no Estado
+        </th>
+        <th>
+            Divulga Brasil
         </th>
         <th></th>
     </tr>
@@ -34,10 +37,27 @@
                 @Html.DisplayFor(modelItem => item.NM_ESTADO)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.BRASIL)
+                @if (item.DILGAR_ESTADO == true)
+                {
+                    <span>Sim</span>
+                }
+                else
+                {
+                    <span>Não</span>
+                }
             </td>
             <td>
-                @Html.ActionLink("Detalhes", "DetalhesCidade", new { id=item.SQ_CIDADE}) |
+                @if (item.BRASIL == true)
+                {
+                    <span>Sim</span>
+                }
+                else
+                {
+                    <span>Não</span>
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Detalhes", "DetalhesCidade", new { id = item.SQ_CIDADE }) |
                 @Html.ActionLink("Deletar", "DeletarCidade", new { id = item.SQ_CIDADE })
             </td>
         </tr>

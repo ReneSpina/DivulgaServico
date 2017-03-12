@@ -433,7 +433,7 @@
 
 
                     "<br>" +
-                   "<button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModal" + '@item.CAD_PESSOA.Id' + "'>Mais informações!</button>" +
+                   "<button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModal" + '@item.CAD_PESSOA.Id' + '@item.SQ_ENDERECO'+"'>+ info!</button>" +
                    "  |  " +
 
                    @if(Request.IsAuthenticated)
@@ -487,14 +487,14 @@
     }
     else
     {
-        foreach (var item in Model)
+        foreach (var endereco in Model)
         {
             float mediaQualidade = 0;
             float mediaPontualidade = 0;
             float mediaOrganizacao = 0;
             float mediaIndicacao = 0;
             float mediaSatisfacao = 0;
-            foreach (var avaliacao in item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO)
+            foreach (var avaliacao in endereco.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO)
             {
                 mediaQualidade = mediaQualidade + avaliacao.PRECO_QUALIDADE;
                 mediaPontualidade = mediaPontualidade + avaliacao.PONTUALIDADE;
@@ -502,13 +502,13 @@
                 mediaIndicacao = mediaIndicacao + avaliacao.INDICACAO;
                 mediaSatisfacao = mediaSatisfacao + avaliacao.SATISFACAO_SERVICO;
             }
-            mediaQualidade = (((mediaQualidade) * 100) / item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count) / 5;
-            mediaPontualidade = (((mediaPontualidade) * 100) / item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count) / 5;
-            mediaOrganizacao = (((mediaOrganizacao) * 100) / item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count) / 5;
-            mediaIndicacao = (((mediaIndicacao) * 100) / item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count) / 5;
-            mediaSatisfacao = (((mediaSatisfacao) * 100) / item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count) / 5;
+            mediaQualidade = (((mediaQualidade) * 100) / endereco.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count) / 5;
+            mediaPontualidade = (((mediaPontualidade) * 100) / endereco.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count) / 5;
+            mediaOrganizacao = (((mediaOrganizacao) * 100) / endereco.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count) / 5;
+            mediaIndicacao = (((mediaIndicacao) * 100) / endereco.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count) / 5;
+            mediaSatisfacao = (((mediaSatisfacao) * 100) / endereco.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count) / 5;
 
-            var idmodal = "myModal" + @item.CAD_PESSOA.Id;
+            var idmodal = "myModal" + @endereco.CAD_PESSOA.Id + @endereco.SQ_ENDERECO;
             <div class="modal fade" id='@idmodal' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -516,17 +516,17 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h4 class="modal-title" id="myModalLabel">@item.CAD_PESSOA.NM_NOME_PESSOA</h4>
+                            <h4 class="modal-title" id="myModalLabel">@endereco.CAD_PESSOA.NM_NOME_PESSOA</h4>
                         </div>
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-sm-3" style="width:100%">
                                     <h4>Endereço:</h4>
                                     <div class="well">
-                                        <p><b>Rua:</b> @item.NM_LOGRADOURO</p>
-                                        <p><b>Número:</b> @item.NUMERO</p>
-                                        <p><b>Cidade:</b> @item.NM_CIDADE</p>
-                                        <p><b>Estado:</b> @item.NM_ESTADO</p>
+                                        <p><b>Rua:</b> @endereco.NM_LOGRADOURO</p>
+                                        <p><b>Número:</b> @endereco.NUMERO</p>
+                                        <p><b>Cidade:</b> @endereco.NM_CIDADE</p>
+                                        <p><b>Estado:</b> @endereco.NM_ESTADO</p>
                                     </div>
                                 </div>
                             </div>
@@ -535,7 +535,7 @@
                                 <div class="col-sm-3" style="width:100%">
                                     <h4>Telefones:</h4>
                                     <div class="well">
-                                        @foreach (var telefone in item.CAD_PESSOA.CAD_PES_FONE)
+                                        @foreach (var telefone in endereco.CAD_PESSOA.CAD_PES_FONE)
                                         {
                                             <p><b>Fixo: </b>@telefone.CD_FIXO</p>
                                             <p><b>Cel: </b>@telefone.CD_CELULAR - @telefone.NM_OPERADORA
@@ -549,31 +549,31 @@
                                 </div>
                             </div>
 
-                            @if (@item.CAD_PESSOA.CAD_PES_JURIDICA.DS_QUEM_SOMOS != null)
+                            @if (@endereco.CAD_PESSOA.CAD_PES_JURIDICA.DS_QUEM_SOMOS != null)
                             {
                                 <div class="row">
                                     <div class="col-sm-3" style="width:100%">
                                         <h4>Quem Somos:</h4>
                                         <div class="well">
-                                            @item.CAD_PESSOA.CAD_PES_JURIDICA.DS_QUEM_SOMOS
+                                            @endereco.CAD_PESSOA.CAD_PES_JURIDICA.DS_QUEM_SOMOS
                                         </div>
                                     </div>
                                 </div>
                             }
 
-                            @if (@item.CAD_PESSOA.CAD_PES_JURIDICA.DS_SOBRE != null)
+                            @if (@endereco.CAD_PESSOA.CAD_PES_JURIDICA.DS_SOBRE != null)
                             {
                                 <div class="row">
                                     <div class="col-sm-3" style="width:100%">
                                         <h4>Quem Somos:</h4>
                                         <div class="well">
-                                            @item.CAD_PESSOA.CAD_PES_JURIDICA.DS_SOBRE
+                                            @endereco.CAD_PESSOA.CAD_PES_JURIDICA.DS_SOBRE
                                         </div>
                                     </div>
                                 </div>
                             }
 
-                            @if (item.CAD_PESSOA.CAD_PES_JURIDICA.TODO_DIA == true)
+                            @if (endereco.CAD_PESSOA.CAD_PES_JURIDICA.TODO_DIA == true)
                             {
                                 <div class="row">
                                     <div class="col-sm-3" style="width:100%">
@@ -590,7 +590,7 @@
                                     <div class="col-sm-3" style="width:100%">
                                         <h4>Nossos horários:</h4>
                                         <div class="well">
-                                            @foreach (var hora in item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_HORA_ATENDIMENTO)
+                                            @foreach (var hora in endereco.CAD_PESSOA.CAD_PES_JURIDICA.CAD_HORA_ATENDIMENTO)
                                             {
                                                 <div>
                                                     @{ 
@@ -610,16 +610,16 @@
                             <div class="well">
                                 <div class="row">
                                     <div class="col-sm-3" id="myrating">
-                                        @if (item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count == 1)
+                                        @if (endereco.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count == 1)
                                                         {
                                             <h5>
-                                                @item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count avaliação!
+                                                @endereco.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count avaliação!
                                             </h5>
                                         }
                                         else
                                         {
                                             <h5>
-                                                @item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count avaliações!
+                                                @endereco.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count avaliações!
                                             </h5>
                                         }
                                         <div class="pull-left">
@@ -834,7 +834,7 @@
                             <div class="row">
                                 <div class="col-sm-7">
                                     <div class="well">
-                                        @foreach (var avaliacao in item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.OrderBy(x => x.DIA_AVALIACAO))
+                                        @foreach (var avaliacao in endereco.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.OrderBy(x => x.DIA_AVALIACAO))
                                         {
                                             int media = 0;
                                             int count = 0;
@@ -889,7 +889,7 @@
                     </div>
                 </div>
             </div>
-            var idavaliacao = "myModalAvaliacao" + @item.CAD_PESSOA.Id;
+            var idavaliacao = "myModalAvaliacao" + @endereco.CAD_PESSOA.Id;
             <div class="modal fade" id='@idavaliacao' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -897,7 +897,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h4 class="modal-title" id="myModalLabel">@item.CAD_PESSOA.NM_NOME_PESSOA</h4>
+                            <h4 class="modal-title" id="myModalLabel">@endereco.CAD_PESSOA.NM_NOME_PESSOA</h4>
                         </div>
                         <div class="modal-body">
                             <div class='alert alert-info' role='alert'>
@@ -1054,7 +1054,7 @@
                                             <textarea class="form-control" name="DS_DESCRICAO" id="DS_DESCRICAO" rows="3" placeholder="Um breve texto para expor sua opinião..."></textarea>
                                         </div>
                                     </div>
-                                    <input type="text" id="CD_PES_JURIDICA" class="hidden" name="CD_PES_JURIDICA" value="@item.CD_PESSOA">
+                                    <input type="text" id="CD_PES_JURIDICA" class="hidden" name="CD_PES_JURIDICA" value="@endereco.CD_PESSOA">
                                     <input type="text" id="CD_PES_USUARIO" class="hidden" name="CD_PES_USUARIO" value="@User.Identity.GetUserId()">
                                     <div class="col-md-offset-2 col-md-10">
                                         <input type="submit" value="Avaliar" class="btn btn-default" />
@@ -1115,7 +1115,7 @@
             </div>
 
 
-            var denuncia = "myModalDenuncia" + @item.CAD_PESSOA.Id;
+            var denuncia = "myModalDenuncia" + @endereco.CAD_PESSOA.Id;
             <div class="modal fade" id='@denuncia' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -1131,7 +1131,7 @@
                             </div>
                             <form class="formAvaliacao" action="~/Busca/AlertaPrestador" method="get">
                                 <div class="input-group">
-                                    <input class="form-control hidden" name="email" id="email" value="@item.CAD_PESSOA.Email">
+                                    <input class="form-control hidden" name="email" id="email" value="@endereco.CAD_PESSOA.Email">
                                     
                                     <div class="form-group">
                                         <label class="control-label" for="descricao">Descrição:</label>

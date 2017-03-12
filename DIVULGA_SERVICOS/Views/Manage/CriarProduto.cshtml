@@ -4,6 +4,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@if (ViewBag.errorMessage != "" || ViewBag.errorMessage != null)
+{
+    <h3>
+        @ViewBag.errorMessage
+    </h3>
+}
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()

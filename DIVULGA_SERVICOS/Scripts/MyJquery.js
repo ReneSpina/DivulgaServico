@@ -22,6 +22,10 @@ $(document).ready(function () {
         }
         clickEvent = false;
     });
+
+    /*Mascara para tela de cadastro de produtos do fornecedor*/
+        $('#VALOR_PRODUTO').mask('000000000000000,00', { reverse: true });
+    /*Mascara para tela de cadastro de produtos do fornecedor*/
 });
 
 /*Fim Jquery Home*/
@@ -38,8 +42,6 @@ $('#salvarPerfil').click(function () {
 });
     
 /*Fim do Jquary de validação da tela de manutenção de perfil do prestador de serviço (EditarPerfil)*/
-
-$('#VALOR_PRODUTO').mask('000000000000000,00', { reverse: true });
 
 
 //Inicio Valida CPF ou CNPJ

@@ -12,58 +12,97 @@
     <form action="/Manage/EditPerfilJuridico" method="post">
         @Html.AntiForgeryToken()
         <div class="form-horizontal">
-        <h4>Editar Perfil</h4>
+            <h4>Editar Perfil</h4>
             <hr>
 
             <div class="form-group">
                 <label class="control-label col-md-2" for="NM_NOME_PESSOA">NOME*</label>
                 <div class="col-md-10">
-                    <input class="form-control text-box single-line" data-val="true" data-val-length="O campo NM_NOME_PESSOA deve ser uma cadeia de caracteres com um comprimento máximo de 255." data-val-length-max="255" id="NM_NOME_PESSOA" name="NM_NOME_PESSOA" type="text" value="@Model.NM_NOME_PESSOA">
+                    <input class="form-control text-box single-line" data-val="true" data-val-length="O campo NM_NOME_PESSOA deve ser uma cadeia de caracteres com um comprimento máximo de 255." data-val-length-max="255" id="CAD_PES_JURIDICA.NM_NOME_PESSOA" name="CAD_PES_JURIDICA.NM_NOME_PESSOA" type="text" value="@Model.NM_NOME_PESSOA">
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="control-label col-md-2" for="UserName">Email*</label>
                 <div class="col-md-10">
-                    <input class="form-control text-box single-line" id="Email" name="Email" type="text" value="@Model.Email">
+                    <input class="form-control text-box single-line" id="CAD_PES_JURIDICA.Email" name="CAD_PES_JURIDICA.Email" type="text" value="@Model.Email">
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="control-label col-md-2" for="CD_CNPJ">CPF ou CNPJ*</label>
                 <div class="col-md-10">
-                    <input class="form-control text-box single-line" data-val="true" data-val-length="O campo CD_CNPJ deve ser uma cadeia de caracteres com um comprimento máximo de 30." data-val-length-max="30" id="CD_CNPJ" name="CD_CNPJ" type="text" value="@Model.CAD_PES_JURIDICA.CD_CNPJ">
+                    <input class="form-control text-box single-line" data-val="true" data-val-length="O campo CD_CNPJ deve ser uma cadeia de caracteres com um comprimento máximo de 30." data-val-length-max="30" id="CAD_PES_JURIDICA.CD_CNPJ" name="CAD_PES_JURIDICA.CD_CNPJ" type="text" value="@Model.CAD_PES_JURIDICA.CD_CNPJ">
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="control-label col-md-2" for="DS_SOBRE">SOBRE</label>
                 <div class="col-md-10">
-                    <textarea class="form-control text-box multi-line" id="DS_SOBRE" name="DS_SOBRE">@Model.CAD_PES_JURIDICA.DS_SOBRE</textarea>
+                    <textarea class="form-control text-box multi-line" id="CAD_PES_JURIDICA.DS_SOBRE" name="CAD_PES_JURIDICA.DS_SOBRE">@Model.CAD_PES_JURIDICA.DS_SOBRE</textarea>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="control-label col-md-2" for="DS_QUEM_SOMOS">QUEM SOMOS</label>
                 <div class="col-md-10">
-                    <textarea class="form-control text-box multi-line" id="DS_QUEM_SOMOS" name="DS_QUEM_SOMOS">@Model.CAD_PES_JURIDICA.DS_QUEM_SOMOS</textarea>
+                    <textarea class="form-control text-box multi-line" id="CAD_PES_JURIDICA.DS_QUEM_SOMOS" name="CAD_PES_JURIDICA.DS_QUEM_SOMOS">@Model.CAD_PES_JURIDICA.DS_QUEM_SOMOS</textarea>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-2" for="LockoutEnabled">DESABILITAR CONTA</label>
-                <div class="col-md-10">
-                    @Html.CheckBoxFor(m => m.ATIVADO)
-                </div>
+                @if (Model.NEWSLETTER == true)
+                {
+                    <label class="control-label col-md-2" for="NEWSLETTER">
+                        Desativar recebimento de Emails
+                    </label>
+                    <div class="col-md-10">
+                        <input class="check-box" data-val="true" data-val-required="O campo newsletter é obrigatório." id="CAD_PES_JURIDICA_NEWSLETTER" name="CAD_PES_JURIDICA.NEWSLETTER" type="checkbox" value="true">
+                        <input name="CAD_PES_JURIDICA.NEWSLETTER" type="hidden" value="false">
+                    </div>
+                }
+                else
+                {
+                    <label class="control-label col-md-2" for="NEWSLETTER">
+                        Ativar recebimento de Emails
+                    </label>
+                    <div class="col-md-10">
+                        <input class="check-box" data-val="true" data-val-required="O campo newsletter é obrigatório." id="CAD_PES_JURIDICA_NEWSLETTER" name="CAD_PES_JURIDICA.NEWSLETTER" type="checkbox" value="true">
+                        <input name="CAD_PES_JURIDICA.NEWSLETTER" type="hidden" value="false">
+                    </div>
+                }
+
             </div>
 
+            <div class="form-group">
+                @if (Model.CAD_PES_JURIDICA.ATIVO == true)
+                {
+                    <label class="control-label col-md-2" for="CAD_PES_JURIDICA.ATIVO">
+                        Desativar sua conta
+                    </label>
+                    <div class="col-md-10">
+                        <input class="check-box" data-val="true" id="CAD_PES_JURIDICA_ATIVO" name="CAD_PES_JURIDICA.ATIVO" type="checkbox" value="true">
+                        <input name="CAD_PES_JURIDICA.ATIVO" type="hidden" value="false">
+                    </div>
+                }
+                else
+                {
+                    <label class="control-label col-md-2" for="CAD_PES_JURIDICA.ATIVO">
+                        Ativar sua conta
+                    </label>
+                    <div class="col-md-10">
+                        <input class="check-box" data-val="true" id="CAD_PES_JURIDICA_ATIVO" name="CAD_PES_JURIDICA.ATIVO" type="checkbox" value="true">
+                        <input name="CAD_PES_JURIDICA.ATIVO" type="hidden" value="false">
+                    </div>
+                }
+            </div>
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" id="salvarPerfil" value="Salvar" class="btn btn-default">
                 </div>
             </div>
         </div>
-</form>
+    </form>
     <div>
         @Html.ActionLink("Voltar a tela de gerenciamento", "Index")
     </div>

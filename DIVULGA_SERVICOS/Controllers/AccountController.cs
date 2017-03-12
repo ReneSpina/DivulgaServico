@@ -208,8 +208,9 @@ namespace DIVULGA_SERVICOS.Controllers
                     //TF_TEL_FIXO = model.TF_TEL_FIXO,
                     DT_DATA_CADASTRO = System.DateTime.Today,
                     Email = model.UserName,
-                    ATIVADO = true,
-                    EmailConfirmed = true
+                    NEWSLETTER = true,
+                    EmailConfirmed = true,
+                    
                     //DS_EMAIL = model.UserName,
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
@@ -231,6 +232,7 @@ namespace DIVULGA_SERVICOS.Controllers
                                 CD_PESSOA = user.Id,
                                 CD_CNPJ = model.CD_CNPJ,
                                 TODO_DIA = model.TODO_DIA,
+                                ATIVO = true,
                                 ACEITE_CONTRATO = model.ACEITE_CONTRATO
                             };
                             db.CAD_PES_JURIDICA.Add(juridica);
@@ -418,7 +420,7 @@ namespace DIVULGA_SERVICOS.Controllers
                     //TF_TEL_FIXO = model.TF_TEL_FIXO,
                     DT_DATA_CADASTRO = System.DateTime.Today,
                     Email = model.UserName,
-                    ATIVADO = true
+                    NEWSLETTER = true
                     //DS_EMAIL = model.UserName,
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
@@ -437,6 +439,9 @@ namespace DIVULGA_SERVICOS.Controllers
                             {
                                 CD_PESSOA = user.Id,
                                 CD_CNPJ = model.CD_CNPJ,
+                                CD_STATUS_PAGT = 1,
+                                ATIVO = true,
+                                ACEITE_CONTRATO = model.ACEITE_CONTRATO
                             };
                             db.CAD_PES_FORNECEDOR.Add(fornecedor);
                             db.SaveChanges();

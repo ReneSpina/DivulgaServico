@@ -4,7 +4,7 @@
     <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Rene\ Novo\\Desenvolvimento\\DIVULGA_SERVICOS\\DIVULGA_SERVICOS\\obj\\Release\\Package\\PackageTmp$" />
     <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\Rene\ Novo\\Desenvolvimento\\DIVULGA_SERVICOS\\DIVULGA_SERVICOS\\obj\\Release\\Package\\PackageTmp$" />
   </parameter>
-  <parameter name="connectionstring-Web.config Connection String" description="" value="Data Source=tcp:basemercadodeservicos.database.windows.net,1433;Initial Catalog=servicos;User Id=renespina@basemercadodeservicos.database.windows.net;Password=Rflsd@745" tags="">
+  <parameter name="connectionstring-Web.config Connection String" description="" value="Data Source=tcp:basemercadodeservicos.database.windows.net,1433;Initial Catalog=servicos;User ID=renespina@basemercadodeservicos.database.windows.net;Password=Rflsd@745" tags="">
     <parameterEntry kind="XmlFile" scope="C:\\Rene\ Novo\\Desenvolvimento\\DIVULGA_SERVICOS\\DIVULGA_SERVICOS\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='connectionstring']/@connectionString" />
   </parameter>
 </parameters>

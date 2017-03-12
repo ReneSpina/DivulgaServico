@@ -24,8 +24,6 @@ namespace DIVULGA_SERVICOS.Models
         [StringLength(255)]
         public string NM_NOME_PESSOA { get; set; }
 
-        public bool ATIVADO { get; set; }
-
         //[Required(ErrorMessage = "INSIRA UM NOME PARA O SEU SITE! (EX.: MEUSITE)")]
         //[RegularExpression("^[a-zA-Z]{1,255}$", ErrorMessage = "INSIRA UM NOME VÁLIDO PARA O SEU SITE(SOMENTE LETRAS, SEM ESPAÇO)")]
         ////[Remote("Valida_NM_Site", "CADASTRO_PRESTADOR", ErrorMessage = "Esse nome já está cadastrado!")]
@@ -49,6 +47,8 @@ namespace DIVULGA_SERVICOS.Models
         //[StringLength(15)]
         //[RegularExpression("^\\([1-9]{2}\\) [2-9][0-9]{3,4}\\-[0-9]{4}$", ErrorMessage = "INSIRA UM TELEFONE VÁLIDO (Ex.: (99) 99999-9999)!")]
         //public string TF_TEL_CEL { get; set; }
+
+        public bool NEWSLETTER { get; set; }
 
         [Column(TypeName = "date")]
         public DateTime DT_DATA_CADASTRO { get; set; }

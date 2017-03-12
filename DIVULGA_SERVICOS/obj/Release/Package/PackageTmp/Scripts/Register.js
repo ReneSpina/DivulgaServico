@@ -101,6 +101,13 @@ $("#cadastrogeral").click(function () {
     }
 });
 
+$("#cadastrogeralForn").click(function () {
+    if (!$("#ACEITE_CONTRATO").is(":checked")) {
+        alert("Você precisa estar de acordo com nossos termos de uso para utilizar nossos serviços!");
+        return false;
+    }
+});
+
 
 $("#ProximoHora").click(function () {
 
@@ -467,8 +474,6 @@ $("#fechaModalContrato").click(function () {
     if (!$("#ACEITE_CONTRATO").is(":checked"))
     {
         alert("Você não aceitou nossos termos de uso!");
-        $("#closeModalContrato").trigger("click");
-        $("#closeModalContrato").trigger("click");
     }
     else
     {

@@ -424,7 +424,9 @@ namespace DIVULGA_SERVICOS.Models
         [DataType(DataType.MultilineText)]
         public string DS_QUEM_SOMOS { get; set; }
         
-        public bool ATIVADO { get; set; }
+        public bool ATIVO { get; set; }
+
+        public bool NEWSLETTER { get; set; }
     }
 
 
@@ -445,6 +447,9 @@ namespace DIVULGA_SERVICOS.Models
         public string CD_CNPJ { get; set; }
 
         public bool ATIVO { get; set; }
+
+        [Required]
+        public bool NEWSLETTER { get; set; }
     }
 
 }

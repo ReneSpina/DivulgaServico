@@ -79,13 +79,13 @@ namespace DIVULGA_SERVICOS.Controllers
                         {
                             texto = RemoveAcento(word);
                             enderecosTemp = db.CAD_PES_ENDERECO
-                                    .Where(x => x.CAD_PESSOA.ATIVADO == true)
+                                    .Where(x => x.CAD_PESSOA.CAD_PES_JURIDICA.ATIVO == true)
                                     .Where(x => ((int)(((x.localizacao.Distance(localusuario)) / 0.62137) / 1000) <= (distancia)))
                                     .Where(x =>
-                                            x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().DS_DESCRICAO.Contains(texto) ||
-                                            x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().DS_DESCRICAO.Contains(pesquisa) ||
-                                            x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().NM_NOME.Contains(texto) ||
-                                            x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().NM_NOME.Contains(pesquisa) ||
+                                            x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.DS_DESCRICAO.Contains(texto)) ||
+                                            x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.DS_DESCRICAO.Contains(pesquisa)) ||
+                                            x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(texto)) ||
+                                            x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(pesquisa)) ||
                                             x.CAD_PESSOA.NM_NOME_PESSOA.Contains(texto) ||
                                             x.CAD_PESSOA.NM_NOME_PESSOA.Contains(pesquisa)).ToList();
                         }
@@ -93,12 +93,12 @@ namespace DIVULGA_SERVICOS.Controllers
                         {
                             texto = RemoveAcento(word);
                             enderecosTemp = db.CAD_PES_ENDERECO
-                                .Where(x => x.CAD_PESSOA.ATIVADO == true)
+                                .Where(x => x.CAD_PESSOA.CAD_PES_JURIDICA.ATIVO == true)
                                 .Where(x =>
-                                        x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().DS_DESCRICAO.Contains(texto) ||
-                                        x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().DS_DESCRICAO.Contains(pesquisa) ||
-                                        x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().NM_NOME.Contains(texto) ||
-                                        x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().NM_NOME.Contains(pesquisa) ||
+                                        x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.DS_DESCRICAO.Contains(texto)) ||
+                                        x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.DS_DESCRICAO.Contains(pesquisa)) ||
+                                        x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(texto)) ||
+                                        x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(pesquisa)) ||
                                         x.CAD_PESSOA.NM_NOME_PESSOA.Contains(texto) ||
                                         x.CAD_PESSOA.NM_NOME_PESSOA.Contains(pesquisa)).ToList();
                         }
@@ -184,13 +184,13 @@ namespace DIVULGA_SERVICOS.Controllers
                 {
                     texto = RemoveAcento(pesquisa);
                     enderecos = db.CAD_PES_ENDERECO
-                        .Where(x => x.CAD_PESSOA.ATIVADO == true)
+                        .Where(x => x.CAD_PESSOA.CAD_PES_JURIDICA.ATIVO == true)
                         .Where(x => ((int)(((x.localizacao.Distance(localusuario)) / 0.62137) / 1000) <= (distancia)))
                         .Where(x =>
-                                    x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().DS_DESCRICAO.Contains(texto) ||
-                                    x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().DS_DESCRICAO.Contains(pesquisa) ||
-                                    x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().NM_NOME.Contains(texto) ||
-                                    x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().NM_NOME.Contains(pesquisa) ||
+                                    x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.DS_DESCRICAO.Contains(texto)) ||
+                                    x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.DS_DESCRICAO.Contains(pesquisa)) ||
+                                    x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(texto)) ||
+                                    x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(pesquisa)) ||
                                     x.CAD_PESSOA.NM_NOME_PESSOA.Contains(texto) ||
                                     x.CAD_PESSOA.NM_NOME_PESSOA.Contains(pesquisa)).ToList();
                 }
@@ -198,12 +198,12 @@ namespace DIVULGA_SERVICOS.Controllers
                 {
                     texto = RemoveAcento(pesquisa);
                     enderecos = db.CAD_PES_ENDERECO
-                    .Where(x => x.CAD_PESSOA.ATIVADO == true)
+                    .Where(x => x.CAD_PESSOA.CAD_PES_JURIDICA.ATIVO == true)
                     .Where(x =>
-                                x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().DS_DESCRICAO.Contains(texto) ||
-                                x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().DS_DESCRICAO.Contains(pesquisa) ||
-                                x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().NM_NOME.Contains(texto) ||
-                                x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.FirstOrDefault().NM_NOME.Contains(pesquisa) ||
+                                x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.DS_DESCRICAO.Contains(texto)) ||
+                                x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.DS_DESCRICAO.Contains(pesquisa)) ||
+                                x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(texto)) ||
+                                x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(pesquisa)) ||
                                 x.CAD_PESSOA.NM_NOME_PESSOA.Contains(texto) ||
                                 x.CAD_PESSOA.NM_NOME_PESSOA.Contains(pesquisa)).ToList();
                 }

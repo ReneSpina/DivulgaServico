@@ -23,7 +23,9 @@ namespace DIVULGA_SERVICOS.Models
         
         [StringLength(255)]
         public string NM_ESTADO { get; set; }
-        
+
+        public bool DILGAR_ESTADO { get; set; }
+
         public bool BRASIL { get; set; }
 
         public virtual CAD_PES_FORNECEDOR CAD_PES_FORNECEDOR { get; set; }

@@ -32,9 +32,7 @@ C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Release\DIVUL
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Release\DIVULGA_SERVICOS.csproj.GenerateResource.Cache
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Release\DIVULGA_SERVICOS.dll
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Release\DIVULGA_SERVICOS.pdb
-C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Release\DIVULGA_SERVICOS.Migrations.Principal1.resources
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Release\DIVULGA_SERVICOS.Migrations.Principal.resources
-C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Release\DIVULGA_SERVICOS.Migrations.Principal11.resources
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\Antlr3.Runtime.dll
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\EntityFramework.dll
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\EntityFramework.SqlServer.dll
@@ -107,3 +105,5 @@ C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\Microsoft.Owi
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\Microsoft.Owin.Security.Google.xml
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Release\DIVULGA_SERVICOS.Migrations.Principal1.resources
+C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Release\DIVULGA_SERVICOS.Migrations.Principal2.resources

@@ -46,6 +46,9 @@ namespace DIVULGA_SERVICOS.Models
         [Required]
         public bool ACEITE_CONTRATO { get; set; }
 
+        [Required]
+        public bool ATIVO { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CAD_AVALIACAO> CAD_AVALIACAO { get; set; }
 
