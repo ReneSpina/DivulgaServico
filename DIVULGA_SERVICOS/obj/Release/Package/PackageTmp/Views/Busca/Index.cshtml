@@ -20,7 +20,6 @@
 </head>
 
 <body>
-
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a><br />
         @if (Request.IsAuthenticated)
@@ -107,10 +106,10 @@
                                     </label>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary" id="lupaAvancada"><span class="glyphicon glyphicon-search" aria-hidden="true" id="lupa"></span></button>
+                            <button type="submit" class="btn btn-primary botaoPesquisa" id="lupaAvancada"><span class="glyphicon glyphicon-search" aria-hidden="true" id="lupa"></span></button>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true" id="lupa"></span></button>
+                    <button type="submit" class="btn btn-primary botaoPesquisa"><span class="glyphicon glyphicon-search" aria-hidden="true" id="lupa"></span></button>
                 </div>
             </div>
         </form>
@@ -144,6 +143,12 @@
     <div id="map">
     </div>
     <script>
+
+        function soNumero(str) {
+            str = str.toString();
+            return str.replace(/[^0-9]/g, '');
+        }
+
         /*Início do JS do Sidenav Bar*/
         function openNav() {
             document.getElementById("mySidenav").style.width = "auto";
@@ -378,13 +383,13 @@
                     @foreach(var telefone in item.CAD_PESSOA.CAD_PES_FONE)
                     {
                                 <text>
-                                "@telefone.CD_FIXO" + "  <br>  " +
-                                "@telefone.CD_CELULAR" + " - @telefone.NM_OPERADORA" +
+                                "<a href='tel:@telefone.CD_FIXO'>@telefone.CD_FIXO</a>" + "  <br>  " +
+                                "<a href='tel:@telefone.CD_CELULAR'>@telefone.CD_CELULAR" + " - @telefone.NM_OPERADORA" + "</a><br>"+
                                 </text>
                         if(@telefone.WHATSAPP == true)
-                        {
+                                {
                             <text>
-                                "  <img src='~/Content/Imagens/Icon_Whatsapp.png' style='width:25px; margin-top:-14px;' />" +
+                                "<a href='Whatsapp://send/"+soNumero('@telefone.CD_CELULAR')+"#Intent;scheme=smsto;package=com.whatsapp;action=android.intent.action.SENDTO;end'>Abrir no Whatsapp<a>" +
                             </text>
                          }
                         <text>
@@ -1162,7 +1167,20 @@
 
         ga('create', 'UA-92330679-1', 'auto');
         ga('send', 'pageview');
-
+    </script>
+    <script>
+        $('.botaoPesquisa').click(function(){
+            if($("#lat").val() == "")
+            {
+                alert("Não conseguimos identificar sua localização! Informe seu endereço na busca avançada!");
+                return false;
+            }
+            //if ("#lat"){
+            //    hidden.animate({"left":"-245px"}, "slow").removeClass('visible');
+            //} else {
+            //    hidden.animate({"left":"0px"}, "slow").addClass('visible');
+            //}
+        });
     </script>
 </body>
 </html>
