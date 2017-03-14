@@ -389,7 +389,7 @@
                         if(@telefone.WHATSAPP == true)
                                 {
                             <text>
-                                "<a href='Whatsapp://"+soNumero('@telefone.CD_CELULAR')+"'>Abrir no Whatsapp<a>" +
+                                "<a href='intent://send/55"+soNumero('@telefone.CD_CELULAR')+"#Intent;scheme=smsto;package=com.whatsapp;action=android.intent.action.SENDTO;end'>Abrir no Whatsapp<a>" +
                             </text>
                          }
                         <text>
