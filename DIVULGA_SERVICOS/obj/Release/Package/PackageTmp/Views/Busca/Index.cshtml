@@ -395,7 +395,7 @@
                         if(@telefone.WHATSAPP == true)
                                 {
                             <text>
-                                "<a href='intent://send/55"+soNumero('@telefone.CD_CELULAR')+"#Intent;scheme=smsto;package=com.whatsapp;action=android.intent.action.SENDTO;end'>Abrir no Whatsapp<a>" +
+                                "<a href='intent://send/55"+soNumero('@telefone.CD_CELULAR')+"#Intent;scheme=smsto;package=com.whatsapp;action=android.intent.action.SENDTO;end'>Abrir no Whatsapp</a>" +
                             </text>
                          }
                         <text>
@@ -550,11 +550,14 @@
                                         {
                                             <p><b>Fixo: </b>@telefone.CD_FIXO</p>
                                             <p><b>Cel: </b>@telefone.CD_CELULAR - @telefone.NM_OPERADORA
+                                            <br />
                                                 @if(@telefone.WHATSAPP == true)
                                                 {
-                                                <img src="~/Content/Imagens/Icon_Whatsapp.png" style="width:25px; margin-top:-14px;" />
+                                                    string resultString = string.Join(null, System.Text.RegularExpressions.Regex.Split(@telefone.CD_CELULAR, "[^\\d]"));
+                                                    string whatsapp = "intent://send/55" + resultString + "#Intent;scheme=smsto;package=com.whatsapp;action=android.intent.action.SENDTO;end";
+                                                    <a href="@whatsapp">Abrir no Whatsapp</a>
                                                 }
-                                        </p>
+                                            </p>
                                         }
                                     </div>
                                 </div>

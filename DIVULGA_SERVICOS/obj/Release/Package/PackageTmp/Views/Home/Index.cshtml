@@ -115,7 +115,7 @@
             <div class="row">
                 <div class="col-lg-4 col-md-6 text-center">
                     <div class="service-box">
-                        <i class="fa fa-4x fa-location-arrow text-primary sr-icons"></i>
+                        <i class="fa fa-4x fa-paper-plane text-primary sr-icons"></i>
                         <h3>Para o prestador de serviços</h3>
                         <p class="text-muted">
                             <strong>TOTALMENTE GRATUITO</strong>
@@ -129,22 +129,31 @@
                             É importante você saber que...
                         </p>
                         <p>
-                            <a data-toggle="modal" href="#myModalPrestador">LEIA TUDO!</a>
+                            <a data-toggle="modal" href="#myModalPrestador">LEIA MAIS!</a>
                         </p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 text-center">
-                    <div class="service-box">
-                        <i class="fa fa-4x fa-paper-plane text-primary sr-icons"></i>
-                        <h3>Quer divulgar um serviço?</h3>
-                        <p class="text-muted">O interesse pelo texto como objeto de estudo gerou vários.</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 text-center">
                     <div class="service-box">
                         <i class="fa fa-4x fa-newspaper-o text-primary sr-icons"></i>
                         <h3>Quer divulgar seus produtos?</h3>
-                        <p class="text-muted">O interesse pelo texto como objeto de estudo gerou vários.</p>
+                        <p class="text-muted"><a href="~/Account/CadastrarFornecedor">FAÇA O CADASTRO</a>!</p>
+                        <p class="text-muted">O MERCADO DE SERVIÇOS  está entrando no mercado agora e vai se tornar a maior empresa de intermediação de serviços do Brasil!</p>
+                        <p>
+                            <a data-toggle="modal" href="#myModalFornecedor">LEIA MAIS!</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-search text-primary sr-icons"></i>
+                        <h3>Quer pesquisar um serviço?</h3>
+                        <p class="text-muted">NÃO PRECISA DE CADASTRO!</p>
+                        <p class="text-muted">Pesquise o serviço que necessita e encontre o prestador de serviço mais próximo!</p>
+                        <p class="text-muted">Agora vai ficar mais fácil para encontrar o que realmente precisa!</p>
+                        <p>
+                            <a data-toggle="modal" href="#myModalUsuario">LEIA MAIS!</a>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -310,7 +319,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Para o prestador de serviços</h4>
+                    <h3 class="modal-title">Para o prestador de serviços</h3>
                 </div>
                 <div class="modal-body">
                     <p class="text-muted">
@@ -321,19 +330,17 @@
                         Basta realizar o <a href="~/Account/Register">CADASTRO PRINCIPAL</a>.
                     </p>
                     <p class="text-muted">
-                        Feito isso você já aparecerá em nosso mapa de busca como no exemplo abaixo.
+                        Feito isso você já aparecerá em nosso mapa de busca.
                     </p>
-                    <img src="~/Content/Imagens/MapaCaptura.JPG" />
-                    <br />
                     <p class="text-muted">
-                        É importante você saber que, em sua área de gerenciamento, é possível visualizar todos produtos dos fornecedores que estão diretamente relacionados com sua atividade e comercializam em sua região.
+                        É importante você saber que, em sua área de gerenciamento, é possível visualizar todos produtos dos fornecedores que estão diretamente relacionados com sua atividade e são comercializados em sua região.
                         Com isso você terá a comodidade de visualizar seus possíveis parceiros/fornecedores da tela de seu celular ou computador.
                     </p>
                     <p class="text-muted">
                         Se você possui outras atividades, fique tranquilo. Em sua área de gerenciamento também é possível adicionar outras atividade/serviços, outros endereços de atendimento, outros telefones...
                     </p>
                     <p class="text-muted">
-                        Ou seja, temos uma ferramenta completa e gratuita para que você divulgue seu serviço.
+                        Ou seja, temos uma ferramenta completa e gratuita para você divulgar seu serviço.
                     </p>
                 </div>
                 <div class="modal-footer">
@@ -344,6 +351,55 @@
         </div>
     </div>
 
+    <div id="myModalFornecedor" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title">Quer divulgar seus produtos?</h3>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted"><a href="~/Account/Register">FAÇA O CADASTRO</a> E INSIRA SEUS PRODUTOS!</p>
+                    <p class="text-muted">O MERCADO DE SERVIÇOS  está entrando no mercado agora e vai se tornar a maior empresa de intermediação de serviços do Brasil!</p>
+                    <p class="text-muted">Você pode aproveitar isso para divulgar seus produtos/equipamentos/materiais de forma direcionada. Você tem a opção de divulgar para prestadores de serviços que estão relacionados ao que você vende. Você também pode limitar a divulgação por cidades e estados específicos ou divulgar a nível Brasil!</p>
+                    <p class="text-muted">TUDO ISSO GRATUITO POR 6 MESES!</p>
+                    <p class="text-muted">Isso mesmo. Divulgue por 6 meses gratuitos contando a partir da data do cadastro.</p>
+                    <p class="text-muted">Se você não sentir diferença em suas vendas e quiser encerrar o contrato, você pode fazer isso a qualquer hora e lugar. Basta desativar sua conta.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <div id="myModalUsuario" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title">Quer pesquisar um serviço?</h3>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted">NÃO PRECISA DE CADASTRO!</p>
+                    <p class="text-muted">Pesquise o serviço que necessita e encontre o prestador de serviço mais próximo!</p>
+                    <p class="text-muted">Agora vai ficar mais fácil para encontrar o que realmente precisa!</p>
+                    <p class="text-muted">Filtre por prestador mais próximo, que aceita cartões, que está aberto e pronto para lhe atender!</p>
+                    <p class="text-muted">Você também tem a opção de conversar pelo Whatsapp com o prestador e já fechar para resolver seu problema!</p>
+                    <p class="text-muted"><a href="~/Busca">PESQUISE AGORA</a></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
 
 </body>
