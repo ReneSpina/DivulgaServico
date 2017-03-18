@@ -2,17 +2,40 @@
     ViewBag.Title = "Contact";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+<br>
+<br>
+<section class="content">
+    <div class="row">
+        <div class="col-sm-4">
+            <h3>Mercado de Serviços</h3>
+            <hr>
+            <address>
+                <strong>Email:</strong> atendimento@mercadodeservicos.com.br<br>
+                <strong>Phone:</strong> +55-11-96354-5674
+            </address>
+        </div>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+        <div class="col-sm-8 contact-form myform">
+            <h3>Fale com a gente</h3>
+            <hr>
+            <form id="contact" method="post" class="form" role="form">
+                <div class="row">
+                    <div class="col-xs-6 col-md-6 form-group">
+                        <input class="form-control" id="name" name="name" placeholder="Nome" type="text" required="" autofocus="">
+                    </div>
+                    <div class="col-xs-6 col-md-6 form-group">
+                        <input class="form-control" id="email" name="email" placeholder="Email" type="email" style="float: right;" required="">
+                    </div>
+                </div>
+                <textarea class="form-control" id="message" name="message" placeholder="Mensagem" rows="5" style="max-width: 100%;"></textarea>
+                <br>
+                <div class="row">
+                    <div class="col-xs-12 col-md-12 form-group">
+                        <button class="btn btn-primary pull-right" type="submit">Enviar</button>
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

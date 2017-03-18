@@ -28,5 +28,14 @@ namespace DIVULGA_SERVICOS.Controllers
 
             return View();
         }
+
+        public ActionResult ComoFunciona()
+        {
+            return View("PrestadorServico");
+        }
+        public ActionResult ComoFuncionaF()
+        {
+            return View("Fornecedor");
+        }
     }
 }

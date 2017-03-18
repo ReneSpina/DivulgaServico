@@ -4,8 +4,13 @@
 }
 
 
-
-
+@media screen and (min-width: 768px)
+{
+    .myform
+    {
+        width: 55%;
+    }
+}
 #map_container{
     padding-top: 5%;
 }

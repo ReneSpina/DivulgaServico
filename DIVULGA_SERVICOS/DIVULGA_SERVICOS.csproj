@@ -309,6 +309,7 @@
     <Content Include="Content\Imagens\home\projetos.png" />
     <Content Include="Content\Imagens\home\Servicos.png" />
     <Content Include="Content\Imagens\home\sobre.png" />
+    <Content Include="Content\Imagens\MapaCaptura.JPG" />
     <Content Include="Content\Imagens\portfolio\fullsize\1.jpg" />
     <Content Include="Content\Imagens\portfolio\fullsize\2.jpg" />
     <Content Include="Content\Imagens\portfolio\fullsize\3.jpg" />
@@ -325,6 +326,7 @@
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\Mybootstrap.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\stepbystep.css" />
     <Content Include="Content\TelaLogin.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -571,6 +573,8 @@
     <Content Include="Views\Manage\DeletarCidade.cshtml" />
     <Content Include="Views\Manage\DetalhesCidade.cshtml" />
     <Content Include="Views\Manage\EditPerfilFornecedor.cshtml" />
+    <Content Include="Views\Home\Fornecedor.cshtml" />
+    <Content Include="Views\Home\PrestadorServico.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
