@@ -18,15 +18,15 @@
     <link href="~/Content/Mybootstrap.css" rel="stylesheet" />
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
-  (adsbygoogle = window.adsbygoogle || []).push({
-    google_ad_client: "ca-pub-2571448761678693",
-    enable_page_level_ads: true
-  });
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-2571448761678693",
+            enable_page_level_ads: true
+        });
     </script>
 </head>
 
 <body>
-    <div id="mySidenav" class="sidenav">
+    <div id="mySidenav" class="sidenav" style="opacity: 0.85;">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a><br />
         @if (Request.IsAuthenticated)
         {
@@ -35,21 +35,35 @@
             {
                 @Html.AntiForgeryToken()
                 @Html.ActionLink("Olá " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })<br /><br />
+                <hr />
+                @Html.ActionLink("Gerenciar", "Index", "Manage")<br />
+                <hr />
                 @Html.ActionLink("Mercado de Serviços", "Index", "Home")<br />
+                <hr />
                 @Html.ActionLink("Pesquisar Serviços", "Index", "Busca")<br />
+                <hr />
                 @Html.ActionLink("Sobre", "About", "Home")<br />
+                <hr />
                 @Html.ActionLink("Contatos", "Contact", "Home")<br />
+                <hr />
                 <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a><br />
+                <hr />
             }
         }
         else
         {
             @Html.ActionLink("Mercado de Serviços", "Index", "Home")<br />
+            <hr />
             @Html.ActionLink("Pesquisar Serviços", "Index", "Busca")<br />
+            <hr />
             @Html.ActionLink("Sobre", "About", "Home")<br />
+            <hr />
             @Html.ActionLink("Contatos", "Contact", "Home")<br />
+            <hr />
             @Html.ActionLink("Criar Conta", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })<br />
+            <hr />
             @Html.ActionLink("Entrar", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })<br />
+            <hr />
         }
     </div>
 
@@ -59,7 +73,7 @@
         @if (ViewBag.erro != null || ViewBag.erro != "" && ViewBag.Status == 1)
             {
             <script>
-                    alert('@ViewBag.erro');
+                alert('@ViewBag.erro');
             </script>
         }
 
@@ -69,47 +83,50 @@
             <input type="text" class="form-control" name="pesquisa" id="pesquisaM" placeholder="Costureira, Chaveiro, Eletricista">
             <input type="text" id="lat" class="hidden" name="lat">
             <input type="text" id="lng" class="hidden" name="lng">
-            <div class="input-group-btn">
-                <div class="btn-group" role="group">
+            <div class="input-group-btn meugrupo">
+                <div class="btn-group botoesGrupo" role="group">
                     <div class="dropdown dropdown-lg">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                        <button type="button" class="btn btn-default dropdown-toggle botaoDropdown" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
                         <div class="dropdown-menu dropdown-menu-right" id="menudropdown" role="menu">
                             <div class="form-group">
                                 <input class="form-control" id="autocomplete" placeholder="Digite um outro endereço"
                                        onFocus="geolocates()" type="text">
                             </div>
                             <div class="form-group">
-                                <label for="distancia">
-                                    Distante até
-                                </label>
-                                <input class="form-control" id="distancia" name="distancia" placeholder="Valor em Km"
-                                       type="number">
+                                <label class="control-label col-md-2" for="distancia">Distante até</label>
+                                <div class="col-md-10">
+                                    <input class="form-control" id="distancia" name="distancia" placeholder="Km"
+                                           type="number" style="width: 100px; margin-left: 55px;">
+                                </div>
                             </div>
                             <div class="form-group">
-                                <div class="checkbox segunda_check">
-                                    <label for="cartão">
-                                        Aceita cartão
+                                <label class="control-label col-md-2" for="cartão">Aceita cartão</label>
+                                <div class="col-md-10">
+                                    <div class="checkbox">
                                         <input id="aceitacartao" type="checkbox" value="true" name="aceitacartao" />
                                         <input type="hidden" value="false" name="aceitacartao" />
-                                    </label>
+                                    </div>
                                 </div>
                             </div>
+
+
                             <div class="form-group">
-                                <div class="checkbox segunda_check">
-                                    <label for="aberto">
-                                        Aberto Agora
+                                <label class="control-label col-md-2" for="aberto">Aberto Agora</label>
+                                <div class="col-md-10">
+                                    <div class="checkbox">
                                         <input id="aberto" type="checkbox" value="true" name="aberto" />
                                         <input type="hidden" value="false" name="aberto" />
-                                    </label>
+                                    </div>
                                 </div>
                             </div>
+
                             <div class="form-group">
-                                <div class="checkbox segunda_check">
-                                    <label for="vintequatro">
-                                        Trabalha 24/7
+                                <label class="control-label col-md-2" for="vintequatro">Trabalha 24/7</label>
+                                <div class="col-md-10">
+                                    <div class="checkbox">
                                         <input name="vintequatro" id="vintequatro" value="true" type="checkbox">
                                         <input type="hidden" value="false" name="vintequatro" />
-                                    </label>
+                                    </div>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary botaoPesquisa" id="lupaAvancada"><span class="glyphicon glyphicon-search" aria-hidden="true" id="lupa"></span></button>
@@ -389,8 +406,8 @@
                     @foreach(var telefone in item.CAD_PESSOA.CAD_PES_FONE)
                     {
                                 <text>
-                                "<a href='tel:@telefone.CD_FIXO'>@telefone.CD_FIXO</a>" + "  <br>  " +
-                                "<a href='tel:@telefone.CD_CELULAR'>@telefone.CD_CELULAR" + " - @telefone.NM_OPERADORA" + "</a><br>"+
+                                "<a href='tel:@telefone.CD_FIXO'>@telefone.CD_FIXO</a>" + "  <br><br> " +
+                                "<a href='tel:@telefone.CD_CELULAR'>@telefone.CD_CELULAR" + " - @telefone.NM_OPERADORA" + "</a><br><br>"+
                                 </text>
                         if(@telefone.WHATSAPP == true)
                                 {
@@ -548,16 +565,14 @@
                                     <div class="well">
                                         @foreach (var telefone in endereco.CAD_PESSOA.CAD_PES_FONE)
                                         {
-                                            <p><b>Fixo: </b>@telefone.CD_FIXO</p>
-                                            <p><b>Cel: </b>@telefone.CD_CELULAR - @telefone.NM_OPERADORA
-                                            <br />
-                                                @if(@telefone.WHATSAPP == true)
-                                                {
-                                                    string resultString = string.Join(null, System.Text.RegularExpressions.Regex.Split(@telefone.CD_CELULAR, "[^\\d]"));
-                                                    string whatsapp = "intent://send/55" + resultString + "#Intent;scheme=smsto;package=com.whatsapp;action=android.intent.action.SENDTO;end";
-                                                    <a href="@whatsapp">Abrir no Whatsapp</a>
-                                                }
-                                            </p>
+                                            <p><b>Fixo: </b><a href='tel:@telefone.CD_FIXO'>@telefone.CD_FIXO</a></p>
+                                            <p><b>Cel: </b><a href='tel:@telefone.CD_CELULAR '>@telefone.CD_CELULAR</a></p>
+                                            if (@telefone.WHATSAPP == true)
+                                            {
+                                                string resultString = string.Join(null, System.Text.RegularExpressions.Regex.Split(@telefone.CD_CELULAR, "[^\\d]"));
+                                                string whatsapp = "intent://send/55" + resultString + "#Intent;scheme=smsto;package=com.whatsapp;action=android.intent.action.SENDTO;end";
+                                                <p><a href="@whatsapp">Abrir no Whatsapp</a></p>
+                                            }
                                         }
                                     </div>
                                 </div>
@@ -593,7 +608,7 @@
                                     <div class="col-sm-3" style="width:100%">
                                         <h4>Nossos horários:</h4>
                                         <div class="well">
-                                                <strong>Nós trabalhamos 24/7</strong>
+                                            <strong>Nós trabalhamos 24/7</strong>
                                         </div>
                                     </div>
                                 </div>
@@ -607,17 +622,23 @@
                                             @foreach (var hora in endereco.CAD_PESSOA.CAD_PES_JURIDICA.CAD_HORA_ATENDIMENTO)
                                             {
                                                 <div>
-                                                    @{ 
+                                                    @{
                                                         var culture = new System.Globalization.CultureInfo("pt-BR");
                                                     }
-                                                    <strong>@culture.DateTimeFormat.GetDayName((DayOfWeek)@hora.DIA_SEMANA)
-                                                    </strong> de @hora.HORA_INICIO às @hora.HORA_FIM
+                                                    @if (hora.HORA_INICIO != 1)
+                                                    {
+                                                        <text>
+                                                            <strong>
+                                                                @culture.DateTimeFormat.GetDayName((DayOfWeek)@hora.DIA_SEMANA)
+                                                        </strong> de @hora.HORA_INICIO às @hora.HORA_FIM
+                                                        </text>
+                                                    }
                                                 </div>
-                                            }
+                                                        }
                                         </div>
                                     </div>
                                 </div>
-                            }
+                                                        }
 
 
                             <h4>Média da Avaliação:</h4>
@@ -625,7 +646,7 @@
                                 <div class="row">
                                     <div class="col-sm-3" id="myrating">
                                         @if (endereco.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count == 1)
-                                                        {
+                                        {
                                             <h5>
                                                 @endereco.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count avaliação!
                                             </h5>
@@ -856,7 +877,7 @@
                                             count = 5 - media;
                                             <div class="row" style="border-bottom: 1px solid rgb(229, 229, 229);">
                                                 <div class="comentarioAvaliacao">
-                                                    <div class="review-block-name"><a href="#">@avaliacao.CAD_PES_USUARIO.CAD_PESSOA.NM_NOME_PESSOA</a></div>
+                                                    <div class="review-block-name"><a href="#">@avaliacao.NM_NOME_AVALIADOR</a></div>
                                                     <div class="review-block-date">@avaliacao.DIA_AVALIACAO.ToString("dd'/'MM'/'yyyy")</div>
                                                 </div>
                                                 <div class="col-sm-9">
@@ -903,270 +924,272 @@
                     </div>
                 </div>
             </div>
-            var idavaliacao = "myModalAvaliacao" + @endereco.CAD_PESSOA.Id;
-            <div class="modal fade" id='@idavaliacao' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <h4 class="modal-title" id="myModalLabel">@endereco.CAD_PESSOA.NM_NOME_PESSOA</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class='alert alert-info' role='alert'>
-                                <strong>Verde para bom e vermelho para ruim!</strong>
-                            </div>
-                            <form class="formAvaliacao" action="~/Avaliacao/Create" method="post">
-                                <div class="input-group">
-                                    <div class="form-group">
-                                        <label class="control-label" for="ORGANIZACAO">Organização:</label>
-                                        <div class="col-md-10">
-                                            <div class="btn-group" data-toggle="buttons">
-                                                <label class="btn btn-xs btn-success">
-                                                    <input type="radio" name="ORGANIZACAO" id="ORGANIZACAO" value="5" autocomplete="off">
-                                                    <span class="glyphicon glyphicon-ok"></span>
-                                                </label>
-                                                <label class="btn btn-xs btn-primary">
-                                                    <input type="radio" name="ORGANIZACAO" id="ORGANIZACAO" value="4" autocomplete="off">
-                                                    <span class="glyphicon glyphicon-ok"></span>
-                                                </label>
-                                                <label class="btn btn-xs btn-default">
-                                                    <input type="radio" name="ORGANIZACAO" id="ORGANIZACAO" value="3" autocomplete="off">
-                                                    <span class="glyphicon glyphicon-ok"></span>
-                                                </label>
-                                                <label class="btn btn-xs btn-warning">
-                                                    <input type="radio" name="ORGANIZACAO" id="ORGANIZACAO" value="2" autocomplete="off">
-                                                    <span class="glyphicon glyphicon-ok"></span>
-                                                </label>
-                                                <label class="btn btn-xs btn-danger">
-                                                    <input type="radio" name="ORGANIZACAO" id="ORGANIZACAO" value="1" autocomplete="off">
-                                                    <span class="glyphicon glyphicon-ok"></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label" for="PRECO_QUALIDADE">Qualidade do Serviço:</label>
-                                        <div class="col-md-10">
-                                            <div class="btn-group" data-toggle="buttons">
-                                                <label class="btn btn-xs btn-success btn-gradient">
-                                                    <input type="radio" name="PRECO_QUALIDADE" id="PRECO_QUALIDADE" value="5" autocomplete="off">
-                                                    <span class="glyphicon glyphicon-ok"></span>
-                                                </label>
-                                                <label class="btn btn-xs btn-primary">
-                                                    <input type="radio" name="PRECO_QUALIDADE" id="PRECO_QUALIDADE" value="4" autocomplete="off">
-                                                    <span class="glyphicon glyphicon-ok"></span>
-                                                </label>
-                                                <label class="btn btn-xs btn-default">
-                                                    <input type="radio" name="PRECO_QUALIDADE" id="PRECO_QUALIDADE" value="3" autocomplete="off">
-                                                    <span class="glyphicon glyphicon-ok"></span>
-                                                </label>
-                                                <label class="btn btn-xs btn-warning">
-                                                    <input type="radio" name="PRECO_QUALIDADE" id="PRECO_QUALIDADE" value="2" autocomplete="off">
-                                                    <span class="glyphicon glyphicon-ok"></span>
-                                                </label>
-                                                <label class="btn btn-xs btn-danger">
-                                                    <input type="radio" name="PRECO_QUALIDADE" id="PRECO_QUALIDADE" value="1" autocomplete="off">
-                                                    <span class="glyphicon glyphicon-ok"></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label" for="PONTUALIDADE">Pontualidade:</label>
-                                        <div class="col-md-10">
-                                            <div class="btn-group" data-toggle="buttons">
-                                                <label class="btn btn-xs btn-success btn-gradient">
-                                                    <input type="radio" name="PONTUALIDADE" id="PONTUALIDADE" value="5" autocomplete="off">
-                                                    <span class="glyphicon glyphicon-ok"></span>
-                                                </label>
-                                                <label class="btn btn-xs btn-primary">
-                                                    <input type="radio" name="PONTUALIDADE" id="PONTUALIDADE" value="4" autocomplete="off">
-                                                    <span class="glyphicon glyphicon-ok"></span>
-                                                </label>
-                                                <label class="btn btn-xs btn-default">
-                                                    <input type="radio" name="PONTUALIDADE" id="PONTUALIDADE" value="3" autocomplete="off">
-                                                    <span class="glyphicon glyphicon-ok"></span>
-                                                </label>
-                                                <label class="btn btn-xs btn-warning">
-                                                    <input type="radio" name="PONTUALIDADE" id="PONTUALIDADE" value="2" autocomplete="off">
-                                                    <span class="glyphicon glyphicon-ok"></span>
-                                                </label>
-                                                <label class="btn btn-xs btn-danger">
-                                                    <input type="radio" name="PONTUALIDADE" id="PONTUALIDADE" value="1" autocomplete="off">
-                                                    <span class="glyphicon glyphicon-ok"></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label" for="INDICACAO">Você o Indicaria?</label>
-                                        <div class="col-md-10">
-                                            <div class="btn-group" data-toggle="buttons">
-                                                <label class="btn btn-xs btn-success btn-gradient">
-                                                    <input type="radio" name="INDICACAO" id="INDICACAO" value="5" autocomplete="off">
-                                                    <span class="glyphicon glyphicon-ok"></span>
-                                                </label>
-                                                <label class="btn btn-xs btn-primary">
-                                                    <input type="radio" name="INDICACAO" id="INDICACAO" value="4" autocomplete="off">
-                                                    <span class="glyphicon glyphicon-ok"></span>
-                                                </label>
-                                                <label class="btn btn-xs btn-default">
-                                                    <input type="radio" name="INDICACAO" id="INDICACAO" value="3" autocomplete="off">
-                                                    <span class="glyphicon glyphicon-ok"></span>
-                                                </label>
-                                                <label class="btn btn-xs btn-warning">
-                                                    <input type="radio" name="INDICACAO" id="INDICACAO" value="2" autocomplete="off">
-                                                    <span class="glyphicon glyphicon-ok"></span>
-                                                </label>
-                                                <label class="btn btn-xs btn-danger">
-                                                    <input type="radio" name="INDICACAO" id="INDICACAO" value="1" autocomplete="off">
-                                                    <span class="glyphicon glyphicon-ok"></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label" for="SATISFACAO_SERVICO">Satisfação pelo Serviço:</label>
-                                        <div class="col-md-10">
-                                            <div class="btn-group" data-toggle="buttons">
-                                                <label class="btn btn-xs btn-success btn-gradient">
-                                                    <input type="radio" name="SATISFACAO_SERVICO" id="SATISFACAO_SERVICO" value="5" autocomplete="off">
-                                                    <span class="glyphicon glyphicon-ok"></span>
-                                                </label>
-                                                <label class="btn btn-xs btn-primary">
-                                                    <input type="radio" name="SATISFACAO_SERVICO" id="SATISFACAO_SERVICO" value="4" autocomplete="off">
-                                                    <span class="glyphicon glyphicon-ok"></span>
-                                                </label>
-                                                <label class="btn btn-xs btn-default">
-                                                    <input type="radio" name="SATISFACAO_SERVICO" id="SATISFACAO_SERVICO" value="3" autocomplete="off">
-                                                    <span class="glyphicon glyphicon-ok"></span>
-                                                </label>
-                                                <label class="btn btn-xs btn-warning">
-                                                    <input type="radio" name="SATISFACAO_SERVICO" id="SATISFACAO_SERVICO" value="2" autocomplete="off">
-                                                    <span class="glyphicon glyphicon-ok"></span>
-                                                </label>
-                                                <label class="btn btn-xs btn-danger">
-                                                    <input type="radio" name="SATISFACAO_SERVICO" id="SATISFACAO_SERVICO" value="1" autocomplete="off">
-                                                    <span class="glyphicon glyphicon-ok"></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
+                                                        var idavaliacao = "myModalAvaliacao" + @endereco.CAD_PESSOA.Id;
+                                                        <div class="modal fade" id='@idavaliacao' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                        <h4 class="modal-title" id="myModalLabel">@endereco.CAD_PESSOA.NM_NOME_PESSOA</h4>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div class='alert alert-info' role='alert'>
+                                                                            <strong>Verde para bom e vermelho para ruim!</strong>
+                                                                        </div>
+                                                                        <form class="formAvaliacao" action="~/Avaliacao/Create" method="post">
+                                                                            <div class="input-group">
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label" for="ORGANIZACAO">Organização:</label>
+                                                                                    <div class="col-md-10">
+                                                                                        <div class="btn-group" data-toggle="buttons">
+                                                                                            <label class="btn btn-xs btn-success">
+                                                                                                <input type="radio" name="ORGANIZACAO" id="ORGANIZACAO" value="5" autocomplete="off">
+                                                                                                <span class="glyphicon glyphicon-ok"></span>
+                                                                                            </label>
+                                                                                            <label class="btn btn-xs btn-primary">
+                                                                                                <input type="radio" name="ORGANIZACAO" id="ORGANIZACAO" value="4" autocomplete="off">
+                                                                                                <span class="glyphicon glyphicon-ok"></span>
+                                                                                            </label>
+                                                                                            <label class="btn btn-xs btn-default">
+                                                                                                <input type="radio" name="ORGANIZACAO" id="ORGANIZACAO" value="3" autocomplete="off">
+                                                                                                <span class="glyphicon glyphicon-ok"></span>
+                                                                                            </label>
+                                                                                            <label class="btn btn-xs btn-warning">
+                                                                                                <input type="radio" name="ORGANIZACAO" id="ORGANIZACAO" value="2" autocomplete="off">
+                                                                                                <span class="glyphicon glyphicon-ok"></span>
+                                                                                            </label>
+                                                                                            <label class="btn btn-xs btn-danger">
+                                                                                                <input type="radio" name="ORGANIZACAO" id="ORGANIZACAO" value="1" autocomplete="off">
+                                                                                                <span class="glyphicon glyphicon-ok"></span>
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label" for="PRECO_QUALIDADE">Qualidade do Serviço:</label>
+                                                                                    <div class="col-md-10">
+                                                                                        <div class="btn-group" data-toggle="buttons">
+                                                                                            <label class="btn btn-xs btn-success btn-gradient">
+                                                                                                <input type="radio" name="PRECO_QUALIDADE" id="PRECO_QUALIDADE" value="5" autocomplete="off">
+                                                                                                <span class="glyphicon glyphicon-ok"></span>
+                                                                                            </label>
+                                                                                            <label class="btn btn-xs btn-primary">
+                                                                                                <input type="radio" name="PRECO_QUALIDADE" id="PRECO_QUALIDADE" value="4" autocomplete="off">
+                                                                                                <span class="glyphicon glyphicon-ok"></span>
+                                                                                            </label>
+                                                                                            <label class="btn btn-xs btn-default">
+                                                                                                <input type="radio" name="PRECO_QUALIDADE" id="PRECO_QUALIDADE" value="3" autocomplete="off">
+                                                                                                <span class="glyphicon glyphicon-ok"></span>
+                                                                                            </label>
+                                                                                            <label class="btn btn-xs btn-warning">
+                                                                                                <input type="radio" name="PRECO_QUALIDADE" id="PRECO_QUALIDADE" value="2" autocomplete="off">
+                                                                                                <span class="glyphicon glyphicon-ok"></span>
+                                                                                            </label>
+                                                                                            <label class="btn btn-xs btn-danger">
+                                                                                                <input type="radio" name="PRECO_QUALIDADE" id="PRECO_QUALIDADE" value="1" autocomplete="off">
+                                                                                                <span class="glyphicon glyphicon-ok"></span>
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label" for="PONTUALIDADE">Pontualidade:</label>
+                                                                                    <div class="col-md-10">
+                                                                                        <div class="btn-group" data-toggle="buttons">
+                                                                                            <label class="btn btn-xs btn-success btn-gradient">
+                                                                                                <input type="radio" name="PONTUALIDADE" id="PONTUALIDADE" value="5" autocomplete="off">
+                                                                                                <span class="glyphicon glyphicon-ok"></span>
+                                                                                            </label>
+                                                                                            <label class="btn btn-xs btn-primary">
+                                                                                                <input type="radio" name="PONTUALIDADE" id="PONTUALIDADE" value="4" autocomplete="off">
+                                                                                                <span class="glyphicon glyphicon-ok"></span>
+                                                                                            </label>
+                                                                                            <label class="btn btn-xs btn-default">
+                                                                                                <input type="radio" name="PONTUALIDADE" id="PONTUALIDADE" value="3" autocomplete="off">
+                                                                                                <span class="glyphicon glyphicon-ok"></span>
+                                                                                            </label>
+                                                                                            <label class="btn btn-xs btn-warning">
+                                                                                                <input type="radio" name="PONTUALIDADE" id="PONTUALIDADE" value="2" autocomplete="off">
+                                                                                                <span class="glyphicon glyphicon-ok"></span>
+                                                                                            </label>
+                                                                                            <label class="btn btn-xs btn-danger">
+                                                                                                <input type="radio" name="PONTUALIDADE" id="PONTUALIDADE" value="1" autocomplete="off">
+                                                                                                <span class="glyphicon glyphicon-ok"></span>
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label" for="INDICACAO">Você o Indicaria?</label>
+                                                                                    <div class="col-md-10">
+                                                                                        <div class="btn-group" data-toggle="buttons">
+                                                                                            <label class="btn btn-xs btn-success btn-gradient">
+                                                                                                <input type="radio" name="INDICACAO" id="INDICACAO" value="5" autocomplete="off">
+                                                                                                <span class="glyphicon glyphicon-ok"></span>
+                                                                                            </label>
+                                                                                            <label class="btn btn-xs btn-primary">
+                                                                                                <input type="radio" name="INDICACAO" id="INDICACAO" value="4" autocomplete="off">
+                                                                                                <span class="glyphicon glyphicon-ok"></span>
+                                                                                            </label>
+                                                                                            <label class="btn btn-xs btn-default">
+                                                                                                <input type="radio" name="INDICACAO" id="INDICACAO" value="3" autocomplete="off">
+                                                                                                <span class="glyphicon glyphicon-ok"></span>
+                                                                                            </label>
+                                                                                            <label class="btn btn-xs btn-warning">
+                                                                                                <input type="radio" name="INDICACAO" id="INDICACAO" value="2" autocomplete="off">
+                                                                                                <span class="glyphicon glyphicon-ok"></span>
+                                                                                            </label>
+                                                                                            <label class="btn btn-xs btn-danger">
+                                                                                                <input type="radio" name="INDICACAO" id="INDICACAO" value="1" autocomplete="off">
+                                                                                                <span class="glyphicon glyphicon-ok"></span>
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label" for="SATISFACAO_SERVICO">Satisfação pelo Serviço:</label>
+                                                                                    <div class="col-md-10">
+                                                                                        <div class="btn-group" data-toggle="buttons">
+                                                                                            <label class="btn btn-xs btn-success btn-gradient">
+                                                                                                <input type="radio" name="SATISFACAO_SERVICO" id="SATISFACAO_SERVICO" value="5" autocomplete="off">
+                                                                                                <span class="glyphicon glyphicon-ok"></span>
+                                                                                            </label>
+                                                                                            <label class="btn btn-xs btn-primary">
+                                                                                                <input type="radio" name="SATISFACAO_SERVICO" id="SATISFACAO_SERVICO" value="4" autocomplete="off">
+                                                                                                <span class="glyphicon glyphicon-ok"></span>
+                                                                                            </label>
+                                                                                            <label class="btn btn-xs btn-default">
+                                                                                                <input type="radio" name="SATISFACAO_SERVICO" id="SATISFACAO_SERVICO" value="3" autocomplete="off">
+                                                                                                <span class="glyphicon glyphicon-ok"></span>
+                                                                                            </label>
+                                                                                            <label class="btn btn-xs btn-warning">
+                                                                                                <input type="radio" name="SATISFACAO_SERVICO" id="SATISFACAO_SERVICO" value="2" autocomplete="off">
+                                                                                                <span class="glyphicon glyphicon-ok"></span>
+                                                                                            </label>
+                                                                                            <label class="btn btn-xs btn-danger">
+                                                                                                <input type="radio" name="SATISFACAO_SERVICO" id="SATISFACAO_SERVICO" value="1" autocomplete="off">
+                                                                                                <span class="glyphicon glyphicon-ok"></span>
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
 
-                                    <div class="form-group">
-                                        <label class="control-label" for="NM_ASSUNTO">Título da sua avaliação:</label>
-                                        <div class="col-md-10">
-                                            <input class="form-control" name="NM_ASSUNTO" id="NM_ASSUNTO" placeholder="Título do seu comentário">
-                                        </div>
-                                    </div>
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label" for="NM_ASSUNTO">Título da sua avaliação:</label>
+                                                                                    <div class="col-md-10">
+                                                                                        <input class="form-control" name="NM_ASSUNTO" id="NM_ASSUNTO" placeholder="Título do seu comentário">
+                                                                                    </div>
+                                                                                </div>
 
-                                    <div class="form-group">
-                                        <label class="control-label" for="DS_DESCRICAO">Descrição:</label>
-                                        <div class="col-md-10">
-                                            <textarea class="form-control" name="DS_DESCRICAO" id="DS_DESCRICAO" rows="3" placeholder="Um breve texto para expor sua opinião..."></textarea>
-                                        </div>
-                                    </div>
-                                    <input type="text" id="CD_PES_JURIDICA" class="hidden" name="CD_PES_JURIDICA" value="@endereco.CD_PESSOA">
-                                    <input type="text" id="CD_PES_USUARIO" class="hidden" name="CD_PES_USUARIO" value="@User.Identity.GetUserId()">
-                                    <div class="col-md-offset-2 col-md-10">
-                                        <input type="submit" value="Avaliar" class="btn btn-default" />
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="modal fade" id="myModalLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <h4 class="modal-title" id="myModalLabel">Faça Login para Avaliar</h4>
-                        </div>
-                        <div class="modal-body">
-                            @{
-                                var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
-                                if (loginProviders.Count() == 0)
-                                {
-                                    <div>
-                                        <p>
-                                            There are no external authentication services configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                                            for details on setting up this ASP.NET application to support logging in via external services.
-                                        </p>
-                                    </div>
-                                }
-                                else {
-                                    using (Html.BeginForm("ExternalLogin", "Account"))
-                                    {
-                                        @Html.AntiForgeryToken()
-                                        <div id="socialLoginList">
-                                            <p>
-                                                @foreach (AuthenticationDescription p in loginProviders)
-                                                {
-                                                    <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">@p.AuthenticationType</button>
-                                                }
-                                            </p>
-                                        </div>
-                                    }
-                                }
-                            }
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label" for="DS_DESCRICAO">Descrição:</label>
+                                                                                    <div class="col-md-10">
+                                                                                        <textarea class="form-control" name="DS_DESCRICAO" id="DS_DESCRICAO" rows="3" placeholder="Um breve texto para expor sua opinião..."></textarea>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <input type="text" id="CD_PES_JURIDICA" class="hidden" name="CD_PES_JURIDICA" value="@endereco.CD_PESSOA">
+                                                                                <input type="text" id="CD_AVALIADOR" class="hidden" name="CD_AVALIADOR" value="@User.Identity.GetUserId()">
+                                                                                <input type="text" id="NM_NOME_AVALIADOR" class="hidden" name="NM_NOME_AVALIADOR" value="@User.Identity.Name">
+                                                                                <br />
+                                                                                <div class="col-md-offset-2 col-md-10">
+                                                                                    <input type="submit" value="Avaliar" class="btn btn-default" />
+                                                                                </div>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
 
-            var denuncia = "myModalDenuncia" + @endereco.CAD_PESSOA.Id;
-            <div class="modal fade" id='@denuncia' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <h4 class="modal-title" id="myModalLabel">Denunciar</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class='alert alert-info' role='alert'>
-                                <strong>Informe o Motivo da Denúncia</strong>
-                            </div>
-                            <form class="formAvaliacao" action="~/Busca/AlertaPrestador" method="get">
-                                <div class="input-group">
-                                    <input class="form-control hidden" name="email" id="email" value="@endereco.CAD_PESSOA.Email">
-                                    
-                                    <div class="form-group">
-                                        <label class="control-label" for="descricao">Descrição:</label>
-                                        <div class="col-md-10">
-                                            <textarea class="form-control" name="descricao" id="descricao" rows="3" placeholder="Nos conte o motivo de sua denúncia..."></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-offset-2 col-md-10">
-                                        <input type="submit" value="Denunciar" class="btn btn-default" />
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                                    }
-                                }
+                                                        <div class="modal fade" id="myModalLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                        <h4 class="modal-title" id="myModalLabel">Faça Login para Avaliar</h4>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        @{
+                                                                            var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
+                                                                            if (loginProviders.Count() == 0)
+                                                                            {
+                                                                                <div>
+                                                                                    <p>
+                                                                                        There are no external authentication services configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                                                                                        for details on setting up this ASP.NET application to support logging in via external services.
+                                                                                    </p>
+                                                                                </div>
+                                                                            }
+                                                                            else {
+                                                                                using (Html.BeginForm("ExternalLogin", "Account"))
+                                                                                {
+                                                                                    @Html.AntiForgeryToken()
+                                                                                    <div id="socialLoginList">
+                                                                                        <p>
+                                                                                            @foreach (AuthenticationDescription p in loginProviders)
+                                                                                            {
+                                                                                                <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">@p.AuthenticationType</button>
+                                                                                            }
+                                                                                        </p>
+                                                                                    </div>
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                                            var denuncia = "myModalDenuncia" + @endereco.CAD_PESSOA.Id;
+                                                                            <div class="modal fade" id='@denuncia' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                                <div class="modal-dialog" role="document">
+                                                                                    <div class="modal-content">
+                                                                                        <div class="modal-header">
+                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                <span aria-hidden="true">&times;</span>
+                                                                                            </button>
+                                                                                            <h4 class="modal-title" id="myModalLabel">Denunciar</h4>
+                                                                                        </div>
+                                                                                        <div class="modal-body">
+                                                                                            <div class='alert alert-info' role='alert'>
+                                                                                                <strong>Informe o Motivo da Denúncia</strong>
+                                                                                            </div>
+                                                                                            <form class="formAvaliacao" action="~/Busca/AlertaPrestador" method="get">
+                                                                                                <div class="input-group">
+                                                                                                    <input class="form-control hidden" name="email" id="email" value="@endereco.CAD_PESSOA.Email">
+
+                                                                                                    <div class="form-group">
+                                                                                                        <label class="control-label" for="descricao">Descrição:</label>
+                                                                                                        <div class="col-md-10">
+                                                                                                            <textarea class="form-control" name="descricao" id="descricao" rows="3" placeholder="Nos conte o motivo de sua denúncia..."></textarea>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <div class="col-md-offset-2 col-md-10">
+                                                                                                        <input type="submit" value="Denunciar" class="btn btn-default" />
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </form>
+                                                                                        </div>
+                                                                                        <div class="modal-footer">
+                                                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                                }
+                                                                            }
 
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

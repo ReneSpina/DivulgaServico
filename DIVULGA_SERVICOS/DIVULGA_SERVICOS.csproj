@@ -253,17 +253,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201703112235427_Principal.cs" />
-    <Compile Include="Migrations\201703112235427_Principal.Designer.cs">
-      <DependentUpon>201703112235427_Principal.cs</DependentUpon>
+    <Compile Include="Migrations\201703182241334_Principal.cs" />
+    <Compile Include="Migrations\201703182241334_Principal.Designer.cs">
+      <DependentUpon>201703182241334_Principal.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201703121507250_Principal1.cs" />
-    <Compile Include="Migrations\201703121507250_Principal1.Designer.cs">
-      <DependentUpon>201703121507250_Principal1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703121850191_Principal2.cs" />
-    <Compile Include="Migrations\201703121850191_Principal2.Designer.cs">
-      <DependentUpon>201703121850191_Principal2.cs</DependentUpon>
+    <Compile Include="Migrations\201703210012114_Principal1.cs" />
+    <Compile Include="Migrations\201703210012114_Principal1.Designer.cs">
+      <DependentUpon>201703210012114_Principal1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -575,6 +571,9 @@
     <Content Include="Views\Manage\EditPerfilFornecedor.cshtml" />
     <Content Include="Views\Home\Fornecedor.cshtml" />
     <Content Include="Views\Home\PrestadorServico.cshtml" />
+    <Content Include="Views\Manage\DeletarUsuario.cshtml" />
+    <Content Include="Views\Home\Privacidade.cshtml" />
+    <Content Include="Views\Home\TermosDeUso.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -590,14 +589,11 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201703112235427_Principal.resx">
-      <DependentUpon>201703112235427_Principal.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201703182241334_Principal.resx">
+      <DependentUpon>201703182241334_Principal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703121507250_Principal1.resx">
-      <DependentUpon>201703121507250_Principal1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703121850191_Principal2.resx">
-      <DependentUpon>201703121850191_Principal2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201703210012114_Principal1.resx">
+      <DependentUpon>201703210012114_Principal1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -318,7 +318,7 @@ width: 94%;
 }*/
 
 
-#adv-search
+/*#adv-search
 {
     position: absolute;
     width: 100%;
@@ -349,7 +349,7 @@ width: 94%;
 {
     opacity: 1;
     border-radius: 4px;
-}
+}*/
 
 /*#menudropdown{
     right: 188px;
@@ -357,7 +357,7 @@ width: 94%;
 }*/
 
 
-#boxhamburguermap {
+/*#boxhamburguermap {
     z-index: 1;
     float: left;
     padding: 9.5px;
@@ -365,7 +365,7 @@ width: 94%;
     background: rgb(255, 255, 255);
     border-radius: 2px 0px 0px 2px;
     background-color: rgb(51, 122, 183);
-}
+}*/
 
 /*.dropdown.dropdown-lg .dropdown-menu {
     margin-top: -1px;

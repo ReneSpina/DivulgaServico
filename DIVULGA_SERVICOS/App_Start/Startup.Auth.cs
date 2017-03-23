@@ -54,9 +54,9 @@ namespace DIVULGA_SERVICOS
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "449794975352518",
+               appSecret: "2bdfe3e860185be6ee5fe03773d32e35");
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {

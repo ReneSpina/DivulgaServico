@@ -12,7 +12,8 @@ namespace DIVULGA_SERVICOS.Migrations
                 c => new
                     {
                         CD_PES_JURIDICA = c.String(nullable: false, maxLength: 128),
-                        CD_PES_USUARIO = c.String(nullable: false, maxLength: 128),
+                        SQ_AVALIACAO = c.Long(nullable: false, identity: true),
+                        CD_AVALIADOR = c.String(),
                         PRECO_QUALIDADE = c.Int(nullable: false),
                         PONTUALIDADE = c.Int(nullable: false),
                         ORGANIZACAO = c.Int(nullable: false),
@@ -22,11 +23,9 @@ namespace DIVULGA_SERVICOS.Migrations
                         NM_ASSUNTO = c.String(nullable: false, unicode: false, storeType: "text"),
                         DIA_AVALIACAO = c.DateTime(nullable: false),
                     })
-                .PrimaryKey(t => new { t.CD_PES_JURIDICA, t.CD_PES_USUARIO })
+                .PrimaryKey(t => new { t.CD_PES_JURIDICA, t.SQ_AVALIACAO })
                 .ForeignKey("dbo.CAD_PES_JURIDICA", t => t.CD_PES_JURIDICA)
-                .ForeignKey("dbo.CAD_PES_USUARIO", t => t.CD_PES_USUARIO)
-                .Index(t => t.CD_PES_JURIDICA)
-                .Index(t => t.CD_PES_USUARIO);
+                .Index(t => t.CD_PES_JURIDICA);
             
             CreateTable(
                 "dbo.CAD_PES_JURIDICA",
@@ -38,6 +37,7 @@ namespace DIVULGA_SERVICOS.Migrations
                         DS_QUEM_SOMOS = c.String(unicode: false, storeType: "text"),
                         TODO_DIA = c.Boolean(nullable: false),
                         ACEITE_CONTRATO = c.Boolean(nullable: false),
+                        ATIVO = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.CD_PESSOA)
                 .ForeignKey("dbo.AspNetUsers", t => t.CD_PESSOA)
@@ -90,7 +90,7 @@ namespace DIVULGA_SERVICOS.Migrations
                     {
                         Id = c.String(nullable: false, maxLength: 128),
                         NM_NOME_PESSOA = c.String(nullable: false, maxLength: 255),
-                        ATIVADO = c.Boolean(nullable: false),
+                        NEWSLETTER = c.Boolean(nullable: false),
                         DT_DATA_CADASTRO = c.DateTime(nullable: false, storeType: "date"),
                         Email = c.String(),
                         EmailConfirmed = c.Boolean(nullable: false),
@@ -145,7 +145,6 @@ namespace DIVULGA_SERVICOS.Migrations
                     {
                         CD_PESSOA = c.String(nullable: false, maxLength: 128),
                         CD_CNPJ = c.String(nullable: false, maxLength: 30),
-                        CD_INDICACAO = c.Int(nullable: false),
                         ATIVO = c.Boolean(nullable: false),
                         CD_STATUS_PAGT = c.Int(nullable: false),
                         ACEITE_CONTRATO = c.Boolean(nullable: false),
@@ -191,7 +190,6 @@ namespace DIVULGA_SERVICOS.Migrations
                 c => new
                     {
                         CD_PESSOA = c.String(nullable: false, maxLength: 128),
-                        CD_INDICACAO = c.Int(nullable: false),
                         ATIVO = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.CD_PESSOA)
@@ -258,7 +256,6 @@ namespace DIVULGA_SERVICOS.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "CAD_PESSOA_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "CAD_PESSOA_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.CAD_PES_USUARIO", "CD_PESSOA", "dbo.AspNetUsers");
-            DropForeignKey("dbo.CAD_AVALIACAO", "CD_PES_USUARIO", "dbo.CAD_PES_USUARIO");
             DropForeignKey("dbo.CAD_PES_JURIDICA", "CD_PESSOA", "dbo.AspNetUsers");
             DropForeignKey("dbo.CAD_PES_FORNECEDOR", "CD_PESSOA", "dbo.AspNetUsers");
             DropForeignKey("dbo.CAD_PRODUTO_FORNECEDOR", "CD_PESSOA", "dbo.CAD_PES_FORNECEDOR");
@@ -283,7 +280,6 @@ namespace DIVULGA_SERVICOS.Migrations
             DropIndex("dbo.CAD_FORMA_PAGAMENTO", new[] { "CD_PESSOA" });
             DropIndex("dbo.CAD_CATEGORIA", new[] { "CD_PES_JURIDICA" });
             DropIndex("dbo.CAD_PES_JURIDICA", new[] { "CD_PESSOA" });
-            DropIndex("dbo.CAD_AVALIACAO", new[] { "CD_PES_USUARIO" });
             DropIndex("dbo.CAD_AVALIACAO", new[] { "CD_PES_JURIDICA" });
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.AspNetUserRoles");

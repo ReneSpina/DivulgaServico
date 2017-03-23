@@ -15,8 +15,11 @@ namespace DIVULGA_SERVICOS.Models
 
         [Key]
         [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public string CD_PES_USUARIO { get; set; }
+        public long SQ_AVALIACAO { get; set; }
+
+        public string CD_AVALIADOR { get; set; }
+
+        public string NM_NOME_AVALIADOR { get; set; }
 
         public int PRECO_QUALIDADE { get; set; }
 
@@ -39,7 +42,5 @@ namespace DIVULGA_SERVICOS.Models
         public DateTime DIA_AVALIACAO { get; set; }
 
         public virtual CAD_PES_JURIDICA CAD_PES_JURIDICA { get; set; }
-
-        public virtual CAD_PES_USUARIO CAD_PES_USUARIO { get; set; }
     }
 }

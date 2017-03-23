@@ -1525,6 +1525,61 @@ namespace DIVULGA_SERVICOS.Controllers
         }
         /*Fim do método que mostra os fornecedores para cada tipo de prestador de serviço*/
 
+
+        /*Início do método que deleta o usuário criado pelas redes sociais*/
+        [Authorize(Roles = "Usuario")]
+        public ActionResult DeletarUsuario()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+                var usuario = db.CAD_PESSOA.Where(x => x.Id == userId).FirstOrDefault();
+                if (usuario != null)
+                {
+                    return View("DeletarUsuario", usuario);
+                }
+                ViewBag.errorMessage = "Não conseguimos identificar suas informações. Por favor tente novamente!";
+                return View("Error");
+
+            }
+            ViewBag.errorMessage = "Você precisa ser um usuário e deve estar logado para acessar essa página.";
+            return View("Error");
+
+        }
+
+        // POST: CAD_CATEGORIA/Delete/5
+        [HttpPost ActionName("DeletarUsuario")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeletarUsuarioOk()
+        {
+            if(User.Identity.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+                CAD_PESSOA pessoa = db.CAD_PESSOA.Where(x => x.Id == userId).FirstOrDefault();
+                CAD_PES_USUARIO usuario = db.CAD_PES_USUARIO.Where(x => x.CD_PESSOA == userId).FirstOrDefault();
+                var avaliacoes = db.CAD_AVALIACAO.Where(x => x.NM_NOME_AVALIADOR == pessoa.UserName).ToList();
+                if(avaliacoes.Count != 0)
+                {
+                    foreach(var avaliacao in avaliacoes)
+                    {
+                        db.CAD_AVALIACAO.Remove(avaliacao);
+                        db.SaveChanges();
+                    }
+                }
+                db.CAD_PES_USUARIO.Remove(usuario);
+                db.SaveChanges();
+                db.CAD_PESSOA.Remove(pessoa);
+                db.SaveChanges();
+                AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+                return Redirect("~/Home");
+            }
+            return View("Index");
+        }
+        
+
+
+
+
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";

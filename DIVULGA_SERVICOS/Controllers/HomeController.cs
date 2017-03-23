@@ -29,6 +29,20 @@ namespace DIVULGA_SERVICOS.Controllers
             return View();
         }
 
+        public ActionResult Privacidade()
+        {
+            ViewBag.Message = "Políticas de Privacidade";
+
+            return View();
+        }
+
+        public ActionResult termosDeUso()
+        {
+            ViewBag.Message = "Termos de Uso";
+
+            return View();
+        }
+
         public ActionResult ComoFunciona()
         {
             return View("PrestadorServico");

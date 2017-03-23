@@ -7,12 +7,12 @@ namespace DIVULGA_SERVICOS.Migrations
     {
         public override void Up()
         {
-            DropColumn("dbo.CAD_PES_FORNECEDOR", "CD_INDICACAO");
+            AddColumn("dbo.CAD_AVALIACAO", "NM_NOME_AVALIADOR", c => c.String());
         }
         
         public override void Down()
         {
-            AddColumn("dbo.CAD_PES_FORNECEDOR", "CD_INDICACAO", c => c.Int(nullable: false));
+            DropColumn("dbo.CAD_AVALIACAO", "NM_NOME_AVALIADOR");
         }
     }
 }

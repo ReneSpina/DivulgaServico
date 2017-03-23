@@ -705,6 +705,14 @@ namespace DIVULGA_SERVICOS.Controllers
                     return View("ExternalLoginFailure");
                 }
 
+                var usuario = db.CAD_PESSOA.Where(x => x.Email == info.Email).ToList();
+                
+                if(usuario.Count != 0)
+                {
+                    ViewBag.errorMessage = "Este email já está cadastrado. Caso não lembre a senha, solicite o reset!";
+                    return View("Error");
+                }
+
                 var user = new ApplicationUser
                 {
                     NM_NOME_PESSOA = info.ExternalIdentity.Name,

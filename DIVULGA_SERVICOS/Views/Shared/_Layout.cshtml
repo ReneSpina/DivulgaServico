@@ -3,9 +3,23 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
+    <style>
+        .navbar-inverse .navbar-nav > li > a
+        {
+            color: rgb(0, 0, 0);
+        }
+
+        .navbar-inverse .navbar-nav > li > a:hover
+        {
+            color: rgb(51, 122, 183);
+        }
+
+    </style>
+
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
           (adsbygoogle = window.adsbygoogle || []).push({

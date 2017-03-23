@@ -102,8 +102,7 @@ C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\Microsoft.Owi
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\Microsoft.Owin.Security.Google.xml
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Debug\DIVULGA_SERVICOS.csprojResolveAssemblyReference.cache
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Debug\DIVULGA_SERVICOS.Migrations.Principal.resources
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Debug\DIVULGA_SERVICOS.csproj.GenerateResource.Cache
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Debug\DIVULGA_SERVICOS.Migrations.Principal1.resources
-C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Debug\DIVULGA_SERVICOS.Migrations.Principal2.resources
-C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Debug\DIVULGA_SERVICOS.csprojResolveAssemblyReference.cache

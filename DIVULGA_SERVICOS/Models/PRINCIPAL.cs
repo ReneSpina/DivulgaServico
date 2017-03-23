@@ -73,6 +73,10 @@ namespace DIVULGA_SERVICOS.Models
                 .WithMany(p => p.CAD_HORA_ATENDIMENTO)
                 .HasForeignKey(p => p.CD_PES_JURIDICA);
 
+            modelBuilder.Entity<CAD_AVALIACAO>()
+                .Property(p => p.SQ_AVALIACAO)
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+
             //modelBuilder.Entity<CAD_CATEGORIA>()
             //    .HasMany(e => e.CAD_SUB_CATEGORIA)
             //    .WithRequired(e => e.CAD_CATEGORIA)
@@ -319,11 +323,11 @@ namespace DIVULGA_SERVICOS.Models
                 .HasOptional(e => e.CAD_FORMA_PAGAMENTO)
                 .WithRequired(e => e.CAD_PES_JURIDICA);
 
-            modelBuilder.Entity<CAD_PES_USUARIO>()
-                .HasMany(e => e.CAD_AVALIACAO)
-                .WithRequired(e => e.CAD_PES_USUARIO)
-                .HasForeignKey(e => e.CD_PES_USUARIO)
-                .WillCascadeOnDelete(false);
+            //modelBuilder.Entity<CAD_PES_USUARIO>()
+            //    .HasMany(e => e.CAD_AVALIACAO)
+            //    .WithRequired(e => e.CAD_PES_USUARIO)
+            //    .HasForeignKey(e => e.CD_PES_USUARIO)
+            //    .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<CAD_PES_JURIDICA>()
                 .HasMany(e => e.CAD_AVALIACAO)
