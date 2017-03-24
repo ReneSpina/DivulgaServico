@@ -300,7 +300,13 @@ namespace DIVULGA_SERVICOS.Controllers
                 return View("Error");
             }
 
-            var body = "Atenção ao prestador "+user.NM_NOME_PESSOA+ "!<br /><br />Descrição da Denúncia: "+descricao+" ";
+            var body = "<h2>Email de Alerta</h2>" +
+                        "<p> O prestador referenciado abaixo foi denuncioado </p>" +
+                        "<p>Id:" + user.Id + "</p>" +
+                        "<p>Nome:" + user.NM_NOME_PESSOA + "</p>" +
+                        "<p>email:" + user.Email + "</p>" +
+                        "<p>Descrição da Denúncia: </p>" + descricao;
+
             var message = new MailMessage();
             message.To.Add(new MailAddress("noreply@mercadodeservicos.com.br"));  // replace with valid value 
             message.From = new MailAddress("noreply@mercadodeservicos.com.br");  // replace with valid value

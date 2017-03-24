@@ -1,0 +1,37 @@
+﻿@model DIVULGA_SERVICOS.Models.CAD_PESSOA
+
+
+@{
+    ViewBag.Title = "Email Alerta";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Email de Alerta</h2>
+
+<p>O prestador referenciado abaixo foi denuncioado</p>
+
+<table class="table">
+    <tr>
+        <th>
+            Id:
+        </th>
+        <th>
+            Nome:
+        </th>
+        <th>
+            Email:
+        </th>
+    </tr>
+        <tr>
+            <td>
+                @Model.Id
+            </td>
+            <td>
+                @Model.NM_NOME_PESSOA
+            </td>
+            <td>
+                @Model.Email
+            </td>
+        </tr>
+
+</table>
