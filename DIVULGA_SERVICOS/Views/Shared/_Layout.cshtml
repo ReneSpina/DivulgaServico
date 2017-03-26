@@ -42,10 +42,12 @@
             </div>
             <div class="navbar-collapse collapse" style="border: none;">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Pesquisa de Serviços", "Index", "Busca")</li>
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Pesquisar de Serviços", "Index", "Busca")</li>
                     <li>@Html.ActionLink("Sobre", "About", "Home")</li>
                     <li>@Html.ActionLink("Contatos", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Agradecimentos", "About", "Home")</li>
+                    <li>@Html.ActionLink("Política de Privacidade", "Privacidade", "Home")</li>
+                    @*<li>@Html.ActionLink("Agradecimentos", "About", "Home")</li>*@
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

@@ -56,11 +56,35 @@
                     <li>
                         @Html.ActionLink("Pesquisar Serviços", "Index", "Busca")
                     </li>
+                    @{
+                        var userAgent = HttpContext.Current.Request.UserAgent.ToLower();
+                     }
+                    @if (userAgent.Contains("iphone;"))
+                    {
+                        <li>
+                            Iphone
+                        </li>
+                    }
+                    else if (userAgent.Contains("ipad;"))
+                    {
+                        <li>
+                            Ipad
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            @userAgent.ToString();
+                        </li>
+                    }
                     <li>
                         <a class="page-scroll" href="#services">Como Funciona</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#portfolio">Publicidade</a>
+                    </li>
+                    <li>
+                        @Html.ActionLink("Sobre", "About", "Home")
                     </li>
                     <li>
                         <a class="page-scroll" href="#contact">Contatos</a>

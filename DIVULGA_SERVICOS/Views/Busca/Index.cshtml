@@ -36,15 +36,15 @@
                 @Html.AntiForgeryToken()
                 @Html.ActionLink("Olá " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })<br /><br />
                 <hr />
-                @Html.ActionLink("Gerenciar", "Index", "Manage")<br />
+                @Html.ActionLink("Gerenciar Conta", "Index", "Manage")
                 <hr />
-                @Html.ActionLink("Mercado de Serviços", "Index", "Home")<br />
+                @Html.ActionLink("Home", "Index", "Home")
                 <hr />
-                @Html.ActionLink("Pesquisar Serviços", "Index", "Busca")<br />
+                @Html.ActionLink("Sobre", "About", "Home")
                 <hr />
-                @Html.ActionLink("Sobre", "About", "Home")<br />
+                @Html.ActionLink("Contatos", "Contact", "Home")
                 <hr />
-                @Html.ActionLink("Contatos", "Contact", "Home")<br />
+                @Html.ActionLink("Política de Privacidade", "Privacidade", "Home")
                 <hr />
                 <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a><br />
                 <hr />
@@ -52,17 +52,19 @@
         }
         else
         {
-            @Html.ActionLink("Mercado de Serviços", "Index", "Home")<br />
-            <hr />
-            @Html.ActionLink("Pesquisar Serviços", "Index", "Busca")<br />
+            @Html.ActionLink("Home", "Index", "Home")<br />
             <hr />
             @Html.ActionLink("Sobre", "About", "Home")<br />
             <hr />
             @Html.ActionLink("Contatos", "Contact", "Home")<br />
             <hr />
-            @Html.ActionLink("Criar Conta", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })<br />
+            @Html.ActionLink("Prestador de Serviços", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
             <hr />
-            @Html.ActionLink("Entrar", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })<br />
+            @Html.ActionLink("Fornecedor", "cadastrarfornecedor", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+            <hr />
+            @Html.ActionLink("Política de Privacidade", "Privacidade", "Home")
+            <hr />
+            @Html.ActionLink("Entrar", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })<<br />
             <hr />
         }
     </div>
