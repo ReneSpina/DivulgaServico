@@ -8,24 +8,21 @@
     @Scripts.Render("~/bundles/modernizr")
 
     <style>
-        .navbar-inverse .navbar-nav > li > a
-        {
+        .navbar-inverse .navbar-nav > li > a {
             color: rgb(0, 0, 0);
         }
 
-        .navbar-inverse .navbar-nav > li > a:hover
-        {
-            color: rgb(51, 122, 183);
-        }
-
+            .navbar-inverse .navbar-nav > li > a:hover {
+                color: rgb(51, 122, 183);
+            }
     </style>
 
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
-          (adsbygoogle = window.adsbygoogle || []).push({
+        (adsbygoogle = window.adsbygoogle || []).push({
             google_ad_client: "ca-pub-2571448761678693",
             enable_page_level_ads: true
-          });
+        });
     </script>
 </head>
 <body>
@@ -42,17 +39,17 @@
             </div>
             <div class="navbar-collapse collapse" style="border: none;">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Pesquisar de Serviços", "Index", "Busca")</li>
-                    <li>@Html.ActionLink("Sobre", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contatos", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Política de Privacidade", "Privacidade", "Home")</li>
+                    <li>@Html.ActionLink("HOME", "Index", "Home")</li>
+                    <li>@Html.ActionLink("PESQUISAR SERVIÇOS", "Index", "Busca")</li>
+                    <li>@Html.ActionLink("SOBRE", "About", "Home")</li>
+                    <li>@Html.ActionLink("CONTATOS", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("POLÍTICA DE PRIVACIDADE", "Privacidade", "Home")</li>
                     @*<li>@Html.ActionLink("Agradecimentos", "About", "Home")</li>*@
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
-    </div>    
+    </div>
     @*@Scripts.Render("~/bundles/jquery")*@
     <script src="~/Scripts/jquery-3.1.1.js"></script>
     <script src="~/Scripts/jquery.mask.min.js"></script>
@@ -63,7 +60,35 @@
         @RenderBody()
         <hr />
         <footer>
-            <!--p>&copy; @DateTime.Now.Year - My ASP.NET Application</p-->
+            @{
+                var userAgent = HttpContext.Current.Request.UserAgent.ToLower();
+            }
+            @if (userAgent.Contains("Iphone") || userAgent.Contains("iphone") || userAgent.Contains("ipad") || userAgent.Contains("Ipad"))
+            {
+                <div class="view-switcher ui-bar-a">
+                    <div class="btn-group btn-group-justified" style="position:fixed; width:100%; bottom: 5px;" role="group">
+                        <a class="btn btn-default" onclick="history.go(-1); return false;" style="border-radius: 20px;" role="button" href="#">Back</a>
+                        <a class="btn btn-default" data-toggle="collapse" data-target=".navbar-collapse" style="border-radius: 20px;" role="button" href="#">Menu</a>
+                        <a class="btn btn-default" onclick="history.go(+1); return false;" style="border-radius: 20px;" role="button" href="#">Forth</a>
+                    </div>
+                </div>
+            }
+            @*@if (Request.Browser.IsMobileDevice && Request.HttpMethod == "GET")
+            {
+                <div class="view-switcher ui-bar-a">
+                    @if (ViewContext.HttpContext.GetOverriddenBrowser().IsMobileDevice)
+                    {
+                        if(Request.UrlReferrer != null)
+                        {
+                            <div class="btn-group btn-group-justified" style="position:fixed; width:86%; bottom: 5px;" role="group">
+                                <a class="btn btn-default" onclick="history.go(-1); return false;" style="border-radius: 20px;" role="button" href="#">Back</a>
+                                <a class="btn btn-default" data-toggle="collapse" data-target=".navbar-collapse" style="border-radius: 20px;" role="button" href="#">Menu</a>
+                                <a class="btn btn-default" onclick="history.go(-1); return false;" style="border-radius: 20px;" role="button" href="#">Next</a>
+                            </div>
+                        }
+                    }
+                </div>
+            }*@
         </footer>
     </div>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAj3JcRIELfHhMvmfLqmSdezusDvIA9Sao&signed_in=true&libraries=places&callback=initAutocomplete"

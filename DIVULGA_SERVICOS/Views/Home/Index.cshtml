@@ -56,27 +56,27 @@
                     <li>
                         @Html.ActionLink("Pesquisar Serviços", "Index", "Busca")
                     </li>
-                    @{
-                        var userAgent = HttpContext.Current.Request.UserAgent.ToLower();
-                     }
-                    @if (userAgent.Contains("iphone;"))
-                    {
-                        <li>
-                            Iphone
-                        </li>
-                    }
-                    else if (userAgent.Contains("ipad;"))
-                    {
-                        <li>
-                            Ipad
-                        </li>
-                    }
-                    else
-                    {
-                        <li>
-                            @userAgent.ToString();
-                        </li>
-                    }
+                    @*@{
+                            var userAgent = HttpContext.Current.Request.UserAgent.ToLower();
+                         }
+                        @if (userAgent.Contains("iphone;"))
+                        {
+                            <li>
+                                Iphone
+                            </li>
+                        }
+                        else if (userAgent.Contains("ipad;"))
+                        {
+                            <li>
+                                Ipad
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                @userAgent.ToString();
+                            </li>
+                        }*@
                     <li>
                         <a class="page-scroll" href="#services">Como Funciona</a>
                     </li>
@@ -456,6 +456,39 @@
         </div>
     </div>
 
+    <hr />
+    <footer>
 
+        @{
+            var userAgent = HttpContext.Current.Request.UserAgent.ToLower();
+        }
+        @if (userAgent.Contains("Iphone") || userAgent.Contains("iphone") || userAgent.Contains("ipad") || userAgent.Contains("Ipad"))
+        {
+            <div class="view-switcher ui-bar-a">
+                <div class="btn-group btn-group-justified" style="position:fixed; width:100%; bottom: 5px;" role="group">
+                    <a class="btn btn-default" onclick="history.go(-1); return false;" style="border-radius: 20px;" role="button" href="#">Back</a>
+                    <a class="btn btn-default" data-toggle="collapse" data-target=".navbar-collapse" style="border-radius: 20px;" role="button" href="#">Menu</a>
+                    <a class="btn btn-default" onclick="history.go(+1); return false;" style="border-radius: 20px;" role="button" href="#">Forth</a>
+                </div>
+            </div>
+        }
+
+        @*@if (Request.Browser.IsMobileDevice && Request.HttpMethod == "GET")
+            {
+                <div class="view-switcher ui-bar-a">
+                    @if (ViewContext.HttpContext.GetOverriddenBrowser().IsMobileDevice)
+                    {
+                        if (Request.UrlReferrer != null)
+                        {
+                            <div class="btn-group btn-group-justified" style="position:fixed; width:100%; bottom: 5px;" role="group">
+                                <a class="btn btn-default" onclick="history.go(-1); return false;" style="border-radius: 20px;" role="button" href="#">Back</a>
+                                <a class="btn btn-default" data-toggle="collapse" data-target=".navbar-collapse" style="border-radius: 20px;" role="button" href="#">Menu</a>
+                                <a class="btn btn-default" onclick="history.go(-1); return false;" style="border-radius: 20px;" role="button" href="#">Next</a>
+                            </div>
+                        }
+                    }
+                </div>
+            }*@
+    </footer>
 </body>
 </html>
