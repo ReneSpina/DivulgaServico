@@ -1,4 +1,5 @@
-﻿
+﻿@using Microsoft.AspNet.Identity
+
 @{
     Layout = null;
 }
@@ -84,13 +85,34 @@
                         <a class="page-scroll" href="#portfolio">Publicidade</a>
                     </li>
                     <li>
-                        @Html.ActionLink("Sobre", "About", "Home")
+                        <a class="page-scroll" href="#about">Sobre</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#contact">Contatos</a>
                     </li>
                 </ul>
-                @Html.Partial("_LoginPartial")
+                @if (Request.IsAuthenticated)
+                {
+                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <ul class="nav navbar-nav navbar-right" id="menu_mobile">
+                            <li>
+                                <a href="~/Manage">
+                                    <span class="glyphicon glyphicon-user"></span>  @User.Identity.GetUserName()
+                                </a>
+                            </li>
+                            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                        </ul>
+                    }
+                }
+                else
+                {
+                    <ul class="nav navbar-nav navbar-right" id="menu_mobile">
+                        <li><a data-toggle="modal" href="#ModalCadastrar">CRIAR CONTA</a></li>
+                        <li>@Html.ActionLink("ENTRAR", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                    </ul>
+                }
             </div>
             <!-- /.navbar-collapse -->
         </div>
@@ -99,6 +121,11 @@
     <header>
         <div class="header-content">
             <div class="header-content-inner">
+                <div class="alert alert-danger avbar-fixed-top" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Erro:</span>
+                    Esta é uma versão beta. Qualquer cadastro ou interação com a aplicação deve e vai ser desconsiderada no dia da publicação!
+                </div>
                 <h1 id="homeHeading">Nós Temos o que você precisa. Pesquise, divulgue e venda mais!</h1>
                 <br />
                 <br />
@@ -388,7 +415,7 @@
                     <h3 class="modal-title">Quer divulgar seus produtos?</h3>
                 </div>
                 <div class="modal-body">
-                    <p class="text-muted"><a href="~/Account/Register">FAÇA O CADASTRO</a> E INSIRA SEUS PRODUTOS!</p>
+                    <p class="text-muted"><a href="~/Account/cadastrarfornecedor">FAÇA O CADASTRO</a> E INSIRA SEUS PRODUTOS!</p>
                     <p class="text-muted">O MERCADO DE SERVIÇOS  está entrando no mercado agora e vai se tornar a maior empresa de intermediação de serviços do Brasil!</p>
                     <p class="text-muted">Você pode aproveitar isso para divulgar seus produtos/equipamentos/materiais de forma direcionada. Você tem a opção de divulgar para prestadores de serviços que estão relacionados ao que você vende. Você também pode limitar a divulgação por cidades e estados específicos ou divulgar a nível Brasil!</p>
                     <p class="text-muted">TUDO ISSO GRATUITO POR 6 MESES!</p>
@@ -447,6 +474,67 @@
                     <p class="text-muted">
                         Para atingirmos esta finalidade, contamos com uma crescente rede de cadastros de prestadores de serviço, distribuídos por todo o país, permitindo assim que sua demanda seja atendida da forma mais rápida e satisfatória possível. Por isso, contamos com que você, usuário, desfrute desta nova ferramenta e deixe sua avaliação após ter utilizado o serviço. Dessa forma teremos a condição de oferecer sempre o melhor do que você precisa, ampliando a rede de ofertas e primando sempre pela melhor qualidade.
                     </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="ModalCadastrar" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title">CRIAR CONTA</h3>
+                </div>
+                <div class="modal-body">
+                    <div class"container">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="service-box">
+                                    <h4>PRESTADOR DE SERVIÇOS</h4>
+                                    <p class="text-muted">
+                                        <strong>TOTALMENTE GRATUITO</strong>
+                                    </p>
+                                    <p class="text-muted">É simples e depende de você!</p>
+                                    <p class="text-muted">
+                                        Basta realizar o <a href="~/Account/Register">CADASTRO PRINCIPAL</a>.
+                                    </p>
+                                    <p class="text-muted">
+                                        Feito isso você já aparecerá em nosso mapa de busca.
+                                    </p>
+                                    <p class="text-muted">
+                                        É importante você saber que, em sua área de gerenciamento, é possível visualizar todos produtos dos fornecedores que estão diretamente relacionados com sua atividade e são comercializados em sua região.
+                                        Com isso você terá a comodidade de visualizar seus possíveis parceiros/fornecedores da tela de seu celular ou computador.
+                                    </p>
+                                    <p class="text-muted">
+                                        Se você possui outras atividades, fique tranquilo. Em sua área de gerenciamento também é possível adicionar outras atividade/serviços, outros endereços de atendimento, outros telefones...
+                                    </p>
+                                    <p class="text-muted">
+                                        Ou seja, temos uma ferramenta completa e gratuita para você divulgar seu serviço.
+                                    </p>
+                                </div>
+                                <a href="~/Account/Register" class="btn btn-success">CADASTRAR AGORA!</a>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="service-box">
+                                    <h4>FORNECEDOR</h4>
+                                    <p class="text-muted"><a href="~/Account/cadastrarfornecedor">FAÇA O CADASTRO</a> E INSIRA SEUS PRODUTOS!</p>
+                                    <p class="text-muted">O MERCADO DE SERVIÇOS  está entrando no mercado agora e vai se tornar a maior empresa de intermediação de serviços do Brasil!</p>
+                                    <p class="text-muted">Você pode aproveitar isso para divulgar seus produtos/equipamentos/materiais de forma direcionada. Você tem a opção de divulgar para prestadores de serviços que estão relacionados ao que você vende. Você também pode limitar a divulgação por cidades e estados específicos ou divulgar a nível Brasil!</p>
+                                    <p class="text-muted">TUDO ISSO GRATUITO POR 6 MESES!</p>
+                                    <p class="text-muted">Isso mesmo. Divulgue por 6 meses gratuitos contando a partir da data do cadastro.</p>
+                                    <p class="text-muted">Se você não sentir diferença em suas vendas e quiser encerrar o contrato, você pode fazer isso a qualquer hora e lugar. Basta desativar sua conta.</p>
+                                </div>
+                                <a href="~/Account/cadastrarfornecedor" class="btn btn-success">CADASTRAR AGORA!</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>

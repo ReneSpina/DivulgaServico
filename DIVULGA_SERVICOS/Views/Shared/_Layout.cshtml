@@ -6,7 +6,6 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
     <style>
         .navbar-inverse .navbar-nav > li > a {
             color: rgb(0, 0, 0);
@@ -26,7 +25,11 @@
     </script>
 </head>
 <body>
-
+    <div class="alert alert-danger avbar-fixed-top" role="alert">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Erro:</span>
+        Esta é uma versão beta. Qualquer cadastro ou interação com a aplicação deve e vai ser desconsiderada no dia da publicação!
+    </div>
     <div class="navbar navbar-inverse navbar-fixed-top" style="background-color: rgb(255, 255, 255); border-color: rgb(255, 255, 255); position: inherit;">
         <div class="container" style="margin-top: 9px;">
             <div class="navbar-header">
@@ -39,11 +42,10 @@
             </div>
             <div class="navbar-collapse collapse" style="border: none;">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("HOME", "Index", "Home")</li>
                     <li>@Html.ActionLink("PESQUISAR SERVIÇOS", "Index", "Busca")</li>
                     <li>@Html.ActionLink("SOBRE", "About", "Home")</li>
                     <li>@Html.ActionLink("CONTATOS", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("POLÍTICA DE PRIVACIDADE", "Privacidade", "Home")</li>
+                    <li>@Html.ActionLink("PRIVACIDADE", "Privacidade", "Home")</li>
                     @*<li>@Html.ActionLink("Agradecimentos", "About", "Home")</li>*@
                 </ul>
                 @Html.Partial("_LoginPartial")

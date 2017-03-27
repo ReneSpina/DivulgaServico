@@ -369,6 +369,7 @@
     <None Include="Properties\PublishProfiles\mercadodeservico - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\mercadodeservico - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\mercadodeservicos - FTP %2810%29.pubxml" />
+    <None Include="Properties\PublishProfiles\mercadodeservicos - FTP %2811%29.pubxml" />
     <None Include="Properties\PublishProfiles\mercadodeservicos - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\mercadodeservicos - FTP %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\mercadodeservicos - FTP %284%29.pubxml" />
@@ -379,6 +380,7 @@
     <None Include="Properties\PublishProfiles\mercadodeservicos - FTP %289%29.pubxml" />
     <None Include="Properties\PublishProfiles\mercadodeservicos - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\mercadodeservicos - Web Deploy %2810%29.pubxml" />
+    <None Include="Properties\PublishProfiles\mercadodeservicos - Web Deploy %2811%29.pubxml" />
     <None Include="Properties\PublishProfiles\mercadodeservicos - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\mercadodeservicos - Web Deploy %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\mercadodeservicos - Web Deploy %284%29.pubxml" />
