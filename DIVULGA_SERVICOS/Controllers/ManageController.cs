@@ -738,7 +738,8 @@ namespace DIVULGA_SERVICOS.Controllers
                     DS_SOBRE = cAD_PES_JURIDICA.DS_SOBRE,
                     CD_CNPJ = cAD_PES_JURIDICA.CD_CNPJ,
                     TODO_DIA = usuario.TODO_DIA,
-                    ATIVO = contaativa
+                    DIVULGACAO = cAD_PES_JURIDICA.DIVULGACAO,
+                    ATIVO = contaativa,
                 };
                 db.CAD_PES_JURIDICA.AddOrUpdate(PesJuridica);
 

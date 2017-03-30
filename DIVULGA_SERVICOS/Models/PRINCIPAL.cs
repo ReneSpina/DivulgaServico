@@ -17,6 +17,7 @@ namespace DIVULGA_SERVICOS.Models
         public virtual DbSet<CAD_AVALIACAO> CAD_AVALIACAO { get; set; }
         public virtual DbSet<CAD_CATEGORIA> CAD_CATEGORIA { get; set; }
         public virtual DbSet<CAD_FORMA_PAGAMENTO> CAD_FORMA_PAGAMENTO { get; set; }
+        public virtual DbSet<CAD_PORTE_EMPRESA> CAD_PORTE_EMPRESA { get; set; }
         //public virtual DbSet<CAD_CLIENTE> CAD_CLIENTE { get; set; }
         //public virtual DbSet<CAD_DICA> CAD_DICA { get; set; }
         public virtual DbSet<CAD_HORA_ATENDIMENTO> CAD_HORA_ATENDIMENTO { get; set; }
@@ -321,6 +322,10 @@ namespace DIVULGA_SERVICOS.Models
 
             modelBuilder.Entity<CAD_PES_JURIDICA>()
                 .HasOptional(e => e.CAD_FORMA_PAGAMENTO)
+                .WithRequired(e => e.CAD_PES_JURIDICA);
+
+            modelBuilder.Entity<CAD_PES_JURIDICA>()
+                .HasOptional(e => e.CAD_PORTE_EMPRESA)
                 .WithRequired(e => e.CAD_PES_JURIDICA);
 
             //modelBuilder.Entity<CAD_PES_USUARIO>()

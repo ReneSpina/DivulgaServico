@@ -47,6 +47,9 @@ namespace DIVULGA_SERVICOS.Models
         public bool ACEITE_CONTRATO { get; set; }
 
         [Required]
+        public bool DIVULGACAO { get; set; }
+
+        [Required]
         public bool ATIVO { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -64,7 +67,9 @@ namespace DIVULGA_SERVICOS.Models
         public virtual CAD_PESSOA CAD_PESSOA { get; set; }
 
         public virtual CAD_FORMA_PAGAMENTO CAD_FORMA_PAGAMENTO { get; set; }
-        
+
+        public virtual CAD_PORTE_EMPRESA CAD_PORTE_EMPRESA { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CAD_CATEGORIA> CAD_CATEGORIA { get; set; }
 

@@ -175,6 +175,9 @@ namespace DIVULGA_SERVICOS.Models
         [Required]
         public bool ACEITE_CONTRATO { get; set; }
 
+        [Required]
+        public bool DIVULGACAO { get; set; }
+
         //[StringLength(500)]
         //public string DS_LINK_SITE { get; set; }
 
@@ -255,6 +258,18 @@ namespace DIVULGA_SERVICOS.Models
 
         [Required]
         public bool OUTROS { get; set; }
+
+        [Required]
+        public bool PESSOA_FISICA { get; set; }
+
+        [Required]
+        public bool MICRO_EMPRESA { get; set; }
+
+        [Required]
+        public bool PEQUENAS_EMPRESAS { get; set; }
+
+        [Required]
+        public bool EMPRESA_GRANDE_PORTE { get; set; }
 
         [StringLength(6)]
         public string NM_OPERADORA { get; set; }
@@ -425,6 +440,9 @@ namespace DIVULGA_SERVICOS.Models
         public string DS_QUEM_SOMOS { get; set; }
         
         public bool ATIVO { get; set; }
+
+        [Required]
+        public bool DIVULGACAO { get; set; }
 
         public bool NEWSLETTER { get; set; }
     }

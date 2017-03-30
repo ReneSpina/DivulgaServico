@@ -233,6 +233,7 @@ namespace DIVULGA_SERVICOS.Controllers
                                 CD_CNPJ = model.CD_CNPJ,
                                 TODO_DIA = model.TODO_DIA,
                                 ATIVO = true,
+                                DIVULGACAO = model.DIVULGACAO,
                                 ACEITE_CONTRATO = model.ACEITE_CONTRATO
                             };
                             db.CAD_PES_JURIDICA.Add(juridica);
@@ -276,7 +277,18 @@ namespace DIVULGA_SERVICOS.Controllers
                             };
                             db.CAD_FORMA_PAGAMENTO.Add(formaPagamento);
                             db.SaveChanges();
-                            //transacao.Commit();
+
+                            CAD_PORTE_EMPRESA porteEmpresa = new CAD_PORTE_EMPRESA
+                            {
+                                //CAD_PES_JURIDICA = null,
+                                CD_PESSOA = user.Id,
+                                PESSOA_FISICA = model.PESSOA_FISICA,
+                                MICRO_EMPRESA = model.MICRO_EMPRESA,
+                                PEQUENAS_EMPRESAS = model.PEQUENAS_EMPRESAS,
+                                EMPRESA_GRANDE_PORTE = model.EMPRESA_GRANDE_PORTE,
+                            };
+                            db.CAD_PORTE_EMPRESA.Add(porteEmpresa);
+                            db.SaveChanges();
 
                             CAD_HORA_ATENDIMENTO horaAtendimentoDomingo = new CAD_HORA_ATENDIMENTO
                             {

@@ -253,18 +253,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201703182241334_Principal.cs" />
-    <Compile Include="Migrations\201703182241334_Principal.Designer.cs">
-      <DependentUpon>201703182241334_Principal.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703210012114_Principal1.cs" />
-    <Compile Include="Migrations\201703210012114_Principal1.Designer.cs">
-      <DependentUpon>201703210012114_Principal1.cs</DependentUpon>
+    <Compile Include="Migrations\201703300002078_Principal.cs" />
+    <Compile Include="Migrations\201703300002078_Principal.Designer.cs">
+      <DependentUpon>201703300002078_Principal.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CAD_AVALIACAO.cs" />
     <Compile Include="Models\CAD_CATEGORIA.cs" />
+    <Compile Include="Models\CAD_PORTE_EMPRESA.cs" />
     <Compile Include="Models\CAD_FORMA_PAGAMENTO.cs" />
     <Compile Include="Models\CAD_HORA_ATENDIMENTO.cs" />
     <Compile Include="Models\CAD_PESSOA.cs" />
@@ -590,7 +587,6 @@
     <Content Include="Views\Manage\DeletarUsuario.cshtml" />
     <Content Include="Views\Home\Privacidade.cshtml" />
     <Content Include="Views\Home\TermosDeUso.cshtml" />
-    <Content Include="Views\Busca\EmailAlerta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -606,11 +602,8 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201703182241334_Principal.resx">
-      <DependentUpon>201703182241334_Principal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703210012114_Principal1.resx">
-      <DependentUpon>201703210012114_Principal1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201703300002078_Principal.resx">
+      <DependentUpon>201703300002078_Principal.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

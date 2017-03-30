@@ -14,6 +14,7 @@ namespace DIVULGA_SERVICOS.Migrations
                         CD_PES_JURIDICA = c.String(nullable: false, maxLength: 128),
                         SQ_AVALIACAO = c.Long(nullable: false, identity: true),
                         CD_AVALIADOR = c.String(),
+                        NM_NOME_AVALIADOR = c.String(),
                         PRECO_QUALIDADE = c.Int(nullable: false),
                         PONTUALIDADE = c.Int(nullable: false),
                         ORGANIZACAO = c.Int(nullable: false),
@@ -37,6 +38,7 @@ namespace DIVULGA_SERVICOS.Migrations
                         DS_QUEM_SOMOS = c.String(unicode: false, storeType: "text"),
                         TODO_DIA = c.Boolean(nullable: false),
                         ACEITE_CONTRATO = c.Boolean(nullable: false),
+                        DIVULGACAO = c.Boolean(nullable: false),
                         ATIVO = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.CD_PESSOA)
@@ -239,6 +241,20 @@ namespace DIVULGA_SERVICOS.Migrations
                 .Index(t => t.IdentityRole_Id);
             
             CreateTable(
+                "dbo.CAD_PORTE_EMPRESA",
+                c => new
+                    {
+                        CD_PESSOA = c.String(nullable: false, maxLength: 128),
+                        PESSOA_FISICA = c.Boolean(nullable: false),
+                        MICRO_EMPRESA = c.Boolean(nullable: false),
+                        PEQUENAS_EMPRESAS = c.Boolean(nullable: false),
+                        EMPRESA_GRANDE_PORTE = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.CD_PESSOA)
+                .ForeignKey("dbo.CAD_PES_JURIDICA", t => t.CD_PESSOA)
+                .Index(t => t.CD_PESSOA);
+            
+            CreateTable(
                 "dbo.AspNetRoles",
                 c => new
                     {
@@ -252,6 +268,7 @@ namespace DIVULGA_SERVICOS.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "IdentityRole_Id", "dbo.AspNetRoles");
+            DropForeignKey("dbo.CAD_PORTE_EMPRESA", "CD_PESSOA", "dbo.CAD_PES_JURIDICA");
             DropForeignKey("dbo.AspNetUserRoles", "CAD_PESSOA_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "CAD_PESSOA_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "CAD_PESSOA_Id", "dbo.AspNetUsers");
@@ -266,6 +283,7 @@ namespace DIVULGA_SERVICOS.Migrations
             DropForeignKey("dbo.CAD_FORMA_PAGAMENTO", "CD_PESSOA", "dbo.CAD_PES_JURIDICA");
             DropForeignKey("dbo.CAD_CATEGORIA", "CD_PES_JURIDICA", "dbo.CAD_PES_JURIDICA");
             DropForeignKey("dbo.CAD_AVALIACAO", "CD_PES_JURIDICA", "dbo.CAD_PES_JURIDICA");
+            DropIndex("dbo.CAD_PORTE_EMPRESA", new[] { "CD_PESSOA" });
             DropIndex("dbo.AspNetUserRoles", new[] { "IdentityRole_Id" });
             DropIndex("dbo.AspNetUserRoles", new[] { "CAD_PESSOA_Id" });
             DropIndex("dbo.AspNetUserLogins", new[] { "CAD_PESSOA_Id" });
@@ -282,6 +300,7 @@ namespace DIVULGA_SERVICOS.Migrations
             DropIndex("dbo.CAD_PES_JURIDICA", new[] { "CD_PESSOA" });
             DropIndex("dbo.CAD_AVALIACAO", new[] { "CD_PES_JURIDICA" });
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.CAD_PORTE_EMPRESA");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");

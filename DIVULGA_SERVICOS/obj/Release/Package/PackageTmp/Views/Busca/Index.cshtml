@@ -351,11 +351,6 @@
             foreach (var item in Model.OrderBy(x => x.localizacao.Distance((DbGeography.FromText("POINT(" + ViewBag.latitude + " " + ViewBag.longitude + ")")))))
             {
                 i++;
-                    var dinheiro = "";
-                    var cheque = "";
-                    var debito = "";
-                    var credito = "";
-                    var outros = "";
 
                             <text>
             if(@i == 1)
@@ -379,38 +374,70 @@
                         "<h4 style='color: rgb(51, 122, 183); border-bottom: 1px solid rgb(229, 229, 229);'><strong>@item.CAD_PESSOA.NM_NOME_PESSOA</strong></h4>" +
                         "<strong>Este é o "+@i+"º mais próximo e está a </strong>" + distancia + " Km" +
                         "<br><br>" +
-                        "<strong>Aceita:</strong>" +
+                        "<strong>Nós Aceitamos:</strong>" +
                         "<br>" +
-                            @if(item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.DINHEIRO == true)
-                                        {
-                        dinheiro = "Dinheiro | ";
+                    @if(item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.DINHEIRO == true)
+                    {
+                        <text>
+                            "Dinheiro | " +
+                         </text>
                     }
                     @if(item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.CHEQUE == true)
-                                        {
-                        cheque = "Cheque | ";
+                    {
+                        <text>
+                            "Cheque | " +
+                         </text>
                     }
                     @if(item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.DEBITO == true)
-                                        {
-                        debito = "Débito | ";
+                    {
+                        <text>
+                            "Débito | " +
+                         </text>
                     }
                     @if(item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.CREDITO == true)
-                                        {
-                        credito = "Crédito | ";
+                    {
+                        <text>
+                            "Crédito | " +
+                         </text>
                     }
                     @if(item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.OUTROS == true)
-                                        {
-                        outros = "Entre outras formas a conversar...";
+                    {
+                        <text>
+                            "Entre outras formas a conversar..." +
+                         </text>
                     }
-                    "@dinheiro.ToString()" +
-                    "@cheque.ToString()" +
-                    "@debito.ToString()" +
-                    "@credito.ToString()" +
                     "<br>" +
-                    "@outros.ToString()" +
                     "<br>" +
-                    "<strong>Telefones para contato:</strong>" +
+                    "<strong>Nós atendemos:</strong>" +
                     "<br>" +
-                    @foreach(var telefone in item.CAD_PESSOA.CAD_PES_FONE)
+                    @if(item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_PORTE_EMPRESA.PESSOA_FISICA == true)
+                    {
+                        <text>
+                            "Pessoa Física<br>" +
+                         </text>
+                    }
+                    @if(item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_PORTE_EMPRESA.MICRO_EMPRESA == true)
+                    {
+                        <text>
+                            "Micro Empresa<br>" +
+                         </text>
+                    }
+                    @if(item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_PORTE_EMPRESA.PEQUENAS_EMPRESAS == true)
+                    {
+                        <text>
+                            "Pequenas Empresas<br>" +
+                         </text>
+                    }
+                    @if(item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_PORTE_EMPRESA.EMPRESA_GRANDE_PORTE == true)
+                    {
+                        <text>
+                            "Empresas de Grande Porte<br>" +
+                         </text>
+                    }
+                     "<br>" +
+                     "<strong>Telefones para contato:</strong>" +
+                     "<br>" +
+                     @foreach(var telefone in item.CAD_PESSOA.CAD_PES_FONE)
                     {
                                 <text>
                                 "<a href='tel:@telefone.CD_FIXO'>@telefone.CD_FIXO</a>" + "  <br><br> " +
@@ -567,6 +594,30 @@
                             </div>
 
                             <div class="row">
+                                <div class="col-sm-3" style="width: 100%">
+                                    <h4>Nós atendemos:</h4>
+                                    <div class="well">
+                                        @if (@endereco.CAD_PESSOA.CAD_PES_JURIDICA.CAD_PORTE_EMPRESA.PESSOA_FISICA == true)
+                                        {
+                                            <p>Pessoa Física</p>
+                                        }
+                                        @if (@endereco.CAD_PESSOA.CAD_PES_JURIDICA.CAD_PORTE_EMPRESA.MICRO_EMPRESA == true)
+                                        {
+                                            <p>Micro Empresa</p>
+                                        }
+                                        @if (@endereco.CAD_PESSOA.CAD_PES_JURIDICA.CAD_PORTE_EMPRESA.PEQUENAS_EMPRESAS == true)
+                                        {
+                                            <p>Pequenas Empresas</p>
+                                        }
+                                        @if (@endereco.CAD_PESSOA.CAD_PES_JURIDICA.CAD_PORTE_EMPRESA.EMPRESA_GRANDE_PORTE == true)
+                                        {
+                                            <p>Empresas de Grande Porte</p>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
                                 <div class="col-sm-3" style="width:100%">
                                     <h4>Telefones:</h4>
                                     <div class="well">
@@ -655,13 +706,13 @@
                                         @if (endereco.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count == 1)
                                         {
                                             <h5>
-                                                @endereco.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count avaliação!
+                                                Avaliação <span class="badge">@endereco.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count</span>
                                             </h5>
                                         }
                                         else
                                         {
                                             <h5>
-                                                @endereco.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count avaliações!
+                                                Avaliações <span class="badge">@endereco.CAD_PESSOA.CAD_PES_JURIDICA.CAD_AVALIACAO.Count</span>
                                             </h5>
                                         }
                                         <div class="pull-left">
