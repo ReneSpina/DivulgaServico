@@ -683,7 +683,7 @@
                                                     @{
                                                         var culture = new System.Globalization.CultureInfo("pt-BR");
                                                     }
-                                                    @if (hora.HORA_INICIO != 1)
+                                                    @if (hora.HORA_INICIO != 0)
                                                     {
                                                         <text>
                                                             <strong>
@@ -1246,6 +1246,13 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
+
+                                                                            <div class="modal fade" id='ModalErro' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                                <div class="modal-dialog" role="document">
+                                                                                    <div class="modal-content" id="ModalErroBody">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
                                                                                 }
                                                                             }
 
@@ -1262,7 +1269,11 @@
         $('.botaoPesquisa').click(function(){
             if($("#lat").val() == "")
             {
-                alert("Não conseguimos identificar sua localização! Informe seu endereço na busca avançada!");
+                $('#ModalErroHeaderGenerico').remove();
+                $('#ModalErroBodyGenerico').remove();
+                $('#ModalErroFooterGenerico').remove();
+                $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">Não conseguimos identificar sua localização! Informe seu endereço no campo abaixo!</div><div class="form-group"><input class="form-control" id="autocomplete" placeholder="Digite um outro endereço"onFocus="geolocates()" type="text"></div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
+                $('#ModalErro').modal('show');
                 return false;
             }
             //if ("#lat"){

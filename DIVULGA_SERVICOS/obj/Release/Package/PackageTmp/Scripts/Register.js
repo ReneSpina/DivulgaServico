@@ -45,7 +45,11 @@
 
 $("#ProximoPgamento").click(function () {
     if (!$("#dinheiro").is(":checked") & !$("#cheque").is(":checked") & !$("#debito").is(":checked") & !$("#credito").is(":checked") & !$("#outros").is(":checked")) {
-        alert("Você deve selecionar ao menos uma forma de pagamento aceita por você!");
+        $('#ModalErroHeaderGenerico').remove();
+        $('#ModalErroBodyGenerico').remove();
+        $('#ModalErroFooterGenerico').remove();
+        $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">Você deve selecionar ao menos uma forma de pagamento aceita por você!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
+        $('#ModalErro').modal('show');
     }
     else
     {
@@ -74,7 +78,12 @@ $("#ProximoPgamento").click(function () {
 
 $("#ProximolAtividade").click(function () {
     if ($("#NM_NOME_ATIVIDADE1").val() == "" || $("#DS_DESCRICAO_ATIVIDADE").val() == "") {
-        alert("Você deve cadastrar uma atividade");
+        $('#ModalErroHeaderGenerico').remove();
+        $('#ModalErroBodyGenerico').remove();
+        $('#ModalErroFooterGenerico').remove();
+        $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">Você deve cadastrar uma atividade!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
+        $('#ModalErro').modal('show');
+        return false;
     }
 });
 
@@ -82,28 +91,50 @@ $("#cadastrogeral").click(function () {
     
     if (!$("#ACEITE_CONTRATO").is(":checked"))
     {
-        alert("Você precisa estar de acordo com nossos termos de uso para utilizar nossos serviços!");
+        $('#ModalErroHeaderGenerico').remove();
+        $('#ModalErroBodyGenerico').remove();
+        $('#ModalErroFooterGenerico').remove();
+        $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">Para concluir o cadastro você precisa aceitar nossos termos de uso!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
+        $('#ModalErro').modal('show');
+        //alert("Você precisa estar de acordo com nossos termos de uso para utilizar nossos serviços!");
         return false;
     }
 
     if (!$("#todo_dia").is(":checked") & !$("#segundasexta").is(":checked") & !$("#segunda").is(":checked") & !$("#terca").is(":checked") & !$("#quarta").is(":checked") & !$("#quinta").is(":checked") & !$("#sexta").is(":checked") & !$("#sabado").is(":checked") & !$("#domingo").is(":checked")) {
-        alert("Você deve selecionar ao menos um horário de atendimento!");
+        $('#ModalErroHeaderGenerico').remove();
+        $('#ModalErroBodyGenerico').remove();
+        $('#ModalErroFooterGenerico').remove();
+        $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">Você deve selecionar ao menos um horário de atendimento!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
+        $('#ModalErro').modal('show');
         return false;
     }
     else if (!$("#dinheiro").is(":checked") & !$("#cheque").is(":checked") & !$("#debito").is(":checked") & !$("#credito").is(":checked") & !$("#outros").is(":checked")) {
-        alert("Você deve selecionar ao menos uma forma de pagamento aceita por você!");
+        $('#ModalErroHeaderGenerico').remove();
+        $('#ModalErroBodyGenerico').remove();
+        $('#ModalErroFooterGenerico').remove();
+        $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">Você deve selecionar ao menos uma forma de pagamento aceita por você!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
+        $('#ModalErro').modal('show');
         return false;
     }
     else if ($("#NM_NOME_ATIVIDADE").val() == "" || $("#DS_DESCRICAO_ATIVIDADE").val() == "")
     {
-        alert("Você deve cadastrar uma atividade");
+        $('#ModalErroHeaderGenerico').remove();
+        $('#ModalErroBodyGenerico').remove();
+        $('#ModalErroFooterGenerico').remove();
+        $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">Você deve cadastrar uma atividade!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
+        $('#ModalErro').modal('show');
         return false;
     }
 });
 
 $("#cadastrogeralForn").click(function () {
-    if (!$("#ACEITE_CONTRATO").is(":checked")) {
-        alert("Você precisa estar de acordo com nossos termos de uso para utilizar nossos serviços!");
+    if (!$("#ACEITE_CONTRATO").is(":checked"))
+    {
+        $('#ModalErroHeaderGenerico').remove();
+        $('#ModalErroBodyGenerico').remove();
+        $('#ModalErroFooterGenerico').remove();
+        $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">Você precisa estar de acordo com nossos termos de uso para utilizar nossos serviços!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
+        $('#ModalErro').modal('show');
         return false;
     }
 });
@@ -112,16 +143,36 @@ $("#cadastrogeralForn").click(function () {
 $("#ProximoHora").click(function () {
 
     if (!$("#todo_dia").is(":checked") & !$("#segundasexta").is(":checked") & !$("#segunda").is(":checked") & !$("#terca").is(":checked") & !$("#quarta").is(":checked") & !$("#quinta").is(":checked") & !$("#sexta").is(":checked") & !$("#sabado").is(":checked") & !$("#domingo").is(":checked")) {
-        alert("Você deve selecionar ao menos um horário de atendimento!");
+        $('#ModalErroHeaderGenerico').remove();
+        $('#ModalErroBodyGenerico').remove();
+        $('#ModalErroFooterGenerico').remove();
+        $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">Você deve selecionar ao menos um horário de atendimento!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
+        $('#ModalErro').modal('show');
+        return false;
     }
     else if ((parseInt($("#segunda_fim").val()) < parseInt($("#segunda_inicio").val())) || (parseInt($("#terca_fim").val()) < parseInt($("#terca_inicio").val())) || (parseInt($("#quarta_fim").val()) < parseInt($("#quarta_inicio").val())) || (parseInt($("#quinta_fim").val()) < parseInt($("#quinta_inicio").val())) || (parseInt($("#sexta_fim").val()) < parseInt($("#sexta_inicio").val())) || (parseInt($("#sabado_fim").val()) < parseInt($("#sabado_inicio").val())) || (parseInt($("#domingo_fim").val()) < parseInt($("#domingo_inicio").val())) || (parseInt($(".segundasextafim").val()) < parseInt($(".segundasextainicio").val()))) {
-        alert("A hora de início não pode ser maior ou igual a hora de fim!");
+        $('#ModalErroHeaderGenerico').remove();
+        $('#ModalErroBodyGenerico').remove();
+        $('#ModalErroFooterGenerico').remove();
+        $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">A hora de início não pode ser maior ou igual a hora de fim!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
+        $('#ModalErro').modal('show');
+        return false;
     }
     else if ($("#segunda_fim").val() == "" & $("#segunda_inicio").val() != "" || $("#terca_fim").val() == "" & $("#terca_inicio").val() != "" || $("#quarta_fim").val() == "" & $("#quarta_inicio").val() != "" || $("#quinta_fim").val() == "" & $("#quinta_inicio").val() != "" || $("#sexta_fim").val() == "" & $("#sexta_inicio").val() != "" || $("#sabado_fim").val() == "" & $("#sabado_inicio").val() != "" || $("#domingo_fim").val() == "" & $("#domingo_inicio").val() != "" || $(".segundasextafim").val() == "" & $(".segundasextainicio").val() != "") {
-        alert("O campo de fim também deve ser preenchido!");
+        $('#ModalErroHeaderGenerico').remove();
+        $('#ModalErroBodyGenerico').remove();
+        $('#ModalErroFooterGenerico').remove();
+        $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">O campo de fim também deve ser preenchido!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
+        $('#ModalErro').modal('show');
+        return false;
     }
     else if ($("#segunda_inicio").val() == "" & $("#segunda_fim").val() != "" || $("#terca_inicio").val() == "" & $("#terca_fim").val() != "" || $("#quarta_inicio").val() == "" & $("#quarta_fim").val() != "" || $("#quinta_inicio").val() == "" & $("#quinta_fim").val() != "" || $("#sexta_inicio").val() == "" & $("#sexta_fim").val() != "" || $("#sabado_inicio").val() == "" & $("#sabado_fim").val() != "" || $("#domingo_inicio").val() == "" & $("#domingo_fim").val() != "" || $(".segundasextainicio").val() == "" & $(".segundasextafim").val() != "") {
-        alert("O campo de inicio também deve ser preenchido!");
+        $('#ModalErroHeaderGenerico').remove();
+        $('#ModalErroBodyGenerico').remove();
+        $('#ModalErroFooterGenerico').remove();
+        $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">O campo de inicio também deve ser preenchido!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
+        $('#ModalErro').modal('show');
+        return false;
     }
     else if ($("#segundasexta").is(":checked")) {
         $("#todo_dia").val(false);
@@ -310,8 +361,8 @@ $("#segunda").change(function () {
         $("#segunda_fim").prop("disabled", true);
         $("#segunda_inicio").hide();
         $("#segunda_fim").hide();
-        $("#segunda_inicio").val(1);
-        $("#segunda_fim").val(1);
+        $("#segunda_inicio").val('');
+        $("#segunda_fim").val('');
     }
 });
 
@@ -328,8 +379,8 @@ $("#terca").change(function () {
         $("#terca_fim").prop("disabled", true);
         $("#terca_inicio").hide();
         $("#terca_fim").hide();
-        $("#terca_inicio").val(1);
-        $("#terca_fim").val(1);
+        $("#terca_inicio").val('');
+        $("#terca_fim").val('');
     }
 });
 
@@ -345,8 +396,8 @@ $("#quarta").change(function () {
         $("#quarta_fim").prop("disabled", true);
         $("#quarta_inicio").hide();
         $("#quarta_fim").hide();
-        $("#quarta_inicio").val(1);
-        $("#quarta_fim").val(1);
+        $("#quarta_inicio").val('');
+        $("#quarta_fim").val('');
     }
 });
 
@@ -363,8 +414,8 @@ $("#quinta").change(function () {
         $("#quinta_fim").prop("disabled", true);
         $("#quinta_inicio").hide();
         $("#quinta_fim").hide();
-        $("#quinta_inicio").val(1);
-        $("#quinta_fim").val(1);
+        $("#quinta_inicio").val('');
+        $("#quinta_fim").val('');
     }
 });
 
@@ -380,8 +431,8 @@ $("#sexta").change(function () {
         $("#sexta_fim").prop("disabled", true);
         $("#sexta_inicio").hide();
         $("#sexta_fim").hide();
-        $("#sexta_inicio").val(1);
-        $("#sexta_fim").val(1);
+        $("#sexta_inicio").val('');
+        $("#sexta_fim").val('');
     }
 });
 
@@ -397,8 +448,8 @@ $("#sabado").change(function () {
         $("#sabado_fim").prop("disabled", true);
         $("#sabado_inicio").hide();
         $("#sabado_fim").hide();
-        $("#sabado_inicio").val(1);
-        $("#sabado_fim").val(1);
+        $("#sabado_inicio").val('');
+        $("#sabado_fim").val('');
     }
 });
 
@@ -414,44 +465,44 @@ $("#domingo").change(function () {
         $("#domingo_fim").prop("disabled", true);
         $("#domingo_inicio").hide();
         $("#domingo_fim").hide();
-        $("#domingo_inicio").val(1);
-        $("#domingo_fim").val(1);
+        $("#domingo_inicio").val('');
+        $("#domingo_fim").val('');
     }
 });
 
-$("#segunda_inicio").val(1);
-$("#segunda_fim").val(1);
+$("#segunda_inicio").val('');
+$("#segunda_fim").val('');
 $("#segunda_inicio").hide();
 $("#segunda_fim").hide();
 
-$("#terca_inicio").val(1);
-$("#terca_fim").val(1);
+$("#terca_inicio").val('');
+$("#terca_fim").val('');
 $("#terca_inicio").hide();
 $("#terca_fim").hide();
 
-$("#quarta_inicio").val(1);
-$("#quarta_fim").val(1);
+$("#quarta_inicio").val('');
+$("#quarta_fim").val('');
 $("#quarta_inicio").hide();
 $("#quarta_fim").hide();
 
-$("#quinta_inicio").val(1);
-$("#quinta_fim").val(1);
+$("#quinta_inicio").val('');
+$("#quinta_fim").val('');
 $("#quinta_inicio").hide();
 $("#quinta_fim").hide();
 
 
-$("#sexta_inicio").val(1);
-$("#sexta_fim").val(1);
+$("#sexta_inicio").val('');
+$("#sexta_fim").val('');
 $("#sexta_inicio").hide();
 $("#sexta_fim").hide();
 
-$("#sabado_inicio").val(1);
-$("#sabado_fim").val(1);
+$("#sabado_inicio").val('');
+$("#sabado_fim").val('');
 $("#sabado_inicio").hide();
 $("#sabado_fim").hide();
 
-$("#domingo_inicio").val(1);
-$("#domingo_fim").val(1);
+$("#domingo_inicio").val('');
+$("#domingo_fim").val('');
 $("#domingo_inicio").hide();
 $("#domingo_fim").hide();
 
@@ -473,7 +524,12 @@ $("#ACEITE_CONTRATO").change(function () {
 $("#fechaModalContrato").click(function () {
     if (!$("#ACEITE_CONTRATO").is(":checked"))
     {
-        alert("Você não aceitou nossos termos de uso!");
+        $('#ModalErroHeaderGenerico').remove();
+        $('#ModalErroBodyGenerico').remove();
+        $('#ModalErroFooterGenerico').remove();
+        $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">Você não aceitou nossos termos de uso!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
+        $('#ModalErro').modal('show');
+        return false;
     }
     else
     {
@@ -661,9 +717,14 @@ function valida_cnpj(f, campo) {
 
 
     if (result == "falso") {
-        alert("Por favor, digite um CNPJ válido!");
+        $('#ModalErroHeaderGenerico').remove();
+        $('#ModalErroBodyGenerico').remove();
+        $('#ModalErroFooterGenerico').remove();
+        $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">Por favor, digite um CNPJ válido!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
+        $('#ModalErro').modal('show');
         aux1 = eval("document." + f + "." + campo + ".focus");
         aux2 = eval("document." + f + "." + campo + ".value = ''");
+        return false;
 
     }
 }
@@ -715,10 +776,14 @@ function valida_cpf(f, campo) {
 
 
     if (result == "falso") {
-        alert("Por favor, digite um CPF válido!");
+        $('#ModalErroHeaderGenerico').remove();
+        $('#ModalErroBodyGenerico').remove();
+        $('#ModalErroFooterGenerico').remove();
+        $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">Por favor, digite um CPF válido!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
+        $('#ModalErro').modal('show');
         aux1 = eval("document." + f + "." + campo + ".focus");
         aux2 = eval("document." + f + "." + campo + ".value = ''");
-
+        return false;
     }
 }
 

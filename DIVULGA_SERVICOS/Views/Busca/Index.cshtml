@@ -26,6 +26,50 @@
 </head>
 
 <body>
+    <div class="modal fade" id='ModalErro' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" id="ModalErroBody">
+                <div class="modal-header" id="ModalErroHeaderGenerico">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3 class="modal-title" id="myModalLabel">Atenção!</h3>
+                </div>
+                <div class="modal-body" id="ModalErroBodyGenerico">
+                    <div class="alert alert-danger" role="alert">
+                        Não conseguimos identificar sua localização. Informe seu endereço na busca avançada!
+                    </div>
+                    <img src="~/Content/images/BuscaAvancada.JPG" style="width: 90%;" />
+                </div>
+                <div class="modal-footer" id="ModalErroFooterGenerico">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id='ModalErroController' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" id="ModalErroBody">
+                <div class="modal-header" id="ModalErroHeaderGenerico">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3 class="modal-title" id="myModalLabel">Atenção!</h3>
+                </div>
+                <div class="modal-body" id="ModalErroBodyGenerico">
+                    <div class="alert alert-danger" role="alert">
+                        @ViewBag.erro
+                    </div>
+                    <img src="~/Content/images/BuscaAvancada.JPG" style="width: 90%;" />
+                </div>
+                <div class="modal-footer" id="ModalErroFooterGenerico">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="alert alert-danger avbar-fixed-top" role="alert">
         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
         <span class="sr-only">Erro:</span>
@@ -80,7 +124,7 @@
         @if (ViewBag.erro != null || ViewBag.erro != "" && ViewBag.Status == 1)
             {
             <script>
-                alert('@ViewBag.erro');
+                $('#ModalErroController').modal('show');
             </script>
         }
 
@@ -100,7 +144,7 @@
                                        onFocus="geolocates()" type="text">
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-2" for="distancia">Distante até</label>
+                                <label class="control-label col-md-2" for="distancia">Até</label>
                                 <div class="col-md-10">
                                     <input class="form-control" id="distancia" name="distancia" placeholder="Km"
                                            type="number" style="width: 100px; margin-left: 55px;">
@@ -136,6 +180,56 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="porte_empresa">Atende:</label>
+                                <div class="col-md-10">
+                                    <div class="checkbox">
+                                        <label for="PESSOA_FISICA">
+                                            <input type="checkbox" name="PESSOA_FISICA" id="PESSOA_FISICA" value="true">
+                                            <input type="hidden" value="false" name="PESSOA_FISICA" />
+                                            Pessoa Física
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <div class="checkbox">
+                                        <label for="MICRO_EMPRESA">
+                                            <input type="checkbox" name="MICRO_EMPRESA" id="MICRO_EMPRESA" value="true">
+                                            <input type="hidden" value="false" name="MICRO_EMPRESA" />
+                                            Micro Empresa
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <div class="checkbox">
+                                        <label for="PEQUENAS_EMPRESAS">
+                                            <input type="checkbox" name="PEQUENAS_EMPRESAS" id="PEQUENAS_EMPRESAS" value="true">
+                                            <input type="hidden" value="false" name="PEQUENAS_EMPRESAS" />
+                                            Pequenas Empresas
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <div class="checkbox">
+                                        <label for="EMPRESA_GRANDE_PORTE">
+                                            <input type="checkbox" name="EMPRESA_GRANDE_PORTE" id="EMPRESA_GRANDE_PORTE" value="true">
+                                            <input type="hidden" value="false" name="EMPRESA_GRANDE_PORTE" />
+                                            Grandes Empresas
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
                             <button type="submit" class="btn btn-primary botaoPesquisa" id="lupaAvancada"><span class="glyphicon glyphicon-search" aria-hidden="true" id="lupa"></span></button>
                         </div>
                     </div>
@@ -683,7 +777,7 @@
                                                     @{
                                                         var culture = new System.Globalization.CultureInfo("pt-BR");
                                                     }
-                                                    @if (hora.HORA_INICIO != 1)
+                                                    @if (hora.HORA_INICIO != 0)
                                                     {
                                                         <text>
                                                             <strong>
@@ -1262,7 +1356,7 @@
         $('.botaoPesquisa').click(function(){
             if($("#lat").val() == "")
             {
-                alert("Não conseguimos identificar sua localização! Informe seu endereço na busca avançada!");
+                $('#ModalErro').modal('show');
                 return false;
             }
             //if ("#lat"){
@@ -1288,6 +1382,5 @@
             </div>
         }
     </footer>
-
 </body>
 </html>

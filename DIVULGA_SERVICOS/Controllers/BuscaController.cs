@@ -49,7 +49,7 @@ namespace DIVULGA_SERVICOS.Controllers
 
 
         [HttpGet]
-        public ActionResult Pesquisa(string pesquisa = "", string lat = "", string lng = "", int distancia = 0, bool aberto = false, bool vintequatro = false, bool aceitacartao = false)
+        public ActionResult Pesquisa(string pesquisa = "", string lat = "", string lng = "", int distancia = 0, bool aberto = false, bool vintequatro = false, bool aceitacartao = false, bool PESSOA_FISICA = false, bool MICRO_EMPRESA = false, bool PEQUENAS_EMPRESAS = false, bool EMPRESA_GRANDE_PORTE = false)
         {
             //var cAD_PES_CATEGORIA = new List<CAD_CATEGORIA>();
             var enderecos = new List<CAD_PES_ENDERECO>();
@@ -155,7 +155,6 @@ namespace DIVULGA_SERVICOS.Controllers
 
                                 }
                             }
-
                             if (aceitacartao == true)
                             {
                                 for (int i = enderecosTemp.Count - 1; i >= 0; i--)
@@ -170,6 +169,62 @@ namespace DIVULGA_SERVICOS.Controllers
                                         enderecosTemp.Remove(enderecosTemp[i]);
                                     }
 
+                                }
+                            }
+                            if(PESSOA_FISICA == true)
+                            {
+                                for(int i = enderecosTemp.Count - 1; i >= 0; i--)
+                                {
+                                    if (enderecosTemp[i].CAD_PESSOA.CAD_PES_JURIDICA.CAD_PORTE_EMPRESA.PESSOA_FISICA == true)
+                                    {
+
+                                    }
+                                    else
+                                    {
+                                        enderecosTemp.Remove(enderecosTemp[i]);
+                                    }
+                                }
+                            }
+                            if (MICRO_EMPRESA == true)
+                            {
+                                for (int i = enderecosTemp.Count - 1; i >= 0; i--)
+                                {
+                                    if (enderecosTemp[i].CAD_PESSOA.CAD_PES_JURIDICA.CAD_PORTE_EMPRESA.MICRO_EMPRESA == true)
+                                    {
+
+                                    }
+                                    else
+                                    {
+                                        enderecosTemp.Remove(enderecosTemp[i]);
+                                    }
+                                }
+                            }
+                            if (PEQUENAS_EMPRESAS == true)
+                            {
+                                for (int i = enderecosTemp.Count - 1; i >= 0; i--)
+                                {
+                                    if (enderecosTemp[i].CAD_PESSOA.CAD_PES_JURIDICA.CAD_PORTE_EMPRESA.PEQUENAS_EMPRESAS == true)
+                                    {
+
+                                    }
+                                    else
+                                    {
+                                        enderecosTemp.Remove(enderecosTemp[i]);
+                                    }
+                                }
+                            }
+                            if (EMPRESA_GRANDE_PORTE == true)
+                            {
+                                for (int i = enderecosTemp.Count - 1; i >= 0; i--)
+                                {
+                                    if (enderecosTemp[i].CAD_PESSOA.CAD_PES_JURIDICA.CAD_PORTE_EMPRESA.EMPRESA_GRANDE_PORTE == true)
+                                    {
+
+                                    }
+                                    else
+                                    {
+                                        enderecosTemp.Remove(enderecosTemp[i]);
+                                    }
                                 }
                             }
                             enderecos.AddRange(enderecosTemp.ToList());
@@ -218,8 +273,9 @@ namespace DIVULGA_SERVICOS.Controllers
                         else
                         {
                             status = 0;
-                            atendimentos = db.CAD_HORA_ATENDIMENTO.Where(x => x.CD_PES_JURIDICA == enderecos[i].CD_PESSOA &&
-                            x.DIA_SEMANA == (int)DateTime.Today.DayOfWeek).ToList();
+                            var userId = enderecos[i].CAD_PESSOA.CAD_PES_JURIDICA.CD_PESSOA;
+                            atendimentos = db.CAD_HORA_ATENDIMENTO.Where(x => x.CAD_PES_JURIDICA.CD_PESSOA == userId &&
+                            x.DIA_SEMANA == ((int) DateTime.Today.DayOfWeek)).ToList();
                             foreach (var atendimento in atendimentos)
                             {
                                 if (atendimento.HORA_INICIO <= DateTime.Now.Hour && atendimento.HORA_FIM > DateTime.Now.Hour)
@@ -269,6 +325,62 @@ namespace DIVULGA_SERVICOS.Controllers
                             enderecos.Remove(enderecos[i]);
                         }
 
+                    }
+                }
+                if (PESSOA_FISICA == true)
+                {
+                    for (int i = enderecos.Count - 1; i >= 0; i--)
+                    {
+                        if (enderecos[i].CAD_PESSOA.CAD_PES_JURIDICA.CAD_PORTE_EMPRESA.PESSOA_FISICA == true)
+                        {
+
+                        }
+                        else
+                        {
+                            enderecos.Remove(enderecos[i]);
+                        }
+                    }
+                }
+                if (MICRO_EMPRESA == true)
+                {
+                    for (int i = enderecos.Count - 1; i >= 0; i--)
+                    {
+                        if (enderecos[i].CAD_PESSOA.CAD_PES_JURIDICA.CAD_PORTE_EMPRESA.MICRO_EMPRESA == true)
+                        {
+
+                        }
+                        else
+                        {
+                            enderecos.Remove(enderecos[i]);
+                        }
+                    }
+                }
+                if (PEQUENAS_EMPRESAS == true)
+                {
+                    for (int i = enderecos.Count - 1; i >= 0; i--)
+                    {
+                        if (enderecos[i].CAD_PESSOA.CAD_PES_JURIDICA.CAD_PORTE_EMPRESA.PEQUENAS_EMPRESAS == true)
+                        {
+
+                        }
+                        else
+                        {
+                            enderecos.Remove(enderecos[i]);
+                        }
+                    }
+                }
+                if (EMPRESA_GRANDE_PORTE == true)
+                {
+                    for (int i = enderecos.Count - 1; i >= 0; i--)
+                    {
+                        if (enderecos[i].CAD_PESSOA.CAD_PES_JURIDICA.CAD_PORTE_EMPRESA.EMPRESA_GRANDE_PORTE == true)
+                        {
+
+                        }
+                        else
+                        {
+                            enderecos.Remove(enderecos[i]);
+                        }
                     }
                 }
             }
