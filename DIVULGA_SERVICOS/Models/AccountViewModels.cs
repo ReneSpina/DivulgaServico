@@ -85,6 +85,84 @@ namespace DIVULGA_SERVICOS.Models
         [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "As senhas não são iguais.")]
         public string ConfirmPassword { get; set; }
     }
+
+    public class EditarHorarioAtendimento
+    {
+        [Required]
+        public int SEGUNDA_HORA_INICIO { get; set; }
+
+        [Required]
+        public int SEGUNDA_HORA_FIM { get; set; }
+
+        [Required]
+        public int TERCA_HORA_INICIO { get; set; }
+
+        [Required]
+        public int TERCA_HORA_FIM { get; set; }
+
+        [Required]
+        public int QUARTA_HORA_INICIO { get; set; }
+
+        [Required]
+        public int QUARTA_HORA_FIM { get; set; }
+
+        [Required]
+        public int QUINTA_HORA_INICIO { get; set; }
+
+        [Required]
+        public int QUINTA_HORA_FIM { get; set; }
+
+        [Required]
+        public int SEXTA_HORA_INICIO { get; set; }
+
+        [Required]
+        public int SEXTA_HORA_FIM { get; set; }
+
+        [Required]
+        public int SABADO_HORA_INICIO { get; set; }
+
+        [Required]
+        public int SABADO_HORA_FIM { get; set; }
+
+        [Required]
+        public int DOMINGO_HORA_INICIO { get; set; }
+
+        [Required]
+        public int DOMINGO_HORA_FIM { get; set; }
+    }
+
+    public class editarFormasPagamento
+    {
+        [Required]
+        public bool DINHEIRO { get; set; }
+
+        [Required]
+        public bool CHEQUE { get; set; }
+
+        [Required]
+        public bool DEBITO { get; set; }
+
+        [Required]
+        public bool CREDITO { get; set; }
+
+        [Required]
+        public bool OUTROS { get; set; }
+    }
+
+    public class editarPublicoAlvo
+    {
+        [Required]
+        public bool PESSOA_FISICA { get; set; }
+
+        [Required]
+        public bool MICRO_EMPRESA { get; set; }
+
+        [Required]
+        public bool PEQUENAS_EMPRESAS { get; set; }
+
+        [Required]
+        public bool EMPRESA_GRANDE_PORTE { get; set; }
+    }
     
     public class RegisterPrestadorViewModel
     {

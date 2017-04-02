@@ -1,0 +1,129 @@
+﻿@model IEnumerable<DIVULGA_SERVICOS.Models.CAD_HORA_ATENDIMENTO>
+
+@{
+    ViewBag.Title = "Editar Horários de Atendimento";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Horários de Atendimento</h2>
+<br />
+@using (Html.BeginForm("EditarHorarioAtendimento", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form", @name = "EditarHorarioAtendimento" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="col-xs-12">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label for="tododia">
+                            <input name="tododia" id="todo_dia" value="true" type="checkbox">
+                            <input type="hidden" value="false" name="tododia" />
+                            <b>24h por dia, 7 dias da semana</b>
+                        </label>
+                    </div>
+
+                    <div class="checkbox segundasexta">
+                        <label for="project_parts-0">
+                            <input name="segundasexta" id="segundasexta" value="false" type="checkbox">
+                            Mesmo horário de seg à sex:
+                        </label>
+                        <b>
+                            De: <input class="segundasextainicio" type="number" max="23" min="00" disabled>
+                            às: <input class="segundasextafim" type="number" max="23" min="00" disabled>
+                        </b>
+                    </div>
+
+                    <div class="checkbox segunda_check">
+                        <label for="segunda">
+                            <input name="segunda" id="segunda" type="checkbox">
+                            Segunda
+                        </label>
+                        <b>
+                            De: <input name="SEGUNDA_HORA_INICIO" id="segunda_inicio" type="number" max="23" min="00" disabled>
+                            às: <input name="SEGUNDA_HORA_FIM" id="segunda_fim" type="number" max="23" min="00" disabled>
+                        </b>
+                    </div>
+                    <div class="checkbox terca_check">
+                        <label for="project_parts-1">
+                            <input name="terca" id="terca" value="false" type="checkbox">
+                            Terça
+                        </label>
+                        <b>
+                            De: <input name="TERCA_HORA_INICIO" id="terca_inicio" type="number" max="23" min="00" disabled>
+                            às: <input name="TERCA_HORA_FIM" id="terca_fim" type="number" max="23" min="00" disabled>
+                        </b>
+                    </div>
+                    <div class="checkbox quarta_check">
+                        <label for="project_parts-2">
+                            <input name="quarta" id="quarta" value="false" type="checkbox">
+                            Quarta
+                        </label>
+                        <b>
+                            De: <input name="QUARTA_HORA_INICIO" id="quarta_inicio" type="number" max="23" min="00" disabled>
+                            às: <input name="QUARTA_HORA_FIM" id="quarta_fim" type="number" max="23" min="00" disabled>
+                        </b>
+                    </div>
+                    <div class="checkbox quinta_check">
+                        <label for="project_parts-3">
+                            <input name="quinta" id="quinta" value="false" type="checkbox">
+                            Quinta
+                        </label>
+                        <b>
+                            De: <input name="QUINTA_HORA_INICIO" id="quinta_inicio" type="number" max="23" min="00" disabled>
+                            às: <input name="QUINTA_HORA_FIM" id="quinta_fim" type="number" max="23" min="00" disabled>
+                        </b>
+                    </div>
+                    <div class="checkbox sexta_check">
+                        <label for="project_parts-4">
+                            <input name="sexta" id="sexta" value="false" type="checkbox">
+                            Sexta
+                        </label>
+                        <b>
+                            De: <input name="SEXTA_HORA_INICIO" id="sexta_inicio" type="number" max="23" min="00" disabled>
+                            às: <input name="SEXTA_HORA_FIM" id="sexta_fim" type="number" max="23" min="00" disabled>
+                        </b>
+                    </div>
+                    <div class="checkbox sabado_check">
+                        <label for="project_parts-5">
+                            <input name="sabado" id="sabado" value="false" type="checkbox">
+                            Sábado
+                        </label>
+                        <b>
+                            De: <input name="SABADO_HORA_INICIO" id="sabado_inicio" type="number" max="23" min="00" disabled>
+                            às: <input name="SABADO_HORA_FIM" id="sabado_fim" type="number" max="23" min="00" disabled>
+                        </b>
+                    </div>
+                    <div class="checkbox domingo_check">
+                        <label for="project_parts-6">
+                            <input name="domingo" id="domingo" value="false" type="checkbox">
+                            Domingo
+                        </label>
+                        <b>
+                            De: <input name="DOMINGO_HORA_INICIO" id="domingo_inicio" type="number" max="23" min="00" disabled>
+                            às: <input name="DOMINGO_HORA_FIM" id="domingo_fim" type="number" max="23" min="00" disabled>
+                        </b>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input id="EditarHorario" type="submit" value="Salvar" class="btn btn-default" />
+            </div>
+        </div>
+}
+<div class="modal fade" id='ModalErro' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="ModalErroBody">
+        </div>
+    </div>
+</div>
+<div>
+    @Html.ActionLink("Voltar a tela de horários", "horarioAtendimento")
+    <br />
+    @Html.ActionLink("Voltar a tela de gerenciamento", "Index")
+</div>
+<script src="~/Scripts/jquery-ui.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="~/Scripts/jquery.mask.min.js"></script>
+<script src="~/Scripts/Register.js"></script>

@@ -586,6 +586,12 @@
     <Content Include="Views\Manage\DeletarUsuario.cshtml" />
     <Content Include="Views\Home\Privacidade.cshtml" />
     <Content Include="Views\Home\TermosDeUso.cshtml" />
+    <Content Include="Views\Manage\EditarHorarioAtendimento.cshtml" />
+    <Content Include="Views\Manage\horarioAtendimento.cshtml" />
+    <Content Include="Views\Manage\publicoAlvo.cshtml" />
+    <Content Include="Views\Manage\EditarPublicoAlvo.cshtml" />
+    <Content Include="Views\Manage\formasPagamento.cshtml" />
+    <Content Include="Views\Manage\EditarFormasPagamento.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

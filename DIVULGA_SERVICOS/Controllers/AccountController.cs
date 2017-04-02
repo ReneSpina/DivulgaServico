@@ -289,83 +289,89 @@ namespace DIVULGA_SERVICOS.Controllers
                             };
                             db.CAD_PORTE_EMPRESA.Add(porteEmpresa);
                             db.SaveChanges();
-
-                            CAD_HORA_ATENDIMENTO horaAtendimentoDomingo = new CAD_HORA_ATENDIMENTO
+                            if(model.TODO_DIA == true)
                             {
-                                CD_PES_JURIDICA = user.Id,
-                                DIA_SEMANA = 0,
-                                HORA_INICIO = model.DOMINGO_HORA_INICIO,
-                                HORA_FIM = model.DOMINGO_HORA_FIM
-                            };
-                            db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoDomingo);
-                            db.SaveChanges();
-                            //transacao.Commit();
 
-                            CAD_HORA_ATENDIMENTO horaAtendimentoSegunda = new CAD_HORA_ATENDIMENTO
+                            }
+                            else
                             {
-                                CD_PES_JURIDICA = user.Id,
-                                DIA_SEMANA = 1,
-                                HORA_INICIO = model.SEGUNDA_HORA_INICIO,
-                                HORA_FIM = model.SEGUNDA_HORA_FIM
-                            };
-                            db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoSegunda);
-                            db.SaveChanges();
-                            //transacao.Commit();
+                                CAD_HORA_ATENDIMENTO horaAtendimentoDomingo = new CAD_HORA_ATENDIMENTO
+                                {
+                                    CD_PES_JURIDICA = user.Id,
+                                    DIA_SEMANA = 0,
+                                    HORA_INICIO = model.DOMINGO_HORA_INICIO,
+                                    HORA_FIM = model.DOMINGO_HORA_FIM
+                                };
+                                db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoDomingo);
+                                db.SaveChanges();
+                                //transacao.Commit();
 
-                            CAD_HORA_ATENDIMENTO horaAtendimentoTerca = new CAD_HORA_ATENDIMENTO
-                            {
-                                CD_PES_JURIDICA = user.Id,
-                                DIA_SEMANA = 2,
-                                HORA_INICIO = model.TERCA_HORA_INICIO,
-                                HORA_FIM = model.TERCA_HORA_FIM
-                            };
-                            db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoTerca);
-                            db.SaveChanges();
-                            //transacao.Commit();
+                                CAD_HORA_ATENDIMENTO horaAtendimentoSegunda = new CAD_HORA_ATENDIMENTO
+                                {
+                                    CD_PES_JURIDICA = user.Id,
+                                    DIA_SEMANA = 1,
+                                    HORA_INICIO = model.SEGUNDA_HORA_INICIO,
+                                    HORA_FIM = model.SEGUNDA_HORA_FIM
+                                };
+                                db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoSegunda);
+                                db.SaveChanges();
+                                //transacao.Commit();
 
-                            CAD_HORA_ATENDIMENTO horaAtendimentoQuarta = new CAD_HORA_ATENDIMENTO
-                            {
-                                CD_PES_JURIDICA = user.Id,
-                                DIA_SEMANA = 3,
-                                HORA_INICIO = model.QUARTA_HORA_INICIO,
-                                HORA_FIM = model.QUINTA_HORA_FIM
-                            };
-                            db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoQuarta);
-                            db.SaveChanges();
-                            //transacao.Commit();
+                                CAD_HORA_ATENDIMENTO horaAtendimentoTerca = new CAD_HORA_ATENDIMENTO
+                                {
+                                    CD_PES_JURIDICA = user.Id,
+                                    DIA_SEMANA = 2,
+                                    HORA_INICIO = model.TERCA_HORA_INICIO,
+                                    HORA_FIM = model.TERCA_HORA_FIM
+                                };
+                                db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoTerca);
+                                db.SaveChanges();
+                                //transacao.Commit();
 
-                            CAD_HORA_ATENDIMENTO horaAtendimentoQuinta = new CAD_HORA_ATENDIMENTO
-                            {
-                                CD_PES_JURIDICA = user.Id,
-                                DIA_SEMANA = 4,
-                                HORA_INICIO = model.QUINTA_HORA_INICIO,
-                                HORA_FIM = model.QUINTA_HORA_FIM
-                            };
-                            db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoQuinta);
-                            db.SaveChanges();
-                            //transacao.Commit();
+                                CAD_HORA_ATENDIMENTO horaAtendimentoQuarta = new CAD_HORA_ATENDIMENTO
+                                {
+                                    CD_PES_JURIDICA = user.Id,
+                                    DIA_SEMANA = 3,
+                                    HORA_INICIO = model.QUARTA_HORA_INICIO,
+                                    HORA_FIM = model.QUARTA_HORA_FIM
+                                };
+                                db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoQuarta);
+                                db.SaveChanges();
+                                //transacao.Commit();
 
-                            CAD_HORA_ATENDIMENTO horaAtendimentoSexta = new CAD_HORA_ATENDIMENTO
-                            {
-                                CD_PES_JURIDICA = user.Id,
-                                DIA_SEMANA = 5,
-                                HORA_INICIO = model.SEXTA_HORA_INICIO,
-                                HORA_FIM = model.SEXTA_HORA_FIM
-                            };
-                            db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoSexta);
-                            db.SaveChanges();
-                            //transacao.Commit();
+                                CAD_HORA_ATENDIMENTO horaAtendimentoQuinta = new CAD_HORA_ATENDIMENTO
+                                {
+                                    CD_PES_JURIDICA = user.Id,
+                                    DIA_SEMANA = 4,
+                                    HORA_INICIO = model.QUINTA_HORA_INICIO,
+                                    HORA_FIM = model.QUINTA_HORA_FIM
+                                };
+                                db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoQuinta);
+                                db.SaveChanges();
+                                //transacao.Commit();
 
-                            CAD_HORA_ATENDIMENTO horaAtendimentoSabado = new CAD_HORA_ATENDIMENTO
-                            {
-                                CD_PES_JURIDICA = user.Id,
-                                DIA_SEMANA = 6,
-                                HORA_INICIO = model.SABADO_HORA_INICIO,
-                                HORA_FIM = model.SABADO_HORA_FIM
-                            };
-                            db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoSabado);
-                            db.SaveChanges();
-                            //transacao.Commit();
+                                CAD_HORA_ATENDIMENTO horaAtendimentoSexta = new CAD_HORA_ATENDIMENTO
+                                {
+                                    CD_PES_JURIDICA = user.Id,
+                                    DIA_SEMANA = 5,
+                                    HORA_INICIO = model.SEXTA_HORA_INICIO,
+                                    HORA_FIM = model.SEXTA_HORA_FIM
+                                };
+                                db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoSexta);
+                                db.SaveChanges();
+                                //transacao.Commit();
+
+                                CAD_HORA_ATENDIMENTO horaAtendimentoSabado = new CAD_HORA_ATENDIMENTO
+                                {
+                                    CD_PES_JURIDICA = user.Id,
+                                    DIA_SEMANA = 6,
+                                    HORA_INICIO = model.SABADO_HORA_INICIO,
+                                    HORA_FIM = model.SABADO_HORA_FIM
+                                };
+                                db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoSabado);
+                                db.SaveChanges();
+                                //transacao.Commit();
+                            }
 
                             CAD_CATEGORIA atividade = new CAD_CATEGORIA
                             {

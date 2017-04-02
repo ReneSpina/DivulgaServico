@@ -36,7 +36,11 @@ $('#salvarPerfil').click(function () {
 
     if ($("#NM_NOME_PESSOA").val() == "" || $("#NM_NOME_PESSOA").val() == null || $("#CD_CNPJ").val() == "" || $("#CD_CNPJ").val() == null || $("#Email").val() == "" || $("#Email").val() == null)
     {
-        alert("Os campos com * não podem ser vazios!");
+        $('#ModalErroHeaderGenerico').remove();
+        $('#ModalErroBodyGenerico').remove();
+        $('#ModalErroFooterGenerico').remove();
+        $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">Os campos com * não podem ser vazios!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
+        $('#ModalErro').modal('show');
         return false;
     }
 });
@@ -196,9 +200,14 @@ function valida_cnpj(f, campo) {
 
 
     if (result == "falso") {
-        alert("Por favor, digite um CNPJ válido!");
+        $('#ModalErroHeaderGenerico').remove();
+        $('#ModalErroBodyGenerico').remove();
+        $('#ModalErroFooterGenerico').remove();
+        $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">Por favor, digite um CNPJ válido!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
+        $('#ModalErro').modal('show');
         aux1 = eval("document." + f + "." + campo + ".focus");
         aux2 = eval("document." + f + "." + campo + ".value = ''");
+        return false;
 
     }
 }
@@ -250,10 +259,14 @@ function valida_cpf(f, campo) {
 
 
     if (result == "falso") {
-        alert("Por favor, digite um CPF válido!");
+        $('#ModalErroHeaderGenerico').remove();
+        $('#ModalErroBodyGenerico').remove();
+        $('#ModalErroFooterGenerico').remove();
+        $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">Por favor, digite um CPF válido!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
+        $('#ModalErro').modal('show');
         aux1 = eval("document." + f + "." + campo + ".focus");
         aux2 = eval("document." + f + "." + campo + ".value = ''");
-
+        return false;
     }
 }
 

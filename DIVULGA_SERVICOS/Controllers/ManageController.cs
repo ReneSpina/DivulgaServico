@@ -697,9 +697,9 @@ namespace DIVULGA_SERVICOS.Controllers
             {
                 CAD_PES_JURIDICA usuario = db.CAD_PES_JURIDICA.Find(User.Identity.GetUserId());
 
-                if(cAD_PES_JURIDICA.NEWSLETTER == true)
+                if (cAD_PES_JURIDICA.NEWSLETTER == true)
                 {
-                    if(pessoajuridica.NEWSLETTER == true)
+                    if (pessoajuridica.NEWSLETTER == true)
                     {
                         newsletter = false;
                     }
@@ -1033,8 +1033,308 @@ namespace DIVULGA_SERVICOS.Controllers
         }
         /*Fim dos métodos para gerenciamento de telefones*/
 
+        /*Início dos métodos para gerenciamento do publico alvo*/
+        [Authorize(Roles = "Prestador")]
+        public ActionResult publicoAlvo()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+                var prestador = db.CAD_PES_JURIDICA.Where(x => x.CD_PESSOA == userId).FirstOrDefault();
+                if (prestador != null)
+                {
+                    //var cliente = db.CAD_CLIENTE.Include(x => x.CD_PESSOA == pes_juridica.CD_PESSOA);
+                    return View("publicoAlvo", prestador);
+                }
+                else
+                {
+                    ViewBag.errorMessage = "Você precisa ser um prestador de serviço e deve estar logado para acessar essa página.";
+                    return View("Error");
+                }
+            }
+            else
+            {
+                ViewBag.errorMessage = "Você precisa ser um prestador de serviço e deve estar logado para acessar essa página.";
+                return View("Error");
+            }
+        }
+
+        [Authorize(Roles = "Prestador")]
+        public ActionResult EditarPublicoAlvo()
+        {
+            if (User.Identity.GetUserId() == null)
+            {
+                ViewBag.errorMessage = "Você precisa ser um prestador de serviço e deve estar logado para acessar essa página.";
+                return View("Error");
+            }
+
+            var userId = User.Identity.GetUserId();
+            var prestador = db.CAD_PES_JURIDICA.Where(x => x.CD_PESSOA == userId).FirstOrDefault();
+
+            //CAD_PES_JURIDICA cAD_CATEGORIA = db.CAD_CATEGORIA.Where(x => x.SQ_CATEGORIA == id).FirstOrDefault();
+            return View("EditarPublicoAlvo", prestador);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Prestador")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditarPublicoAlvo(editarPublicoAlvo publicoAlvo)
+        {
+            var userId = User.Identity.GetUserId();
+            var publico = db.CAD_PORTE_EMPRESA.Where(x => x.CD_PESSOA == userId).FirstOrDefault();
+            if (ModelState.IsValid)
+            {
+                CAD_PORTE_EMPRESA editarPublico = new CAD_PORTE_EMPRESA
+                {
+                    CD_PESSOA = userId,
+                    PESSOA_FISICA = publicoAlvo.PESSOA_FISICA,
+                    MICRO_EMPRESA = publicoAlvo.MICRO_EMPRESA,
+                    PEQUENAS_EMPRESAS = publicoAlvo.PEQUENAS_EMPRESAS,
+                    EMPRESA_GRANDE_PORTE = publicoAlvo.EMPRESA_GRANDE_PORTE
+                };
+                db.CAD_PORTE_EMPRESA.AddOrUpdate(editarPublico);
+                db.SaveChanges();
+                return RedirectToAction("publicoAlvo");
+            }
+            return RedirectToAction("EditarPublicoAlvo", publico);
+        }
+        /*Fim dos métodos para gerenciamento do publico alvo*/
+
+        /*Fim dos métodos para gerenciamento das formas de pagamento*/
+        [Authorize(Roles = "Prestador")]
+        public ActionResult formasPagamento()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+                var prestador = db.CAD_PES_JURIDICA.Where(x => x.CD_PESSOA == userId).FirstOrDefault();
+                if (prestador != null)
+                {
+                    //var cliente = db.CAD_CLIENTE.Include(x => x.CD_PESSOA == pes_juridica.CD_PESSOA);
+                    return View("formasPagamento", prestador);
+                }
+                else
+                {
+                    ViewBag.errorMessage = "Você precisa ser um prestador de serviço e deve estar logado para acessar essa página.";
+                    return View("Error");
+                }
+            }
+            else
+            {
+                ViewBag.errorMessage = "Você precisa ser um prestador de serviço e deve estar logado para acessar essa página.";
+                return View("Error");
+            }
+        }
+
+        [Authorize(Roles = "Prestador")]
+        public ActionResult EditarFormasPagamento()
+        {
+            if (User.Identity.GetUserId() == null)
+            {
+                ViewBag.errorMessage = "Você precisa ser um prestador de serviço e deve estar logado para acessar essa página.";
+                return View("Error");
+            }
+
+            var userId = User.Identity.GetUserId();
+            var prestador = db.CAD_PES_JURIDICA.Where(x => x.CD_PESSOA == userId).FirstOrDefault();
+
+            //CAD_PES_JURIDICA cAD_CATEGORIA = db.CAD_CATEGORIA.Where(x => x.SQ_CATEGORIA == id).FirstOrDefault();
+            return View("EditarFormasPagamento", prestador);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Prestador")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditarFormasPagamento(editarFormasPagamento formasPagamento)
+        {
+            var userId = User.Identity.GetUserId();
+            var pagamento = db.CAD_FORMA_PAGAMENTO.Where(x => x.CD_PESSOA == userId).FirstOrDefault();
+            if (ModelState.IsValid)
+            {
+                CAD_FORMA_PAGAMENTO editarFormasPagamento = new CAD_FORMA_PAGAMENTO
+                {
+                    CD_PESSOA = userId,
+                    DINHEIRO = formasPagamento.DINHEIRO,
+                    CHEQUE = formasPagamento.CHEQUE,
+                    DEBITO = formasPagamento.DEBITO,
+                    CREDITO = formasPagamento.CREDITO,
+                    OUTROS = formasPagamento.OUTROS
+                };
+                db.CAD_FORMA_PAGAMENTO.AddOrUpdate(editarFormasPagamento);
+                db.SaveChanges();
+                return RedirectToAction("formasPagamento");
+            }
+            return RedirectToAction("EditarFormasPagamento", pagamento);
+        }
+        /*Fim dos métodos para gerenciamento das formas de pagamento*/
 
 
+        /*Início dos métodos para gerenciamento dos horários de atendimento*/
+        [Authorize(Roles ="Prestador")]
+        public ActionResult horarioAtendimento()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+                var prestador = db.CAD_PES_JURIDICA.Where(x => x.CD_PESSOA == userId).FirstOrDefault();
+                if (prestador != null)
+                {
+                    //var cliente = db.CAD_CLIENTE.Include(x => x.CD_PESSOA == pes_juridica.CD_PESSOA);
+                    return View("horarioAtendimento", prestador);
+                }
+                else
+                {
+                    ViewBag.errorMessage = "Você precisa ser um prestador de serviço e deve estar logado para acessar essa página.";
+                    return View("Error");
+                }
+            }
+            else
+            {
+                ViewBag.errorMessage = "Você precisa ser um prestador de serviço e deve estar logado para acessar essa página.";
+                return View("Error");
+            }
+        }
+
+
+        [Authorize(Roles = "Prestador")]
+        public ActionResult EditarHorarioAtendimento()
+        {
+            if (User.Identity.GetUserId() == null)
+            {
+                ViewBag.errorMessage = "Você precisa ser um prestador de serviço e deve estar logado para acessar essa página.";
+                return View("Error");
+            }
+
+            var userId = User.Identity.GetUserId();
+            var horarios = db.CAD_HORA_ATENDIMENTO.Where(x => x.CD_PES_JURIDICA == userId).ToList();
+
+            //CAD_PES_JURIDICA cAD_CATEGORIA = db.CAD_CATEGORIA.Where(x => x.SQ_CATEGORIA == id).FirstOrDefault();
+            return View("EditarHorarioAtendimento", horarios);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Prestador")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditarHorarioAtendimento(EditarHorarioAtendimento cAD_HORA_ATENDIMENTO, bool tododia)
+        {
+            if (ModelState.IsValid)
+            {
+                var userId = User.Identity.GetUserId();
+                var horarios = db.CAD_HORA_ATENDIMENTO.Where(x => x.CD_PES_JURIDICA == userId).ToList();
+                var prestador = db.CAD_PES_JURIDICA.Where(x => x.CD_PESSOA == userId).FirstOrDefault();
+                if (tododia != prestador.TODO_DIA)
+                {
+                    CAD_PES_JURIDICA cAD_PES_JURIDICA = new CAD_PES_JURIDICA
+                    {
+                        CD_PESSOA = prestador.CD_PESSOA,
+                        CD_CNPJ = prestador.CD_CNPJ,
+                        DS_SOBRE = prestador.DS_SOBRE,
+                        DS_QUEM_SOMOS = prestador.DS_QUEM_SOMOS,
+                        TODO_DIA = tododia,
+                        ACEITE_CONTRATO = prestador.ACEITE_CONTRATO,
+                        DIVULGACAO = prestador.DIVULGACAO,
+                        ATIVO = prestador.ATIVO,
+                    };
+                    db.CAD_PES_JURIDICA.AddOrUpdate(cAD_PES_JURIDICA);
+                    db.SaveChanges();
+                }
+                if(tododia == false)
+                {
+                    if(horarios.Count > 0)
+                    {
+                        db.CAD_HORA_ATENDIMENTO.RemoveRange(horarios);
+                        //horarios.RemoveAll(x => x.CD_PES_JURIDICA == userId);
+                        db.SaveChanges();
+                    }
+                    CAD_HORA_ATENDIMENTO horaAtendimentoDomingo = new CAD_HORA_ATENDIMENTO
+                    {
+                        CD_PES_JURIDICA = userId,
+                        DIA_SEMANA = 0,
+                        HORA_INICIO = cAD_HORA_ATENDIMENTO.DOMINGO_HORA_INICIO,
+                        HORA_FIM = cAD_HORA_ATENDIMENTO.DOMINGO_HORA_FIM
+                    };
+                    db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoDomingo);
+                    db.SaveChanges();
+                    //transacao.Commit();
+
+                    CAD_HORA_ATENDIMENTO horaAtendimentoSegunda = new CAD_HORA_ATENDIMENTO
+                    {
+                        CD_PES_JURIDICA = userId,
+                        DIA_SEMANA = 1,
+                        HORA_INICIO = cAD_HORA_ATENDIMENTO.SEGUNDA_HORA_INICIO,
+                        HORA_FIM = cAD_HORA_ATENDIMENTO.SEGUNDA_HORA_FIM
+                    };
+                    db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoSegunda);
+                    db.SaveChanges();
+                    //transacao.Commit();
+
+                    CAD_HORA_ATENDIMENTO horaAtendimentoTerca = new CAD_HORA_ATENDIMENTO
+                    {
+                        CD_PES_JURIDICA = userId,
+                        DIA_SEMANA = 2,
+                        HORA_INICIO = cAD_HORA_ATENDIMENTO.TERCA_HORA_INICIO,
+                        HORA_FIM = cAD_HORA_ATENDIMENTO.TERCA_HORA_FIM
+                    };
+                    db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoTerca);
+                    db.SaveChanges();
+                    //transacao.Commit();
+
+                    CAD_HORA_ATENDIMENTO horaAtendimentoQuarta = new CAD_HORA_ATENDIMENTO
+                    {
+                        CD_PES_JURIDICA = userId,
+                        DIA_SEMANA = 3,
+                        HORA_INICIO = cAD_HORA_ATENDIMENTO.QUARTA_HORA_INICIO,
+                        HORA_FIM = cAD_HORA_ATENDIMENTO.QUARTA_HORA_FIM
+                    };
+                    db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoQuarta);
+                    db.SaveChanges();
+                    //transacao.Commit();
+
+                    CAD_HORA_ATENDIMENTO horaAtendimentoQuinta = new CAD_HORA_ATENDIMENTO
+                    {
+                        CD_PES_JURIDICA = userId,
+                        DIA_SEMANA = 4,
+                        HORA_INICIO = cAD_HORA_ATENDIMENTO.QUINTA_HORA_INICIO,
+                        HORA_FIM = cAD_HORA_ATENDIMENTO.QUINTA_HORA_FIM
+                    };
+                    db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoQuinta);
+                    db.SaveChanges();
+                    //transacao.Commit();
+
+                    CAD_HORA_ATENDIMENTO horaAtendimentoSexta = new CAD_HORA_ATENDIMENTO
+                    {
+                        CD_PES_JURIDICA = userId,
+                        DIA_SEMANA = 5,
+                        HORA_INICIO = cAD_HORA_ATENDIMENTO.SEXTA_HORA_INICIO,
+                        HORA_FIM = cAD_HORA_ATENDIMENTO.SEXTA_HORA_FIM
+                    };
+                    db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoSexta);
+                    db.SaveChanges();
+                    //transacao.Commit();
+
+                    CAD_HORA_ATENDIMENTO horaAtendimentoSabado = new CAD_HORA_ATENDIMENTO
+                    {
+                        CD_PES_JURIDICA = userId,
+                        DIA_SEMANA = 6,
+                        HORA_INICIO = cAD_HORA_ATENDIMENTO.SABADO_HORA_INICIO,
+                        HORA_FIM = cAD_HORA_ATENDIMENTO.SABADO_HORA_FIM
+                    };
+                    db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoSabado);
+                    db.SaveChanges();
+                    return RedirectToAction("horarioAtendimento");
+
+                }
+            }
+            return RedirectToAction("horarioAtendimento");
+        }
+
+        /*Fim dos métodos para gerenciamento dos horários de atendimento*/
+
+
+
+
+
+        /*Fim dos métodos para gerenciamento do prestador de serviços*/
 
         /*Início dos métodos para gerenciamento de produtos do fornecedor*/
 
@@ -1431,15 +1731,15 @@ namespace DIVULGA_SERVICOS.Controllers
 
             }
             return View("EditPerfilFornecedor", fornecedorAntes);
-    }
+        }
 
-/*Fim dos métodos para gerenciamento do perfil do fornecedor*/
-
-
+        /*Fim dos métodos para gerenciamento do perfil do fornecedor*/
 
 
-/*Início do método que mostra os fornecedores para cada tipo de prestador de serviço*/
-[Authorize (Roles="Prestador")]
+
+
+        /*Início do método que mostra os fornecedores para cada tipo de prestador de serviço*/
+        [Authorize(Roles = "Prestador")]
         public ActionResult MeusFornecedores()
         {
             if (User.Identity.IsAuthenticated)
@@ -1462,11 +1762,11 @@ namespace DIVULGA_SERVICOS.Controllers
                     foreach (var ItemEndereco in enderecosPrestador)
                     {
 
-                        foreach(var cidade in cidades)
+                        foreach (var cidade in cidades)
                         {
                             if (ItemEndereco.NM_CIDADE != cidade.NM_CIDADE && cidade.BRASIL == false && cidade.DILGAR_ESTADO == false)
                             {
-                                    count = count + 1;
+                                count = count + 1;
                             }
                         }
                         count = count + 1;
@@ -1475,7 +1775,7 @@ namespace DIVULGA_SERVICOS.Controllers
                     {
                         fornecedores.Remove(forn);
                     }
-                    if(fornecedores.Count() == 0)
+                    if (fornecedores.Count() == 0)
                     {
                         status = 1;
                         break;
@@ -1553,15 +1853,15 @@ namespace DIVULGA_SERVICOS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeletarUsuarioOk()
         {
-            if(User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Identity.GetUserId();
                 CAD_PESSOA pessoa = db.CAD_PESSOA.Where(x => x.Id == userId).FirstOrDefault();
                 CAD_PES_USUARIO usuario = db.CAD_PES_USUARIO.Where(x => x.CD_PESSOA == userId).FirstOrDefault();
                 var avaliacoes = db.CAD_AVALIACAO.Where(x => x.NM_NOME_AVALIADOR == pessoa.UserName).ToList();
-                if(avaliacoes.Count != 0)
+                if (avaliacoes.Count != 0)
                 {
-                    foreach(var avaliacao in avaliacoes)
+                    foreach (var avaliacao in avaliacoes)
                     {
                         db.CAD_AVALIACAO.Remove(avaliacao);
                         db.SaveChanges();
@@ -1576,7 +1876,7 @@ namespace DIVULGA_SERVICOS.Controllers
             }
             return View("Index");
         }
-        
+
 
 
 

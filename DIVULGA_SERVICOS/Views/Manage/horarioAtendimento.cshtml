@@ -1,0 +1,64 @@
+﻿@model DIVULGA_SERVICOS.Models.CAD_PES_JURIDICA
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Horários de Atendimento</title>
+</head>
+<body>
+        @Html.AntiForgeryToken()
+        @if (Model.TODO_DIA == true)
+        {
+            <div class="row">
+                <div class="col-sm-3" style="width:100%">
+                    <h4>Nossos horários:</h4>
+                    <div class="well">
+                        <strong>Nós trabalhamos 24/7</strong>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-sm-3" style="width:100%">
+                    <h4>Nossos horários:</h4>
+                    <div class="well">
+                        @foreach (var hora in Model.CAD_HORA_ATENDIMENTO)
+                        {
+                            <div>
+                                @{
+                                    var culture = new System.Globalization.CultureInfo("pt-BR");
+                                }
+                                @if (hora.HORA_INICIO != 0)
+                                {
+                                    <text>
+                                        <strong>
+                                            @culture.DateTimeFormat.GetDayName((DayOfWeek)@hora.DIA_SEMANA)
+                                        </strong> de @hora.HORA_INICIO às @hora.HORA_FIM
+                                    </text>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    <div>
+        @Html.ActionLink("Editar Horários", "EditarHorarioAtendimento")
+        <br />
+        @Html.ActionLink("Voltar a tela de gerenciamento", "Index")
+    </div>
+
+    <div class="modal fade" id='ModalErro' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" id="ModalErroBody">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
