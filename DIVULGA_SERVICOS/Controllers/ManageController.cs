@@ -1735,7 +1735,19 @@ namespace DIVULGA_SERVICOS.Controllers
 
         /*Fim dos métodos para gerenciamento do perfil do fornecedor*/
 
-
+        /*Início dos métodos que mostram o fornecedor e seus produtos*/
+        [Authorize]
+        [HttpGet]
+        public ActionResult fornecedorProdutos(string userId = "")
+        {
+            if(userId != "")
+            {
+                var fornecedor = db.CAD_PES_FORNECEDOR.Where(x => x.CD_PESSOA == userId).FirstOrDefault();
+                return View("fornecedorProdutos", fornecedor);
+            }
+            return RedirectToAction("MeusFornecedores");
+        }
+        /*Fim dos métodos que mostram o fornecedor e seus produtos*/
 
 
         /*Início do método que mostra os fornecedores para cada tipo de prestador de serviço*/
@@ -1848,7 +1860,7 @@ namespace DIVULGA_SERVICOS.Controllers
 
         }
 
-        // POST: CAD_CATEGORIA/Delete/5
+        
         [HttpPost ActionName("DeletarUsuario")]
         [ValidateAntiForgeryToken]
         public ActionResult DeletarUsuarioOk()
@@ -1877,7 +1889,7 @@ namespace DIVULGA_SERVICOS.Controllers
             return View("Index");
         }
 
-
+        /*Fim do método que deleta o usuário criado pelas redes sociais*/
 
 
 

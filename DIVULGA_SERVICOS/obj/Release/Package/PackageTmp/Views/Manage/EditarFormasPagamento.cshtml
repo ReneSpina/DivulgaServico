@@ -1,0 +1,67 @@
+﻿@model DIVULGA_SERVICOS.Models.CAD_PES_JURIDICA
+
+@{
+    ViewBag.Title = "Editar Formas de Pagamento";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+@using (Html.BeginForm("EditarFormasPagamento", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form", @name = "EditarFormasPagamento" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="col-xs-12">
+        <div class="col-md-12">
+            <h3>Formas de Pagamento</h3>
+            <div class="checkbox">
+                <label for="dinheiro">
+                    <input name="DINHEIRO" id="dinheiro" type="checkbox" value="false">
+                    <b>Dinheiro</b>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label for="cheque">
+                    <input name="CHEQUE" id="cheque" type="checkbox" value="false">
+                    <b>Cheque</b>
+                </label>
+            </div>
+
+            <div class="checkbox">
+                <label for="cartao_debito">
+                    <input name="DEBITO" id="debito" type="checkbox" value="false">
+                    <b>Cartão de Débito</b>
+                </label>
+            </div>
+
+            <div class="checkbox">
+                <label for="cartao_credito">
+                    <input name="CREDITO" id="credito" type="checkbox" value="false">
+                    <b>Cartão de Crédito</b>
+                </label>
+            </div>
+
+            <div class="checkbox">
+                <label for="outros">
+                    <input name="OUTROS" id="outros" type="checkbox" value="false">
+                    <b>Outras formas de pagamento</b>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input id="EditarPagamento" type="submit" value="Salvar" class="btn btn-default" />
+        </div>
+    </div>
+}
+<div class="modal fade" id='ModalErro' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="ModalErroBody">
+        </div>
+    </div>
+</div>
+<div>
+    @Html.ActionLink("Voltar", "horarioAtendimento")
+    <br />
+    @Html.ActionLink("Voltar a tela de gerenciamento", "Index")
+</div>
+<script src="~/Scripts/Register.js"></script>

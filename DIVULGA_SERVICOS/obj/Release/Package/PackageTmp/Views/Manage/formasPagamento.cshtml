@@ -1,0 +1,36 @@
+﻿@model DIVULGA_SERVICOS.Models.CAD_PES_JURIDICA
+
+@{
+    ViewBag.Title = "Formas de Pagamento";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>Formas de Pagamento:</h4>
+<div class="well">
+    @if (Model.CAD_FORMA_PAGAMENTO.DINHEIRO == true)
+    {
+        <p>Dinheiro</p>
+    }
+    @if (Model.CAD_FORMA_PAGAMENTO.CHEQUE == true)
+    {
+        <p>Cheque</p>
+    }
+    @if (Model.CAD_FORMA_PAGAMENTO.DEBITO == true)
+    {
+        <p>Débito</p>
+    }
+    @if (Model.CAD_FORMA_PAGAMENTO.CREDITO == true)
+    {
+        <p>Crédito</p>
+    }
+    @if (Model.CAD_FORMA_PAGAMENTO.OUTROS == true)
+    {
+        <p>Outras formas a conversar</p>
+    }
+</div>
+
+<div>
+    @Html.ActionLink("Editar formas de pagamento", "EditarFormasPagamento")
+    <br />
+    @Html.ActionLink("Voltar a tela de gerenciamento", "Index")
+</div>

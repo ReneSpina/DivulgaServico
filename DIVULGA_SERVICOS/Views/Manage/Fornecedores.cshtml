@@ -52,9 +52,8 @@
                 @Html.DisplayFor(modelItem => item.CAD_PES_FORNECEDOR.CAD_PESSOA.NM_NOME_PESSOA)
             </td>
             <td>
-                Link
+                <a href="~/Manage/fornecedorProdutos?userId=@Model.FirstOrDefault().CD_PESSOA">Fornecedor</a>
             </td>
         </tr>
     }
-
 </table>

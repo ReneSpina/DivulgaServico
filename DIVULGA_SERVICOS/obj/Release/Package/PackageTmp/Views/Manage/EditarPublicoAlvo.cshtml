@@ -1,0 +1,72 @@
+﻿@model DIVULGA_SERVICOS.Models.CAD_PES_JURIDICA
+
+@{
+    ViewBag.Title = "Editar Horários de Atendimento";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+@using (Html.BeginForm("EditarPublicoAlvo", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form", @name = "EditarPublicoAlvo" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="col-xs-12">
+        <div class="col-md-12">
+            <h3>Público que você atende</h3>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <div class="checkbox">
+                        <input data-val="true" data-val-required="O campo PESSOA FÍSICA é obrigatório." id="PESSOA_FISICA" name="PESSOA_FISICA" type="checkbox" value="true">
+                        <input name="PESSOA_FISICA" type="hidden" value="false">
+                        <label for="PESSOA_FISICA">Pessoa Física</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <div class="checkbox">
+                        <input data-val="true" data-val-required="O campo MICRO EMPRESAS é obrigatório." id="MICRO_EMPRESA" name="MICRO_EMPRESA" type="checkbox" value="true">
+                        <input name="MICRO_EMPRESA" type="hidden" value="false">
+                        <label for="MICRO_EMPRESA">Micro Empresa</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <div class="checkbox">
+                        <input data-val="true" data-val-required="O campo PEQUENAS EMPRESAS é obrigatório." id="PEQUENAS_EMPRESAS" name="PEQUENAS_EMPRESAS" type="checkbox" value="true">
+                        <input name="PEQUENAS_EMPRESAS" type="hidden" value="false">
+                        <label for="PEQUENAS_EMPRESAS">Pequenas Empresas</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <div class="checkbox">
+                        <input data-val="true" data-val-required="O campo EMPRESA de GRANDE de PORTE é obrigatório." id="EMPRESA_GRANDE_PORTE" name="EMPRESA_GRANDE_PORTE" type="checkbox" value="true">
+                        <input name="EMPRESA_GRANDE_PORTE" type="hidden" value="false">
+                        <label for="EMPRESA_GRANDE_PORTE">Empresa de Prande Porte</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Salvar" class="btn btn-default" />
+        </div>
+    </div>
+}
+<div class="modal fade" id='ModalErro' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="ModalErroBody">
+        </div>
+    </div>
+</div>
+<div>
+    @Html.ActionLink("Voltar", "horarioAtendimento")
+    <br />
+    @Html.ActionLink("Voltar a tela de gerenciamento", "Index")
+</div>

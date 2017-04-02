@@ -1,0 +1,58 @@
+﻿@model IEnumerable<DIVULGA_SERVICOS.Models.CAD_PES_FORNECEDOR>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CAD_PESSOA.NM_NOME_PESSOA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CD_CNPJ)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ATIVO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CD_STATUS_PAGT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ACEITE_CONTRATO)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CAD_PESSOA.NM_NOME_PESSOA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CD_CNPJ)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ATIVO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CD_STATUS_PAGT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ACEITE_CONTRATO)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CD_PESSOA }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CD_PESSOA }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CD_PESSOA })
+        </td>
+    </tr>
+}
+
+</table>
