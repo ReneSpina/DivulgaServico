@@ -16,16 +16,43 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Content/Mybootstrap.css" rel="stylesheet" />
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        div#load_screen {
+            background: #000;
+            opacity: 1;
+            position: fixed;
+            z-index: 2000;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+        }
+
+            div#load_screen > div#loading {
+                height: 100%;
+                min-height: 100%;
+                display: -webkit-flex;
+                display: flex;
+                -webkit-align-items: center;
+                align-items: center;
+                -webkit-justify-content: center;
+                justify-content: center;
+            }
+    </style>
     <script>
-        (adsbygoogle = window.adsbygoogle || []).push({
-            google_ad_client: "ca-pub-2571448761678693",
-            enable_page_level_ads: true
-        });
-    </script>
+    window.addEventListener("load", function(){
+        var load_screen = document.getElementById("load_screen");
+        document.body.removeChild(load_screen);
+    });
+        </script>    
 </head>
 
 <body>
+    <div id="load_screen">
+        <div id="loading">
+            <img src="~/Content/Imagens/Preloader_3.gif" />
+        </div>
+    </div>
     <div class="modal fade" id='ModalErro' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content" id="ModalErroBody">
@@ -533,16 +560,26 @@
                      "<strong>Telefones para contato:</strong>" +
                      "<br>" +
                      @foreach(var telefone in item.CAD_PESSOA.CAD_PES_FONE)
-                    {
+                     {
                                 <text>
                                 "<a href='tel:@telefone.CD_FIXO'>@telefone.CD_FIXO</a>" + "  <br><br> " +
                                 "<a href='tel:@telefone.CD_CELULAR'>@telefone.CD_CELULAR" + " - @telefone.NM_OPERADORA" + "</a><br><br>"+
                                 </text>
-                        if(@telefone.WHATSAPP == true)
-                                {
-                            <text>
-                                "<a href='intent://send/55"+soNumero('@telefone.CD_CELULAR')+"#Intent;scheme=smsto;package=com.whatsapp;action=android.intent.action.SENDTO;end'>Abrir no Whatsapp</a>" +
-                            </text>
+                         if(@telefone.WHATSAPP == true)
+                         {
+                             var userAgents = HttpContext.Current.Request.UserAgent.ToLower();
+                             if (userAgents.Contains("Mobile") || userAgents.Contains("mobile"))
+                             {
+                                 <text>
+                                    "<a href='intent://send/55"+soNumero('@telefone.CD_CELULAR')+"#Intent;scheme=smsto;package=com.whatsapp;action=android.intent.action.SENDTO;end' target='_blank'>Abrir no Whatsapp</a>" +
+                                 </text>
+                             }
+                             else
+                             {
+                                     <text>
+                                        "<a href='https://api.whatsapp.com/send?phone=55" + soNumero('@telefone.CD_CELULAR') + "' target='_blank'>Abrir no Whatsapp</a>" +
+                                     </text>
+                                 }
                          }
                         <text>
                             "<br>" +
@@ -634,10 +671,10 @@
         }
     </script>
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAj3JcRIELfHhMvmfLqmSdezusDvIA9Sao&signed_in=true&libraries=places&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsoPStma0ryAMpeobPA--6SyQhaHfWm_c&signed_in=true&libraries=places&callback=initMap" async defer></script>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-
+    
     @if (Model == null)
     {
 
@@ -716,15 +753,27 @@
                                 <div class="col-sm-3" style="width:100%">
                                     <h4>Telefones:</h4>
                                     <div class="well">
-                                        @foreach (var telefone in endereco.CAD_PESSOA.CAD_PES_FONE)
+                                        @foreach(var telefone in endereco.CAD_PESSOA.CAD_PES_FONE)
                                         {
                                             <p><b>Fixo: </b><a href='tel:@telefone.CD_FIXO'>@telefone.CD_FIXO</a></p>
                                             <p><b>Cel: </b><a href='tel:@telefone.CD_CELULAR '>@telefone.CD_CELULAR</a></p>
                                             if (@telefone.WHATSAPP == true)
                                             {
-                                                string resultString = string.Join(null, System.Text.RegularExpressions.Regex.Split(@telefone.CD_CELULAR, "[^\\d]"));
-                                                string whatsapp = "intent://send/55" + resultString + "#Intent;scheme=smsto;package=com.whatsapp;action=android.intent.action.SENDTO;end";
-                                                <p><a href="@whatsapp">Abrir no Whatsapp</a></p>
+                                                var userAgents = HttpContext.Current.Request.UserAgent.ToLower();
+                                                if (userAgents.Contains("Mobile") || userAgents.Contains("mobile"))
+                                                {
+                                                    string resultString = string.Join(null, System.Text.RegularExpressions.Regex.Split(@telefone.CD_CELULAR, "[^\\d]"));
+                                                    string whatsapp = "intent://send/55"+resultString+"#Intent;scheme=smsto;package=com.whatsapp;action=android.intent.action.SENDTO;end";
+                                                    <p><a href="@whatsapp" target="_blank">Abrir no Whatsapp</a></p>
+                                                }
+                                                else
+                                                {
+
+                                                    string resultString = string.Join(null, System.Text.RegularExpressions.Regex.Split(@telefone.CD_CELULAR, "[^\\d]"));
+                                                    string whatsapp = "https://api.whatsapp.com/send?phone=55" + resultString;
+                                                    <p><a href="@whatsapp" target="_blank">Abrir no Whatsapp</a></p>
+
+                                                }
                                             }
                                         }
                                     </div>
@@ -1367,7 +1416,20 @@
             //}
         });
     </script>
-
+    <script>
+        $('#searchgroup').submit(function () {
+            //alert(window.location+"/Pesquisa?"+$(this).serialize().toString());
+            //return false;
+            $('.botaoPesquisa').html('<i class="fa fa-spinner fa-spin"></i>');
+            var destination = $(this).attr("action")+"?"+$(this).serialize().toString();
+            setTimeout(function () {
+                window.location = destination.toString();
+            }, 2000);
+            $('<iframe>').hide().appendTo('body').load(function () {
+                window.location = destination.toString();
+            }).attr('src', destination.toString());
+        });
+    </script>
     <footer>
         @{
             var userAgent = HttpContext.Current.Request.UserAgent.ToLower();

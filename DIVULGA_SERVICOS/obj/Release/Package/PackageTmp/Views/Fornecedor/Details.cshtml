@@ -1,0 +1,59 @@
+﻿@model DIVULGA_SERVICOS.Models.CAD_PES_FORNECEDOR
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CAD_PES_FORNECEDOR</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CAD_PESSOA.NM_NOME_PESSOA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CAD_PESSOA.NM_NOME_PESSOA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CD_CNPJ)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CD_CNPJ)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ATIVO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ATIVO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CD_STATUS_PAGT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CD_STATUS_PAGT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ACEITE_CONTRATO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ACEITE_CONTRATO)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CD_PESSOA }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
