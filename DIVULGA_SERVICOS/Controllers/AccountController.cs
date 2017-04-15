@@ -15,6 +15,8 @@ using System.Threading;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Security.Principal;
 using System.Data.Entity.Spatial;
+using System.Net.Mail;
+using System.Net;
 
 namespace DIVULGA_SERVICOS.Controllers
 {
@@ -390,7 +392,29 @@ namespace DIVULGA_SERVICOS.Controllers
 
                             //ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
                             // + "before you can log in.";
-                            return View("Login");
+                            var body = "<div class='corpo' style='width:100%; height: 100%'><div style='height: 40%; widows:100%;'><h3>Mercado de Serviços</h3><h4>Olá "+model.NM_NOME_PESSOA+", tudo bem?</h4><h4>ESTAMOS FELIZES POR TER VOCÊ COMO PARCEIRO!</h4><p>NÓS TEMOS O QUE VOCÊ PRECISA. PESQUISE, DIVULGUE E VENDA MAIS!</p></div><div><p>Nossa proposta é a de facilitar a vida do usuário em busca dos mais variados tipos de serviços do dia-a-dia.</p><p>De outro lado, queremos possibilitar que prestadores de serviços encontrem um local propício para divulgar seus trabalhos de forma simples, rápida, abrangente e GRATUITA. Por este motivo, o MERCADO DE SERVIÇOS tem por objetivo atingir as mais diversas áreas de atuação no campo da prestação de serviços, atuando como um elo facilitador entre o usuário e o serviço especializado mais próximo.</p><p>Para atingirmos esta finalidade, contamos com uma crescente rede de cadastros de prestadores de serviço, distribuídos por todo o país, permitindo assim que sua demanda seja atendida da forma mais rápida e satisfatória possível. Por isso, contamos com que você, usuário, desfrute desta nova ferramenta e deixe sua avaliação após ter utilizado o serviço. Dessa forma teremos a condição de oferecer sempre o melhor do que você precisa, ampliando a rede de ofertas e primando sempre pela melhor qualidade.</p><p>O Fornecedor pode aproveitar isso para divulgar seus produtos/equipamentos/materiais de forma direcionada. O Fornecedor tem a opção de divulgar para prestadores de serviços que estão relacionados ao que ele vende. O Fornecedor também pode limitar a divulgação por cidades e estados específicos ou divulgar a nível Brasil!</p></div><footer><p>Mercado de Serviços <a href='https://www.mercadodeservicos.com.br'>www.mercadodeservicos.com.br</a></p></footer></div>";
+                            var message = new MailMessage();
+                            message.To.Add(new MailAddress(model.UserName));  // replace with valid value 
+                            message.From = new MailAddress("ms@mercadodeservicos.com.br", "Mercado de Serviços");  // replace with valid value
+                            message.Subject = "Estamos felizes por ter você como parceiro!";
+                            message.Body = body;
+                            message.IsBodyHtml = true;
+
+                            using (var smtp = new SmtpClient())
+                            {
+                                var credential = new NetworkCredential
+                                {
+                                    UserName = "ms@mercadodeservicos.com.br",  // replace with valid value
+                                    Password = "Mercado@745"  // replace with valid value
+                                };
+                                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                                smtp.Credentials = credential;
+                                smtp.Host = "smtp.mercadodeservicos.com.br";
+                                smtp.Port = 587;
+                                smtp.EnableSsl = false;
+                                await smtp.SendMailAsync(message);
+                                return View("Login");
+                            }
                             //AddErrors(result);
                             // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                             // Send an email with this link
@@ -491,6 +515,29 @@ namespace DIVULGA_SERVICOS.Controllers
                             db.SaveChanges();
                             transacao.Commit();
 
+                            var body = "<div class='corpo' style='width:100%; height: 100%'><div style='height: 40%; widows:100%;'><h3>Mercado de Serviços</h3><h4>Olá " + model.NM_NOME_PESSOA + ", tudo bem?</h4><h4>ESTAMOS FELIZES POR TER VOCÊ COMO PARCEIRO!</h4><p>NÓS TEMOS O QUE VOCÊ PRECISA. PESQUISE, DIVULGUE E VENDA MAIS!</p></div><div><p>Nossa proposta é a de facilitar a vida do usuário em busca dos mais variados tipos de serviços do dia-a-dia.</p><p>De outro lado, queremos possibilitar que prestadores de serviços encontrem um local propício para divulgar seus trabalhos de forma simples, rápida, abrangente e GRATUITA. Por este motivo, o MERCADO DE SERVIÇOS tem por objetivo atingir as mais diversas áreas de atuação no campo da prestação de serviços, atuando como um elo facilitador entre o usuário e o serviço especializado mais próximo.</p><p>Para atingirmos esta finalidade, contamos com uma crescente rede de cadastros de prestadores de serviço, distribuídos por todo o país, permitindo assim que sua demanda seja atendida da forma mais rápida e satisfatória possível. Por isso, contamos com que você, usuário, desfrute desta nova ferramenta e deixe sua avaliação após ter utilizado o serviço. Dessa forma teremos a condição de oferecer sempre o melhor do que você precisa, ampliando a rede de ofertas e primando sempre pela melhor qualidade.</p><p>O Fornecedor pode aproveitar isso para divulgar seus produtos/equipamentos/materiais de forma direcionada. O Fornecedor tem a opção de divulgar para prestadores de serviços que estão relacionados ao que ele vende. O Fornecedor também pode limitar a divulgação por cidades e estados específicos ou divulgar a nível Brasil!</p></div><footer><p>Mercado de Serviços <a href='https://www.mercadodeservicos.com.br'>www.mercadodeservicos.com.br</a></p></footer></div>";
+                            var message = new MailMessage();
+                            message.To.Add(new MailAddress(model.UserName));  // replace with valid value 
+                            message.From = new MailAddress("ms@mercadodeservicos.com.br", "Mercado de Serviços");  // replace with valid value
+                            message.Subject = "Estamos felizes por ter você como parceiro!";
+                            message.Body = body;
+                            message.IsBodyHtml = true;
+
+                            using (var smtp = new SmtpClient())
+                            {
+                                var credential = new NetworkCredential
+                                {
+                                    UserName = "ms@mercadodeservicos.com.br",  // replace with valid value
+                                    Password = "Mercado@745"  // replace with valid value
+                                };
+                                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                                smtp.Credentials = credential;
+                                smtp.Host = "smtp.mercadodeservicos.com.br";
+                                smtp.Port = 587;
+                                smtp.EnableSsl = false;
+                                await smtp.SendMailAsync(message);
+                                return View("Login");
+                            }
                             //Envio de email para confirmação da conta cadastrada.
                             //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                             //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
@@ -498,7 +545,6 @@ namespace DIVULGA_SERVICOS.Controllers
 
                             //ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
                             // + "before you can log in.";
-                            return View("Login");
                             //AddErrors(result);
                             // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                             // Send an email with this link
@@ -680,7 +726,7 @@ namespace DIVULGA_SERVICOS.Controllers
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
             if (loginInfo == null)
             {
-                return RedirectToAction("Login");
+                return View("Login");
             }
 
             // Sign in the user with this external login provider if the user already has a login
@@ -727,7 +773,7 @@ namespace DIVULGA_SERVICOS.Controllers
                 
                 if(usuario.Count != 0)
                 {
-                    ViewBag.errorMessage = "Este email já está cadastrado. Caso não lembre a senha, solicite o reset!";
+                    ViewBag.errorMessage = "Este email já está cadastrado. Caso não lembre a senha, solicite o <a href='~/Account/ForgotPassword'>reset de senha</a>!";
                     return View("Error");
                 }
 

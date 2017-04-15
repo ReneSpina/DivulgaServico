@@ -18,6 +18,7 @@ namespace DIVULGA_SERVICOS
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
+            //app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
@@ -55,8 +56,8 @@ namespace DIVULGA_SERVICOS
             //   consumerSecret: "");
 
             app.UseFacebookAuthentication(
-               appId: "449794975352518",
-               appSecret: "2bdfe3e860185be6ee5fe03773d32e35");
+               appId: "1427876717250464",
+               appSecret: "9e096f90569d4ae52f9618d9c24993da");
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {

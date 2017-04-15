@@ -24,7 +24,7 @@ $(document).ready(function () {
     });
 
     /*Mascara para tela de cadastro de produtos do fornecedor*/
-        $('#VALOR_PRODUTO').mask('000000000000000,00', { reverse: true });
+        $('#VALOR_PRODUTO').mask('000000000000000.00', { reverse: true });
     /*Mascara para tela de cadastro de produtos do fornecedor*/
 });
 

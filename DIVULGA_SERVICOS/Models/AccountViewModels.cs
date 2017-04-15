@@ -38,7 +38,7 @@ namespace DIVULGA_SERVICOS.Models
         public string Code { get; set; }
         public string ReturnUrl { get; set; }
 
-        [Display(Name = "Remember this browser?")]
+        [Display(Name = "Relembrar login?")]
         public bool RememberBrowser { get; set; }
 
         public bool RememberMe { get; set; }
@@ -63,7 +63,7 @@ namespace DIVULGA_SERVICOS.Models
         [Display(Name = "Senha")]
         public string Password { get; set; }
 
-        [Display(Name = "Relembrar?")]
+        [Display(Name = "Relembrar senha?")]
         public bool RememberMe { get; set; }
     }
 
@@ -74,8 +74,8 @@ namespace DIVULGA_SERVICOS.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "O EMAIL DEVE CONTER NO MÍNIMO 6 CARACTERES!", MinimumLength = 6)]
+        [Required(ErrorMessage = "A SENHA É OBRIGATÓRIA!")]
+        //[StringLength(100, ErrorMessage = "A SENHA DEVE CONTER NO MÍNIMO 6 CARACTERES!", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Senha")]
         public string Password { get; set; }
@@ -134,69 +134,78 @@ namespace DIVULGA_SERVICOS.Models
     public class editarFormasPagamento
     {
         [Required]
+        [Display(Name = "Dinheiro")]
         public bool DINHEIRO { get; set; }
 
         [Required]
+        [Display(Name = "Cheque")]
         public bool CHEQUE { get; set; }
 
         [Required]
+        [Display(Name = "Débito")]
         public bool DEBITO { get; set; }
 
         [Required]
+        [Display(Name = "Crédito")]
         public bool CREDITO { get; set; }
 
         [Required]
+        [Display(Name = "Outras Formas")]
         public bool OUTROS { get; set; }
     }
 
     public class editarPublicoAlvo
     {
         [Required]
+        [Display(Name = "Pessoa Física")]
         public bool PESSOA_FISICA { get; set; }
 
         [Required]
+        [Display(Name = "Micro Empresa")]
         public bool MICRO_EMPRESA { get; set; }
 
         [Required]
+        [Display(Name = "Pequenas Empresas")]
         public bool PEQUENAS_EMPRESAS { get; set; }
 
         [Required]
+        [Display(Name = "Empresa de Grande Porte")]
         public bool EMPRESA_GRANDE_PORTE { get; set; }
     }
     
     public class RegisterPrestadorViewModel
     {
         [Required(ErrorMessage = "O NOME É OBRIGATÓRIO!")]
-        [Display(Name = "NOME*")]
+        [Display(Name = "Nome*")]
         public string NM_NOME_PESSOA { get; set; }
 
-        [Required(ErrorMessage = "O TELEFONE FIXO É OBRIGATÓRIO!")]
+        //[Required(ErrorMessage = "O TELEFONE FIXO É OBRIGATÓRIO!")]
         [StringLength(15)]
         //[RegularExpression("^\\([1-9]{2}\\) [2-9][0-9]{3,3}\\-[0-9]{4}$", ErrorMessage = "INSIRA UM TELEONE VÁLIDO (Ex.: (##) ####-#### ou (##) #####-####)")]
-        [Display(Name = "TELEFONE FIXO*")]
+        [Display(Name = "Telefone Fixo")]
         //[DisplayFormat(DataFormatString = "{0:(##) ####-####}", ApplyFormatInEditMode =true)]
         public string TF_TEL_FIXO { get; set; }
 
         [Required(ErrorMessage = "O TELEFONE CELULAR É OBRIGATÓRIO")]
         [StringLength(15)]
         //[RegularExpression("^\\([1-9]{2}\\) [2-9][0-9]{3,3}\\-[0-9]{4}$", ErrorMessage = "INSIRA UM TELEONE VÁLIDO (Ex.: (##) ####-#### ou (##) #####-####!")]
-        [Display(Name = "CELULAR*")]
+        [Display(Name = "Celular*")]
         //[DisplayFormat(DataFormatString = "{0:(##) #####-####}", ApplyFormatInEditMode = true)]
         public string TF_TEL_CEL { get; set; }
 
         [Required(ErrorMessage = "O CPF/CNPJ É OBRIGATÓRIO!")]
         //[RegularExpression("^(\\d{14})|(\\d{11})$", ErrorMessage = "INSIRA UM CPF OU UM CNPJ VÁLIDO (DIGITE SOMENTE NÚMEROS)!")]
         [StringLength(30)]
-        [Display(Name = "CPF OU CNPJ*")]
+        [Display(Name = "CPF ou CNPJ*")]
         public string CD_CNPJ { get; set; }
 
         [Required(ErrorMessage = "O LOGRADOURO É OBRIGATÓRIO!")]
-        [Display(Name = "LOGRADOURO*")]
+        [Display(Name = "Logradouro*")]
         [StringLength(1000)]
         public string NM_LOGRADOURO { get; set; }
 
         [Required(ErrorMessage = "O NÚMERO É OBRIGATÓRIO!")]
-        [Display(Name = "NÚMERO*")]
+        [Display(Name = "Número*")]
         public int NUMERO { get; set; }
 
         //[Required(ErrorMessage = "O CEP É OBRIGATÓRIO!")]
@@ -205,7 +214,7 @@ namespace DIVULGA_SERVICOS.Models
         public string CD_CEP { get; set; }
 
         [Required(ErrorMessage = "O NOME DA CIDADE É OBRIGATÓRIO!")]
-        [Display(Name = "CIDADE*")]
+        [Display(Name = "Cidade*")]
         [StringLength(255)]
         public string NM_CIDADE { get; set; }
 
@@ -215,28 +224,28 @@ namespace DIVULGA_SERVICOS.Models
         public string NM_BAIRRO { get; set; }
 
         [Required(ErrorMessage = "O ESTADO É OBRIGATÓRIO!")]
-        [Display(Name = "ESTADO*")]
+        [Display(Name = "Estado*")]
         [StringLength(50)]
         public string NM_ESTADO { get; set; }
 
         [Required(ErrorMessage = "O EMAIL É OBRIGATÓRIO!")]
-        [Display(Name = "EMAIL*")]
+        [Display(Name = "Email*")]
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "A CONFIRMAÇÃO DO EMAIL É OBRIGATÓRIA!")]
-        [Display(Name = "CONFIRME SEU EMAIL*")]
+        [Display(Name = "Confirme seu email*")]
         [System.ComponentModel.DataAnnotations.Compare("UserName", ErrorMessage = "Os Emails não são iguais!")]
         public string ConfirmUserName { get; set; }
 
         [Required(ErrorMessage = "A SENHA É OBRIGATÓRIA!")]
         //[StringLength(100, ErrorMessage = "A SENHA DEVE CONTER NO MÍNIMO 6 CARACTERES!", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "SENHA*")]
+        [Display(Name = "Senha*")]
         public string Password { get; set; }
 
         [Required(ErrorMessage = "A CONFIRMAÇÃO DA SENHA É OBRIGATÓRIA!")]
         [DataType(DataType.Password)]
-        [Display(Name = "CONFIRME SUA SENHA*")]
+        [Display(Name = "Confirme sua senha*")]
         [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "AS SENHAS NÃO SÃO IGUAIS!")]
         public string ConfirmPassword { get; set; }
 
@@ -323,79 +332,92 @@ namespace DIVULGA_SERVICOS.Models
         public bool TODO_DIA { get; set; }
 
         [Required]
+        [Display(Name = "Dinheiro")]
         public bool DINHEIRO { get; set; }
 
         [Required]
+        [Display(Name = "Cheque")]
         public bool CHEQUE { get; set; }
 
         [Required]
+        [Display(Name = "Débito")]
         public bool DEBITO { get; set; }
 
         [Required]
+        [Display(Name = "Crédito")]
         public bool CREDITO { get; set; }
 
         [Required]
+        [Display(Name = "Outras Formas")]
         public bool OUTROS { get; set; }
 
         [Required]
+        [Display(Name = "Pessoa Física")]
         public bool PESSOA_FISICA { get; set; }
 
         [Required]
+        [Display(Name = "Micro Empresa")]
         public bool MICRO_EMPRESA { get; set; }
 
         [Required]
+        [Display(Name = "Pequenas Empresas")]
         public bool PEQUENAS_EMPRESAS { get; set; }
 
         [Required]
+        [Display(Name = "Empresa de Grande Porte")]
         public bool EMPRESA_GRANDE_PORTE { get; set; }
 
         [StringLength(6)]
+        [Display(Name = "Operadora")]
         public string NM_OPERADORA { get; set; }
-        
+
+        [Display(Name = "É Whatsapp")]
         public bool WHATSAPP { get; set; }
 
         [Required]
         [StringLength(255)]
+        [Display(Name = "Nome da Atividade")]
         public string NM_NOME_ATIVIDADE { get; set; }
 
         [Required]
         [StringLength(255)]
+        [Display(Name = "Descrição da Atividade")]
         public string DS_DESCRICAO_ATIVIDADE { get; set; }
     }
 
     public class RegisterFornecedorViewModel
     {
         [Required(ErrorMessage = "O NOME É OBRIGATÓRIO!")]
-        [Display(Name = "NOME*")]
+        [Display(Name = "Nome*")]
         public string NM_NOME_PESSOA { get; set; }
 
-        [Required(ErrorMessage = "O TELEFONE FIXO É OBRIGATÓRIO!")]
+        //[Required(ErrorMessage = "O TELEFONE FIXO É OBRIGATÓRIO!")]
         [StringLength(15)]
         //[RegularExpression("^\\([1-9]{2}\\) [2-9][0-9]{3,3}\\-[0-9]{4}$", ErrorMessage = "INSIRA UM TELEONE VÁLIDO (Ex.: (##) ####-#### ou (##) #####-####)")]
-        [Display(Name = "TELEFONE FIXO*")]
+        [Display(Name = "Telefone fixo")]
         //[DisplayFormat(DataFormatString = "{0:(##) ####-####}", ApplyFormatInEditMode =true)]
         public string TF_TEL_FIXO { get; set; }
 
         [Required(ErrorMessage = "O TELEFONE CELULAR É OBRIGATÓRIO")]
         [StringLength(15)]
         //[RegularExpression("^\\([1-9]{2}\\) [2-9][0-9]{3,3}\\-[0-9]{4}$", ErrorMessage = "INSIRA UM TELEONE VÁLIDO (Ex.: (##) ####-#### ou (##) #####-####!")]
-        [Display(Name = "CELULAR*")]
+        [Display(Name = "Celular*")]
         //[DisplayFormat(DataFormatString = "{0:(##) #####-####}", ApplyFormatInEditMode = true)]
         public string TF_TEL_CEL { get; set; }
 
         [Required(ErrorMessage = "O CPF/CNPJ É OBRIGATÓRIO!")]
         //[RegularExpression("^(\\d{14})|(\\d{11})$", ErrorMessage = "INSIRA UM CPF OU UM CNPJ VÁLIDO (DIGITE SOMENTE NÚMEROS)!")]
         [StringLength(30)]
-        [Display(Name = "CPF OU CNPJ*")]
+        [Display(Name = "CPF ou CNPJ*")]
         public string CD_CNPJ { get; set; }
 
         [Required(ErrorMessage = "O LOGRADOURO É OBRIGATÓRIO!")]
-        [Display(Name = "LOGRADOURO*")]
+        [Display(Name = "Logradouro*")]
         [StringLength(1000)]
         public string NM_LOGRADOURO { get; set; }
 
         [Required(ErrorMessage = "O NÚMERO É OBRIGATÓRIO!")]
-        [Display(Name = "NÚMERO*")]
+        [Display(Name = "Número*")]
         public int NUMERO { get; set; }
 
         //[Required(ErrorMessage = "O CEP É OBRIGATÓRIO!")]
@@ -404,33 +426,33 @@ namespace DIVULGA_SERVICOS.Models
         public string CD_CEP { get; set; }
 
         [Required(ErrorMessage = "O NOME DA CIDADE É OBRIGATÓRIO!")]
-        [Display(Name = "CIDADE*")]
+        [Display(Name = "Cidade*")]
         [StringLength(255)]
         public string NM_CIDADE { get; set; }
 
         [Required(ErrorMessage = "O ESTADO É OBRIGATÓRIO!")]
-        [Display(Name = "ESTADO*")]
+        [Display(Name = "Estado*")]
         [StringLength(50)]
         public string NM_ESTADO { get; set; }
 
         [Required(ErrorMessage = "O EMAIL É OBRIGATÓRIO!")]
-        [Display(Name = "EMAIL*")]
+        [Display(Name = "Email*")]
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "A CONFIRMAÇÃO DO EMAIL É OBRIGATÓRIA!")]
-        [Display(Name = "CONFIRME SEU EMAIL*")]
+        [Display(Name = "Confirme seu email*")]
         [System.ComponentModel.DataAnnotations.Compare("UserName", ErrorMessage = "Os Emails não são iguais!")]
         public string ConfirmUserName { get; set; }
 
         [Required(ErrorMessage = "A SENHA É OBRIGATÓRIA!")]
         //[StringLength(100, ErrorMessage = "A SENHA DEVE CONTER NO MÍNIMO 6 CARACTERES!", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "SENHA*")]
+        [Display(Name = "Senha*")]
         public string Password { get; set; }
 
         [Required(ErrorMessage = "A CONFIRMAÇÃO DA SENHA É OBRIGATÓRIA!")]
         [DataType(DataType.Password)]
-        [Display(Name = "CONFIRME SUA SENHA*")]
+        [Display(Name = "Confirme sua senha*")]
         [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "AS SENHAS NÃO SÃO IGUAIS!")]
         public string ConfirmPassword { get; set; }
 
@@ -451,6 +473,7 @@ namespace DIVULGA_SERVICOS.Models
         [StringLength(6)]
         public string NM_OPERADORA { get; set; }
 
+        [Display(Name = "É Whatsapp")]
         public bool WHATSAPP { get; set; }
 
         //[Required]
@@ -470,15 +493,14 @@ namespace DIVULGA_SERVICOS.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [Required(ErrorMessage = "A SENHA É OBRIGATÓRIA!")]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Senha")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "Confirme sua senha")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "As senhas não são iguais!")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }
@@ -496,17 +518,17 @@ namespace DIVULGA_SERVICOS.Models
     {
 
         [Required(ErrorMessage = "O EMAIL É OBRIGATÓRIO!")]
-        [Display(Name = "EMAIL")]
+        [Display(Name = "Email*")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "O NOME É OBRIGATÓRIO!")]
-        [Display(Name = "NOME")]
+        [Display(Name = "Nome*")]
         public string NM_NOME_PESSOA { get; set; }
 
         [Required(ErrorMessage = "O CPF OU CNPJ É OBRIGATÓRIO!")]
         //[RegularExpression("^(\\d{14})|(\\d{11})$", ErrorMessage = "INSIRA UM CPF OU UM CNPJ VÁLIDO (DIGITE SOMENTE NÚMEROS)!")]
         [StringLength(30)]
-        [Display(Name = "CPF OU CNPJ")]
+        [Display(Name = "CPF ou CNPJ")]
         public string CD_CNPJ { get; set; }
 
         [Column(TypeName = "text")]
@@ -529,17 +551,17 @@ namespace DIVULGA_SERVICOS.Models
     public class EditarPerfilFornecedor
     {
         [Required(ErrorMessage = "O EMAIL É OBRIGATÓRIO!")]
-        [Display(Name = "EMAIL")]
+        [Display(Name = "Email*")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "O NOME É OBRIGATÓRIO!")]
-        [Display(Name = "NOME")]
+        [Display(Name = "Nome")]
         public string NM_NOME_PESSOA { get; set; }
 
         [Required(ErrorMessage = "O CPF OU CNPJ É OBRIGATÓRIO!")]
         //[RegularExpression("^(\\d{14})|(\\d{11})$", ErrorMessage = "INSIRA UM CPF OU UM CNPJ VÁLIDO (DIGITE SOMENTE NÚMEROS)!")]
         [StringLength(30)]
-        [Display(Name = "CPF OU CNPJ")]
+        [Display(Name = "CPF ou CNPJ")]
         public string CD_CNPJ { get; set; }
 
         public bool ATIVO { get; set; }

@@ -130,7 +130,7 @@ namespace DIVULGA_SERVICOS.Controllers
                 var message = new IdentityMessage
                 {
                     Destination = model.Number,
-                    Body = "Your security code is: " + code
+                    Body = "Seu código de segurança é: " + code
                 };
                 await UserManager.SmsService.SendAsync(message);
             }
@@ -197,7 +197,7 @@ namespace DIVULGA_SERVICOS.Controllers
                 return RedirectToAction("Index", new { Message = ManageMessageId.AddPhoneSuccess });
             }
             // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("", "Flaha para verificar o número");
+            ModelState.AddModelError("", "Falha para verificar o número");
             return View(model);
         }
 
@@ -541,7 +541,7 @@ namespace DIVULGA_SERVICOS.Controllers
 
 
         //Início dos métodos para o gerenciamento dos serviços
-        [Authorize(Roles = "Prestador")]
+        [Authorize(Roles = "Prestador, Admin")]
         public ActionResult Servicos()
         {
             if (User.Identity.IsAuthenticated)
@@ -564,7 +564,7 @@ namespace DIVULGA_SERVICOS.Controllers
         }
 
         // GET: CAD_CATEGORIA/Create
-        [Authorize(Roles = "Prestador")]
+        [Authorize(Roles = "Prestador, Admin")]
         public ActionResult CriarServico()
         {
             //ViewBag.CD_PES_JURIDICA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ");
@@ -591,6 +591,7 @@ namespace DIVULGA_SERVICOS.Controllers
         }
 
         // GET: CAD_CATEGORIA/Details/5
+        [Authorize(Roles = "Prestador, Admin")]
         public ActionResult DetalhesServico(int id)
         {
             if (id < 1)
@@ -606,6 +607,7 @@ namespace DIVULGA_SERVICOS.Controllers
         }
 
         // GET: CAD_CATEGORIA/Edit/5
+        [Authorize(Roles = "Prestador, Admin")]
         public ActionResult EditarServico(int id)
         {
             if (id < 0)
@@ -641,6 +643,7 @@ namespace DIVULGA_SERVICOS.Controllers
 
 
         // GET: CAD_CATEGORIA/Delete/5
+        [Authorize(Roles = "Prestador, Admin")]
         public ActionResult DeletarServico(int id)
         {
             if (id < 0)
@@ -670,7 +673,7 @@ namespace DIVULGA_SERVICOS.Controllers
 
 
         //Inicio dos métodos para gerenciamento do Perfil
-        [Authorize]
+        [Authorize(Roles = "Prestador, Admin")]
         public ActionResult EditPerfilJuridico()
         {
             if (User.Identity.GetUserId() == null)
@@ -803,7 +806,7 @@ namespace DIVULGA_SERVICOS.Controllers
 
 
         // GET: CAD_PES_ENDERECO/Details/5
-        [Authorize]
+        [Authorize(Roles = "Prestador, Fornecedor, Admin")]
         public ActionResult DetalhesEndereco(int id)
         {
             if (User.Identity.IsAuthenticated)
@@ -830,7 +833,7 @@ namespace DIVULGA_SERVICOS.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Roles = "Prestador, Fornecedor, Admin")]
         public ActionResult CriarEndereco()
         {
             //ViewBag.CD_PES_JURIDICA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ");
@@ -874,7 +877,7 @@ namespace DIVULGA_SERVICOS.Controllers
         }
 
         // GET: CAD_CATEGORIA/Delete/5
-        [Authorize]
+        [Authorize(Roles = "Prestador, Fornecedor, Admin")]
         public ActionResult DeletarEndereco(int id)
         {
             if (User.Identity.IsAuthenticated)
@@ -908,7 +911,7 @@ namespace DIVULGA_SERVICOS.Controllers
         /*Fim dos métodos para gerenciamento de endereços*/
 
         /*Início dos métodos para gerenciamento de telefones*/
-        [Authorize/* (Roles ="Prestador")*/]
+        [Authorize(Roles = "Prestador, Fornecedor, Admin")]
         public ActionResult Telefones()
         {
             if (User.Identity.IsAuthenticated)
@@ -936,7 +939,7 @@ namespace DIVULGA_SERVICOS.Controllers
 
 
         // GET: CAD_PES_ENDERECO/Details/5
-        [Authorize]
+        [Authorize(Roles = "Prestador, Fornecedor, Admin")]
         public ActionResult DetalhesTelefone(int id)
         {
             if (User.Identity.IsAuthenticated)
@@ -963,7 +966,7 @@ namespace DIVULGA_SERVICOS.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Roles = "Prestador, Fornecedor, Admin")]
         public ActionResult CriarTelefone()
         {
             //ViewBag.CD_PES_JURIDICA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ");
@@ -1000,7 +1003,7 @@ namespace DIVULGA_SERVICOS.Controllers
         }
 
         // GET: CAD_CATEGORIA/Delete/5
-        [Authorize]
+        [Authorize(Roles = "Prestador, Fornecedor, Admin")]
         public ActionResult DeletarTelefone(int id)
         {
             if (User.Identity.IsAuthenticated)
@@ -1034,7 +1037,7 @@ namespace DIVULGA_SERVICOS.Controllers
         /*Fim dos métodos para gerenciamento de telefones*/
 
         /*Início dos métodos para gerenciamento do publico alvo*/
-        [Authorize(Roles = "Prestador")]
+        [Authorize(Roles = "Prestador, Admin")]
         public ActionResult publicoAlvo()
         {
             if (User.Identity.IsAuthenticated)
@@ -1059,7 +1062,7 @@ namespace DIVULGA_SERVICOS.Controllers
             }
         }
 
-        [Authorize(Roles = "Prestador")]
+        [Authorize(Roles = "Prestador, Admin")]
         public ActionResult EditarPublicoAlvo()
         {
             if (User.Identity.GetUserId() == null)
@@ -1076,7 +1079,6 @@ namespace DIVULGA_SERVICOS.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Prestador")]
         [ValidateAntiForgeryToken]
         public ActionResult EditarPublicoAlvo(editarPublicoAlvo publicoAlvo)
         {
@@ -1101,7 +1103,7 @@ namespace DIVULGA_SERVICOS.Controllers
         /*Fim dos métodos para gerenciamento do publico alvo*/
 
         /*Fim dos métodos para gerenciamento das formas de pagamento*/
-        [Authorize(Roles = "Prestador")]
+        [Authorize(Roles = "Prestador, Admin")]
         public ActionResult formasPagamento()
         {
             if (User.Identity.IsAuthenticated)
@@ -1126,7 +1128,7 @@ namespace DIVULGA_SERVICOS.Controllers
             }
         }
 
-        [Authorize(Roles = "Prestador")]
+        [Authorize(Roles = "Prestador, Admin")]
         public ActionResult EditarFormasPagamento()
         {
             if (User.Identity.GetUserId() == null)
@@ -1143,7 +1145,6 @@ namespace DIVULGA_SERVICOS.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Prestador")]
         [ValidateAntiForgeryToken]
         public ActionResult EditarFormasPagamento(editarFormasPagamento formasPagamento)
         {
@@ -1170,7 +1171,7 @@ namespace DIVULGA_SERVICOS.Controllers
 
 
         /*Início dos métodos para gerenciamento dos horários de atendimento*/
-        [Authorize(Roles ="Prestador")]
+        [Authorize(Roles ="Prestador, Admin")]
         public ActionResult horarioAtendimento()
         {
             if (User.Identity.IsAuthenticated)
@@ -1196,7 +1197,7 @@ namespace DIVULGA_SERVICOS.Controllers
         }
 
 
-        [Authorize(Roles = "Prestador")]
+        [Authorize(Roles = "Prestador, Admin")]
         public ActionResult EditarHorarioAtendimento()
         {
             if (User.Identity.GetUserId() == null)
@@ -1213,7 +1214,6 @@ namespace DIVULGA_SERVICOS.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Prestador")]
         [ValidateAntiForgeryToken]
         public ActionResult EditarHorarioAtendimento(EditarHorarioAtendimento cAD_HORA_ATENDIMENTO, bool tododia)
         {
@@ -1338,7 +1338,7 @@ namespace DIVULGA_SERVICOS.Controllers
 
         /*Início dos métodos para gerenciamento de produtos do fornecedor*/
 
-        [Authorize(Roles = "Fornecedor")]
+        [Authorize(Roles = "Fornecedor, Admin")]
         public ActionResult Produtos()
         {
             if (User.Identity.IsAuthenticated)
@@ -1365,7 +1365,7 @@ namespace DIVULGA_SERVICOS.Controllers
             }
         }
 
-        [Authorize(Roles = "Fornecedor")]
+        [Authorize(Roles = "Fornecedor, Admin")]
         public ActionResult CriarProduto()
         {
             //ViewBag.CD_PES_JURIDICA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ");
@@ -1384,7 +1384,6 @@ namespace DIVULGA_SERVICOS.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Authorize(Roles = "Fornecedor")]
         [ValidateAntiForgeryToken]
         public ActionResult CriarProduto(CAD_PRODUTO_FORNECEDOR cAD_PRODUTO_FORNECEDOR)
         {
@@ -1412,7 +1411,7 @@ namespace DIVULGA_SERVICOS.Controllers
             return View("Error");
         }
 
-        [Authorize(Roles = "Fornecedor")]
+        [Authorize(Roles = "Fornecedor, Admin")]
         public ActionResult DeletarProduto(int id)
         {
             if (User.Identity.IsAuthenticated)
@@ -1435,7 +1434,6 @@ namespace DIVULGA_SERVICOS.Controllers
         }
 
         [HttpPost ActionName("DeletarProduto")]
-        [Authorize(Roles = "Fornecedor")]
         [ValidateAntiForgeryToken]
         public ActionResult DeletarProdutoOk(int id)
         {
@@ -1445,7 +1443,7 @@ namespace DIVULGA_SERVICOS.Controllers
             return RedirectToAction("Produtos");
         }
 
-        [Authorize(Roles = "Fornecedor")]
+        [Authorize(Roles = "Fornecedor, Admin")]
         public ActionResult DetalhesProduto(int id)
         {
             if (User.Identity.IsAuthenticated)
@@ -1472,7 +1470,7 @@ namespace DIVULGA_SERVICOS.Controllers
             }
         }
 
-        [Authorize(Roles = "Fornecedor")]
+        [Authorize(Roles = "Fornecedor, Admin")]
         public ActionResult EditarProduto(int id)
         {
             if (User.Identity.GetUserId() == null)
@@ -1493,7 +1491,6 @@ namespace DIVULGA_SERVICOS.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Fornecedor")]
         [ValidateAntiForgeryToken]
         public ActionResult EditarProduto(CAD_PRODUTO_FORNECEDOR cAD_PRODUTO_FORNECEDOR, int id)
         {
@@ -1524,7 +1521,7 @@ namespace DIVULGA_SERVICOS.Controllers
             return View("EditarProduto", cAD_PRODUTO_FORNECEDOR);
         }
 
-        [Authorize/* (Roles ="Prestador")*/]
+        [Authorize(Roles = "Fornecedor, Admin")]
         public ActionResult CidadesFornecedor()
         {
             if (User.Identity.IsAuthenticated)
@@ -1551,7 +1548,7 @@ namespace DIVULGA_SERVICOS.Controllers
 
 
 
-        [Authorize(Roles = "Fornecedor")]
+        [Authorize(Roles = "Fornecedor, Admin")]
         public ActionResult CadastrarCidade(string mensagem = "")
         {
             //ViewBag.CD_PES_JURIDICA = new SelectList(db.CAD_PES_JURIDICA, "CD_PESSOA", "CD_CNPJ");
@@ -1608,7 +1605,7 @@ namespace DIVULGA_SERVICOS.Controllers
             return View("Error");
         }
 
-        [Authorize(Roles = "Fornecedor")]
+        [Authorize(Roles = "Fornecedor, Admin")]
         public ActionResult DeletarCidade(int id)
         {
             if (User.Identity.IsAuthenticated)
@@ -1640,7 +1637,7 @@ namespace DIVULGA_SERVICOS.Controllers
             return RedirectToAction("CidadesFornecedor");
         }
 
-        [Authorize(Roles = "Fornecedor")]
+        [Authorize(Roles = "Fornecedor, Admin")]
         public ActionResult DetalhesCidade(int id)
         {
             if (User.Identity.IsAuthenticated)
@@ -1670,8 +1667,8 @@ namespace DIVULGA_SERVICOS.Controllers
 
 
         /*Início dos métodos para gerenciamento do perfil do fornecedor*/
-
-        [Authorize]
+        
+        [Authorize(Roles = "Fornecedor, Admin")]
         public ActionResult EditarPerfilFornecedor()
         {
             if (User.Identity.GetUserId() == null)
@@ -1736,7 +1733,8 @@ namespace DIVULGA_SERVICOS.Controllers
         /*Fim dos métodos para gerenciamento do perfil do fornecedor*/
 
         /*Início dos métodos que mostram o fornecedor e seus produtos*/
-        [Authorize]
+
+        [Authorize(Roles = "Prestador, Admin")]
         [HttpGet]
         public ActionResult fornecedorProdutos(string userId = "")
         {
@@ -1751,7 +1749,7 @@ namespace DIVULGA_SERVICOS.Controllers
 
 
         /*Início do método que mostra os fornecedores para cada tipo de prestador de serviço*/
-        [Authorize(Roles = "Prestador")]
+        [Authorize(Roles = "Prestador, Admin")]
         public ActionResult MeusFornecedores()
         {
             if (User.Identity.IsAuthenticated)
@@ -1840,7 +1838,7 @@ namespace DIVULGA_SERVICOS.Controllers
 
 
         /*Início do método que deleta o usuário criado pelas redes sociais*/
-        [Authorize(Roles = "Usuario")]
+        [Authorize(Roles = "Usuario, Admin")]
         public ActionResult DeletarUsuario()
         {
             if (User.Identity.IsAuthenticated)

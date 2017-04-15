@@ -413,16 +413,17 @@ namespace DIVULGA_SERVICOS.Controllers
             }
 
             var body = "<h2>Email de Alerta</h2>" +
-                        "<p> O prestador referenciado abaixo foi denuncioado </p>" +
+                        "<p> O prestador abaixo foi denuncioado </p>" +
                         "<p>Id:" + user.Id + "</p>" +
                         "<p>Nome:" + user.NM_NOME_PESSOA + "</p>" +
                         "<p>email:" + user.Email + "</p>" +
                         "<p>Descrição da Denúncia: </p>" + descricao;
 
             var message = new MailMessage();
-            message.To.Add(new MailAddress("noreply@mercadodeservicos.com.br"));  // replace with valid value 
+            message.To.Add(new MailAddress("mercadodeservico@gmail.com"));  // replace with valid value
+            message.Bcc.Add(new MailAddress("noreply@mercadodeservicos.com.br"));
             message.From = new MailAddress("noreply@mercadodeservicos.com.br");  // replace with valid value
-            message.Subject = "Alerta Sobre Prestador de Servico";
+            message.Subject = "Email de Alerta sobre Prestador de Serviço!";
             message.Body = body;
             message.IsBodyHtml = true;
 
@@ -433,6 +434,7 @@ namespace DIVULGA_SERVICOS.Controllers
                     UserName = "noreply@mercadodeservicos.com.br",  // replace with valid value
                     Password = "noreply@745"  // replace with valid value
                 };
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smtp.Credentials = credential;
                 smtp.Host = "smtp.mercadodeservicos.com.br";
                 smtp.Port = 587;

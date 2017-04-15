@@ -29,7 +29,7 @@ namespace DIVULGA_SERVICOS.Migrations
             //    );
             //
             var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-            string[] roleNames = { "Fornecedor", "Prestador", "Usuario" };
+            string[] roleNames = { "Fornecedor", "Prestador", "Usuario", "Admin" };
             IdentityResult roleResult;
             foreach (var roleName in roleNames)
             {

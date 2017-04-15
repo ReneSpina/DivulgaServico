@@ -10,14 +10,17 @@
         .navbar-inverse .navbar-nav > li > a {
             color: rgb(0, 0, 0);
         }
-
-            .navbar-inverse .navbar-nav > li > a:hover {
-                color: rgb(51, 122, 183);
-            }
-    </style>
-
-    <style>
-        div#load_screen {
+        .navbar-inverse .navbar-nav > li > a:focus
+        {
+            color: rgb(51, 122, 183);
+            background-color: rgba(0, 0, 0, 0);
+        }
+        .navbar-inverse .navbar-nav > li > a:hover
+        {
+            color: rgb(51, 122, 183);
+        }
+        div#load_screen
+        {
             background: #000;
             opacity: 1;
             position: fixed;
@@ -26,17 +29,17 @@
             width: 100%;
             height: 100%;
         }
-
-            div#load_screen > div#loading {
-                height: 100%;
-                min-height: 100%;
-                display: -webkit-flex;
-                display: flex;
-                -webkit-align-items: center;
-                align-items: center;
-                -webkit-justify-content: center;
-                justify-content: center;
-            }
+        div#load_screen > div#loading
+        {
+            height: 100%;
+            min-height: 100%;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-align-items: center;
+            align-items: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+        }
     </style>
     <script>
 window.addEventListener("load", function(){
@@ -71,9 +74,8 @@ window.addEventListener("load", function(){
             <div class="navbar-collapse collapse" style="border: none;">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("PESQUISAR SERVIÇOS", "Index", "Busca")</li>
-                    <li>@Html.ActionLink("SOBRE", "About", "Home")</li>
-                    <li>@Html.ActionLink("CONTATOS", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("PRIVACIDADE", "Privacidade", "Home")</li>
+                    <li>@Html.ActionLink("SOBRE", "Sobre", "Home")</li>
+                    <li>@Html.ActionLink("CONTATOS", "Contatos", "Home")</li>
                     @*<li>@Html.ActionLink("Agradecimentos", "About", "Home")</li>*@
                 </ul>
                 @Html.Partial("_LoginPartial")
@@ -90,6 +92,16 @@ window.addEventListener("load", function(){
         @RenderBody()
         <hr />
         <footer>
+            <p>
+                Mercado de Intermediação de Serviços LTDA -
+                <a href="/Home/Sobre">Sobre Nós</a>
+                 | 
+                <a href="/Home/Contatos">Nossos Contatos</a>
+                 | 
+                <a href="/home/termosdeuso">Termos de Uso</a>
+                 | 
+                <a href="/Home/Privacidade">Privacidade</a>
+            </p>
             @{
                 var userAgent = HttpContext.Current.Request.UserAgent.ToLower();
             }

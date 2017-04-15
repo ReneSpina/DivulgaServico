@@ -17,6 +17,7 @@
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Content/Mybootstrap.css" rel="stylesheet" />
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/social-buttons.css" rel="stylesheet" />
     <style>
         div#load_screen {
             background: #000;
@@ -97,6 +98,39 @@
         </div>
     </div>
 
+    <div id="ModalCadastrar" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title">Criar Conta</h3>
+                </div>
+                <div class="modal-body">
+                    <div class"container">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="service-box">
+                                    <a href="~/Account/Register" class="btn btn-success">Prestador de Serviços</a>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="service-box">
+                                    <a href="~/Account/cadastrarfornecedor" class="btn btn-success">Fornecedor</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <div class="alert alert-danger avbar-fixed-top" role="alert">
         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
         <span class="sr-only">Erro:</span>
@@ -112,15 +146,13 @@
                 @Html.AntiForgeryToken()
                 @Html.ActionLink("Olá " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })<br /><br />
                 <hr />
-                @Html.ActionLink("GERENCIAR CONTA", "Index", "Manage")
+                @Html.ActionLink("Gerenciar Conta", "Index", "Manage")
                 <hr />
-                @Html.ActionLink("HOME", "Index", "Home")
+                @Html.ActionLink("Home", "Index", "Home")
                 <hr />
-                @Html.ActionLink("SOBRE", "About", "Home")
+                @Html.ActionLink("Sobre", "Sobre", "Home")
                 <hr />
-                @Html.ActionLink("CONTATOS", "Contact", "Home")
-                <hr />
-                @Html.ActionLink("POLÍTICA DE PRIVACIDADE", "Privacidade", "Home")
+                @Html.ActionLink("Contatos", "Contatos", "Home")
                 <hr />
                 <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a><br />
                 <hr />
@@ -130,15 +162,11 @@
         {
             @Html.ActionLink("Home", "Index", "Home")<br />
             <hr />
-            @Html.ActionLink("Sobre", "About", "Home")<br />
+            @Html.ActionLink("Sobre", "Sobre", "Home")<br />
             <hr />
-            @Html.ActionLink("Contatos", "Contact", "Home")<br />
+            @Html.ActionLink("Contatos", "Contatos", "Home")<br />
             <hr />
-            @Html.ActionLink("Prestador de Serviços", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
-            <hr />
-            @Html.ActionLink("Fornecedor", "cadastrarfornecedor", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
-            <hr />
-            @Html.ActionLink("Política de Privacidade", "Privacidade", "Home")
+            <a class="SemClick" data-toggle="modal" href="#ModalCadastrar">Criar Conta</a>
             <hr />
             @Html.ActionLink("Entrar", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })<br />
             <hr />
@@ -567,19 +595,9 @@
                                 </text>
                          if(@telefone.WHATSAPP == true)
                          {
-                             var userAgents = HttpContext.Current.Request.UserAgent.ToLower();
-                             if (userAgents.Contains("Mobile") || userAgents.Contains("mobile"))
-                             {
-                                 <text>
-                                    "<a href='intent://send/55"+soNumero('@telefone.CD_CELULAR')+"#Intent;scheme=smsto;package=com.whatsapp;action=android.intent.action.SENDTO;end' target='_blank'>Abrir no Whatsapp</a>" +
-                                 </text>
-                             }
-                             else
-                             {
                                      <text>
-                                        "<a href='https://api.whatsapp.com/send?phone=55" + soNumero('@telefone.CD_CELULAR') + "' target='_blank'>Abrir no Whatsapp</a>" +
+                                        "<a href='https://api.whatsapp.com/send?phone=55" + soNumero('@telefone.CD_CELULAR') + "' target='_blank'>Whatsapp</a>" +
                                      </text>
-                                 }
                          }
                         <text>
                             "<br>" +
@@ -597,17 +615,18 @@
                     }
                     else
                     {
+                        //var culture = new System.Globalization.CultureInfo("pt-BR");
                         DateTime agora = DateTime.Now;
+                        var agorahora = agora.Hour - 3;
                         foreach (var hora in item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_HORA_ATENDIMENTO)
                         {
-
                             if (hora.DIA_SEMANA == (int)agora.DayOfWeek)
                             {
-                                if (hora.HORA_INICIO <= agora.Hour && hora.HORA_FIM > agora.Hour)
+                                if (hora.HORA_INICIO <= agorahora && hora.HORA_FIM > agorahora)
                                 {
                                     <text>
                                     "<div class='alert alert-success' role='alert'>" +
-                                    "<strong>Está aberto agora :)</strong>" +
+                                    "<strong>Está aberto agora :)</strong>"+
                                     "</div>" +
                                 </text>
                                                 break;
@@ -616,7 +635,7 @@
                                 {
                                     <text>
                                     "<div class='alert alert-danger' role='alert'>" +
-                                    "<strong>Está fechado agora :(</strong>" +
+                                    "<strong>Está fechado agora :(</strong>"+
                                     "</div>" +
                                 </text>
                                                 break;
@@ -633,14 +652,14 @@
                    @if(Request.IsAuthenticated)
                                 {
                         <text>
-                        "<button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModalAvaliacao" + '@item.CAD_PESSOA.Id' + "'>Avaliar o Prestador!</button>" +
+                        "<button type='button' class='btn btn-success btn-xs' data-toggle='modal' data-target='#myModalAvaliacao" + '@item.CAD_PESSOA.Id' + "'>Avaliar o Prestador!</button>" +
                         "  |  " +
                         </text>
                     }
                     else
                     {
                         <text>
-                        "<button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModalLogin'>Login para Avaliar</button>" +
+                        "<button type='button' class='btn btn-success btn-xs' data-toggle='modal' data-target='#myModalLogin'>Login para Avaliar</button>" +
                         "  |  " +
                     </text>
                     }
@@ -759,21 +778,9 @@
                                             <p><b>Cel: </b><a href='tel:@telefone.CD_CELULAR '>@telefone.CD_CELULAR</a></p>
                                             if (@telefone.WHATSAPP == true)
                                             {
-                                                var userAgents = HttpContext.Current.Request.UserAgent.ToLower();
-                                                if (userAgents.Contains("Mobile") || userAgents.Contains("mobile"))
-                                                {
-                                                    string resultString = string.Join(null, System.Text.RegularExpressions.Regex.Split(@telefone.CD_CELULAR, "[^\\d]"));
-                                                    string whatsapp = "intent://send/55"+resultString+"#Intent;scheme=smsto;package=com.whatsapp;action=android.intent.action.SENDTO;end";
-                                                    <p><a href="@whatsapp" target="_blank">Abrir no Whatsapp</a></p>
-                                                }
-                                                else
-                                                {
-
-                                                    string resultString = string.Join(null, System.Text.RegularExpressions.Regex.Split(@telefone.CD_CELULAR, "[^\\d]"));
-                                                    string whatsapp = "https://api.whatsapp.com/send?phone=55" + resultString;
-                                                    <p><a href="@whatsapp" target="_blank">Abrir no Whatsapp</a></p>
-
-                                                }
+                                                string resultString = string.Join(null, System.Text.RegularExpressions.Regex.Split(@telefone.CD_CELULAR, "[^\\d]"));
+                                                string whatsapp = "https://api.whatsapp.com/send?phone=55" + resultString;
+                                                <p><a href="@whatsapp" target="_blank">Abrir no Whatsapp</a></p>
                                             }
                                         }
                                     </div>
@@ -1120,8 +1127,16 @@
 
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+
+                            @if (Request.IsAuthenticated)
+                            {
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModalAvaliacao '@endereco.CAD_PESSOA.Id'">Avaliar o Prestador!</button>
+                            }
+                            else
+                            {
+                                <button type ="button" class="btn btn-success" data-toggle="modal" data-target="#myModalLogin">Login para Avaliar</button>
+                            }
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
                         </div>
                     </div>
                 </div>
@@ -1295,6 +1310,7 @@
                                                                                 <input type="text" id="CD_AVALIADOR" class="hidden" name="CD_AVALIADOR" value="@User.Identity.GetUserId()">
                                                                                 <input type="text" id="NM_NOME_AVALIADOR" class="hidden" name="NM_NOME_AVALIADOR" value="@User.Identity.Name">
                                                                                 <br />
+                                                                                <br />
                                                                                 <div class="col-md-offset-2 col-md-10">
                                                                                     <input type="submit" value="Avaliar" class="btn btn-default" />
                                                                                 </div>
@@ -1338,7 +1354,14 @@
                                                                                         <p>
                                                                                             @foreach (AuthenticationDescription p in loginProviders)
                                                                                             {
-                                                                                                <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">@p.AuthenticationType</button>
+                                                                                                if (@p.AuthenticationType == "Facebook")
+                                                                                                {
+                                                                                                    <button type="submit" class="btn btn-block btn-social btn-facebook" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Login com sua conta do @p.Caption"><i class="fa fa-facebook"></i>Login com @p.AuthenticationType</button>
+                                                                                                }
+                                                                                                if (@p.AuthenticationType == "Google")
+                                                                                                {
+                                                                                                    <button type="submit" class="btn btn-block btn-social btn-google-plus" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Login com sua conta do @p.Caption"><i class="fa fa-google-plus"></i>Login com @p.AuthenticationType</button>
+                                                                                                }
                                                                                             }
                                                                                         </p>
                                                                                     </div>
@@ -1347,7 +1370,7 @@
                                                                         }
                                                                     </div>
                                                                     <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1430,6 +1453,7 @@
             }).attr('src', destination.toString());
         });
     </script>
+    <script src="~/Scripts/social-buttons.js"></script>
     <footer>
         @{
             var userAgent = HttpContext.Current.Request.UserAgent.ToLower();

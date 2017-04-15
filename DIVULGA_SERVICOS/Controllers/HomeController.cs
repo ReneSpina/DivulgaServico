@@ -15,16 +15,16 @@ namespace DIVULGA_SERVICOS.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Sobre()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Sobre Nós";
 
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Contatos()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Nossos Contatos";
 
             return View();
         }
@@ -50,6 +50,11 @@ namespace DIVULGA_SERVICOS.Controllers
         public ActionResult ComoFuncionaF()
         {
             return View("Fornecedor");
+        }
+
+        public ActionResult TestaEmail()
+        {
+            return View();
         }
     }
 }
