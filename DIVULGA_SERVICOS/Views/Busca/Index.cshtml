@@ -130,12 +130,6 @@
 
         </div>
     </div>
-
-    <div class="alert alert-danger avbar-fixed-top" role="alert">
-        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-        <span class="sr-only">Erro:</span>
-        Esta é uma versão beta. Qualquer cadastro ou interação com a aplicação deve e vai ser desconsiderada no dia da publicação!
-    </div>
     <div id="mySidenav" class="sidenav" style="opacity: 0.85;">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a><br />
         @if (Request.IsAuthenticated)
@@ -520,7 +514,7 @@
                 return function() {
                     var distancia = parseInt((@item.localizacao.Distance(DbGeography.FromText("POINT(" + ViewBag.latitude.ToString().Replace(",", ".") + " " + ViewBag.longitude.ToString().Replace(",", ".") + ")")).ToString().Replace(",", ".") / 0.62137) / 1000, 10);
                     infowindow.setContent(
-                        "<h4 style='color: rgb(51, 122, 183); border-bottom: 1px solid rgb(229, 229, 229);'><strong>@item.CAD_PESSOA.NM_NOME_PESSOA</strong></h4>" +
+                        "<h4 style='color: rgb(51, 122, 183); border-bottom: 1px solid rgb(229, 229, 229);'><strong>@item.CAD_PESSOA.CAD_PES_JURIDICA.NM_NOME_PRESTADOR</strong></h4>" +
                         "<strong>Este é o "+@i+"º mais próximo e está a </strong>" + distancia + " Km" +
                         "<br><br>" +
                         "<strong>Nós Aceitamos:</strong>" +
@@ -729,7 +723,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h4 class="modal-title" id="myModalLabel">@endereco.CAD_PESSOA.NM_NOME_PESSOA</h4>
+                            <h4 class="modal-title" id="myModalLabel">@endereco.CAD_PESSOA.CAD_PES_JURIDICA.NM_NOME_PRESTADOR</h4>
                         </div>
                         <div class="modal-body">
                             <div class="row">

@@ -232,6 +232,7 @@ namespace DIVULGA_SERVICOS.Controllers
                             CAD_PES_JURIDICA juridica = new CAD_PES_JURIDICA
                             {
                                 CD_PESSOA = user.Id,
+                                NM_NOME_PRESTADOR = model.NM_NOME_PRESTADOR,
                                 CD_CNPJ = model.CD_CNPJ,
                                 TODO_DIA = model.TODO_DIA,
                                 ATIVO = true,
@@ -613,8 +614,30 @@ namespace DIVULGA_SERVICOS.Controllers
                 // Send an email with this link
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                await UserManager.SendEmailAsync(user.Id, "Reset de Senha", "Por favor, altere sua senha clicando <a href=\"" + callbackUrl + "\">aqui</a>");
-                return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                //await UserManager.SendEmailAsync(user.Id, "Reset de Senha", "Por favor, altere sua senha clicando <a href=\'" + callbackUrl + "\'>aqui</a>");
+                var body = "Por favor, altere sua senha clicando <a href=\'" + callbackUrl + "\'>aqui</a>";
+                var message = new MailMessage();
+                message.To.Add(new MailAddress(model.Email));  // replace with valid value 
+                message.From = new MailAddress("noreply@mercadodeservicos.com.br", "Mercado de Serviços - Reset de Senha");  // replace with valid value
+                message.Subject = "Reset de Senha";
+                message.Body = body;
+                message.IsBodyHtml = true;
+
+                using (var smtp = new SmtpClient())
+                {
+                    var credential = new NetworkCredential
+                    {
+                        UserName = "noreply@mercadodeservicos.com.br",  // replace with valid value
+                        Password = "noreply@745"  // replace with valid value
+                    };
+                    smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    smtp.Credentials = credential;
+                    smtp.Host = "smtp.mercadodeservicos.com.br";
+                    smtp.Port = 587;
+                    smtp.EnableSsl = false;
+                    await smtp.SendMailAsync(message);
+                    return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                }
             }
 
             // If we got this far, something failed, redisplay form

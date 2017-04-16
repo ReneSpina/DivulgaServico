@@ -22,6 +22,7 @@ namespace DIVULGA_SERVICOS.Controllers
         }
 
         // GET: Administrador/Details/5
+        [Authorize(Roles = "Prestador")]
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -37,6 +38,7 @@ namespace DIVULGA_SERVICOS.Controllers
         }
 
         // GET: Administrador/Create
+        [Authorize(Roles = "Prestador")]
         public ActionResult Create()
         {
             ViewBag.Id = new SelectList(db.CAD_PES_FORNECEDOR, "CD_PESSOA", "CD_CNPJ");
@@ -50,6 +52,7 @@ namespace DIVULGA_SERVICOS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Prestador")]
         public ActionResult Create([Bind(Include = "Id,NM_NOME_PESSOA,NEWSLETTER,DT_DATA_CADASTRO,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] CAD_PESSOA cAD_PESSOA)
         {
             if (ModelState.IsValid)
@@ -66,6 +69,7 @@ namespace DIVULGA_SERVICOS.Controllers
         }
 
         // GET: Administrador/Edit/5
+        [Authorize(Roles = "Prestador")]
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -88,6 +92,7 @@ namespace DIVULGA_SERVICOS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Prestador")]
         public ActionResult Edit([Bind(Include = "Id,NM_NOME_PESSOA,NEWSLETTER,DT_DATA_CADASTRO,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] CAD_PESSOA cAD_PESSOA)
         {
             if (ModelState.IsValid)
@@ -103,6 +108,7 @@ namespace DIVULGA_SERVICOS.Controllers
         }
 
         // GET: Administrador/Delete/5
+        [Authorize(Roles = "Prestador")]
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -119,6 +125,7 @@ namespace DIVULGA_SERVICOS.Controllers
 
         // POST: Administrador/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Prestador")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {

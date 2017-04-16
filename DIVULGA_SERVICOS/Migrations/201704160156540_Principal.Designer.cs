@@ -13,7 +13,7 @@ namespace DIVULGA_SERVICOS.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201703300002078_Principal"; }
+            get { return "201704160156540_Principal"; }
         }
         
         string IMigrationMetadata.Source

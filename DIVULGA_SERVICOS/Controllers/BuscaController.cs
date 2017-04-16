@@ -86,8 +86,10 @@ namespace DIVULGA_SERVICOS.Controllers
                                             x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.DS_DESCRICAO.Contains(pesquisa)) ||
                                             x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(texto)) ||
                                             x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(pesquisa)) ||
+                                            x.CAD_PESSOA.CAD_PES_JURIDICA.NM_NOME_PRESTADOR.Contains(texto) ||
+                                            x.CAD_PESSOA.CAD_PES_JURIDICA.NM_NOME_PRESTADOR.Contains(pesquisa) ||
                                             x.CAD_PESSOA.NM_NOME_PESSOA.Contains(texto) ||
-                                            x.CAD_PESSOA.NM_NOME_PESSOA.Contains(pesquisa)).ToList();
+                                            x.CAD_PESSOA.NM_NOME_PESSOA.Contains(pesquisa)).Take(15).ToList();
                         }
                         else
                         {
@@ -99,8 +101,10 @@ namespace DIVULGA_SERVICOS.Controllers
                                         x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.DS_DESCRICAO.Contains(pesquisa)) ||
                                         x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(texto)) ||
                                         x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(pesquisa)) ||
+                                        x.CAD_PESSOA.CAD_PES_JURIDICA.NM_NOME_PRESTADOR.Contains(texto) ||
+                                        x.CAD_PESSOA.CAD_PES_JURIDICA.NM_NOME_PRESTADOR.Contains(pesquisa) ||
                                         x.CAD_PESSOA.NM_NOME_PESSOA.Contains(texto) ||
-                                        x.CAD_PESSOA.NM_NOME_PESSOA.Contains(pesquisa)).ToList();
+                                        x.CAD_PESSOA.NM_NOME_PESSOA.Contains(pesquisa)).Take(15).ToList();
                         }
                         if (enderecos.Any((item => enderecosTemp.Contains(item))))
                         {
@@ -181,7 +185,10 @@ namespace DIVULGA_SERVICOS.Controllers
                                     }
                                     else
                                     {
-                                        enderecosTemp.Remove(enderecosTemp[i]);
+                                        if(MICRO_EMPRESA != true && EMPRESA_GRANDE_PORTE != true && PEQUENAS_EMPRESAS != true)
+                                        {
+                                            enderecosTemp.Remove(enderecosTemp[i]);
+                                        }
                                     }
                                 }
                             }
@@ -195,7 +202,10 @@ namespace DIVULGA_SERVICOS.Controllers
                                     }
                                     else
                                     {
-                                        enderecosTemp.Remove(enderecosTemp[i]);
+                                        if(PESSOA_FISICA != true && EMPRESA_GRANDE_PORTE != true && PEQUENAS_EMPRESAS != true)
+                                        {
+                                            enderecosTemp.Remove(enderecosTemp[i]);
+                                        }
                                     }
                                 }
                             }
@@ -209,7 +219,10 @@ namespace DIVULGA_SERVICOS.Controllers
                                     }
                                     else
                                     {
-                                        enderecosTemp.Remove(enderecosTemp[i]);
+                                        if(PESSOA_FISICA != true && MICRO_EMPRESA != true && EMPRESA_GRANDE_PORTE != true)
+                                        {
+                                            enderecosTemp.Remove(enderecosTemp[i]);
+                                        }
                                     }
                                 }
                             }
@@ -223,7 +236,10 @@ namespace DIVULGA_SERVICOS.Controllers
                                     }
                                     else
                                     {
-                                        enderecosTemp.Remove(enderecosTemp[i]);
+                                        if (PESSOA_FISICA != true && MICRO_EMPRESA != true && PEQUENAS_EMPRESAS != true)
+                                        {
+                                            enderecosTemp.Remove(enderecosTemp[i]);
+                                        }
                                     }
                                 }
                             }
@@ -246,8 +262,10 @@ namespace DIVULGA_SERVICOS.Controllers
                                     x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.DS_DESCRICAO.Contains(pesquisa)) ||
                                     x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(texto)) ||
                                     x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(pesquisa)) ||
+                                    x.CAD_PESSOA.CAD_PES_JURIDICA.NM_NOME_PRESTADOR.Contains(texto) ||
+                                    x.CAD_PESSOA.CAD_PES_JURIDICA.NM_NOME_PRESTADOR.Contains(pesquisa) ||
                                     x.CAD_PESSOA.NM_NOME_PESSOA.Contains(texto) ||
-                                    x.CAD_PESSOA.NM_NOME_PESSOA.Contains(pesquisa)).ToList();
+                                    x.CAD_PESSOA.NM_NOME_PESSOA.Contains(pesquisa)).Take(15).ToList();
                 }
                 else
                 {
@@ -259,8 +277,10 @@ namespace DIVULGA_SERVICOS.Controllers
                                 x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.DS_DESCRICAO.Contains(pesquisa)) ||
                                 x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(texto)) ||
                                 x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(pesquisa)) ||
+                                x.CAD_PESSOA.CAD_PES_JURIDICA.NM_NOME_PRESTADOR.Contains(texto) ||
+                                x.CAD_PESSOA.CAD_PES_JURIDICA.NM_NOME_PRESTADOR.Contains(pesquisa) ||
                                 x.CAD_PESSOA.NM_NOME_PESSOA.Contains(texto) ||
-                                x.CAD_PESSOA.NM_NOME_PESSOA.Contains(pesquisa)).ToList();
+                                x.CAD_PESSOA.NM_NOME_PESSOA.Contains(pesquisa)).Take(15).ToList();
                 }
                 if (aberto == true)
                 {
@@ -337,7 +357,10 @@ namespace DIVULGA_SERVICOS.Controllers
                         }
                         else
                         {
-                            enderecos.Remove(enderecos[i]);
+                            if (MICRO_EMPRESA != true && EMPRESA_GRANDE_PORTE != true && PEQUENAS_EMPRESAS != true)
+                            {
+                                enderecos.Remove(enderecos[i]);
+                            }
                         }
                     }
                 }
@@ -351,7 +374,10 @@ namespace DIVULGA_SERVICOS.Controllers
                         }
                         else
                         {
-                            enderecos.Remove(enderecos[i]);
+                            if (PESSOA_FISICA != true && EMPRESA_GRANDE_PORTE != true && PEQUENAS_EMPRESAS != true)
+                            {
+                                enderecos.Remove(enderecos[i]);
+                            }
                         }
                     }
                 }
@@ -365,7 +391,10 @@ namespace DIVULGA_SERVICOS.Controllers
                         }
                         else
                         {
-                            enderecos.Remove(enderecos[i]);
+                            if (MICRO_EMPRESA != true && EMPRESA_GRANDE_PORTE != true && PESSOA_FISICA != true)
+                            {
+                                enderecos.Remove(enderecos[i]);
+                            }
                         }
                     }
                 }
@@ -379,7 +408,10 @@ namespace DIVULGA_SERVICOS.Controllers
                         }
                         else
                         {
-                            enderecos.Remove(enderecos[i]);
+                            if (PESSOA_FISICA != true && MICRO_EMPRESA != true && PEQUENAS_EMPRESAS != true)
+                            {
+                                enderecos.Remove(enderecos[i]);
+                            }
                         }
                     }
                 }

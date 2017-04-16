@@ -737,6 +737,7 @@ namespace DIVULGA_SERVICOS.Controllers
                 CAD_PES_JURIDICA PesJuridica = new CAD_PES_JURIDICA
                 {
                     CD_PESSOA = User.Identity.GetUserId(),
+                    NM_NOME_PRESTADOR = cAD_PES_JURIDICA.NM_NOME_PRESTADOR,
                     DS_QUEM_SOMOS = cAD_PES_JURIDICA.DS_QUEM_SOMOS,
                     DS_SOBRE = cAD_PES_JURIDICA.DS_SOBRE,
                     CD_CNPJ = cAD_PES_JURIDICA.CD_CNPJ,

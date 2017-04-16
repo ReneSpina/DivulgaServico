@@ -33,6 +33,7 @@ namespace DIVULGA_SERVICOS.Migrations
                 c => new
                     {
                         CD_PESSOA = c.String(nullable: false, maxLength: 128),
+                        NM_NOME_PRESTADOR = c.String(nullable: false, maxLength: 255),
                         CD_CNPJ = c.String(nullable: false, maxLength: 30),
                         DS_SOBRE = c.String(unicode: false, storeType: "text"),
                         DS_QUEM_SOMOS = c.String(unicode: false, storeType: "text"),

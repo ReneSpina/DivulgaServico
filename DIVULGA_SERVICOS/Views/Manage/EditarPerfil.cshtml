@@ -16,9 +16,16 @@
             <hr>
 
             <div class="form-group">
-                <label class="control-label col-md-2" for="NM_NOME_PESSOA">NOME*</label>
+                <label class="control-label col-md-2" for="NM_NOME_PESSOA">Nome*</label>
                 <div class="col-md-10">
-                    <input class="form-control text-box single-line" data-val="true" data-val-length="O campo NM_NOME_PESSOA deve ser uma cadeia de caracteres com um comprimento máximo de 255." data-val-length-max="255" id="CAD_PES_JURIDICA.NM_NOME_PESSOA" name="CAD_PES_JURIDICA.NM_NOME_PESSOA" type="text" value="@Model.NM_NOME_PESSOA">
+                    <input class="form-control text-box single-line" data-val="true" data-val-length="O campo nome deve ser uma cadeia de caracteres com um comprimento máximo de 255." data-val-length-max="255" id="CAD_PES_JURIDICA.NM_NOME_PESSOA" name="CAD_PES_JURIDICA.NM_NOME_PESSOA" type="text" value="@Model.NM_NOME_PESSOA">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2" for="CAD_PES_JURIDICA.NM_NOME_PRESTADOR">Nome da Empresa*</label>
+                <div class="col-md-10">
+                    <input class="form-control text-box single-line" data-val="true" data-val-length="O campo nome da empresa deve ser uma cadeia de caracteres com um comprimento máximo de 255." data-val-length-max="255" id="CAD_PES_JURIDICA.NM_NOME_PRESTADOR" name="CAD_PES_JURIDICA.NM_NOME_PRESTADOR" type="text" value="@Model.CAD_PES_JURIDICA.NM_NOME_PRESTADOR">
                 </div>
             </div>
 
@@ -37,14 +44,14 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-2" for="DS_SOBRE">SOBRE</label>
+                <label class="control-label col-md-2" for="DS_SOBRE">Sobre</label>
                 <div class="col-md-10">
                     <textarea class="form-control text-box multi-line" id="CAD_PES_JURIDICA.DS_SOBRE" name="CAD_PES_JURIDICA.DS_SOBRE">@Model.CAD_PES_JURIDICA.DS_SOBRE</textarea>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-2" for="DS_QUEM_SOMOS">QUEM SOMOS</label>
+                <label class="control-label col-md-2" for="DS_QUEM_SOMOS">Quem Somos</label>
                 <div class="col-md-10">
                     <textarea class="form-control text-box multi-line" id="CAD_PES_JURIDICA.DS_QUEM_SOMOS" name="CAD_PES_JURIDICA.DS_QUEM_SOMOS">@Model.CAD_PES_JURIDICA.DS_QUEM_SOMOS</textarea>
                 </div>

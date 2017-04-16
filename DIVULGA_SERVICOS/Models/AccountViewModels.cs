@@ -179,6 +179,10 @@ namespace DIVULGA_SERVICOS.Models
         [Display(Name = "Nome*")]
         public string NM_NOME_PESSOA { get; set; }
 
+        [Required(ErrorMessage = "O NOME DA EMPRESA É OBRIGATÓRIO!")]
+        [Display(Name = "Nome da Empresa*")]
+        public string NM_NOME_PRESTADOR { get; set; }
+
         //[Required(ErrorMessage = "O TELEFONE FIXO É OBRIGATÓRIO!")]
         [StringLength(15)]
         //[RegularExpression("^\\([1-9]{2}\\) [2-9][0-9]{3,3}\\-[0-9]{4}$", ErrorMessage = "INSIRA UM TELEONE VÁLIDO (Ex.: (##) ####-#### ou (##) #####-####)")]
@@ -525,6 +529,10 @@ namespace DIVULGA_SERVICOS.Models
         [Display(Name = "Nome*")]
         public string NM_NOME_PESSOA { get; set; }
 
+        [Required(ErrorMessage = "O NOME DA EMPRESA É OBRIGATÓRIO!")]
+        [Display(Name = "Nome da Empresa*")]
+        public string NM_NOME_PRESTADOR { get; set; }
+        
         [Required(ErrorMessage = "O CPF OU CNPJ É OBRIGATÓRIO!")]
         //[RegularExpression("^(\\d{14})|(\\d{11})$", ErrorMessage = "INSIRA UM CPF OU UM CNPJ VÁLIDO (DIGITE SOMENTE NÚMEROS)!")]
         [StringLength(30)]

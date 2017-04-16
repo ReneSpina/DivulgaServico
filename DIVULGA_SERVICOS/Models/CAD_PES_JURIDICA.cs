@@ -24,7 +24,11 @@ namespace DIVULGA_SERVICOS.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string CD_PESSOA { get; set; }
-        
+
+        [Required]
+        [StringLength(255)]
+        public string NM_NOME_PRESTADOR { get; set; }
+
         [Required(ErrorMessage = "O CPF/CNPJ é obrigatório!")]
         //[RegularExpression("^(\\d{14})|(\\d{11})$", ErrorMessage = "Insira um CPF ou CNPJ válido (digite somente números)!")]
         [StringLength(30)]

@@ -24,11 +24,11 @@ namespace DIVULGA_SERVICOS
             //client.Port = 587;
             //client.Host = "smtp.mercadodeservicos.com.br";
             //client.EnableSsl = false;
-            ////client.Timeout = 10000;
-            ////client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            ////client.UseDefaultCredentials = false;
+            //client.Timeout = 10000;
+            //client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            //client.UseDefaultCredentials = false;
             //client.Credentials = new NetworkCredential("noreply@mercadodeservicos.com.br", "noreply@745");
-            ////var from = new MailAddress("noreply@mercadodeservicos.com.br", "Mercado de Serviços");
+            //var from = new MailAddress("noreply@mercadodeservicos.com.br", "Mercado de Serviços");
 
             //var mail = new MailMessage();
             //mail.From = new MailAddress("noreply@mercadodeservicos.com.br", "Mercado de Serviços");
