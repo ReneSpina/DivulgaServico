@@ -9,7 +9,6 @@
 @using (Html.BeginForm("EditarFormasPagamento", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form", @name = "EditarFormasPagamento" }))
 {
     @Html.AntiForgeryToken()
-    <div class="col-xs-12">
         <div class="col-md-12">
             <h3>Formas de Pagamento</h3>
             <div class="checkbox">
@@ -46,7 +45,6 @@
                 </label>
             </div>
         </div>
-    </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input id="EditarPagamento" type="submit" value="Salvar" class="btn btn-default" />

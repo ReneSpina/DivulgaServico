@@ -170,6 +170,36 @@ $("#cadastrogeralForn").click(function () {
     }
 });
 
+$("#proximo_principal").click(function () {
+    if($("#cnpj").is(":checked"))
+    {
+        if ($("#CD_CNPJ").val().length < 17)
+        {
+            $('#ModalErroHeaderGenerico').remove();
+            $('#ModalErroBodyGenerico').remove();
+            $('#ModalErroFooterGenerico').remove();
+            $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">Você deve digitar um CNPJ válido!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
+            $('#ModalErro').modal('show');
+            $('a[href="#step-2"]').bootstrapWizard('previous');
+            return false;
+        }
+    }
+
+    if($("#cpf").is(":checked"))
+    {
+        if ($("#CD_CNPJ").val().length < 14)
+        {
+            $('#ModalErroHeaderGenerico').remove();
+            $('#ModalErroBodyGenerico').remove();
+            $('#ModalErroFooterGenerico').remove();
+            $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">Você deve digitar um CPF válido!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
+            $('#ModalErro').modal('show');
+            $('a[href="#step-2"]').bootstrapWizard('previous');
+            return false;
+        }
+    }
+
+});
 
 $("#ProximoHora").click(function () {
 
@@ -621,46 +651,78 @@ $("#domingo").change(function () {
     }
 });
 
+$("#cnpj").change(function () {
+    if ($("#cnpj").is(":checked")){
+        $("#CD_CNPJ").prop("disabled", false);
+        $("#CD_CNPJ").val('');
+        $("#CD_CNPJ").mask("00.000.000/0000-00");
+    }
+});
+
+$("#cpf").change(function () {
+    if ($("#cpf").is(":checked")) {
+        $("#CD_CNPJ").prop("disabled", false);
+        $("#CD_CNPJ").val('');
+        $("#CD_CNPJ").mask("000.000.000-00");
+    }
+});
+
 $("#segunda_inicio").val('');
 $("#segunda_fim").val('');
+$("#segunda_inicio").mask("00");
+$("#segunda_fim").mask("00");
 $("#segunda_inicio").hide();
 $("#segunda_fim").hide();
 
 $("#terca_inicio").val('');
 $("#terca_fim").val('');
+$("#terca_inicio").mask("00");
+$("#terca_fim").mask("00");
 $("#terca_inicio").hide();
 $("#terca_fim").hide();
 
 $("#quarta_inicio").val('');
 $("#quarta_fim").val('');
+$("#quarta_inicio").mask("00");
+$("#quarta_fim").mask("00");
 $("#quarta_inicio").hide();
 $("#quarta_fim").hide();
 
 $("#quinta_inicio").val('');
 $("#quinta_fim").val('');
+$("#quinta_inicio").mask("00");
+$("#quinta_fim").mask("00");
 $("#quinta_inicio").hide();
 $("#quinta_fim").hide();
 
 
 $("#sexta_inicio").val('');
 $("#sexta_fim").val('');
+$("#sexta_inicio").mask("00");
+$("#sexta_fim").mask("00");
 $("#sexta_inicio").hide();
 $("#sexta_fim").hide();
 
 $("#sabado_inicio").val('');
 $("#sabado_fim").val('');
+$("#sabado_inicio").mask("00");
+$("#sabado_fim").mask("00");
 $("#sabado_inicio").hide();
 $("#sabado_fim").hide();
 
 $("#domingo_inicio").val('');
 $("#domingo_fim").val('');
+$("#domingo_inicio").mask("00");
+$("#domingo_fim").mask("00");
 $("#domingo_inicio").hide();
 $("#domingo_fim").hide();
 
-
+$("#CD_CNPJ").prop("disabled", true);
 $("#TF_TEL_CEL").mask("(00) 90000-0000");
 $("#TF_TEL_FIXO").mask("(00) 0000-0000");
 $("#CD_CEP").mask("00000-000");
+$(".segundasextainicio").mask("00");
+$(".segundasextafim").mask("00");
 
 
 $("#ACEITE_CONTRATO").change(function () {

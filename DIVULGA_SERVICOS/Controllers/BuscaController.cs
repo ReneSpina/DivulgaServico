@@ -59,6 +59,7 @@ namespace DIVULGA_SERVICOS.Controllers
             ViewBag.longitude = lng;
             ViewBag.Status = 0;
             var status = 0;
+            var limiteBusca = 20;
             var localusuario = DbGeography.FromText("POINT (" + lat + " " + lng + ")", 4326);
 
             if (String.IsNullOrEmpty(lat))
@@ -82,14 +83,14 @@ namespace DIVULGA_SERVICOS.Controllers
                                     .Where(x => x.CAD_PESSOA.CAD_PES_JURIDICA.ATIVO == true)
                                     .Where(x => ((int)(((x.localizacao.Distance(localusuario)) / 0.62137) / 1000) <= (distancia)))
                                     .Where(x =>
+                                            x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.DS_DESCRICAO.Contains(word)) ||
                                             x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.DS_DESCRICAO.Contains(texto)) ||
-                                            x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.DS_DESCRICAO.Contains(pesquisa)) ||
+                                            x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(word)) ||
                                             x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(texto)) ||
-                                            x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(pesquisa)) ||
+                                            x.CAD_PESSOA.CAD_PES_JURIDICA.NM_NOME_PRESTADOR.Contains(word) ||
                                             x.CAD_PESSOA.CAD_PES_JURIDICA.NM_NOME_PRESTADOR.Contains(texto) ||
-                                            x.CAD_PESSOA.CAD_PES_JURIDICA.NM_NOME_PRESTADOR.Contains(pesquisa) ||
                                             x.CAD_PESSOA.NM_NOME_PESSOA.Contains(texto) ||
-                                            x.CAD_PESSOA.NM_NOME_PESSOA.Contains(pesquisa)).Take(15).ToList();
+                                            x.CAD_PESSOA.NM_NOME_PESSOA.Contains(word)).Take(limiteBusca).ToList();
                         }
                         else
                         {
@@ -97,14 +98,14 @@ namespace DIVULGA_SERVICOS.Controllers
                             enderecosTemp = db.CAD_PES_ENDERECO
                                 .Where(x => x.CAD_PESSOA.CAD_PES_JURIDICA.ATIVO == true)
                                 .Where(x =>
+                                        x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.DS_DESCRICAO.Contains(word)) ||
                                         x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.DS_DESCRICAO.Contains(texto)) ||
-                                        x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.DS_DESCRICAO.Contains(pesquisa)) ||
+                                        x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(word)) ||
                                         x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(texto)) ||
-                                        x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(pesquisa)) ||
+                                        x.CAD_PESSOA.CAD_PES_JURIDICA.NM_NOME_PRESTADOR.Contains(word) ||
                                         x.CAD_PESSOA.CAD_PES_JURIDICA.NM_NOME_PRESTADOR.Contains(texto) ||
-                                        x.CAD_PESSOA.CAD_PES_JURIDICA.NM_NOME_PRESTADOR.Contains(pesquisa) ||
                                         x.CAD_PESSOA.NM_NOME_PESSOA.Contains(texto) ||
-                                        x.CAD_PESSOA.NM_NOME_PESSOA.Contains(pesquisa)).Take(15).ToList();
+                                        x.CAD_PESSOA.NM_NOME_PESSOA.Contains(word)).Take(limiteBusca).ToList();
                         }
                         if (enderecos.Any((item => enderecosTemp.Contains(item))))
                         {
@@ -258,14 +259,14 @@ namespace DIVULGA_SERVICOS.Controllers
                         .Where(x => x.CAD_PESSOA.CAD_PES_JURIDICA.ATIVO == true)
                         .Where(x => ((int)(((x.localizacao.Distance(localusuario)) / 0.62137) / 1000) <= (distancia)))
                         .Where(x =>
-                                    x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.DS_DESCRICAO.Contains(texto)) ||
                                     x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.DS_DESCRICAO.Contains(pesquisa)) ||
-                                    x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(texto)) ||
+                                    x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.DS_DESCRICAO.Contains(texto)) ||
                                     x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(pesquisa)) ||
-                                    x.CAD_PESSOA.CAD_PES_JURIDICA.NM_NOME_PRESTADOR.Contains(texto) ||
+                                    x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(texto)) ||
                                     x.CAD_PESSOA.CAD_PES_JURIDICA.NM_NOME_PRESTADOR.Contains(pesquisa) ||
+                                    x.CAD_PESSOA.CAD_PES_JURIDICA.NM_NOME_PRESTADOR.Contains(texto) ||
                                     x.CAD_PESSOA.NM_NOME_PESSOA.Contains(texto) ||
-                                    x.CAD_PESSOA.NM_NOME_PESSOA.Contains(pesquisa)).Take(15).ToList();
+                                    x.CAD_PESSOA.NM_NOME_PESSOA.Contains(pesquisa)).Take(limiteBusca).ToList();
                 }
                 else
                 {
@@ -273,14 +274,14 @@ namespace DIVULGA_SERVICOS.Controllers
                     enderecos = db.CAD_PES_ENDERECO
                     .Where(x => x.CAD_PESSOA.CAD_PES_JURIDICA.ATIVO == true)
                     .Where(x =>
-                                x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.DS_DESCRICAO.Contains(texto)) ||
                                 x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.DS_DESCRICAO.Contains(pesquisa)) ||
-                                x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(texto)) ||
+                                x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.DS_DESCRICAO.Contains(texto)) ||
                                 x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(pesquisa)) ||
-                                x.CAD_PESSOA.CAD_PES_JURIDICA.NM_NOME_PRESTADOR.Contains(texto) ||
+                                x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(texto)) ||
                                 x.CAD_PESSOA.CAD_PES_JURIDICA.NM_NOME_PRESTADOR.Contains(pesquisa) ||
+                                x.CAD_PESSOA.CAD_PES_JURIDICA.NM_NOME_PRESTADOR.Contains(texto) ||
                                 x.CAD_PESSOA.NM_NOME_PESSOA.Contains(texto) ||
-                                x.CAD_PESSOA.NM_NOME_PESSOA.Contains(pesquisa)).Take(15).ToList();
+                                x.CAD_PESSOA.NM_NOME_PESSOA.Contains(pesquisa)).Take(limiteBusca).ToList();
                 }
                 if (aberto == true)
                 {

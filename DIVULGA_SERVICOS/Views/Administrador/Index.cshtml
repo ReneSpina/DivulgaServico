@@ -1,130 +1,46 @@
 ﻿@model IEnumerable<DIVULGA_SERVICOS.Models.CAD_PESSOA>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Administração";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Administração</h2>
+<br />
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CAD_PES_FORNECEDOR.CD_CNPJ)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CAD_PES_JURIDICA.CD_CNPJ)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CAD_PES_USUARIO.CD_PESSOA)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NM_NOME_PESSOA)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NEWSLETTER)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DT_DATA_CADASTRO)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EmailConfirmed)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PasswordHash)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SecurityStamp)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PhoneNumberConfirmed)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TwoFactorEnabled)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LockoutEndDateUtc)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LockoutEnabled)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AccessFailedCount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserName)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CAD_PES_FORNECEDOR.CD_CNPJ)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CAD_PES_JURIDICA.CD_CNPJ)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CAD_PES_USUARIO.CD_PESSOA)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NM_NOME_PESSOA)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NEWSLETTER)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DT_DATA_CADASTRO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmailConfirmed)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PasswordHash)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SecurityStamp)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhoneNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhoneNumberConfirmed)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TwoFactorEnabled)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LockoutEndDateUtc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LockoutEnabled)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AccessFailedCount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+<h4> Cadastrados <span class="badge">@Model.Count()</span></h4>
+<div id="no-more-tables">
+    <table class="col-md-12 table-bordered table-striped table-condensed cf">
+        <thead class="cf">
+            <tr>
+                <th>
+                    Nome
+                </th>
+                <th>
+                    Email
+                </th>
+                <th></th>
+            </tr>
+         </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td data-title="Nome">
+                        @Html.DisplayFor(modelItem => item.NM_NOME_PESSOA)
+                    </td>
+                    
+                    <td data-title="Email">
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td data-title="Configurações">
+                        @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Detalhes", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Deletar", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+            </tbody>
 
 </table>
+    </div>

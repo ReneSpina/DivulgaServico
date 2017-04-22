@@ -10,31 +10,40 @@
 <p>
     @Html.ActionLink("Cadastrar Novo", "CriarServico")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.NM_NOME)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DS_DESCRICAO)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.NM_NOME)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DS_DESCRICAO)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "EditarServico", new { id=item.SQ_CATEGORIA }) |
-            @Html.ActionLink("Detalhes", "DetalhesServico", new { id=item.SQ_CATEGORIA }) |
-            @Html.ActionLink("Deletar", "DeletarServico", new { id=item.SQ_CATEGORIA })
-        </td>
-    </tr>
-}
 
-</table>
+<div id="no-more-tables">
+    <table class="col-md-12 table-bordered table-striped table-condensed cf">
+        <thead class="cf">
+            <tr>
+                <th>
+                    Nome
+                </th>
+                <th>
+                    Descrição
+                </th>
+                <th></th>
+            </tr>
+            </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td data-title="Nome">
+                        @Html.DisplayFor(modelItem => item.NM_NOME)
+                    </td>
+                    <td data-title="Descrição">
+                        @Html.DisplayFor(modelItem => item.DS_DESCRICAO)
+                    </td>
+                    <td data-title="Configuração">
+                        @Html.ActionLink("Editar", "EditarServico", new { id = item.SQ_CATEGORIA }) |
+                        @Html.ActionLink("Detalhes", "DetalhesServico", new { id = item.SQ_CATEGORIA }) |
+                        @Html.ActionLink("Deletar", "DeletarServico", new { id = item.SQ_CATEGORIA })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    </div>
+    <br />
+    @Html.ActionLink("Voltar a tela de gerenciamento", "Index")

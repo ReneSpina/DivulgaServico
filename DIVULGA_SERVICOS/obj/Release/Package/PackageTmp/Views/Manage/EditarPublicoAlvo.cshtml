@@ -9,7 +9,6 @@
 @using (Html.BeginForm("EditarPublicoAlvo", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form", @name = "EditarPublicoAlvo" }))
 {
     @Html.AntiForgeryToken()
-    <div class="col-xs-12">
         <div class="col-md-12">
             <h3>Público que você atende</h3>
             <div class="form-group">
@@ -52,7 +51,6 @@
                 </div>
             </div>
         </div>
-    </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Salvar" class="btn btn-default" />

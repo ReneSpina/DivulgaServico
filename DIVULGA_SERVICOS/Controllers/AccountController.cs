@@ -17,6 +17,7 @@ using System.Security.Principal;
 using System.Data.Entity.Spatial;
 using System.Net.Mail;
 using System.Net;
+using System.Text;
 
 namespace DIVULGA_SERVICOS.Controllers
 {
@@ -66,7 +67,7 @@ namespace DIVULGA_SERVICOS.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            if(User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -201,235 +202,271 @@ namespace DIVULGA_SERVICOS.Controllers
             //long indicacao;
             if (ModelState.IsValid && model.ACEITE_CONTRATO == true)
             {
-
-                var user = new ApplicationUser
+                var usuarioExistente = db.CAD_PESSOA.Where(x => x.Email == model.UserName).ToList();
+                if (usuarioExistente.Count() == 0)
                 {
-                    NM_NOME_PESSOA = model.NM_NOME_PESSOA,
-                    UserName = model.UserName,
-                    //TF_TEL_CEL = model.TF_TEL_CEL,
-                    //TF_TEL_FIXO = model.TF_TEL_FIXO,
-                    DT_DATA_CADASTRO = System.DateTime.Today,
-                    Email = model.UserName,
-                    NEWSLETTER = true,
-                    EmailConfirmed = true,
-                    
-                    //DS_EMAIL = model.UserName,
-                };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                var addrole = UserManager.AddToRole(user.Id, "Prestador");
-
-                if (addrole.Succeeded)
-                {
-                    DbContextTransaction transacao = db.Database.BeginTransaction();
-                    try
+                    var user = new ApplicationUser
                     {
-                        if (result.Succeeded)
+                        NM_NOME_PESSOA = model.NM_NOME_PESSOA,
+                        UserName = model.UserName,
+                        //TF_TEL_CEL = model.TF_TEL_CEL,
+                        //TF_TEL_FIXO = model.TF_TEL_FIXO,
+                        DT_DATA_CADASTRO = System.DateTime.Today,
+                        Email = model.UserName,
+                        NEWSLETTER = true,
+                        EmailConfirmed = true,
+
+                        //DS_EMAIL = model.UserName,
+                    };
+                    var result = await UserManager.CreateAsync(user, model.Password);
+
+                    var addrole = UserManager.AddToRole(user.Id, "Prestador");
+
+                    if (model.UserName == "dourado.spina@gmail.com")
+                    {
+                        var removeRole = UserManager.RemoveFromRole(user.Id, "Prestador");
+                        addrole = UserManager.AddToRole(user.Id, "Admin");
+                    }
+
+                    if (addrole.Succeeded)
+                    {
+                        DbContextTransaction transacao = db.Database.BeginTransaction();
+                        try
                         {
-                            //IdentityResult resultClaim = await UserManager
-                            //  .AddClaimAsync(user.Id, new Claim("Nome", model.NM_NOME_PESSOA));
-                            //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
-                            CAD_PES_JURIDICA juridica = new CAD_PES_JURIDICA
+                            if (result.Succeeded)
                             {
-                                CD_PESSOA = user.Id,
-                                NM_NOME_PRESTADOR = model.NM_NOME_PRESTADOR,
-                                CD_CNPJ = model.CD_CNPJ,
-                                TODO_DIA = model.TODO_DIA,
-                                ATIVO = true,
-                                DIVULGACAO = model.DIVULGACAO,
-                                ACEITE_CONTRATO = model.ACEITE_CONTRATO
-                            };
-                            db.CAD_PES_JURIDICA.Add(juridica);
-                            db.SaveChanges();
+                                //IdentityResult resultClaim = await UserManager
+                                //  .AddClaimAsync(user.Id, new Claim("Nome", model.NM_NOME_PESSOA));
+                                //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-                            CAD_PES_FONE telefone = new CAD_PES_FONE
-                            {
-                                CD_PESSOA = user.Id,
-                                CD_FIXO = model.TF_TEL_FIXO,
-                                CD_CELULAR = model.TF_TEL_CEL,
-                                NM_OPERADORA = model.NM_OPERADORA,
-                                WHATSAPP = model.WHATSAPP
-                            };
-                            db.CAD_PES_FONE.Add(telefone);
-                            db.SaveChanges();
+                                CAD_PES_JURIDICA juridica = new CAD_PES_JURIDICA
+                                {
+                                    CD_PESSOA = user.Id,
+                                    NM_NOME_PRESTADOR = model.NM_NOME_PRESTADOR,
+                                    CD_CNPJ = model.CD_CNPJ,
+                                    TODO_DIA = model.TODO_DIA,
+                                    ATIVO = true,
+                                    DIVULGACAO = model.DIVULGACAO,
+                                    ACEITE_CONTRATO = model.ACEITE_CONTRATO
+                                };
+                                db.CAD_PES_JURIDICA.Add(juridica);
+                                db.SaveChanges();
 
-                            CAD_PES_ENDERECO endereco = new CAD_PES_ENDERECO
-                            {
-                                CD_PESSOA = user.Id,
-                                NM_CIDADE = model.NM_CIDADE,
-                                NM_LOGRADOURO = model.NM_LOGRADOURO,
-                                NM_BAIRRO = "NULL",
-                                NUMERO = model.NUMERO,
-                                NM_ESTADO = model.NM_ESTADO,
-                                CD_CEP = model.CD_CEP,
-                                localizacao = DbGeography.FromText("POINT(" + model.CD_LAT + " " + model.CD_LONG + ")")
-                                //TP_TIPO_LOGRADOURO = model.TP_TIPO_LOGRADOURO,
-                            };
-                            db.CAD_PES_ENDERECO.Add(endereco);
-                            db.SaveChanges();
+                                CAD_PES_FONE telefone = new CAD_PES_FONE
+                                {
+                                    CD_PESSOA = user.Id,
+                                    CD_FIXO = model.TF_TEL_FIXO,
+                                    CD_CELULAR = model.TF_TEL_CEL,
+                                    NM_OPERADORA = model.NM_OPERADORA,
+                                    WHATSAPP = model.WHATSAPP
+                                };
+                                db.CAD_PES_FONE.Add(telefone);
+                                db.SaveChanges();
 
-                            CAD_FORMA_PAGAMENTO formaPagamento = new CAD_FORMA_PAGAMENTO
-                            {
-                                //CAD_PES_JURIDICA = null,
-                                CD_PESSOA = user.Id,
-                                DINHEIRO = model.DINHEIRO,
-                                CHEQUE = model.CHEQUE,
-                                DEBITO = model.DEBITO,
-                                CREDITO = model.CREDITO,
-                                OUTROS = model.OUTROS
-                            };
-                            db.CAD_FORMA_PAGAMENTO.Add(formaPagamento);
-                            db.SaveChanges();
+                                CAD_PES_ENDERECO endereco = new CAD_PES_ENDERECO
+                                {
+                                    CD_PESSOA = user.Id,
+                                    NM_CIDADE = model.NM_CIDADE,
+                                    NM_LOGRADOURO = model.NM_LOGRADOURO,
+                                    NM_BAIRRO = "NULL",
+                                    NUMERO = model.NUMERO,
+                                    NM_ESTADO = model.NM_ESTADO,
+                                    CD_CEP = model.CD_CEP,
+                                    localizacao = DbGeography.FromText("POINT(" + model.CD_LAT + " " + model.CD_LONG + ")")
+                                    //TP_TIPO_LOGRADOURO = model.TP_TIPO_LOGRADOURO,
+                                };
+                                db.CAD_PES_ENDERECO.Add(endereco);
+                                db.SaveChanges();
 
-                            CAD_PORTE_EMPRESA porteEmpresa = new CAD_PORTE_EMPRESA
-                            {
-                                //CAD_PES_JURIDICA = null,
-                                CD_PESSOA = user.Id,
-                                PESSOA_FISICA = model.PESSOA_FISICA,
-                                MICRO_EMPRESA = model.MICRO_EMPRESA,
-                                PEQUENAS_EMPRESAS = model.PEQUENAS_EMPRESAS,
-                                EMPRESA_GRANDE_PORTE = model.EMPRESA_GRANDE_PORTE,
-                            };
-                            db.CAD_PORTE_EMPRESA.Add(porteEmpresa);
-                            db.SaveChanges();
-                            if(model.TODO_DIA == true)
-                            {
+                                CAD_FORMA_PAGAMENTO formaPagamento = new CAD_FORMA_PAGAMENTO
+                                {
+                                    //CAD_PES_JURIDICA = null,
+                                    CD_PESSOA = user.Id,
+                                    DINHEIRO = model.DINHEIRO,
+                                    CHEQUE = model.CHEQUE,
+                                    DEBITO = model.DEBITO,
+                                    CREDITO = model.CREDITO,
+                                    OUTROS = model.OUTROS
+                                };
+                                db.CAD_FORMA_PAGAMENTO.Add(formaPagamento);
+                                db.SaveChanges();
 
+                                CAD_PORTE_EMPRESA porteEmpresa = new CAD_PORTE_EMPRESA
+                                {
+                                    //CAD_PES_JURIDICA = null,
+                                    CD_PESSOA = user.Id,
+                                    PESSOA_FISICA = model.PESSOA_FISICA,
+                                    MICRO_EMPRESA = model.MICRO_EMPRESA,
+                                    PEQUENAS_EMPRESAS = model.PEQUENAS_EMPRESAS,
+                                    EMPRESA_GRANDE_PORTE = model.EMPRESA_GRANDE_PORTE,
+                                };
+                                db.CAD_PORTE_EMPRESA.Add(porteEmpresa);
+                                db.SaveChanges();
+                                if (model.TODO_DIA == true)
+                                {
+
+                                }
+                                else
+                                {
+                                    CAD_HORA_ATENDIMENTO horaAtendimentoDomingo = new CAD_HORA_ATENDIMENTO
+                                    {
+                                        CD_PES_JURIDICA = user.Id,
+                                        DIA_SEMANA = 0,
+                                        HORA_INICIO = model.DOMINGO_HORA_INICIO,
+                                        HORA_FIM = model.DOMINGO_HORA_FIM
+                                    };
+                                    db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoDomingo);
+                                    db.SaveChanges();
+                                    //transacao.Commit();
+
+                                    CAD_HORA_ATENDIMENTO horaAtendimentoSegunda = new CAD_HORA_ATENDIMENTO
+                                    {
+                                        CD_PES_JURIDICA = user.Id,
+                                        DIA_SEMANA = 1,
+                                        HORA_INICIO = model.SEGUNDA_HORA_INICIO,
+                                        HORA_FIM = model.SEGUNDA_HORA_FIM
+                                    };
+                                    db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoSegunda);
+                                    db.SaveChanges();
+                                    //transacao.Commit();
+
+                                    CAD_HORA_ATENDIMENTO horaAtendimentoTerca = new CAD_HORA_ATENDIMENTO
+                                    {
+                                        CD_PES_JURIDICA = user.Id,
+                                        DIA_SEMANA = 2,
+                                        HORA_INICIO = model.TERCA_HORA_INICIO,
+                                        HORA_FIM = model.TERCA_HORA_FIM
+                                    };
+                                    db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoTerca);
+                                    db.SaveChanges();
+                                    //transacao.Commit();
+
+                                    CAD_HORA_ATENDIMENTO horaAtendimentoQuarta = new CAD_HORA_ATENDIMENTO
+                                    {
+                                        CD_PES_JURIDICA = user.Id,
+                                        DIA_SEMANA = 3,
+                                        HORA_INICIO = model.QUARTA_HORA_INICIO,
+                                        HORA_FIM = model.QUARTA_HORA_FIM
+                                    };
+                                    db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoQuarta);
+                                    db.SaveChanges();
+                                    //transacao.Commit();
+
+                                    CAD_HORA_ATENDIMENTO horaAtendimentoQuinta = new CAD_HORA_ATENDIMENTO
+                                    {
+                                        CD_PES_JURIDICA = user.Id,
+                                        DIA_SEMANA = 4,
+                                        HORA_INICIO = model.QUINTA_HORA_INICIO,
+                                        HORA_FIM = model.QUINTA_HORA_FIM
+                                    };
+                                    db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoQuinta);
+                                    db.SaveChanges();
+                                    //transacao.Commit();
+
+                                    CAD_HORA_ATENDIMENTO horaAtendimentoSexta = new CAD_HORA_ATENDIMENTO
+                                    {
+                                        CD_PES_JURIDICA = user.Id,
+                                        DIA_SEMANA = 5,
+                                        HORA_INICIO = model.SEXTA_HORA_INICIO,
+                                        HORA_FIM = model.SEXTA_HORA_FIM
+                                    };
+                                    db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoSexta);
+                                    db.SaveChanges();
+                                    //transacao.Commit();
+
+                                    CAD_HORA_ATENDIMENTO horaAtendimentoSabado = new CAD_HORA_ATENDIMENTO
+                                    {
+                                        CD_PES_JURIDICA = user.Id,
+                                        DIA_SEMANA = 6,
+                                        HORA_INICIO = model.SABADO_HORA_INICIO,
+                                        HORA_FIM = model.SABADO_HORA_FIM
+                                    };
+                                    db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoSabado);
+                                    db.SaveChanges();
+                                    //transacao.Commit();
+                                }
+
+                                var nome_principal = "";
+                                var nome_empresa = "";
+                                var nome_servico = "";
+                                var ds_descricao = "";
+                                StringBuilder texto_final = new StringBuilder();
+
+                                nome_principal = RemoveAcento(model.NM_NOME_PESSOA);
+                                nome_empresa = RemoveAcento(model.NM_NOME_PRESTADOR);
+                                nome_servico = RemoveAcento(model.NM_NOME_ATIVIDADE);
+                                ds_descricao = RemoveAcento(model.DS_DESCRICAO_ATIVIDADE);
+                                texto_final = texto_final.Append(model.DS_DESCRICAO_ATIVIDADE).Append(", ").Append(nome_servico).Append(", ").Append(nome_principal).Append(", ").Append(nome_empresa).Append(", ").Append(ds_descricao);
+                                CAD_CATEGORIA atividade = new CAD_CATEGORIA
+                                {
+                                    CD_PES_JURIDICA = user.Id,
+                                    NM_NOME = model.NM_NOME_ATIVIDADE,
+                                    DS_DESCRICAO = texto_final.ToString(),
+                                };
+                                db.CAD_CATEGORIA.Add(atividade);
+                                db.SaveChanges();
+                                transacao.Commit();
+
+                                //Envio de email para confirmação da conta cadastrada.
+                                //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                                //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                                //await UserManager.SendEmailAsync(user.Id, "Confirme sua conta", "Por favor, confirme sua conta clicando <a href=\"" + callbackUrl + "\">aqui</a>");
+
+                                //ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
+                                // + "before you can log in.";
+                                var body = "<div class='corpo' style='width:100%; height: 100%'><div style='height: 40%; widows:100%;'><h3>Mercado de Serviços</h3><h4>Olá " + model.NM_NOME_PESSOA + ", tudo bem?</h4><h4>ESTAMOS FELIZES POR TER VOCÊ COMO PARCEIRO!</h4><p>NÓS TEMOS O QUE VOCÊ PRECISA. PESQUISE, DIVULGUE E VENDA MAIS!</p></div><div><p>Nossa proposta é a de facilitar a vida do usuário em busca dos mais variados tipos de serviços do dia-a-dia.</p><p>De outro lado, queremos possibilitar que prestadores de serviços encontrem um local propício para divulgar seus trabalhos de forma simples, rápida, abrangente e GRATUITA. Por este motivo, o MERCADO DE SERVIÇOS tem por objetivo atingir as mais diversas áreas de atuação no campo da prestação de serviços, atuando como um elo facilitador entre o usuário e o serviço especializado mais próximo.</p><p>Para atingirmos esta finalidade, contamos com uma crescente rede de cadastros de prestadores de serviço, distribuídos por todo o país, permitindo assim que sua demanda seja atendida da forma mais rápida e satisfatória possível. Por isso, contamos com que você, usuário, desfrute desta nova ferramenta e deixe sua avaliação após ter utilizado o serviço. Dessa forma teremos a condição de oferecer sempre o melhor do que você precisa, ampliando a rede de ofertas e primando sempre pela melhor qualidade.</p><p>O Fornecedor pode aproveitar isso para divulgar seus produtos/equipamentos/materiais de forma direcionada. O Fornecedor tem a opção de divulgar para prestadores de serviços que estão relacionados ao que ele vende. O Fornecedor também pode limitar a divulgação por cidades e estados específicos ou divulgar a nível Brasil!</p></div><footer><p>Mercado de Serviços <a href='https://www.mercadodeservicos.com.br'>www.mercadodeservicos.com.br</a></p></footer></div>";
+                                var message = new MailMessage();
+                                message.To.Add(new MailAddress(model.UserName));  // replace with valid value 
+                                message.From = new MailAddress("ms@mercadodeservicos.com.br", "Mercado de Serviços");  // replace with valid value
+                                message.Subject = "Estamos felizes por ter você como parceiro!";
+                                message.Body = body;
+                                message.IsBodyHtml = true;
+
+                                using (var smtp = new SmtpClient())
+                                {
+                                    var credential = new NetworkCredential
+                                    {
+                                        UserName = "ms@mercadodeservicos.com.br",  // replace with valid value
+                                        Password = "Mercado@745"  // replace with valid value
+                                    };
+                                    smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                                    smtp.Credentials = credential;
+                                    smtp.Host = "smtp.mercadodeservicos.com.br";
+                                    smtp.Port = 587;
+                                    smtp.EnableSsl = false;
+                                    await smtp.SendMailAsync(message);
+                                    return View("Login");
+                                }
+                                //AddErrors(result);
+                                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                                // Send an email with this link
                             }
                             else
                             {
-                                CAD_HORA_ATENDIMENTO horaAtendimentoDomingo = new CAD_HORA_ATENDIMENTO
-                                {
-                                    CD_PES_JURIDICA = user.Id,
-                                    DIA_SEMANA = 0,
-                                    HORA_INICIO = model.DOMINGO_HORA_INICIO,
-                                    HORA_FIM = model.DOMINGO_HORA_FIM
-                                };
-                                db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoDomingo);
-                                db.SaveChanges();
-                                //transacao.Commit();
-
-                                CAD_HORA_ATENDIMENTO horaAtendimentoSegunda = new CAD_HORA_ATENDIMENTO
-                                {
-                                    CD_PES_JURIDICA = user.Id,
-                                    DIA_SEMANA = 1,
-                                    HORA_INICIO = model.SEGUNDA_HORA_INICIO,
-                                    HORA_FIM = model.SEGUNDA_HORA_FIM
-                                };
-                                db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoSegunda);
-                                db.SaveChanges();
-                                //transacao.Commit();
-
-                                CAD_HORA_ATENDIMENTO horaAtendimentoTerca = new CAD_HORA_ATENDIMENTO
-                                {
-                                    CD_PES_JURIDICA = user.Id,
-                                    DIA_SEMANA = 2,
-                                    HORA_INICIO = model.TERCA_HORA_INICIO,
-                                    HORA_FIM = model.TERCA_HORA_FIM
-                                };
-                                db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoTerca);
-                                db.SaveChanges();
-                                //transacao.Commit();
-
-                                CAD_HORA_ATENDIMENTO horaAtendimentoQuarta = new CAD_HORA_ATENDIMENTO
-                                {
-                                    CD_PES_JURIDICA = user.Id,
-                                    DIA_SEMANA = 3,
-                                    HORA_INICIO = model.QUARTA_HORA_INICIO,
-                                    HORA_FIM = model.QUARTA_HORA_FIM
-                                };
-                                db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoQuarta);
-                                db.SaveChanges();
-                                //transacao.Commit();
-
-                                CAD_HORA_ATENDIMENTO horaAtendimentoQuinta = new CAD_HORA_ATENDIMENTO
-                                {
-                                    CD_PES_JURIDICA = user.Id,
-                                    DIA_SEMANA = 4,
-                                    HORA_INICIO = model.QUINTA_HORA_INICIO,
-                                    HORA_FIM = model.QUINTA_HORA_FIM
-                                };
-                                db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoQuinta);
-                                db.SaveChanges();
-                                //transacao.Commit();
-
-                                CAD_HORA_ATENDIMENTO horaAtendimentoSexta = new CAD_HORA_ATENDIMENTO
-                                {
-                                    CD_PES_JURIDICA = user.Id,
-                                    DIA_SEMANA = 5,
-                                    HORA_INICIO = model.SEXTA_HORA_INICIO,
-                                    HORA_FIM = model.SEXTA_HORA_FIM
-                                };
-                                db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoSexta);
-                                db.SaveChanges();
-                                //transacao.Commit();
-
-                                CAD_HORA_ATENDIMENTO horaAtendimentoSabado = new CAD_HORA_ATENDIMENTO
-                                {
-                                    CD_PES_JURIDICA = user.Id,
-                                    DIA_SEMANA = 6,
-                                    HORA_INICIO = model.SABADO_HORA_INICIO,
-                                    HORA_FIM = model.SABADO_HORA_FIM
-                                };
-                                db.CAD_HORA_ATENDIMENTO.Add(horaAtendimentoSabado);
-                                db.SaveChanges();
-                                //transacao.Commit();
+                                AddErrors(result);
                             }
-
-                            CAD_CATEGORIA atividade = new CAD_CATEGORIA
-                            {
-                                CD_PES_JURIDICA = user.Id,
-                                NM_NOME = model.NM_NOME_ATIVIDADE,
-                                DS_DESCRICAO = model.DS_DESCRICAO_ATIVIDADE
-                            };
-                            db.CAD_CATEGORIA.Add(atividade);
-                            db.SaveChanges();
-                            transacao.Commit();
-
-                            //Envio de email para confirmação da conta cadastrada.
-                            //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                            //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                            //await UserManager.SendEmailAsync(user.Id, "Confirme sua conta", "Por favor, confirme sua conta clicando <a href=\"" + callbackUrl + "\">aqui</a>");
-
-                            //ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
-                            // + "before you can log in.";
-                            var body = "<div class='corpo' style='width:100%; height: 100%'><div style='height: 40%; widows:100%;'><h3>Mercado de Serviços</h3><h4>Olá "+model.NM_NOME_PESSOA+", tudo bem?</h4><h4>ESTAMOS FELIZES POR TER VOCÊ COMO PARCEIRO!</h4><p>NÓS TEMOS O QUE VOCÊ PRECISA. PESQUISE, DIVULGUE E VENDA MAIS!</p></div><div><p>Nossa proposta é a de facilitar a vida do usuário em busca dos mais variados tipos de serviços do dia-a-dia.</p><p>De outro lado, queremos possibilitar que prestadores de serviços encontrem um local propício para divulgar seus trabalhos de forma simples, rápida, abrangente e GRATUITA. Por este motivo, o MERCADO DE SERVIÇOS tem por objetivo atingir as mais diversas áreas de atuação no campo da prestação de serviços, atuando como um elo facilitador entre o usuário e o serviço especializado mais próximo.</p><p>Para atingirmos esta finalidade, contamos com uma crescente rede de cadastros de prestadores de serviço, distribuídos por todo o país, permitindo assim que sua demanda seja atendida da forma mais rápida e satisfatória possível. Por isso, contamos com que você, usuário, desfrute desta nova ferramenta e deixe sua avaliação após ter utilizado o serviço. Dessa forma teremos a condição de oferecer sempre o melhor do que você precisa, ampliando a rede de ofertas e primando sempre pela melhor qualidade.</p><p>O Fornecedor pode aproveitar isso para divulgar seus produtos/equipamentos/materiais de forma direcionada. O Fornecedor tem a opção de divulgar para prestadores de serviços que estão relacionados ao que ele vende. O Fornecedor também pode limitar a divulgação por cidades e estados específicos ou divulgar a nível Brasil!</p></div><footer><p>Mercado de Serviços <a href='https://www.mercadodeservicos.com.br'>www.mercadodeservicos.com.br</a></p></footer></div>";
-                            var message = new MailMessage();
-                            message.To.Add(new MailAddress(model.UserName));  // replace with valid value 
-                            message.From = new MailAddress("ms@mercadodeservicos.com.br", "Mercado de Serviços");  // replace with valid value
-                            message.Subject = "Estamos felizes por ter você como parceiro!";
-                            message.Body = body;
-                            message.IsBodyHtml = true;
-
-                            using (var smtp = new SmtpClient())
-                            {
-                                var credential = new NetworkCredential
-                                {
-                                    UserName = "ms@mercadodeservicos.com.br",  // replace with valid value
-                                    Password = "Mercado@745"  // replace with valid value
-                                };
-                                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                                smtp.Credentials = credential;
-                                smtp.Host = "smtp.mercadodeservicos.com.br";
-                                smtp.Port = 587;
-                                smtp.EnableSsl = false;
-                                await smtp.SendMailAsync(message);
-                                return View("Login");
-                            }
-                            //AddErrors(result);
-                            // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                            // Send an email with this link
                         }
-                        else
+                        catch (Exception ex)
                         {
-                            AddErrors(result);
+                            UserManager.Delete(user);
+                            transacao.Rollback();
+                            throw ex;
                         }
                     }
-                    catch (Exception ex)
+                }
+                else
+                {
+                    var userIdExistente = usuarioExistente.FirstOrDefault().Id;
+                    var fornecedorExistente = db.CAD_PES_FORNECEDOR.Where(x => x.CD_PESSOA == userIdExistente).ToList();
+                    if (fornecedorExistente.Count() > 0)
                     {
-                        UserManager.Delete(user);
-                        transacao.Rollback();
-                        throw ex;
+                        ViewBag.errorMessage = "Este email está cadastrado para um fornecedor. Se não lembrar a senha, solicite o reset de senha. Não é possível cadastrar um mesmo email para dois usuários. Caso tenha feito o cadastro do fornecedor por engano, acesse a conta do fornecedor, vá até a área de gerenciamento de perfil e delete a conta ou altere o email.";
+                        return View("Error");
+                    }
+                    else
+                    {
+                        ViewBag.errorMessage = "Este email está cadastrado para um prestador de serviços. Se não lembrar a senha, solicite o reset de senha. Não é possível cadastrar um mesmo email para dois usuários diferentes! Caso tenha feito o cadastro do prestador por engano, acesse a conta do prestador, vá até a área de gerenciamento de perfil e delete a conta ou altere o email.";
+                        return View("Error");
                     }
                 }
             }
@@ -451,118 +488,135 @@ namespace DIVULGA_SERVICOS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> CadastrarFornecedor(RegisterFornecedorViewModel model)
         {
-            //string link_site;
-            //long indicacao;
-            if (ModelState.IsValid)
+            var usuarioExistente = db.CAD_PESSOA.Where(x => x.Email == model.UserName).ToList();
+            if (usuarioExistente.Count() == 0)
             {
-                var user = new ApplicationUser
+                if (ModelState.IsValid)
                 {
-                    NM_NOME_PESSOA = model.NM_NOME_PESSOA,
-                    UserName = model.UserName,
-                    //TF_TEL_CEL = model.TF_TEL_CEL,
-                    //TF_TEL_FIXO = model.TF_TEL_FIXO,
-                    DT_DATA_CADASTRO = System.DateTime.Today,
-                    Email = model.UserName,
-                    NEWSLETTER = true
-                    //DS_EMAIL = model.UserName,
-                };
-                var result = await UserManager.CreateAsync(user, model.Password);
-
-                var addrole = UserManager.AddToRole(user.Id, "Fornecedor");
-
-                DbContextTransaction transacao = db.Database.BeginTransaction();
-                try
-                {
-                    if (result.Succeeded)
+                    var user = new ApplicationUser
                     {
-                        if (addrole.Succeeded)
+                        NM_NOME_PESSOA = model.NM_NOME_PESSOA,
+                        UserName = model.UserName,
+                        //TF_TEL_CEL = model.TF_TEL_CEL,
+                        //TF_TEL_FIXO = model.TF_TEL_FIXO,
+                        DT_DATA_CADASTRO = System.DateTime.Today,
+                        Email = model.UserName,
+                        NEWSLETTER = true
+                        //DS_EMAIL = model.UserName,
+                    };
+                    var result = await UserManager.CreateAsync(user, model.Password);
+
+                    var addrole = UserManager.AddToRole(user.Id, "Fornecedor");
+
+                    DbContextTransaction transacao = db.Database.BeginTransaction();
+                    try
+                    {
+                        if (result.Succeeded)
                         {
-
-                            CAD_PES_FORNECEDOR fornecedor = new CAD_PES_FORNECEDOR
+                            if (addrole.Succeeded)
                             {
-                                CD_PESSOA = user.Id,
-                                CD_CNPJ = model.CD_CNPJ,
-                                CD_STATUS_PAGT = 1,
-                                ATIVO = true,
-                                ACEITE_CONTRATO = model.ACEITE_CONTRATO
-                            };
-                            db.CAD_PES_FORNECEDOR.Add(fornecedor);
-                            db.SaveChanges();
 
-                            CAD_PES_FONE telefone = new CAD_PES_FONE
-                            {
-                                CD_PESSOA = user.Id,
-                                CD_FIXO = model.TF_TEL_FIXO,
-                                CD_CELULAR = model.TF_TEL_CEL,
-                                NM_OPERADORA = model.NM_OPERADORA,
-                                WHATSAPP = model.WHATSAPP
-                            };
-                            db.CAD_PES_FONE.Add(telefone);
-                            db.SaveChanges();
-
-                            CAD_PES_ENDERECO endereco = new CAD_PES_ENDERECO
-                            {
-                                CD_PESSOA = user.Id,
-                                NM_CIDADE = model.NM_CIDADE,
-                                NM_LOGRADOURO = model.NM_LOGRADOURO,
-                                NM_BAIRRO = "NULL",
-                                NUMERO = model.NUMERO,
-                                NM_ESTADO = model.NM_ESTADO,
-                                CD_CEP = model.CD_CEP,
-                                localizacao = DbGeography.FromText("POINT(" + model.CD_LAT + " " + model.CD_LONG + ")")
-                                //TP_TIPO_LOGRADOURO = model.TP_TIPO_LOGRADOURO,
-                            };
-                            db.CAD_PES_ENDERECO.Add(endereco);
-                            db.SaveChanges();
-                            transacao.Commit();
-
-                            var body = "<div class='corpo' style='width:100%; height: 100%'><div style='height: 40%; widows:100%;'><h3>Mercado de Serviços</h3><h4>Olá " + model.NM_NOME_PESSOA + ", tudo bem?</h4><h4>ESTAMOS FELIZES POR TER VOCÊ COMO PARCEIRO!</h4><p>NÓS TEMOS O QUE VOCÊ PRECISA. PESQUISE, DIVULGUE E VENDA MAIS!</p></div><div><p>Nossa proposta é a de facilitar a vida do usuário em busca dos mais variados tipos de serviços do dia-a-dia.</p><p>De outro lado, queremos possibilitar que prestadores de serviços encontrem um local propício para divulgar seus trabalhos de forma simples, rápida, abrangente e GRATUITA. Por este motivo, o MERCADO DE SERVIÇOS tem por objetivo atingir as mais diversas áreas de atuação no campo da prestação de serviços, atuando como um elo facilitador entre o usuário e o serviço especializado mais próximo.</p><p>Para atingirmos esta finalidade, contamos com uma crescente rede de cadastros de prestadores de serviço, distribuídos por todo o país, permitindo assim que sua demanda seja atendida da forma mais rápida e satisfatória possível. Por isso, contamos com que você, usuário, desfrute desta nova ferramenta e deixe sua avaliação após ter utilizado o serviço. Dessa forma teremos a condição de oferecer sempre o melhor do que você precisa, ampliando a rede de ofertas e primando sempre pela melhor qualidade.</p><p>O Fornecedor pode aproveitar isso para divulgar seus produtos/equipamentos/materiais de forma direcionada. O Fornecedor tem a opção de divulgar para prestadores de serviços que estão relacionados ao que ele vende. O Fornecedor também pode limitar a divulgação por cidades e estados específicos ou divulgar a nível Brasil!</p></div><footer><p>Mercado de Serviços <a href='https://www.mercadodeservicos.com.br'>www.mercadodeservicos.com.br</a></p></footer></div>";
-                            var message = new MailMessage();
-                            message.To.Add(new MailAddress(model.UserName));  // replace with valid value 
-                            message.From = new MailAddress("ms@mercadodeservicos.com.br", "Mercado de Serviços");  // replace with valid value
-                            message.Subject = "Estamos felizes por ter você como parceiro!";
-                            message.Body = body;
-                            message.IsBodyHtml = true;
-
-                            using (var smtp = new SmtpClient())
-                            {
-                                var credential = new NetworkCredential
+                                CAD_PES_FORNECEDOR fornecedor = new CAD_PES_FORNECEDOR
                                 {
-                                    UserName = "ms@mercadodeservicos.com.br",  // replace with valid value
-                                    Password = "Mercado@745"  // replace with valid value
+                                    CD_PESSOA = user.Id,
+                                    CD_CNPJ = model.CD_CNPJ,
+                                    CD_STATUS_PAGT = 1,
+                                    ATIVO = true,
+                                    ACEITE_CONTRATO = model.ACEITE_CONTRATO
                                 };
-                                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                                smtp.Credentials = credential;
-                                smtp.Host = "smtp.mercadodeservicos.com.br";
-                                smtp.Port = 587;
-                                smtp.EnableSsl = false;
-                                await smtp.SendMailAsync(message);
-                                return View("Login");
-                            }
-                            //Envio de email para confirmação da conta cadastrada.
-                            //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                            //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                            //await UserManager.SendEmailAsync(user.Id, "Confirme sua conta", "Por favor, confirme sua conta clicando <a href=\"" + callbackUrl + "\">aqui</a>");
+                                db.CAD_PES_FORNECEDOR.Add(fornecedor);
+                                db.SaveChanges();
 
-                            //ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
-                            // + "before you can log in.";
-                            //AddErrors(result);
-                            // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                            // Send an email with this link
+                                CAD_PES_FONE telefone = new CAD_PES_FONE
+                                {
+                                    CD_PESSOA = user.Id,
+                                    CD_FIXO = model.TF_TEL_FIXO,
+                                    CD_CELULAR = model.TF_TEL_CEL,
+                                    NM_OPERADORA = model.NM_OPERADORA,
+                                    WHATSAPP = model.WHATSAPP
+                                };
+                                db.CAD_PES_FONE.Add(telefone);
+                                db.SaveChanges();
+
+                                CAD_PES_ENDERECO endereco = new CAD_PES_ENDERECO
+                                {
+                                    CD_PESSOA = user.Id,
+                                    NM_CIDADE = model.NM_CIDADE,
+                                    NM_LOGRADOURO = model.NM_LOGRADOURO,
+                                    NM_BAIRRO = "NULL",
+                                    NUMERO = model.NUMERO,
+                                    NM_ESTADO = model.NM_ESTADO,
+                                    CD_CEP = model.CD_CEP,
+                                    localizacao = DbGeography.FromText("POINT(" + model.CD_LAT + " " + model.CD_LONG + ")")
+                                    //TP_TIPO_LOGRADOURO = model.TP_TIPO_LOGRADOURO,
+                                };
+                                db.CAD_PES_ENDERECO.Add(endereco);
+                                db.SaveChanges();
+                                transacao.Commit();
+
+                                var body = "<div class='corpo' style='width:100%; height: 100%'><div style='height: 40%; widows:100%;'><h3>Mercado de Serviços</h3><h4>Olá " + model.NM_NOME_PESSOA + ", tudo bem?</h4><h4>ESTAMOS FELIZES POR TER VOCÊ COMO PARCEIRO!</h4><p>NÓS TEMOS O QUE VOCÊ PRECISA. PESQUISE, DIVULGUE E VENDA MAIS!</p></div><div><p>Nossa proposta é a de facilitar a vida do usuário em busca dos mais variados tipos de serviços do dia-a-dia.</p><p>De outro lado, queremos possibilitar que prestadores de serviços encontrem um local propício para divulgar seus trabalhos de forma simples, rápida, abrangente e GRATUITA. Por este motivo, o MERCADO DE SERVIÇOS tem por objetivo atingir as mais diversas áreas de atuação no campo da prestação de serviços, atuando como um elo facilitador entre o usuário e o serviço especializado mais próximo.</p><p>Para atingirmos esta finalidade, contamos com uma crescente rede de cadastros de prestadores de serviço, distribuídos por todo o país, permitindo assim que sua demanda seja atendida da forma mais rápida e satisfatória possível. Por isso, contamos com que você, usuário, desfrute desta nova ferramenta e deixe sua avaliação após ter utilizado o serviço. Dessa forma teremos a condição de oferecer sempre o melhor do que você precisa, ampliando a rede de ofertas e primando sempre pela melhor qualidade.</p><p>O Fornecedor pode aproveitar isso para divulgar seus produtos/equipamentos/materiais de forma direcionada. O Fornecedor tem a opção de divulgar para prestadores de serviços que estão relacionados ao que ele vende. O Fornecedor também pode limitar a divulgação por cidades e estados específicos ou divulgar a nível Brasil!</p></div><footer><p>Mercado de Serviços <a href='https://www.mercadodeservicos.com.br'>www.mercadodeservicos.com.br</a></p></footer></div>";
+                                var message = new MailMessage();
+                                message.To.Add(new MailAddress(model.UserName));  // replace with valid value 
+                                message.From = new MailAddress("ms@mercadodeservicos.com.br", "Mercado de Serviços");  // replace with valid value
+                                message.Subject = "Estamos felizes por ter você como parceiro!";
+                                message.Body = body;
+                                message.IsBodyHtml = true;
+
+                                using (var smtp = new SmtpClient())
+                                {
+                                    var credential = new NetworkCredential
+                                    {
+                                        UserName = "ms@mercadodeservicos.com.br",  // replace with valid value
+                                        Password = "Mercado@745"  // replace with valid value
+                                    };
+                                    smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                                    smtp.Credentials = credential;
+                                    smtp.Host = "smtp.mercadodeservicos.com.br";
+                                    smtp.Port = 587;
+                                    smtp.EnableSsl = false;
+                                    await smtp.SendMailAsync(message);
+                                    return View("Login");
+                                }
+                                //Envio de email para confirmação da conta cadastrada.
+                                //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                                //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                                //await UserManager.SendEmailAsync(user.Id, "Confirme sua conta", "Por favor, confirme sua conta clicando <a href=\"" + callbackUrl + "\">aqui</a>");
+
+                                //ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
+                                // + "before you can log in.";
+                                //AddErrors(result);
+                                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                                // Send an email with this link
+                            }
+                        }
+                        else
+                        {
+                            UserManager.Delete(user);
+                            transacao.Rollback();
+                            AddErrors(result);
                         }
                     }
-                    else
+                    catch (Exception ex)
                     {
                         UserManager.Delete(user);
                         transacao.Rollback();
-                        AddErrors(result);
+                        throw ex;
                     }
                 }
-                catch (Exception ex)
+            }
+            else
+            {
+                var userIdExistente = usuarioExistente.FirstOrDefault().Id;
+                var fornecedorExistente = db.CAD_PES_FORNECEDOR.Where(x => x.CD_PESSOA == userIdExistente).ToList();
+                if (fornecedorExistente.Count() > 0)
                 {
-                    UserManager.Delete(user);
-                    transacao.Rollback();
-                    throw ex;
+                    ViewBag.errorMessage = "Este email está cadastrado para um fornecedor. Se não lembrar a senha, solicite o reset de senha. Não é possível cadastrar um mesmo email para dois usuários. Caso tenha feito o cadastro do fornecedor por engano, acesse a conta do fornecedor, vá até a área de gerenciamento de perfil e delete a conta ou altere o email.";
+                    return View("Error");
+                }
+                else
+                {
+                    ViewBag.errorMessage = "Este email está cadastrado para um prestador de serviços. Se não lembrar a senha, solicite o reset de senha. Não é possível cadastrar um mesmo email para dois usuários diferentes! Caso tenha feito o cadastro do prestador por engano, acesse a conta do prestador, vá até a área de gerenciamento de perfil e delete a conta ou altere o email.";
+                    return View("Error");
                 }
             }
 
@@ -793,8 +847,8 @@ namespace DIVULGA_SERVICOS.Controllers
                 }
 
                 var usuario = db.CAD_PESSOA.Where(x => x.Email == info.Email).ToList();
-                
-                if(usuario.Count != 0)
+
+                if (usuario.Count != 0)
                 {
                     ViewBag.errorMessage = "Este email já está cadastrado. Caso não lembre a senha, solicite o <a href='~/Account/ForgotPassword'>reset de senha</a>!";
                     return View("Error");
@@ -949,7 +1003,20 @@ namespace DIVULGA_SERVICOS.Controllers
 
         //    return Json(nome_site.All(x => x.DS_APELIDO_SITE.Equals(DS_APELIDO_SITE)), JsonRequestBehavior.AllowGet);
         //}
+        public static string RemoveAcento(String texto)
+        {
+            String normalizedString = texto.Normalize(NormalizationForm.FormD);
+            StringBuilder stringBuilder = new StringBuilder();
 
+            for (int i = 0; i < normalizedString.Length; i++)
+            {
+                Char c = normalizedString[i];
+                if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
+                    stringBuilder.Append(c);
+            }
+
+            return stringBuilder.ToString().ToLower();
+        }
 
 
         #endregion

@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-group">
-        @Html.LabelFor(model => model.CD_FIXO, new { @class = "control-label col-md-2" })
+        <label class="control-label col-md-2" for="CD_FIXO">Fixo*</label>
         <div class="col-md-10">
             @Html.EditorFor(model => model.CD_FIXO, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.CD_FIXO, "", new { @class = "text-danger" })
@@ -20,7 +20,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.CD_CELULAR, htmlAttributes: new { @class = "control-label col-md-2" })
+        <label class="control-label col-md-2" for="CD_CELULAR">Celular*</label>
         <div class="col-md-5">
             @Html.EditorFor(model => model.CD_CELULAR, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.CD_CELULAR, "", new { @class = "text-danger" })
@@ -28,7 +28,7 @@
     </div>
 
     <div class="form-group">
-        <label class="control-label col-md-2" for="autocomplete">OPERADORA*</label>
+        <label class="control-label col-md-2" for="autocomplete">Operadora*</label>
         <div class="col-md-5">
             <select name="NM_OPERADORA" class="form-control">
                 <option value="Tim">Tim</option>
@@ -41,7 +41,7 @@
     </div>
 
     <div class="form-group">
-        <label class="control-label col-md-2" for="autocomplete">WHATSAPP*</label>
+        <label class="control-label col-md-2" for="WHATSAPP">Whatsapp*</label>
         <div class="col-md-5">
             <select name="WHATSAPP" class="form-control">
                 <option value="true">Sim</option>
@@ -52,11 +52,11 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
+            <input type="submit" value="Criar" class="btn btn-default" />
         </div>
     </div>
 }
-
+<br />
 <div>
     @Html.ActionLink("Voltar a lista de telefones", "Telefones")
 </div>

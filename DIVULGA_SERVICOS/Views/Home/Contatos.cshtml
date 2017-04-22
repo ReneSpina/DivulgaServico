@@ -2,6 +2,15 @@
     ViewBag.Title = "Contact";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<head>
+    @*<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+          <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-2571448761678693",
+          enable_page_level_ads: true
+        });
+          </script>*@
+</head>
 <br>
 <br>
 <section class="content">
@@ -18,7 +27,8 @@
         <div class="col-sm-8 contact-form myform">
             <h3>Fale com a gente</h3>
             <hr>
-            <form id="contact" method="post" class="form" role="form">
+            @using (Html.BeginForm("EmailContato", "Home", FormMethod.Post, new { @class = "form", role = "form" }))
+            {
                 <div class="row">
                     <div class="col-xs-6 col-md-6 form-group">
                         <input class="form-control" id="name" name="name" placeholder="Nome" type="text" required="" autofocus="">
@@ -27,15 +37,14 @@
                         <input class="form-control" id="email" name="email" placeholder="Email" type="email" style="float: right;" required="">
                     </div>
                 </div>
-                <textarea class="form-control" id="message" name="message" placeholder="Mensagem" rows="5" style="max-width: 100%;"></textarea>
+                <textarea class="form-control" id="messages" name="messages" placeholder="Mensagem" rows="5" style="max-width: 100%;"></textarea>
                 <br>
                 <div class="row">
                     <div class="col-xs-12 col-md-12 form-group">
                         <button class="btn btn-primary pull-right" type="submit">Enviar</button>
-
                     </div>
                 </div>
-            </form>
+            }
         </div>
     </div>
 </section>

@@ -12,6 +12,8 @@ using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.Spatial;
 using System.Collections.Generic;
+using System.Text;
+using System.Globalization;
 
 namespace DIVULGA_SERVICOS.Controllers
 {
@@ -580,7 +582,16 @@ namespace DIVULGA_SERVICOS.Controllers
         {
             if (ModelState.IsValid)
             {
+                var nome_servico = "";
+                var ds_descricao = "";
+                StringBuilder texto_final = new StringBuilder();
+
+                nome_servico = RemoveAcento(cAD_CATEGORIA.NM_NOME);
+                ds_descricao = RemoveAcento(cAD_CATEGORIA.DS_DESCRICAO);
+                texto_final = texto_final.Append(cAD_CATEGORIA.NM_NOME).Append(", ").Append(cAD_CATEGORIA.DS_DESCRICAO).Append(", ").Append(nome_servico).Append(", ").Append(ds_descricao);
+
                 cAD_CATEGORIA.CD_PES_JURIDICA = User.Identity.GetUserId();
+                cAD_CATEGORIA.DS_DESCRICAO = texto_final.ToString();
                 db.CAD_CATEGORIA.Add(cAD_CATEGORIA);
                 db.SaveChanges();
                 return RedirectToAction("Servicos");
@@ -632,7 +643,16 @@ namespace DIVULGA_SERVICOS.Controllers
         {
             if (ModelState.IsValid)
             {
+                var nome_servico = "";
+                var ds_descricao = "";
+                StringBuilder texto_final = new StringBuilder();
+
+                nome_servico = RemoveAcento(cAD_CATEGORIA.NM_NOME);
+                ds_descricao = RemoveAcento(cAD_CATEGORIA.DS_DESCRICAO);
+                texto_final = texto_final.Append(cAD_CATEGORIA.NM_NOME).Append(", ").Append(cAD_CATEGORIA.DS_DESCRICAO).Append(", ").Append(nome_servico).Append(", ").Append(ds_descricao);
+
                 cAD_CATEGORIA.CD_PES_JURIDICA = User.Identity.GetUserId();
+                cAD_CATEGORIA.DS_DESCRICAO = texto_final.ToString();
                 db.Entry(cAD_CATEGORIA).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Servicos");
@@ -696,6 +716,7 @@ namespace DIVULGA_SERVICOS.Controllers
             CAD_PESSOA pessoajuridica = db.CAD_PESSOA.Find(User.Identity.GetUserId());
             var newsletter = true;
             var contaativa = true;
+            var divulgacao = true;
             if (ModelState.IsValid)
             {
                 CAD_PES_JURIDICA usuario = db.CAD_PES_JURIDICA.Find(User.Identity.GetUserId());
@@ -732,7 +753,21 @@ namespace DIVULGA_SERVICOS.Controllers
                     contaativa = usuario.ATIVO;
                 }
 
-
+                if (cAD_PES_JURIDICA.DIVULGACAO == true)
+                {
+                    if (usuario.DIVULGACAO == true)
+                    {
+                        divulgacao = false;
+                    }
+                    else
+                    {
+                        divulgacao = true;
+                    }
+                }
+                else
+                {
+                    divulgacao = usuario.DIVULGACAO;
+                }
 
                 CAD_PES_JURIDICA PesJuridica = new CAD_PES_JURIDICA
                 {
@@ -742,7 +777,7 @@ namespace DIVULGA_SERVICOS.Controllers
                     DS_SOBRE = cAD_PES_JURIDICA.DS_SOBRE,
                     CD_CNPJ = cAD_PES_JURIDICA.CD_CNPJ,
                     TODO_DIA = usuario.TODO_DIA,
-                    DIVULGACAO = cAD_PES_JURIDICA.DIVULGACAO,
+                    DIVULGACAO = divulgacao,
                     ATIVO = contaativa,
                 };
                 db.CAD_PES_JURIDICA.AddOrUpdate(PesJuridica);
@@ -900,7 +935,7 @@ namespace DIVULGA_SERVICOS.Controllers
         }
 
         // POST: CAD_CATEGORIA/Delete/5
-        [HttpPost ActionName("DeletarEndereco")]
+        [HttpPost, ActionName("DeletarEndereco")]
         [ValidateAntiForgeryToken]
         public ActionResult DeletarEnderecoOk(int id)
         {
@@ -1026,7 +1061,7 @@ namespace DIVULGA_SERVICOS.Controllers
         }
 
         // POST: CAD_CATEGORIA/Delete/5
-        [HttpPost ActionName("DeletarTelefone")]
+        [HttpPost, ActionName("DeletarTelefone")]
         [ValidateAntiForgeryToken]
         public ActionResult DeletarTelefoneOk(int id)
         {
@@ -1228,6 +1263,7 @@ namespace DIVULGA_SERVICOS.Controllers
                     CAD_PES_JURIDICA cAD_PES_JURIDICA = new CAD_PES_JURIDICA
                     {
                         CD_PESSOA = prestador.CD_PESSOA,
+                        NM_NOME_PRESTADOR = prestador.NM_NOME_PRESTADOR,
                         CD_CNPJ = prestador.CD_CNPJ,
                         DS_SOBRE = prestador.DS_SOBRE,
                         DS_QUEM_SOMOS = prestador.DS_QUEM_SOMOS,
@@ -1434,7 +1470,7 @@ namespace DIVULGA_SERVICOS.Controllers
 
         }
 
-        [HttpPost ActionName("DeletarProduto")]
+        [HttpPost, ActionName("DeletarProduto")]
         [ValidateAntiForgeryToken]
         public ActionResult DeletarProdutoOk(int id)
         {
@@ -1628,7 +1664,7 @@ namespace DIVULGA_SERVICOS.Controllers
         }
 
         // POST: CAD_CATEGORIA/Delete/5
-        [HttpPost ActionName("DeletarCidade")]
+        [HttpPost, ActionName("DeletarCidade")]
         [ValidateAntiForgeryToken]
         public ActionResult DeletarCidadeOk(int id)
         {
@@ -1860,7 +1896,7 @@ namespace DIVULGA_SERVICOS.Controllers
         }
 
         
-        [HttpPost ActionName("DeletarUsuario")]
+        [HttpPost, ActionName("DeletarUsuario")]
         [ValidateAntiForgeryToken]
         public ActionResult DeletarUsuarioOk()
         {
@@ -1890,7 +1926,20 @@ namespace DIVULGA_SERVICOS.Controllers
 
         /*Fim do método que deleta o usuário criado pelas redes sociais*/
 
+        public static string RemoveAcento(String texto)
+        {
+            String normalizedString = texto.Normalize(NormalizationForm.FormD);
+            StringBuilder stringBuilder = new StringBuilder();
 
+            for (int i = 0; i < normalizedString.Length; i++)
+            {
+                Char c = normalizedString[i];
+                if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
+                    stringBuilder.Append(c);
+            }
+
+            return stringBuilder.ToString().ToLower();
+        }
 
         #region Helpers
         // Used for XSRF protection when adding external logins

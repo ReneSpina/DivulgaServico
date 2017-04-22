@@ -13,7 +13,7 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.NM_NOME)
+            Nome
         </dt>
 
         <dd>
@@ -21,15 +21,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.SHOW)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SHOW)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DS_DESCRICAO)
+            Descricao
         </dt>
 
         <dd>
@@ -43,7 +35,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="DeletarServico" class="btn btn-default" /> |
+            <input type="submit" value="Deletar" class="btn btn-default" /> |
             @Html.ActionLink("Voltar a lista de serviços", "Servicos")
         </div>
     }

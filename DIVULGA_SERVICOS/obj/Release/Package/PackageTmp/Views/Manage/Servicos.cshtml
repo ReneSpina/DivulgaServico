@@ -13,10 +13,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.NM_NOME)
+            Nome
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DS_DESCRICAO)
+            Descrição
         </th>
         <th></th>
     </tr>
@@ -36,5 +36,6 @@
         </td>
     </tr>
 }
-
 </table>
+<br />
+@Html.ActionLink("Voltar a tela de gerenciamento", "Index")

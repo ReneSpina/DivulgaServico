@@ -180,7 +180,7 @@ namespace DIVULGA_SERVICOS.Models
         public string NM_NOME_PESSOA { get; set; }
 
         [Required(ErrorMessage = "O NOME DA EMPRESA É OBRIGATÓRIO!")]
-        [Display(Name = "Nome da Empresa*")]
+        [Display(Name = "Nome da Empresa (Nome Visível)*")]
         public string NM_NOME_PRESTADOR { get; set; }
 
         //[Required(ErrorMessage = "O TELEFONE FIXO É OBRIGATÓRIO!")]
@@ -530,7 +530,7 @@ namespace DIVULGA_SERVICOS.Models
         public string NM_NOME_PESSOA { get; set; }
 
         [Required(ErrorMessage = "O NOME DA EMPRESA É OBRIGATÓRIO!")]
-        [Display(Name = "Nome da Empresa*")]
+        [Display(Name = "Nome da Empresa (Nome Visível)*")]
         public string NM_NOME_PRESTADOR { get; set; }
         
         [Required(ErrorMessage = "O CPF OU CNPJ É OBRIGATÓRIO!")]

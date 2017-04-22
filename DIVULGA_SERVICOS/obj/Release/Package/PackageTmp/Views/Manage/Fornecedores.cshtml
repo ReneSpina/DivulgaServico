@@ -5,15 +5,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Produtos</h2>
 
-<p>
-    @Html.ActionLink("Adicionar Produtos", "CriarProduto")
-</p>
 <table class="table">
     <tr>
         <th>
-            Nome Produto
+            Nome
         </th>
         <th>
             Descrição
@@ -25,7 +22,7 @@
             Data da Criação
         </th>
         <th>
-            Nome do Fornecedor
+            Fornecedor
         </th>
         <th>
             Acessar Fornecedor
@@ -57,3 +54,5 @@
         </tr>
     }
 </table>
+<br />
+@Html.ActionLink("Voltar a tela de gerenciamento", "Index")

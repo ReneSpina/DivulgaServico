@@ -10,57 +10,64 @@
 <p>
     @Html.ActionLink("Adicionar Cidade", "CadastrarCidade")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            Cidade
-        </th>
-        <th>
-            Estado
-        </th>
-        <th>
-            Divulga no Estado
-        </th>
-        <th>
-            Divulga Brasil
-        </th>
-        <th></th>
-    </tr>
+<div id="no-more-tables">
+    <table class="col-md-12 table-bordered table-striped table-condensed cf">
+        <thead class="cf">
+            <tr>
+                <th>
+                    Cidade
+                </th>
+                <th>
+                    Estado
+                </th>
+                <th>
+                    Divulga no Estado
+                </th>
+                <th>
+                    Divulga Brasil
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td data-title="Cidade">
+                        @Html.DisplayFor(modelItem => item.NM_CIDADE)
+                    </td>
+                    <td data-title="Estado">
+                        @Html.DisplayFor(modelItem => item.NM_ESTADO)
+                    </td>
+                    <td data-title="Divulga no Estado">
+                        @if (item.DILGAR_ESTADO == true)
+                        {
+                            <span>Sim</span>
+                        }
+                        else
+                        {
+                            <span>Não</span>
+                        }
+                    </td>
+                    <td data-title="Divulga no Brasil">
+                        @if (item.BRASIL == true)
+                        {
+                            <span>Sim</span>
+                        }
+                        else
+                        {
+                            <span>Não</span>
+                        }
+                    </td>
+                    <td data-title="Configurações">
+                        @Html.ActionLink("Detalhes", "DetalhesCidade", new { id = item.SQ_CIDADE }) |
+                        @Html.ActionLink("Deletar", "DeletarCidade", new { id = item.SQ_CIDADE })
+                    </td>
+                </tr>
+            }
+        </tbody>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NM_CIDADE)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NM_ESTADO)
-            </td>
-            <td>
-                @if (item.DILGAR_ESTADO == true)
-                {
-                    <span>Sim</span>
-                }
-                else
-                {
-                    <span>Não</span>
-                }
-            </td>
-            <td>
-                @if (item.BRASIL == true)
-                {
-                    <span>Sim</span>
-                }
-                else
-                {
-                    <span>Não</span>
-                }
-            </td>
-            <td>
-                @Html.ActionLink("Detalhes", "DetalhesCidade", new { id = item.SQ_CIDADE }) |
-                @Html.ActionLink("Deletar", "DeletarCidade", new { id = item.SQ_CIDADE })
-            </td>
-        </tr>
-    }
-
-</table>
+    </table>
+</div>
+<br />
+@Html.ActionLink("Voltar a tela de gerenciamento", "Index")
