@@ -382,7 +382,7 @@
             map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 14,
                 center: { lat: -15.7931832, lng: -47.8825426 },
-                mapTypeId: google.maps.MapTypeId.ROADMAP
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
             });
             setMarkers(map);
 
@@ -399,7 +399,7 @@
             var image2 = {
                 url: '/Imagens/Pointer-You.png',
                 // This marker is 20 pixels wide by 32 pixels high.
-                scaledSize: new google.maps.Size(45, 45),
+                scaledSize: new google.maps.Size(35, 35),
                 // The origin for this image is (0, 0).
                 origin: new google.maps.Point(0, 0),
                 // The anchor for this image is the base of the flagpole at (0, 32).
@@ -442,7 +442,7 @@
                     var infowindow = new google.maps.InfoWindow(), marker;
                     google.maps.event.addListener(marker, 'click', (function(marker, i) {
                         return function() {
-                            infowindow.setContent("Você está aqui!");
+                            infowindow.setContent("Você está aqui e você pode arrastar essa imagem!");
                             infowindow.open(map, marker);
                         }
                     })(marker))
@@ -476,7 +476,7 @@
             var infowindow = new google.maps.InfoWindow(), marker;
             google.maps.event.addListener(marker, 'click', (function(marker, i) {
                 return function() {
-                    infowindow.setContent("Este é seu ponto de referência!");
+                    infowindow.setContent("Este é seu ponto de referência e você pode arrastar essa imagem!");
                     infowindow.open(map, marker);
                 }
             })(marker))
@@ -671,7 +671,17 @@
             </text>
                 }
                     <text>
-            var markerCluster = new MarkerClusterer(map, markers, {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+            var mcOptions = {
+                maxZoom: 16,
+                zoomOnClick: true,
+                minimumClusterSize: 2,
+                averageCenter: true,
+                imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+            };
+            var markerCluster = new MarkerClusterer(map, markers, mcOptions);
+            //google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
+            //    alert('center of cluster: '+cluster.getCenter());
+            //});
             </text>
             }
         }

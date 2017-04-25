@@ -4,82 +4,97 @@
     ViewBag.Title = "Telefones";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<head>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-2571448761678693",
+          enable_page_level_ads: true
+        });
+    </script>
+</head>
 
 <h2>Endereços</h2>
 
 <p>
     @Html.ActionLink("Adicionar Telefone", "CriarTelefone")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            Celular
-        </th>
-        <th>
-            WhatsApp
-        </th>
-        <th>
-            Operadora
-        </th>
-        <th>
-            Fixo
-        </th>
-        <th></th>
-    </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(model => item.CD_CELULAR)
-            </td>
-            <td>
-                @if(@Html.ValueFor(model => item.CD_CELULAR).ToString() == "")
-                {
 
-                }
-                else
-                {
-                    if(@Html.ValueFor(model => item.WHATSAPP).ToString() == "True")
-                    {
-                        var sim = "Sim";
-                        @sim
-                    }
-                    else
-                    {
-                        var nao = "Não";
-                        @nao
-                    }
-                }
-            </td>
-            <td>
-                @if(@Html.ValueFor(model => item.CD_CELULAR).ToString() == "")
-                {
+<div id="no-more-tables">
+    <table class="col-md-12 table-bordered table-striped table-condensed cf">
+        <thead class="cf">
+            <tr>
+                <th>
+                    Celular
+                </th>
+                <th>
+                    WhatsApp
+                </th>
+                <th>
+                    Operadora
+                </th>
+                <th>
+                    Fixo
+                </th>
+                <th></th>
+            </tr>
+            </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td data-title="Celular">
+                        @Html.DisplayFor(model => item.CD_CELULAR)
+                    </td>
+                    <td data-title="WhatsApp">
+                        @if (@Html.ValueFor(model => item.CD_CELULAR).ToString() == "")
+                        {
 
-                }
-                else
-                {
-                    if(@Html.DisplayFor(model => item.NM_OPERADORA).ToString() != "Outros")
-                    {
-                        @Html.DisplayFor(model => item.NM_OPERADORA)
-                    }
-                    else
-                    {
-                        var outros = "";
-                        @outros
-                    }
-                }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CD_FIXO)
-            </td>
-            <td>
-                @*@Html.ActionLink("Editar", "EditarEndereco", new {  id=item.SQ_ENDERECO }) |*@
-                @Html.ActionLink("Detalhes", "DetalhesTelefone", new { id = item.SQ_FONE }) |
-                @Html.ActionLink("Deletar", "DeletarTelefone", new { id = item.SQ_FONE })
-            </td>
-        </tr>
-    }
+                        }
+                        else
+                        {
+                            if (@Html.ValueFor(model => item.WHATSAPP).ToString() == "True")
+                            {
+                                var sim = "Sim";
+                                @sim
+                            }
+                            else
+                            {
+                                var nao = "Não";
+                                @nao
+                            }
+                        }
+                    </td>
+                    <td data-title="Operadora">
+                        @if (@Html.ValueFor(model => item.CD_CELULAR).ToString() == "")
+                        {
 
-</table>
-@Html.ActionLink("Voltar a tela de gerenciamento", "Index")
+                        }
+                        else
+                        {
+                            if (@Html.DisplayFor(model => item.NM_OPERADORA).ToString() != "Outros")
+                            {
+                                @Html.DisplayFor(model => item.NM_OPERADORA)
+                            }
+                            else
+                            {
+                                var outros = "";
+                                @outros
+                            }
+                        }
+                    </td>
+                    <td  data-title="Fixo">
+                        @Html.DisplayFor(modelItem => item.CD_FIXO)
+                    </td>
+                    <td data-title="Configuração">
+                        @*@Html.ActionLink("Editar", "EditarEndereco", new {  id=item.SQ_ENDERECO }) |*@
+                        @Html.ActionLink("Detalhes", "DetalhesTelefone", new { id = item.SQ_FONE }) |
+                        @Html.ActionLink("Deletar", "DeletarTelefone", new { id = item.SQ_FONE })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    </div>
+    @Html.ActionLink("Voltar a tela de gerenciamento", "Index")

@@ -4,56 +4,70 @@
     ViewBag.Title = "Endereços";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<head>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-2571448761678693",
+          enable_page_level_ads: true
+        });
+    </script>
+</head>
 <h2>Endereços</h2>
 
 <p>
     @Html.ActionLink("Adicionar Endereço", "CriarEndereco")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            Logradouro
-        </th>
-        <th>
-            Número
-        </th>
-        <th>
-            Cidade
-        </th>
-        <th>
-            Estado
-        </th>
-        <th>
-            CEP
-        </th>
-        <th></th>
-    </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NM_LOGRADOURO)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NUMERO)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NM_CIDADE)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NM_ESTADO)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CD_CEP)
-            </td>
-            <td>
-                @*@Html.ActionLink("Editar", "EditarEndereco", new {  id=item.SQ_ENDERECO }) |*@
-                @Html.ActionLink("Detalhes", "DetalhesEndereco", new { id=item.SQ_ENDERECO }) |
-                @Html.ActionLink("Deletar", "DeletarEndereco", new { id=item.SQ_ENDERECO })
-            </td>
-        </tr>
-    }
-    @Html.ActionLink("Voltar a tela de gerenciamento", "Index")
+<div id="no-more-tables">
+    <table class="col-md-12 table-bordered table-striped table-condensed cf">
+        <thead class="cf">
+            <tr>
+                <th>
+                    Logradouro
+                </th>
+                <th>
+                    Número
+                </th>
+                <th>
+                    Cidade
+                </th>
+                <th>
+                    Estado
+                </th>
+                <th>
+                    CEP
+                </th>
+                <th></th>
+            </tr>
+            </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td data-title="Logradouro">
+                        @Html.DisplayFor(modelItem => item.NM_LOGRADOURO)
+                    </td>
+                    <td data-title="Número">
+                        @Html.DisplayFor(modelItem => item.NUMERO)
+                    </td>
+                    <td data-title="Cidade">
+                        @Html.DisplayFor(modelItem => item.NM_CIDADE)
+                    </td>
+                    <td data-title="Estado">
+                        @Html.DisplayFor(modelItem => item.NM_ESTADO)
+                    </td>
+                    <td data-title="CEP">
+                        @Html.DisplayFor(modelItem => item.CD_CEP)
+                    </td>
+                    <td data-title="Configurações">
+                        @*@Html.ActionLink("Editar", "EditarEndereco", new {  id=item.SQ_ENDERECO }) |*@
+                        @Html.ActionLink("Detalhes", "DetalhesEndereco", new { id = item.SQ_ENDERECO }) |
+                        @Html.ActionLink("Deletar", "DeletarEndereco", new { id = item.SQ_ENDERECO })
+                    </td>
+                </tr>
+            }
+        </tbody>
 </table>
+    </div>
+@Html.ActionLink("Voltar a tela de gerenciamento", "Index")

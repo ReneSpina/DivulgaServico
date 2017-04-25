@@ -4,63 +4,78 @@
     ViewBag.Title = "Produtos";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<head>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-2571448761678693",
+          enable_page_level_ads: true
+        });
+    </script>
+</head>
 
 <h2>Meus Produtos</h2>
 
 <p>
     @Html.ActionLink("Adicionar Produtos", "CriarProduto")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            Nome
-        </th>
-        <th>
-            Descrição
-        </th>
-        <th>
-            Valor
-        </th>
-        <th>
-            Data da Criação
-        </th>
-        <th>
-            Ativo
-        </th>
-        <th>
-            Tags
-        </th>
-        <th></th>
-    </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NM_PRODUTO)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DS_DESCRICAO)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VALOR_PRODUTO)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DT_CRIACAO)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ATIVO)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TAGS)
-            </td>
-            <td>
-                @Html.ActionLink("Editar", "EditarProduto", new { id=item.SQ_PRODUTO}) |
-                @Html.ActionLink("Detalhes", "DetalhesProduto", new{ id= item.SQ_PRODUTO}) |
-                @Html.ActionLink("Deletar", "DeletarProduto", new { id= item.SQ_PRODUTO
-           })
-            </td>
-        </tr>
-    }
 
-</table>
+<div id="no-more-tables">
+    <table class="col-md-12 table-bordered table-striped table-condensed cf">
+        <thead class="cf">
+            <tr>
+                <th>
+                    Produto
+                </th>
+                <th>
+                    Descrição
+                </th>
+                <th>
+                    Valor
+                </th>
+                <th>
+                    Data da Criação
+                </th>
+                <th>
+                    Ativo
+                </th>
+                <th>
+                    Tags
+                </th>
+                <th></th>
+            </tr>
+            </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td data-title="Produto">
+                        @Html.DisplayFor(modelItem => item.NM_PRODUTO)
+                    </td>
+                    <td data-title="Descrição">
+                        @Html.DisplayFor(modelItem => item.DS_DESCRICAO)
+                    </td>
+                    <td data-title="Valor">
+                        @Html.DisplayFor(modelItem => item.VALOR_PRODUTO)
+                    </td>
+                    <td data-title="Data da Criação">
+                        @Html.DisplayFor(modelItem => item.DT_CRIACAO)
+                    </td>
+                    <td data-title="Ativo">
+                        @Html.DisplayFor(modelItem => item.ATIVO)
+                    </td>
+                    <td data-title="Tags">
+                        @Html.DisplayFor(modelItem => item.TAGS)
+                    </td>
+                    <td data-title="Configuração">
+                        @Html.ActionLink("Editar", "EditarProduto", new { id = item.SQ_PRODUTO }) |
+                        @Html.ActionLink("Detalhes", "DetalhesProduto", new { id = item.SQ_PRODUTO }) |
+                        @Html.ActionLink("Deletar", "DeletarProduto", new { id = item.SQ_PRODUTO })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    </div>
+@Html.ActionLink("Voltar a tela de gerenciamento", "Index")

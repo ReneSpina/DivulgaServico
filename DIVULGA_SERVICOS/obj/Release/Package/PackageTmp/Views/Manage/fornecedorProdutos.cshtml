@@ -4,49 +4,51 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<head>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-2571448761678693",
+          enable_page_level_ads: true
+        });
+    </script>
+</head>
 
 <style>
-.user-row
-{
-    margin-bottom: 14px;
-}
+    .user-row {
+        margin-bottom: 14px;
+    }
 
-.user-row:last-child
-{
-    margin-bottom: 0;
-}
+        .user-row:last-child {
+            margin-bottom: 0;
+        }
 
-.dropdown-user
-{
-    margin: 13px 0;
-    padding: 5px;
-    height: 100%;
-}
+    .dropdown-user {
+        margin: 13px 0;
+        padding: 5px;
+        height: 100%;
+    }
 
-.dropdown-user:hover
-{
-    cursor: pointer;
-}
+        .dropdown-user:hover {
+            cursor: pointer;
+        }
 
-.table-user-information > tbody > tr
-{
-    border-top: 1px solid rgb(221, 221, 221);
-}
+    .table-user-information > tbody > tr {
+        border-top: 1px solid rgb(221, 221, 221);
+    }
 
-.table-user-information > tbody > tr:first-child
-{
-    border-top: 0;
-}
+        .table-user-information > tbody > tr:first-child {
+            border-top: 0;
+        }
 
 
-.table-user-information > tbody > tr > td
-{
-    border-top: 0;
-}
-.toppad
-{
-    margin-top:20px;
-}
+        .table-user-information > tbody > tr > td {
+            border-top: 0;
+        }
+
+    .toppad {
+        margin-top: 20px;
+    }
 </style>
 
 <h3>Fornecedor e Seus Produtos</h3>
@@ -104,7 +106,7 @@
                                                 @item.CD_FIXO
                                                 <br />
                                                 <span>@item.CD_CELULAR - @item.NM_OPERADORA</span>
-                                                if(item.WHATSAPP == true)
+                                                if (item.WHATSAPP == true)
                                                 {
                                                     <span> - Whatsapp</span>
                                                 }
@@ -122,31 +124,39 @@
     </div>
 </div>
 <hr />
-<table class="table">
-    <tr>
-        <th>
-            Nome
-        </th>
-        <th>
-            Descricao
-        </th>
-        <th>
-            Valor
-        </th>
-    </tr>
 
-@foreach (var item in Model.CAD_PRODUTO_FORNECEDOR) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.NM_PRODUTO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DS_DESCRICAO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.VALOR_PRODUTO)
-        </td>
-    </tr>
-}
-
-</table>
+<div id="no-more-tables">
+    <table class="col-md-12 table-bordered table-striped table-condensed cf">
+        <thead class="cf">
+            <tr>
+                <th>
+                    Produto
+                </th>
+                <th>
+                    Descricao
+                </th>
+                <th>
+                    Valor
+                </th>
+            </tr>
+            </thead>
+        <tbody>
+            @foreach (var item in Model.CAD_PRODUTO_FORNECEDOR)
+            {
+                <tr>
+                    <td data-title="Produto">
+                        @Html.DisplayFor(modelItem => item.NM_PRODUTO)
+                    </td>
+                    <td data-title="Descrição">
+                        @Html.DisplayFor(modelItem => item.DS_DESCRICAO)
+                    </td>
+                    <td data-title="Valor">
+                        @Html.DisplayFor(modelItem => item.VALOR_PRODUTO)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    </div>
+<br />
+@Html.ActionLink("Voltar a tela de gerenciamento", "Index")

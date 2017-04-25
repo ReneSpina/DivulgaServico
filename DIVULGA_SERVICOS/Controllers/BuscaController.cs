@@ -124,7 +124,8 @@ namespace DIVULGA_SERVICOS.Controllers
                                     else
                                     {
                                         status = 0;
-                                        atendimentos = db.CAD_HORA_ATENDIMENTO.Where(x => x.CD_PES_JURIDICA == enderecosTemp[i].CD_PESSOA &&
+                                        string idUser = enderecosTemp[i].CD_PESSOA;
+                                        atendimentos = db.CAD_HORA_ATENDIMENTO.Where(x => x.CD_PES_JURIDICA == idUser &&
                                         x.DIA_SEMANA == (int)DateTime.Today.DayOfWeek).ToList();
                                         foreach (var atendimento in atendimentos)
                                         {
