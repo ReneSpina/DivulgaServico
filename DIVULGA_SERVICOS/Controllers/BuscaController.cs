@@ -59,7 +59,7 @@ namespace DIVULGA_SERVICOS.Controllers
             ViewBag.longitude = lng;
             ViewBag.Status = 0;
             var status = 0;
-            var limiteBusca = 20;
+            var limiteBusca = 200;
             var localusuario = DbGeography.FromText("POINT (" + lat + " " + lng + ")", 4326);
 
             if (String.IsNullOrEmpty(lat))
@@ -68,188 +68,188 @@ namespace DIVULGA_SERVICOS.Controllers
                 ViewBag.erro = "Nao conseguimos identificar sua localizacao. Recarregue a pagina e digite seu endereco na busca avancada!";
                 return View("Index", enderecos);
             }
-            else if (pesquisa.Contains(" "))
-            {
-                string[] words = pesquisa.Split(' ');
-                foreach (var word in words)
-                {
-                    if (word != "de" || word != "para")
-                    {
-                        var texto = "";
-                        if (distancia != 0)
-                        {
-                            texto = RemoveAcento(word);
-                            enderecosTemp = db.CAD_PES_ENDERECO
-                                    .Where(x => x.CAD_PESSOA.CAD_PES_JURIDICA.ATIVO == true)
-                                    .Where(x => ((int)(((x.localizacao.Distance(localusuario)) / 0.62137) / 1000) <= (distancia)))
-                                    .Where(x =>
-                                            x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.DS_DESCRICAO.Contains(word)) ||
-                                            x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.DS_DESCRICAO.Contains(texto)) ||
-                                            x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(word)) ||
-                                            x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(texto)) ||
-                                            x.CAD_PESSOA.CAD_PES_JURIDICA.NM_NOME_PRESTADOR.Contains(word) ||
-                                            x.CAD_PESSOA.CAD_PES_JURIDICA.NM_NOME_PRESTADOR.Contains(texto) ||
-                                            x.CAD_PESSOA.NM_NOME_PESSOA.Contains(texto) ||
-                                            x.CAD_PESSOA.NM_NOME_PESSOA.Contains(word)).Take(limiteBusca).ToList();
-                        }
-                        else
-                        {
-                            texto = RemoveAcento(word);
-                            enderecosTemp = db.CAD_PES_ENDERECO
-                                .Where(x => x.CAD_PESSOA.CAD_PES_JURIDICA.ATIVO == true)
-                                .Where(x =>
-                                        x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.DS_DESCRICAO.Contains(word)) ||
-                                        x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.DS_DESCRICAO.Contains(texto)) ||
-                                        x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(word)) ||
-                                        x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(texto)) ||
-                                        x.CAD_PESSOA.CAD_PES_JURIDICA.NM_NOME_PRESTADOR.Contains(word) ||
-                                        x.CAD_PESSOA.CAD_PES_JURIDICA.NM_NOME_PRESTADOR.Contains(texto) ||
-                                        x.CAD_PESSOA.NM_NOME_PESSOA.Contains(texto) ||
-                                        x.CAD_PESSOA.NM_NOME_PESSOA.Contains(word)).Take(limiteBusca).ToList();
-                        }
-                        if (enderecos.Any((item => enderecosTemp.Contains(item))))
-                        {
+            //else if (pesquisa.Contains(" "))
+            //{
+            //    string[] words = pesquisa.Split(' ');
+            //    foreach (var word in words)
+            //    {
+            //        if (word != "de" || word != "para")
+            //        {
+            //            var texto = "";
+            //            if (distancia != 0)
+            //            {
+            //                texto = RemoveAcento(word);
+            //                enderecosTemp = db.CAD_PES_ENDERECO
+            //                        .Where(x => x.CAD_PESSOA.CAD_PES_JURIDICA.ATIVO == true)
+            //                        .Where(x => ((int)(((x.localizacao.Distance(localusuario)) / 0.62137) / 1000) <= (distancia)))
+            //                        .Where(x =>
+            //                                x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.DS_DESCRICAO.Contains(word)) ||
+            //                                x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.DS_DESCRICAO.Contains(texto)) ||
+            //                                x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(word)) ||
+            //                                x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(texto)) ||
+            //                                x.CAD_PESSOA.CAD_PES_JURIDICA.NM_NOME_PRESTADOR.Contains(word) ||
+            //                                x.CAD_PESSOA.CAD_PES_JURIDICA.NM_NOME_PRESTADOR.Contains(texto) ||
+            //                                x.CAD_PESSOA.NM_NOME_PESSOA.Contains(texto) ||
+            //                                x.CAD_PESSOA.NM_NOME_PESSOA.Contains(word)).Take(limiteBusca).ToList();
+            //            }
+            //            else
+            //            {
+            //                texto = RemoveAcento(word);
+            //                enderecosTemp = db.CAD_PES_ENDERECO
+            //                    .Where(x => x.CAD_PESSOA.CAD_PES_JURIDICA.ATIVO == true)
+            //                    .Where(x =>
+            //                            x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.DS_DESCRICAO.Contains(word)) ||
+            //                            x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.DS_DESCRICAO.Contains(texto)) ||
+            //                            x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(word)) ||
+            //                            x.CAD_PESSOA.CAD_PES_JURIDICA.CAD_CATEGORIA.Any(y => y.NM_NOME.Contains(texto)) ||
+            //                            x.CAD_PESSOA.CAD_PES_JURIDICA.NM_NOME_PRESTADOR.Contains(word) ||
+            //                            x.CAD_PESSOA.CAD_PES_JURIDICA.NM_NOME_PRESTADOR.Contains(texto) ||
+            //                            x.CAD_PESSOA.NM_NOME_PESSOA.Contains(texto) ||
+            //                            x.CAD_PESSOA.NM_NOME_PESSOA.Contains(word)).Take(limiteBusca).ToList();
+            //            }
+            //            if (enderecos.Any((item => enderecosTemp.Contains(item))))
+            //            {
 
-                        }
-                        else
-                        {
-                            if (aberto == true)
-                            {
-                                for (int i = enderecosTemp.Count - 1; i >= 0; i--)
-                                {
-                                    if (enderecosTemp[i].CAD_PESSOA.CAD_PES_JURIDICA.TODO_DIA == true)
-                                    {
+            //            }
+            //            else
+            //            {
+            //                if (aberto == true)
+            //                {
+            //                    for (int i = enderecosTemp.Count - 1; i >= 0; i--)
+            //                    {
+            //                        if (enderecosTemp[i].CAD_PESSOA.CAD_PES_JURIDICA.TODO_DIA == true)
+            //                        {
 
-                                    }
-                                    else
-                                    {
-                                        status = 0;
-                                        string idUser = enderecosTemp[i].CD_PESSOA;
-                                        atendimentos = db.CAD_HORA_ATENDIMENTO.Where(x => x.CD_PES_JURIDICA == idUser &&
-                                        x.DIA_SEMANA == (int)DateTime.Today.DayOfWeek).ToList();
-                                        foreach (var atendimento in atendimentos)
-                                        {
-                                            if (atendimento.HORA_INICIO <= DateTime.Now.Hour && atendimento.HORA_FIM > DateTime.Now.Hour)
-                                            {
+            //                        }
+            //                        else
+            //                        {
+            //                            status = 0;
+            //                            string idUser = enderecosTemp[i].CD_PESSOA;
+            //                            atendimentos = db.CAD_HORA_ATENDIMENTO.Where(x => x.CD_PES_JURIDICA == idUser &&
+            //                            x.DIA_SEMANA == (int)DateTime.Today.DayOfWeek).ToList();
+            //                            foreach (var atendimento in atendimentos)
+            //                            {
+            //                                if (atendimento.HORA_INICIO <= DateTime.Now.Hour && atendimento.HORA_FIM > DateTime.Now.Hour)
+            //                                {
 
-                                            }
-                                            else
-                                            {
-                                                status = 1;
-                                            }
-                                        }
-                                        if (status == 1)
-                                        {
-                                            enderecosTemp.Remove(enderecosTemp[i]);
-                                        }
-                                    }
+            //                                }
+            //                                else
+            //                                {
+            //                                    status = 1;
+            //                                }
+            //                            }
+            //                            if (status == 1)
+            //                            {
+            //                                enderecosTemp.Remove(enderecosTemp[i]);
+            //                            }
+            //                        }
 
-                                }
-                            }
-                            if (vintequatro == true)
-                            {
-                                for (int i = enderecosTemp.Count - 1; i >= 0; i--)
-                                {
-                                    if (enderecosTemp[i].CAD_PESSOA.CAD_PES_JURIDICA.TODO_DIA == true)
-                                    {
+            //                    }
+            //                }
+            //                if (vintequatro == true)
+            //                {
+            //                    for (int i = enderecosTemp.Count - 1; i >= 0; i--)
+            //                    {
+            //                        if (enderecosTemp[i].CAD_PESSOA.CAD_PES_JURIDICA.TODO_DIA == true)
+            //                        {
 
-                                    }
-                                    else
-                                    {
-                                        enderecosTemp.Remove(enderecosTemp[i]);
-                                    }
+            //                        }
+            //                        else
+            //                        {
+            //                            enderecosTemp.Remove(enderecosTemp[i]);
+            //                        }
 
-                                }
-                            }
-                            if (aceitacartao == true)
-                            {
-                                for (int i = enderecosTemp.Count - 1; i >= 0; i--)
-                                {
-                                    if (enderecosTemp[i].CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.CREDITO == true ||
-                                        enderecosTemp[i].CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.DEBITO == true)
-                                    {
+            //                    }
+            //                }
+            //                if (aceitacartao == true)
+            //                {
+            //                    for (int i = enderecosTemp.Count - 1; i >= 0; i--)
+            //                    {
+            //                        if (enderecosTemp[i].CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.CREDITO == true ||
+            //                            enderecosTemp[i].CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.DEBITO == true)
+            //                        {
 
-                                    }
-                                    else
-                                    {
-                                        enderecosTemp.Remove(enderecosTemp[i]);
-                                    }
+            //                        }
+            //                        else
+            //                        {
+            //                            enderecosTemp.Remove(enderecosTemp[i]);
+            //                        }
 
-                                }
-                            }
-                            if(PESSOA_FISICA == true)
-                            {
-                                for(int i = enderecosTemp.Count - 1; i >= 0; i--)
-                                {
-                                    if (enderecosTemp[i].CAD_PESSOA.CAD_PES_JURIDICA.CAD_PORTE_EMPRESA.PESSOA_FISICA == true)
-                                    {
+            //                    }
+            //                }
+            //                if(PESSOA_FISICA == true)
+            //                {
+            //                    for(int i = enderecosTemp.Count - 1; i >= 0; i--)
+            //                    {
+            //                        if (enderecosTemp[i].CAD_PESSOA.CAD_PES_JURIDICA.CAD_PORTE_EMPRESA.PESSOA_FISICA == true)
+            //                        {
 
-                                    }
-                                    else
-                                    {
-                                        if(MICRO_EMPRESA != true && EMPRESA_GRANDE_PORTE != true && PEQUENAS_EMPRESAS != true)
-                                        {
-                                            enderecosTemp.Remove(enderecosTemp[i]);
-                                        }
-                                    }
-                                }
-                            }
-                            if (MICRO_EMPRESA == true)
-                            {
-                                for (int i = enderecosTemp.Count - 1; i >= 0; i--)
-                                {
-                                    if (enderecosTemp[i].CAD_PESSOA.CAD_PES_JURIDICA.CAD_PORTE_EMPRESA.MICRO_EMPRESA == true)
-                                    {
+            //                        }
+            //                        else
+            //                        {
+            //                            if(MICRO_EMPRESA != true && EMPRESA_GRANDE_PORTE != true && PEQUENAS_EMPRESAS != true)
+            //                            {
+            //                                enderecosTemp.Remove(enderecosTemp[i]);
+            //                            }
+            //                        }
+            //                    }
+            //                }
+            //                if (MICRO_EMPRESA == true)
+            //                {
+            //                    for (int i = enderecosTemp.Count - 1; i >= 0; i--)
+            //                    {
+            //                        if (enderecosTemp[i].CAD_PESSOA.CAD_PES_JURIDICA.CAD_PORTE_EMPRESA.MICRO_EMPRESA == true)
+            //                        {
 
-                                    }
-                                    else
-                                    {
-                                        if(PESSOA_FISICA != true && EMPRESA_GRANDE_PORTE != true && PEQUENAS_EMPRESAS != true)
-                                        {
-                                            enderecosTemp.Remove(enderecosTemp[i]);
-                                        }
-                                    }
-                                }
-                            }
-                            if (PEQUENAS_EMPRESAS == true)
-                            {
-                                for (int i = enderecosTemp.Count - 1; i >= 0; i--)
-                                {
-                                    if (enderecosTemp[i].CAD_PESSOA.CAD_PES_JURIDICA.CAD_PORTE_EMPRESA.PEQUENAS_EMPRESAS == true)
-                                    {
+            //                        }
+            //                        else
+            //                        {
+            //                            if(PESSOA_FISICA != true && EMPRESA_GRANDE_PORTE != true && PEQUENAS_EMPRESAS != true)
+            //                            {
+            //                                enderecosTemp.Remove(enderecosTemp[i]);
+            //                            }
+            //                        }
+            //                    }
+            //                }
+            //                if (PEQUENAS_EMPRESAS == true)
+            //                {
+            //                    for (int i = enderecosTemp.Count - 1; i >= 0; i--)
+            //                    {
+            //                        if (enderecosTemp[i].CAD_PESSOA.CAD_PES_JURIDICA.CAD_PORTE_EMPRESA.PEQUENAS_EMPRESAS == true)
+            //                        {
 
-                                    }
-                                    else
-                                    {
-                                        if(PESSOA_FISICA != true && MICRO_EMPRESA != true && EMPRESA_GRANDE_PORTE != true)
-                                        {
-                                            enderecosTemp.Remove(enderecosTemp[i]);
-                                        }
-                                    }
-                                }
-                            }
-                            if (EMPRESA_GRANDE_PORTE == true)
-                            {
-                                for (int i = enderecosTemp.Count - 1; i >= 0; i--)
-                                {
-                                    if (enderecosTemp[i].CAD_PESSOA.CAD_PES_JURIDICA.CAD_PORTE_EMPRESA.EMPRESA_GRANDE_PORTE == true)
-                                    {
+            //                        }
+            //                        else
+            //                        {
+            //                            if(PESSOA_FISICA != true && MICRO_EMPRESA != true && EMPRESA_GRANDE_PORTE != true)
+            //                            {
+            //                                enderecosTemp.Remove(enderecosTemp[i]);
+            //                            }
+            //                        }
+            //                    }
+            //                }
+            //                if (EMPRESA_GRANDE_PORTE == true)
+            //                {
+            //                    for (int i = enderecosTemp.Count - 1; i >= 0; i--)
+            //                    {
+            //                        if (enderecosTemp[i].CAD_PESSOA.CAD_PES_JURIDICA.CAD_PORTE_EMPRESA.EMPRESA_GRANDE_PORTE == true)
+            //                        {
 
-                                    }
-                                    else
-                                    {
-                                        if (PESSOA_FISICA != true && MICRO_EMPRESA != true && PEQUENAS_EMPRESAS != true)
-                                        {
-                                            enderecosTemp.Remove(enderecosTemp[i]);
-                                        }
-                                    }
-                                }
-                            }
-                            enderecos.AddRange(enderecosTemp.ToList());
-                        }
-                    }
-                }
-            }
+            //                        }
+            //                        else
+            //                        {
+            //                            if (PESSOA_FISICA != true && MICRO_EMPRESA != true && PEQUENAS_EMPRESAS != true)
+            //                            {
+            //                                enderecosTemp.Remove(enderecosTemp[i]);
+            //                            }
+            //                        }
+            //                    }
+            //                }
+            //                enderecos.AddRange(enderecosTemp.ToList());
+            //            }
+            //        }
+            //    }
+            //}
             else if (!String.IsNullOrEmpty(pesquisa))
             {
                 var texto = "";
@@ -423,6 +423,10 @@ namespace DIVULGA_SERVICOS.Controllers
                 return RedirectToAction("Index", enderecos);
             }
             //distancia = (int)(((endereco.s.LastOrDefault().localizacao.Distance(localusuario))/0.62137)/1000);
+            if(enderecos.Count == 0)
+            {
+                ViewBag.Status = 3;
+            }
             return View("Index", enderecos);
         }
 

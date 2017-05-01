@@ -214,7 +214,21 @@ namespace DIVULGA_SERVICOS.Controllers
             }
             if(fornecedor != null)
             {
+                var removeRole = UserManager.RemoveFromRole(juridica.CD_PESSOA, "Fornecedor");
 
+                var telefones = new List<CAD_PES_FONE>();
+                telefones = db.CAD_PES_FONE.Where(x => x.CD_PESSOA == id).ToList();
+                for (int i = telefones.Count - 1; i >= 0; i--)
+                {
+                    telefones.Remove(telefones[i]);
+                }
+
+                var enderecos = new List<CAD_PES_ENDERECO>();
+                enderecos = db.CAD_PES_ENDERECO.Where(x => x.CD_PESSOA == id).ToList();
+                for (int i = enderecos.Count - 1; i >= 0; i--)
+                {
+                    enderecos.Remove(enderecos[i]);
+                }
             }
 
             db.CAD_PESSOA.Remove(cAD_PESSOA);

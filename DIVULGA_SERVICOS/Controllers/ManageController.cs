@@ -775,6 +775,7 @@ namespace DIVULGA_SERVICOS.Controllers
                     NM_NOME_PRESTADOR = cAD_PES_JURIDICA.NM_NOME_PRESTADOR,
                     DS_QUEM_SOMOS = cAD_PES_JURIDICA.DS_QUEM_SOMOS,
                     DS_SOBRE = cAD_PES_JURIDICA.DS_SOBRE,
+                    DS_O_QUE_FAZEMOS = cAD_PES_JURIDICA.DS_O_QUE_FAZEMOS,
                     CD_CNPJ = cAD_PES_JURIDICA.CD_CNPJ,
                     TODO_DIA = usuario.TODO_DIA,
                     DIVULGACAO = divulgacao,

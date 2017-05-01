@@ -200,6 +200,9 @@ namespace DIVULGA_SERVICOS.Controllers
         {
             //string link_site;
             //long indicacao;
+            var ExisteEndereco = new List<CAD_PES_ENDERECO>();
+            var lat = "";
+            var lng = "";
             if (ModelState.IsValid && model.ACEITE_CONTRATO == true)
             {
                 var usuarioExistente = db.CAD_PESSOA.Where(x => x.Email == model.UserName).ToList();
@@ -230,6 +233,48 @@ namespace DIVULGA_SERVICOS.Controllers
 
                     if (addrole.Succeeded)
                     {
+                        if(model.CD_LAT.Length > 11)
+                        {
+                            lat = model.CD_LAT.Substring(0, 11);
+                        }
+                        else
+                        {
+                            lat = model.CD_LAT;
+                        }
+                        if(model.CD_LONG.Length > 11)
+                        {
+                            lng = model.CD_LONG.Substring(0, 11);
+                        }
+                        else
+                        {
+                            lng = model.CD_LONG;
+                        }
+                        DbGeography validarEndereco = DbGeography.FromText("POINT(" + lat + " " + lng + ")");
+                        ExisteEndereco = db.CAD_PES_ENDERECO
+                            .Where(x => x.localizacao.Latitude == validarEndereco.Latitude)
+                            .Where(x => x.NM_ESTADO == model.NM_ESTADO)
+                            .Where(x => x.NM_CIDADE == model.NM_CIDADE)
+                            .Where(x => x.NM_LOGRADOURO == model.NM_LOGRADOURO)
+                            .Where(x => x.NUMERO == model.NUMERO).ToList();
+
+                        if (ExisteEndereco.Count > 0)
+                        {
+                            double incremento = 00.0000300;
+                            for (var i = 0; i < ExisteEndereco.Count; i++)
+                            {
+                                incremento = incremento + 00.0000300;
+                            }
+
+                            var lngCadastro = (double.Parse(lng)/10000000);
+                            var lngCadastrar = (lngCadastro + incremento).ToString().Replace(",", ".");
+                            if(lngCadastrar.Length > 11)
+                            {
+                                lngCadastrar = lngCadastrar.Substring(0, 11);
+                            }
+                            validarEndereco = DbGeography.FromText("POINT(" + lat + " " + lngCadastrar + ")");
+                        }
+
+
                         DbContextTransaction transacao = db.Database.BeginTransaction();
                         try
                         {
@@ -247,6 +292,7 @@ namespace DIVULGA_SERVICOS.Controllers
                                     TODO_DIA = model.TODO_DIA,
                                     ATIVO = true,
                                     DIVULGACAO = model.DIVULGACAO,
+                                    DS_O_QUE_FAZEMOS = model.DS_O_QUE_FAZEMOS,
                                     ACEITE_CONTRATO = model.ACEITE_CONTRATO
                                 };
                                 db.CAD_PES_JURIDICA.Add(juridica);
@@ -272,7 +318,7 @@ namespace DIVULGA_SERVICOS.Controllers
                                     NUMERO = model.NUMERO,
                                     NM_ESTADO = model.NM_ESTADO,
                                     CD_CEP = model.CD_CEP,
-                                    localizacao = DbGeography.FromText("POINT(" + model.CD_LAT + " " + model.CD_LONG + ")")
+                                    localizacao = validarEndereco
                                     //TP_TIPO_LOGRADOURO = model.TP_TIPO_LOGRADOURO,
                                 };
                                 db.CAD_PES_ENDERECO.Add(endereco);
@@ -448,6 +494,41 @@ namespace DIVULGA_SERVICOS.Controllers
                         }
                         catch (Exception ex)
                         {
+                            var id = user.Id;
+                            var removeRole = UserManager.RemoveFromRole(id, "Prestador");
+                            CAD_FORMA_PAGAMENTO formaPagamento = db.CAD_FORMA_PAGAMENTO.Find(id);
+                            formaPagamento = db.CAD_FORMA_PAGAMENTO.Remove(formaPagamento);
+                            CAD_PORTE_EMPRESA porteEmpresa = db.CAD_PORTE_EMPRESA.Find(id);
+                            porteEmpresa = db.CAD_PORTE_EMPRESA.Remove(porteEmpresa);
+
+
+                            var telefones = new List<CAD_PES_FONE>();
+                            telefones = db.CAD_PES_FONE.Where(x => x.CD_PESSOA == id).ToList();
+                            for (int i = telefones.Count - 1; i >= 0; i--)
+                            {
+                                telefones.Remove(telefones[i]);
+                            }
+
+                            var enderecos = new List<CAD_PES_ENDERECO>();
+                            enderecos = db.CAD_PES_ENDERECO.Where(x => x.CD_PESSOA == id).ToList();
+                            for (int i = enderecos.Count - 1; i >= 0; i--)
+                            {
+                                enderecos.Remove(enderecos[i]);
+                            }
+
+                            var horarios = new List<CAD_HORA_ATENDIMENTO>();
+                            horarios = db.CAD_HORA_ATENDIMENTO.Where(x => x.CD_PES_JURIDICA == id).ToList();
+                            for (int i = horarios.Count - 1; i >= 0; i--)
+                            {
+                                horarios.Remove(horarios[i]);
+                            }
+
+                            var atividades = new List<CAD_CATEGORIA>();
+                            atividades = db.CAD_CATEGORIA.Where(x => x.CD_PES_JURIDICA == id).ToList();
+                            for (int i = atividades.Count - 1; i >= 0; i--)
+                            {
+                                atividades.Remove(atividades[i]);
+                            }
                             UserManager.Delete(user);
                             transacao.Rollback();
                             throw ex;
@@ -591,6 +672,21 @@ namespace DIVULGA_SERVICOS.Controllers
                         }
                         else
                         {
+                            var removeRole = UserManager.RemoveFromRole(user.Id, "Fornecedor");
+                            var id = user.Id;
+                            var telefones = new List<CAD_PES_FONE>();
+                            telefones = db.CAD_PES_FONE.Where(x => x.CD_PESSOA == id).ToList();
+                            for (int i = telefones.Count - 1; i >= 0; i--)
+                            {
+                                telefones.Remove(telefones[i]);
+                            }
+
+                            var enderecos = new List<CAD_PES_ENDERECO>();
+                            enderecos = db.CAD_PES_ENDERECO.Where(x => x.CD_PESSOA == id).ToList();
+                            for (int i = enderecos.Count - 1; i >= 0; i--)
+                            {
+                                enderecos.Remove(enderecos[i]);
+                            }
                             UserManager.Delete(user);
                             transacao.Rollback();
                             AddErrors(result);

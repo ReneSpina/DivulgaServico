@@ -98,6 +98,33 @@
         </div>
     </div>
 
+    <div class="modal fade" id='ModalPesquisaController' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" id="ModalErroBody">
+                <div class="modal-header" id="ModalErroHeaderGenerico">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3 class="modal-title" id="myModalLabel">Que pena!</h3>
+                </div>
+                <div class="modal-body" id="ModalErroBodyGenerico">
+                        <div class="alert alert-danger">
+                            <strong>Aaaaaah!</strong> Infelizmente não conseguimos encontrar o serviço desejado. Tente alterar as palavras de sua pesquisa.
+                        </div>
+                        <div class="alert alert-success">
+                            <strong>Importante!</strong> Não esqueça de nos indicar para os prestadores de serviços que você conhece.
+                        </div>
+                        <div class="alert alert-info">
+                            <strong>Lembre-se!</strong> Estamos iniciando agora e a nossa missão é encontrar o que você precisa.
+                        </div>                        
+                </div>
+                <div class="modal-footer" id="ModalErroFooterGenerico">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="ModalCadastrar" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
@@ -169,13 +196,6 @@
 
 
     <div class="input-group" id="adv-search">
-
-        @if (ViewBag.erro != null || ViewBag.erro != "" && ViewBag.Status == 1)
-            {
-            <script>
-                $('#ModalErroController').modal('show');
-            </script>
-        }
 
         <form class="form-horizontal" id="searchgroup" action="~/Busca/Pesquisa" method="get" role="form">
             @*<div class="input-group-addon" id="boxhamburguermap"><span class="opennav" id="hamburguermap" onclick="openNav()">&#9776;</span></div>*@
@@ -670,7 +690,7 @@
             map.setCenter(pos);
             </text>
                 }
-                    <text>
+            <text>
             var mcOptions = {
                 maxZoom: 16,
                 zoomOnClick: true,
@@ -679,10 +699,13 @@
                 imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
             };
             var markerCluster = new MarkerClusterer(map, markers, mcOptions);
-            //google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
-            //    alert('center of cluster: '+cluster.getCenter());
+            //google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster, i) {
+            //    infowindow.setContent(locations[i][0]);
+            //    //var infowindow = new google.maps.InfoWindow(), markersAll;
+            //    infowindow.open(map, cluster);
+            //    //alert('center of cluster: '+);
             //});
-            </text>
+            </text>   
             }
         }
     </script>
@@ -1451,6 +1474,18 @@
             }).attr('src', destination.toString());
         });
     </script>
+    @if (ViewBag.erro != null || ViewBag.erro != "" && ViewBag.Status == 1)
+            {
+        <script>
+                $('#ModalErroController').modal('show');
+        </script>
+    }
+    else if (ViewBag.Status == 3)
+    {
+        <script>
+                $('#ModalPesquisaController').modal('show');
+        </script>
+    }
     <script src="~/Scripts/social-buttons.js"></script>
     <footer>
         @{

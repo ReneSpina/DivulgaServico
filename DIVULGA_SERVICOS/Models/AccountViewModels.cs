@@ -387,6 +387,11 @@ namespace DIVULGA_SERVICOS.Models
         [StringLength(255)]
         [Display(Name = "Descrição da Atividade")]
         public string DS_DESCRICAO_ATIVIDADE { get; set; }
+
+        [Required]
+        [StringLength(255)]
+        [Display(Name = "Descreva suas Atividades")]
+        public string DS_O_QUE_FAZEMOS { get; set; }
     }
 
     public class RegisterFornecedorViewModel
@@ -546,7 +551,15 @@ namespace DIVULGA_SERVICOS.Models
         [Column(TypeName = "text")]
         [DataType(DataType.MultilineText)]
         public string DS_QUEM_SOMOS { get; set; }
-        
+
+        [Column(TypeName = "text")]
+        [DataType(DataType.MultilineText)]
+        public string DS_DESCRICAO_ATIVIDADE { get; set; }
+
+        [Column(TypeName = "text")]
+        [DataType(DataType.MultilineText)]
+        public string DS_O_QUE_FAZEMOS { get; set; }
+
         public bool ATIVO { get; set; }
 
         [Required]

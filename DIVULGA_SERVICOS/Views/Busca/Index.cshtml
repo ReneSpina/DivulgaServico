@@ -98,6 +98,33 @@
         </div>
     </div>
 
+    <div class="modal fade" id='ModalPesquisaController' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" id="ModalErroBody">
+                <div class="modal-header" id="ModalErroHeaderGenerico">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3 class="modal-title" id="myModalLabel">Que pena!</h3>
+                </div>
+                <div class="modal-body" id="ModalErroBodyGenerico">
+                        <div class="alert alert-danger">
+                            <strong>Aaaaaah!</strong> Infelizmente não conseguimos encontrar o serviço desejado. Tente alterar as palavras de sua pesquisa.
+                        </div>
+                        <div class="alert alert-success">
+                            <strong>Importante!</strong> Não esqueça de nos indicar para os prestadores de serviços que você conhece.
+                        </div>
+                        <div class="alert alert-info">
+                            <strong>Lembre-se!</strong> Estamos iniciando agora e a nossa missão é encontrar o que você precisa.
+                        </div>                        
+                </div>
+                <div class="modal-footer" id="ModalErroFooterGenerico">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="ModalCadastrar" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
@@ -169,13 +196,6 @@
 
 
     <div class="input-group" id="adv-search">
-
-        @if (ViewBag.erro != null || ViewBag.erro != "" && ViewBag.Status == 1)
-            {
-            <script>
-                $('#ModalErroController').modal('show');
-            </script>
-        }
 
         <form class="form-horizontal" id="searchgroup" action="~/Busca/Pesquisa" method="get" role="form">
             @*<div class="input-group-addon" id="boxhamburguermap"><span class="opennav" id="hamburguermap" onclick="openNav()">&#9776;</span></div>*@
@@ -510,6 +530,14 @@
                         "<h4 style='color: rgb(51, 122, 183); border-bottom: 1px solid rgb(229, 229, 229);'><strong>@item.CAD_PESSOA.CAD_PES_JURIDICA.NM_NOME_PRESTADOR</strong></h4>" +
                         "<strong>Este é o "+@i+"º mais próximo e está a </strong>" + distancia + " Km" +
                         "<br><br>" +
+                        @if(item.CAD_PESSOA.CAD_PES_JURIDICA.DS_O_QUE_FAZEMOS != null || item.CAD_PESSOA.CAD_PES_JURIDICA.DS_O_QUE_FAZEMOS != "")
+                        {
+                            <text>
+                                "<strong>Resumo de Atividades:</strong>" +
+                                '@item.CAD_PESSOA.CAD_PES_JURIDICA.DS_O_QUE_FAZEMOS' +
+                            </text>
+                        }
+                        "<br><br>" +
                         "<strong>Nós Aceitamos:</strong>" +
                         "<br>" +
                     @if(item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.DINHEIRO == true)
@@ -674,8 +702,8 @@
             var mcOptions = {
                 maxZoom: 16,
                 zoomOnClick: true,
-                minimumClusterSize: 2,
-                averageCenter: true,
+                //minimumClusterSize: 2,
+                //averageCenter: true,
                 imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
             };
             var markerCluster = new MarkerClusterer(map, markers, mcOptions);
@@ -803,7 +831,7 @@
                             {
                                 <div class="row">
                                     <div class="col-sm-3" style="width:100%">
-                                        <h4>Quem Somos:</h4>
+                                        <h4>Sobre:</h4>
                                         <div class="well">
                                             @endereco.CAD_PESSOA.CAD_PES_JURIDICA.DS_SOBRE
                                         </div>
@@ -1454,6 +1482,18 @@
             }).attr('src', destination.toString());
         });
     </script>
+    @if (ViewBag.erro != null || ViewBag.erro != "" && ViewBag.Status == 1)
+            {
+        <script>
+                $('#ModalErroController').modal('show');
+        </script>
+    }
+    else if (ViewBag.Status == 3)
+    {
+        <script>
+                $('#ModalPesquisaController').modal('show');
+        </script>
+    }
     <script src="~/Scripts/social-buttons.js"></script>
     <footer>
         @{
