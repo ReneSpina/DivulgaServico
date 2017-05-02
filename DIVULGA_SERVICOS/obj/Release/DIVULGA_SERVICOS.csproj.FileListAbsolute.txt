@@ -127,3 +127,4 @@ C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\roslyn\System
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\roslyn\System.Xml.XmlDocument.dll
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\roslyn\System.Xml.XPath.dll
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Release\DIVULGA_SERVICOS.Migrations.Principal1.resources

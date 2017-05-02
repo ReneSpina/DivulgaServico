@@ -211,7 +211,7 @@ $("#ProximoHora").click(function () {
         $('#ModalErro').modal('show');
         return false;
     }
-    else if ((parseInt($("#segunda_fim").val()) < parseInt($("#segunda_inicio").val())) || (parseInt($("#terca_fim").val()) < parseInt($("#terca_inicio").val())) || (parseInt($("#quarta_fim").val()) < parseInt($("#quarta_inicio").val())) || (parseInt($("#quinta_fim").val()) < parseInt($("#quinta_inicio").val())) || (parseInt($("#sexta_fim").val()) < parseInt($("#sexta_inicio").val())) || (parseInt($("#sabado_fim").val()) < parseInt($("#sabado_inicio").val())) || (parseInt($("#domingo_fim").val()) < parseInt($("#domingo_inicio").val())) || (parseInt($(".segundasextafim").val()) < parseInt($(".segundasextainicio").val()))) {
+    else if ((parseInt($("#segunda_fim").val()) <= parseInt($("#segunda_inicio").val())) || (parseInt($("#terca_fim").val()) <= parseInt($("#terca_inicio").val())) || (parseInt($("#quarta_fim").val()) <= parseInt($("#quarta_inicio").val())) || (parseInt($("#quinta_fim").val()) <= parseInt($("#quinta_inicio").val())) || (parseInt($("#sexta_fim").val()) <= parseInt($("#sexta_inicio").val())) || (parseInt($("#sabado_fim").val()) <= parseInt($("#sabado_inicio").val())) || (parseInt($("#domingo_fim").val()) <= parseInt($("#domingo_inicio").val())) || (parseInt($(".segundasextafim").val()) <= parseInt($(".segundasextainicio").val()))) {
         $('#ModalErroHeaderGenerico').remove();
         $('#ModalErroBodyGenerico').remove();
         $('#ModalErroFooterGenerico').remove();
@@ -1001,3 +1001,13 @@ function valida_cpf(f, campo) {
 }
 
 //Fim valida cpf ou cnpj
+
+//Início da validação do campo de texto "resumo"
+$('#DS_O_QUE_FAZEMOS').keyup(updateCount);
+$('#DS_O_QUE_FAZEMOS').keydown(updateCount);
+
+function updateCount() {
+    var cs = $(this).val().length;
+    $('#contadigito').text(cs);
+}
+//Fim da validação do campo de texto "resumo"

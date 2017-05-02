@@ -19,6 +19,12 @@
                 <th>
                     Email
                 </th>
+                <th>
+                    Data Cadastro
+                </th>
+                <th>
+                    Tipo
+                </th>
                 <th></th>
             </tr>
          </thead>
@@ -33,6 +39,21 @@
                     <td data-title="Email">
                         @Html.DisplayFor(modelItem => item.Email)
                     </td>
+                    <td data-title="Data Cadastro">
+                        @Html.DisplayFor(modelItem => item.DT_DATA_CADASTRO)
+                    </td>
+                    @if(item.EmailConfirmed == true)
+                    {
+                        <td data-title="Tipo">
+                            Prestador de Serviços
+                        </td>
+                    }
+                    else
+                    {
+                        <td data-title="Tipo">
+                            Fornecedor
+                        </td>
+                    }
                     <td data-title="Configurações">
                         @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
                         @Html.ActionLink("Detalhes", "Details", new { id = item.Id }) |

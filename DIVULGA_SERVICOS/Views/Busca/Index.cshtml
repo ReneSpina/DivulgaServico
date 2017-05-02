@@ -419,7 +419,7 @@
             var image2 = {
                 url: '/Imagens/Pointer-You.png',
                 // This marker is 20 pixels wide by 32 pixels high.
-                scaledSize: new google.maps.Size(35, 35),
+                scaledSize: new google.maps.Size(20, 20),
                 // The origin for this image is (0, 0).
                 origin: new google.maps.Point(0, 0),
                 // The anchor for this image is the base of the flagpole at (0, 32).
@@ -530,14 +530,15 @@
                         "<h4 style='color: rgb(51, 122, 183); border-bottom: 1px solid rgb(229, 229, 229);'><strong>@item.CAD_PESSOA.CAD_PES_JURIDICA.NM_NOME_PRESTADOR</strong></h4>" +
                         "<strong>Este é o "+@i+"º mais próximo e está a </strong>" + distancia + " Km" +
                         "<br><br>" +
-                        @if(item.CAD_PESSOA.CAD_PES_JURIDICA.DS_O_QUE_FAZEMOS != null || item.CAD_PESSOA.CAD_PES_JURIDICA.DS_O_QUE_FAZEMOS != "")
+                        @if(item.CAD_PESSOA.CAD_PES_JURIDICA.DS_O_QUE_FAZEMOS != null)
                         {
                             <text>
                                 "<strong>Resumo de Atividades:</strong>" +
-                                '@item.CAD_PESSOA.CAD_PES_JURIDICA.DS_O_QUE_FAZEMOS' +
+                                "<br>" +
+                                '@item.CAD_PESSOA.CAD_PES_JURIDICA.DS_O_QUE_FAZEMOS.Replace("\r", " ").Replace("\n", " ")' +
+                                "<br><br>" +
                             </text>
                         }
-                        "<br><br>" +
                         "<strong>Nós Aceitamos:</strong>" +
                         "<br>" +
                     @if(item.CAD_PESSOA.CAD_PES_JURIDICA.CAD_FORMA_PAGAMENTO.DINHEIRO == true)

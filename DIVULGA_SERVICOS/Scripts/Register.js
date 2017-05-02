@@ -1001,3 +1001,13 @@ function valida_cpf(f, campo) {
 }
 
 //Fim valida cpf ou cnpj
+
+//Início da validação do campo de texto "resumo"
+$('#DS_O_QUE_FAZEMOS').keyup(updateCount);
+$('#DS_O_QUE_FAZEMOS').keydown(updateCount);
+
+function updateCount() {
+    var cs = $(this).val().length;
+    $('#contadigito').text(cs);
+}
+//Fim da validação do campo de texto "resumo"

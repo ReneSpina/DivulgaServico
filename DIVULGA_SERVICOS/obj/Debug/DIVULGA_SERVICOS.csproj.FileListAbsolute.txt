@@ -127,3 +127,4 @@ C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\roslyn\System
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\roslyn\System.Xml.XPath.dll
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\bin\roslyn\System.Xml.XPath.XDocument.dll
 C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Debug\DIVULGA_SERVICOS.csprojResolveAssemblyReference.cache
+C:\Rene Novo\Desenvolvimento\DIVULGA_SERVICOS\DIVULGA_SERVICOS\obj\Debug\DIVULGA_SERVICOS.Migrations.Principal1.resources

@@ -59,7 +59,7 @@ namespace DIVULGA_SERVICOS.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
-            var cAD_PESSOA = db.CAD_PESSOA.Include(c => c.CAD_PES_FORNECEDOR).Include(c => c.CAD_PES_JURIDICA).Include(c => c.CAD_PES_USUARIO);
+            var cAD_PESSOA = db.CAD_PESSOA.Include(c => c.CAD_PES_FORNECEDOR).Include(c => c.CAD_PES_JURIDICA).Include(c => c.CAD_PES_USUARIO).OrderByDescending(x => x.DT_DATA_CADASTRO);
             return View(cAD_PESSOA.ToList());
         }
 
@@ -214,7 +214,7 @@ namespace DIVULGA_SERVICOS.Controllers
             }
             if(fornecedor != null)
             {
-                var removeRole = UserManager.RemoveFromRole(juridica.CD_PESSOA, "Fornecedor");
+                var removeRole = UserManager.RemoveFromRole(id, "Fornecedor");
 
                 var telefones = new List<CAD_PES_FONE>();
                 telefones = db.CAD_PES_FONE.Where(x => x.CD_PESSOA == id).ToList();
