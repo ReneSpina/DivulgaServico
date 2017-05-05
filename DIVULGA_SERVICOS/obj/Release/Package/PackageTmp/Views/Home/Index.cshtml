@@ -571,7 +571,7 @@ window.addEventListener("load", function(){
                 |
                 <a href="/Home/Privacidade">Privacidade</a>
             </p>
-        @{
+        @*@{
             var userAgent = HttpContext.Current.Request.UserAgent.ToLower();
         }
         @if (userAgent.Contains("Iphone") || userAgent.Contains("iphone") || userAgent.Contains("ipad") || userAgent.Contains("Ipad"))
@@ -580,10 +580,10 @@ window.addEventListener("load", function(){
                 <div class="btn-group btn-group-justified" style="position:fixed; width:100%; bottom: 5px;" role="group">
                     <a class="btn btn-default" onclick="history.go(-1); return false;" style="border-radius: 20px;" role="button" href="#">Voltar</a>
                     <a class="btn btn-default" data-toggle="collapse" data-target=".navbar-collapse" style="border-radius: 20px;" role="button" href="#">Menu</a>
-                    @*<a class="btn btn-default" onclick="history.go(+1); return false;" style="border-radius: 20px;" role="button" href="#">Forth</a>*@
+                    @*<a class="btn btn-default" onclick="history.go(+1); return false;" style="border-radius: 20px;" role="button" href="#">Forth</a>
                 </div>
             </div>
-        }
+        }*@
 
         @*@if (Request.Browser.IsMobileDevice && Request.HttpMethod == "GET")
             {

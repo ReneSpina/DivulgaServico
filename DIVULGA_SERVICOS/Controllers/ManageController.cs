@@ -1804,9 +1804,10 @@ namespace DIVULGA_SERVICOS.Controllers
                 var count = 0;
 
                 fornecedores = db.CAD_PES_FORNECEDOR.Where(x => x.CAD_PESSOA.CAD_PES_FORNECEDOR.ATIVO == true).ToList();
-                foreach (var forn in fornecedores)
+                for (int i = fornecedores.Count - 1; i >= 0; i--)
                 {
-                    cidades = db.CAD_CIDADES_DIVULGA_FORNECEDOR.Where(x => x.CD_PESSOA == forn.CD_PESSOA).ToList();
+                    var idfornecedor = fornecedores[i].CD_PESSOA;
+                    cidades = db.CAD_CIDADES_DIVULGA_FORNECEDOR.Where(x => x.CD_PESSOA == idfornecedor).ToList();
                     foreach (var ItemEndereco in enderecosPrestador)
                     {
 
@@ -1821,7 +1822,7 @@ namespace DIVULGA_SERVICOS.Controllers
                     }
                     if (count == (cidades.Count + enderecosPrestador.Count()))
                     {
-                        fornecedores.Remove(forn);
+                        fornecedores.Remove(fornecedores[i]);
                     }
                     if (fornecedores.Count() == 0)
                     {

@@ -1497,7 +1497,7 @@
     }
     <script src="~/Scripts/social-buttons.js"></script>
     <footer>
-        @{
+        @*@{
             var userAgent = HttpContext.Current.Request.UserAgent.ToLower();
         }
         @if (userAgent.Contains("Iphone") || userAgent.Contains("iphone") || userAgent.Contains("ipad") || userAgent.Contains("Ipad"))
@@ -1509,7 +1509,7 @@
                     <a class="btn btn-default" onclick="history.go(+1); return false;" style="border-radius: 20px;" role="button" href="#">Forth</a>
                 </div>
             </div>
-        }
+        }*@
     </footer>
 </body>
 </html>

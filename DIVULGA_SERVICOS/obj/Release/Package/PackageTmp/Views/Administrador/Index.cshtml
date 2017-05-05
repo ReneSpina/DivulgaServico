@@ -20,6 +20,12 @@
                     Email
                 </th>
                 <th>
+                    Celular
+                </th>
+                <th>
+                    Telefone
+                </th>
+                <th>
                     Data Cadastro
                 </th>
                 <th>
@@ -38,6 +44,13 @@
                     
                     <td data-title="Email">
                         @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td data-title="Celular">
+                        @Html.DisplayFor(modelItem => item.CAD_PES_FONE.FirstOrDefault().CD_CELULAR)
+                    </td>
+
+                    <td data-title="Telefone">
+                        @Html.DisplayFor(modelItem => item.CAD_PES_FONE.FirstOrDefault().CD_FIXO)
                     </td>
                     <td data-title="Data Cadastro">
                         @Html.DisplayFor(modelItem => item.DT_DATA_CADASTRO)

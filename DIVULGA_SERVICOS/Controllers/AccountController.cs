@@ -233,17 +233,17 @@ namespace DIVULGA_SERVICOS.Controllers
 
                     if (addrole.Succeeded)
                     {
-                        if(model.CD_LAT.Length > 11)
+                        if(model.CD_LAT.Length > 10)
                         {
-                            lat = model.CD_LAT.Substring(0, 11);
+                            lat = model.CD_LAT.Substring(0, 10);
                         }
                         else
                         {
                             lat = model.CD_LAT;
                         }
-                        if(model.CD_LONG.Length > 11)
+                        if(model.CD_LONG.Length > 10)
                         {
-                            lng = model.CD_LONG.Substring(0, 11);
+                            lng = model.CD_LONG.Substring(0, 10);
                         }
                         else
                         {
@@ -251,25 +251,24 @@ namespace DIVULGA_SERVICOS.Controllers
                         }
                         DbGeography validarEndereco = DbGeography.FromText("POINT(" + lat + " " + lng + ")");
                         ExisteEndereco = db.CAD_PES_ENDERECO
-                            .Where(x => x.localizacao.Latitude == validarEndereco.Latitude)
+                            .Where(x => x.localizacao.Longitude == validarEndereco.Longitude)
                             .Where(x => x.NM_ESTADO == model.NM_ESTADO)
                             .Where(x => x.NM_CIDADE == model.NM_CIDADE)
-                            .Where(x => x.NM_LOGRADOURO == model.NM_LOGRADOURO)
-                            .Where(x => x.NUMERO == model.NUMERO).ToList();
+                            .Where(x => x.NM_LOGRADOURO == model.NM_LOGRADOURO).ToList();
 
                         if (ExisteEndereco.Count > 0)
                         {
-                            double incremento = 00.0000300;
+                            double incremento = 00.000300;
                             for (var i = 0; i < ExisteEndereco.Count; i++)
                             {
-                                incremento = incremento + 00.0000300;
+                                incremento = incremento + 00.000300;
                             }
 
-                            var lngCadastro = (double.Parse(lng)/10000000);
+                            var lngCadastro = validarEndereco.Latitude;
                             var lngCadastrar = (lngCadastro + incremento).ToString().Replace(",", ".");
-                            if(lngCadastrar.Length > 11)
+                            if(lngCadastrar.Length > 10)
                             {
-                                lngCadastrar = lngCadastrar.Substring(0, 11);
+                                lngCadastrar = lngCadastrar.Substring(0, 10);
                             }
                             validarEndereco = DbGeography.FromText("POINT(" + lat + " " + lngCadastrar + ")");
                         }
