@@ -18,6 +18,7 @@ using System.Data.Entity.Spatial;
 using System.Net.Mail;
 using System.Net;
 using System.Text;
+using System.Web.Security;
 
 namespace DIVULGA_SERVICOS.Controllers
 {
@@ -214,7 +215,7 @@ namespace DIVULGA_SERVICOS.Controllers
                         UserName = model.UserName,
                         //TF_TEL_CEL = model.TF_TEL_CEL,
                         //TF_TEL_FIXO = model.TF_TEL_FIXO,
-                        DT_DATA_CADASTRO = System.DateTime.Today,
+                        DT_DATA_CADASTRO = DateTime.Today,
                         Email = model.UserName,
                         NEWSLETTER = true,
                         EmailConfirmed = true,
@@ -480,11 +481,18 @@ namespace DIVULGA_SERVICOS.Controllers
                                     smtp.Port = 587;
                                     smtp.EnableSsl = false;
                                     await smtp.SendMailAsync(message);
-                                    return View("Login");
+                                    var loginResult = Login(new LoginViewModel()
+                                    {
+                                        Email = model.UserName,
+                                        Password = model.Password,
+                                        RememberMe = true,
+                                    }, "https://www.mercadodeservicos.com.br/Manage");
+                                    return await loginResult;
                                 }
                                 //AddErrors(result);
                                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                                 // Send an email with this link
+
                             }
                             else
                             {
@@ -655,7 +663,13 @@ namespace DIVULGA_SERVICOS.Controllers
                                     smtp.Port = 587;
                                     smtp.EnableSsl = false;
                                     await smtp.SendMailAsync(message);
-                                    return View("Login");
+                                    var loginResult = Login(new LoginViewModel()
+                                    {
+                                        Email = model.UserName,
+                                        Password = model.Password,
+                                        RememberMe = true,
+                                    }, "https://www.mercadodeservicos.com.br/Manage");
+                                    return await loginResult;
                                 }
                                 //Envio de email para confirmação da conta cadastrada.
                                 //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -690,9 +704,25 @@ namespace DIVULGA_SERVICOS.Controllers
                             transacao.Rollback();
                             AddErrors(result);
                         }
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: true);
                     }
                     catch (Exception ex)
                     {
+                        var removeRole = UserManager.RemoveFromRole(user.Id, "Fornecedor");
+                        var id = user.Id;
+                        var telefones = new List<CAD_PES_FONE>();
+                        telefones = db.CAD_PES_FONE.Where(x => x.CD_PESSOA == id).ToList();
+                        for (int i = telefones.Count - 1; i >= 0; i--)
+                        {
+                            telefones.Remove(telefones[i]);
+                        }
+
+                        var enderecos = new List<CAD_PES_ENDERECO>();
+                        enderecos = db.CAD_PES_ENDERECO.Where(x => x.CD_PESSOA == id).ToList();
+                        for (int i = enderecos.Count - 1; i >= 0; i--)
+                        {
+                            enderecos.Remove(enderecos[i]);
+                        }
                         UserManager.Delete(user);
                         transacao.Rollback();
                         throw ex;

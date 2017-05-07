@@ -53,7 +53,8 @@
                         @Html.DisplayFor(modelItem => item.CAD_PES_FONE.FirstOrDefault().CD_FIXO)
                     </td>
                     <td data-title="Data Cadastro">
-                        @Html.DisplayFor(modelItem => item.DT_DATA_CADASTRO)
+                        @Html.FormatValue(Convert.ChangeType(item.DT_DATA_CADASTRO, typeof(object)),
+                            "{0: dd/MM/yy}")
                     </td>
                     @if(item.EmailConfirmed == true)
                     {

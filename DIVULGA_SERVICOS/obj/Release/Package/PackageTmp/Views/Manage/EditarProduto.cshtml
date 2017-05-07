@@ -22,7 +22,7 @@
     <div class="form-horizontal">
         <hr />
         <div class="form-group">
-            @Html.LabelFor(model => model.NM_PRODUTO, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2" for="NM_PRODUTO">Nome do Produto</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.NM_PRODUTO, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.NM_PRODUTO, "", new { @class = "text-danger" })
@@ -30,7 +30,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.DS_DESCRICAO, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2" for="DS_DESCRICAO">Descrição</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.DS_DESCRICAO, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.DS_DESCRICAO, "", new { @class = "text-danger" })
@@ -38,7 +38,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.VALOR_PRODUTO, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2" for="VALOR_PRODUTO">Valor do Produto</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.VALOR_PRODUTO, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.VALOR_PRODUTO, "", new { @class = "text-danger" })
@@ -46,7 +46,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ATIVO, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2" for="ATIVO">Ativo</label>
             <div class="col-md-10">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.ATIVO)
@@ -56,9 +56,11 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.TAGS, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2" for="TAGS">Tags</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.TAGS, new { htmlAttributes = new { @class = "form-control" } })
+                <span class="text-danger">Pra quem você quer divulgar? Escreva as palavras que estão relacionadas com pessoas que devem visualizar seu produto.</span>
+                <span class="text-danger">Por exemplo: Se você vende produtos de limpeza, uma palavra interessante seria "Faxineira" e/ou "Diarista".</span>
                 @Html.ValidationMessageFor(model => model.TAGS, "", new { @class = "text-danger" })
             </div>
         </div>

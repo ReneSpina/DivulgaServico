@@ -57,7 +57,8 @@
                         @Html.DisplayFor(modelItem => item.VALOR_PRODUTO)
                     </td>
                     <td data-title="Data da Criaçãp">
-                        @Html.DisplayFor(modelItem => item.DT_CRIACAO)
+                        @Html.FormatValue(Convert.ChangeType(item.DT_CRIACAO, typeof(object)),
+                            "{0: dd/MM/yy}")
                     </td>
                     <td data-title="Fornecedor">
                         @Html.DisplayFor(modelItem => item.CAD_PES_FORNECEDOR.CAD_PESSOA.NM_NOME_PESSOA)
