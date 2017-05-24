@@ -16,7 +16,7 @@
             $item.addClass('btn-primary');
             allWells.hide();
             $target.show();
-            $target.find('input:eq(0)').focus();
+            //$target.find('input:eq(0)').focus();
         }
     });
 
@@ -24,7 +24,7 @@
         var curStep = $(this).closest(".setup-content"),
             curStepBtn = curStep.attr("id"),
             nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-            curInputs = curStep.find("input[type='text'],input[type='url']"),
+            curInputs = curStep.find("input[type='text'],input[type='url'], textarea[type='text']"),
             isValid = true;
 
         $(".form-group").removeClass("has-error");
@@ -36,7 +36,11 @@
         }
 
         if (isValid)
+        {
             nextStepWizard.removeAttr('disabled').trigger('click');
+        }
+
+        window.scrollTo(0, 0);
     });
 
     $('div.setup-panel div a.btn-primary').trigger('click');
@@ -50,6 +54,8 @@ $("#ProximoPgamento").click(function () {
         $('#ModalErroFooterGenerico').remove();
         $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">Você deve selecionar ao menos uma forma de pagamento aceita por você!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
         $('#ModalErro').modal('show');
+        $('a[href="#step-5"]').bootstrapWizard('previous');
+        return false;
     }
     else
     {
@@ -83,6 +89,7 @@ $("#EditarPagamento").click(function () {
         $('#ModalErroFooterGenerico').remove();
         $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">Você deve selecionar ao menos uma forma de pagamento aceita por você!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
         $('#ModalErro').modal('show');
+        return false;
     }
     else {
         if ($("#dinheiro").is(":checked")) {
@@ -114,6 +121,7 @@ $("#ProximolAtividade").click(function () {
         $('#ModalErroFooterGenerico').remove();
         $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">Você deve cadastrar uma atividade!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
         $('#ModalErro').modal('show');
+        $('a[href="#step-6"]').bootstrapWizard('previous');
         return false;
     }
 });
@@ -156,6 +164,41 @@ $("#cadastrogeral").click(function () {
         $('#ModalErro').modal('show');
         return false;
     }
+
+    if ($("#cnpj").is(":checked")) {
+        if ($("#CD_CNPJ").val().length < 17) {
+            $('#ModalErroHeaderGenerico').remove();
+            $('#ModalErroBodyGenerico').remove();
+            $('#ModalErroFooterGenerico').remove();
+            $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">Você deve digitar um CNPJ válido!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
+            $('#ModalErro').modal('show');
+            $('a[href="#step-2"]').bootstrapWizard('previous');
+            return false;
+        }
+    }
+
+    if ($("#cpf").is(":checked")) {
+        if ($("#CD_CNPJ").val().length < 14) {
+            $('#ModalErroHeaderGenerico').remove();
+            $('#ModalErroBodyGenerico').remove();
+            $('#ModalErroFooterGenerico').remove();
+            $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">Você deve digitar um CPF válido!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
+            $('#ModalErro').modal('show');
+            $('a[href="#step-2"]').bootstrapWizard('previous');
+            return false;
+        }
+    }
+
+    if ($("#TF_TEL_CEL").val() == "") {
+        $('#ModalErroHeaderGenerico').remove();
+        $('#ModalErroBodyGenerico').remove();
+        $('#ModalErroFooterGenerico').remove();
+        $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">Você deve inserir um celular para contato!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
+        $('#ModalErro').modal('show');
+        $('a[href="#step-2"]').bootstrapWizard('previous');
+        return false;
+    }
+
 });
 
 $("#cadastrogeralForn").click(function () {
@@ -185,7 +228,7 @@ $("#proximo_principal").click(function () {
         }
     }
 
-    if($("#cpf").is(":checked"))
+    if ($("#cpf").is(":checked"))
     {
         if ($("#CD_CNPJ").val().length < 14)
         {
@@ -197,6 +240,16 @@ $("#proximo_principal").click(function () {
             $('a[href="#step-2"]').bootstrapWizard('previous');
             return false;
         }
+    }
+
+    if ($("#TF_TEL_CEL").val() == "") {
+            $('#ModalErroHeaderGenerico').remove();
+            $('#ModalErroBodyGenerico').remove();
+            $('#ModalErroFooterGenerico').remove();
+            $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">Você deve inserir um celular para contato!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
+            $('#ModalErro').modal('show');
+            $('a[href="#step-2"]').bootstrapWizard('previous');
+            return false;
     }
 
 });
@@ -735,20 +788,20 @@ $("#ACEITE_CONTRATO").change(function () {
 });
 
 $("#fechaModalContrato").click(function () {
-    if (!$("#ACEITE_CONTRATO").is(":checked"))
-    {
-        $('#ModalErroHeaderGenerico').remove();
-        $('#ModalErroBodyGenerico').remove();
-        $('#ModalErroFooterGenerico').remove();
-        $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">Você não aceitou nossos termos de uso!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
-        $('#ModalErro').modal('show');
-        return false;
-    }
-    else
-    {
+    //if (!$("#ACEITE_CONTRATO").is(":checked"))
+    //{
+    //    $('#ModalErroHeaderGenerico').remove();
+    //    $('#ModalErroBodyGenerico').remove();
+    //    $('#ModalErroFooterGenerico').remove();
+    //    $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">Você não aceitou nossos termos de uso!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
+    //    $('#ModalErro').modal('show');
+    //    return false;
+    //}
+    //else
+    //{
         $("#closeModalContrato").trigger("click");
         $("#closeModalContrato").trigger("click");
-    }
+    //}
 });
 
 //$("#DS_APELIDO_SITE").attr("placeholder", "SEUSITE").blur();

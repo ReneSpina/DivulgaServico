@@ -171,11 +171,11 @@
         <div class="row setup-content" id="step-2">
             <div class="col-xs-12">
                 <div class="col-md-12">
-                    <h3>Digite o nome da rua com número e escolha um dos endereços listados</h3>
+                    @*<h3>Digite o nome da rua com número e escolha um dos endereços listados</h3>*@
                     <div class="form-group">
                         <label class="control-label col-md-2" for="autocomplete">Endereço*</label>
                         <div class="col-md-10">
-                            <input id="autocomplete" placeholder="Endereço com número" onfocus="geolocate()" type="text" class="form-control"/>
+                            <input id="autocomplete" required = "required" placeholder="Endereço com número" onfocus="geolocate()" type="text" class="form-control"/>
                             <span class="text-danger">Digite a rua, o número, o nome da cidade e escolha um dos endereços listados. Importante para pegarmos sua localização exata.</span>
                         </div>
                     </div>
@@ -191,7 +191,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.NUMERO, new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.NUMERO, new { htmlAttributes = new { id = "street_number", @class = "form-control", @required = "required" } })
+                            @Html.EditorFor(model => model.NUMERO, new { htmlAttributes = new { id = "street_number", @class = "form-control", @disabled = "disabled", required = "required" } })
                             @Html.ValidationMessageFor(model => model.NUMERO, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -199,7 +199,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.CD_CEP, new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.CD_CEP, new { htmlAttributes = new { id = "postal_code", @class = "form-control" } })
+                            @Html.EditorFor(model => model.CD_CEP, new { htmlAttributes = new { id = "postal_code", @class = "form-control", @disabled = "disabled", required = "required" } })
                             @Html.ValidationMessageFor(model => model.CD_CEP, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -455,7 +455,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-md-2" for="DS_DESCRICAO">Descrição</label>
+                        <label class="control-label col-md-2" for="DS_DESCRICAO">Como vão pesquisar por você?</label>
+                        <label class="control-label col-md-2" for="DS_DESCRICAO">Escreva o máximo de palavras</label>
                         <div class="col-md-10">
                             <textarea required = "required" placeholder="Ex.: chave, fechadura, conserto de fechadura, porta, portão, fechadura de carro... ou seja, o máximo de palavras relacionadas com suas atividades" class="form-control text-box single-line" data-val="true" data-val-length="O campo DS_DESCRICAO deve ser uma cadeia de caracteres com um comprimento máximo de 255." data-val-length-max="255" data-val-required="O campo DS_DESCRICAO é obrigatório." id="DS_DESCRICAO_ATIVIDADE" name="DS_DESCRICAO_ATIVIDADE" type="text" value="" rows="4"></textarea>
                             <span class="field-validation-valid text-danger" data-valmsg-for="DS_DESCRICAO" data-valmsg-replace="true"></span>
@@ -515,8 +516,8 @@
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
                             <div class="checkbox">
-                                @Html.CheckBoxFor(m => m.DIVULGACAO)
-                                <label class="control-label col-md-2" for="DIVULGACAO" style="width:45%; margin-top:-7px;">
+                                <label class="control-label col-md-2" for="DIVULGACAO" style="width: auto">
+                                    @Html.CheckBoxFor(m => m.DIVULGACAO)
                                     Aceito a divulgação de meus serviços nas redes sociais
                                 </label>
                             </div>
@@ -525,7 +526,13 @@
 
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalContrato">Aceitar os Termos de Serviço</button>
+                            <div class="checkbox ACEITE_CONTRATO">
+                                <label for="ACEITE_CONTRATO">
+                                    <input name="ACEITE_CONTRATO" id="ACEITE_CONTRATO" value="true" type="checkbox">
+                                    <input type="hidden" value="false" name="ACEITE_CONTRATO" />
+                                    Aceito os <a data-toggle="modal" href="#ModalContrato" class="SemClick">Termos de Uso</a>
+                                </label>
+                            </div>
                         </div>
                     </div>
 
@@ -885,15 +892,6 @@
                                 <div>
                                     <br />
                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="checkbox ACEITE_CONTRATO">
-                                <label for="ACEITE_CONTRATO">
-                                    <input name="ACEITE_CONTRATO" id="ACEITE_CONTRATO" value="true" type="checkbox">
-                                    <input type="hidden" value="false" name="ACEITE_CONTRATO" />
-                                    Aceito os termos de serviço
-                                </label>
                             </div>
                         </div>
                     </div>

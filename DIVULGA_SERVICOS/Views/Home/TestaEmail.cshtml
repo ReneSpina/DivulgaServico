@@ -1,41 +1,563 @@
-﻿
-@{
-    Layout = null;
-}
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta content="initial-scale=1.0" name="viewport" />
+    <meta content="telephone=no" name="format-detection" />
+    <title>Dia das mães</title>
+    <style type="text/css">
+/* Resets: see reset.css for details */
+                    .ReadMsgBody { width: 100%; background-color: #fff;}
+                    .ExternalClass {width: 100%; background-color: #fff;}
+                    .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height:100%;}
+                    html{width: 100%; }
+                    body {-webkit-text-size-adjust:none; -ms-text-size-adjust:none; }
+                    body {margin:0; padding:0;}
+                    table {border-spacing:0;}
+                    img{display:block !important;}
 
-@{
-    Layout = null;
-}
-<!DOCTYPE html>
+                    table td {border-collapse:collapse;}
+                    .yshortcuts a {border-bottom: none !important;}
 
-<div class="corpo well" style="width:100%; height: 100%">
-    <div style="height: 40%; widows:100%;text-align: center">
-        <a href='www.mercadodeservicos.com.br/home'>
-            <h3>Mercado de Serviços</h3>
-        </a>
-            <h4>ESTAMOS FELIZES POR TER VOCÊ COMO PARCEIRO!</h4>
-            <p>
-                NÓS TEMOS O QUE VOCÊ PRECISA. PESQUISE, DIVULGUE E VENDA MAIS!
-            </p>
-    </div>
 
-    <!-- Second Container -->
-    <div style="text-align:center">
-        <p>
-            Nossa proposta é a de facilitar a vida do usuário em busca dos mais variados tipos de serviços do dia-a-dia.
-        </p>
-        <p>
-            De outro lado, queremos possibilitar que prestadores de serviços encontrem um local propício para divulgar seus trabalhos de forma simples, rápida, abrangente e GRATUITA. Por este motivo, o MERCADO DE SERVIÇOS tem por objetivo atingir as mais diversas áreas de atuação no campo da prestação de serviços, atuando como um elo facilitador entre o usuário e o serviço especializado mais próximo.
-        </p>
-        <p>
-            Para atingirmos esta finalidade, contamos com uma crescente rede de cadastros de prestadores de serviço, distribuídos por todo o país, permitindo assim que sua demanda seja atendida da forma mais rápida e satisfatória possível. Por isso, contamos com que você, usuário, desfrute desta nova ferramenta e deixe sua avaliação após ter utilizado o serviço. Dessa forma teremos a condição de oferecer sempre o melhor do que você precisa, ampliando a rede de ofertas e primando sempre pela melhor qualidade.
-        </p>
-        <p>
-            O Fornecedor pode aproveitar isso para divulgar seus produtos/equipamentos/materiais de forma direcionada. O Fornecedor tem a opção de divulgar para prestadores de serviços que estão relacionados ao que ele vende. O Fornecedor também pode limitar a divulgação por cidades e estados específicos ou divulgar a nível Brasil!
-        </p>
-    </div>
-    <footer style="text-align:center">
-        <p>Mercado de Serviços <a href='https://www.mercadodeservicos.com.br'>www.mercadodeservicos.com.br</a></p>
-    </footer>
+                    /*
 
-</div>
+                    main color = #5eb0f0
+
+                    background color = #455A64
+
+
+                    */
+
+
+                    img{height:auto !important;}
+
+
+                    @media only screen and (max-width: 640px){
+                      body{
+                        width:auto!important;
+                      }
+
+                      table[class="container"]{
+                        width: 100%!important;
+                        padding-left: 20px!important;
+                        padding-right: 20px!important;
+                      }
+
+                      img[class="image-100-percent"]{
+                        width:100% !important;
+                        height:auto !important;
+                        max-width:100% !important;
+                      }
+
+                      img[class="small-image-100-percent"]{
+                        width:100% !important;
+                        height:auto !important;
+                      }
+
+                      table[class="full-width"]{
+                        width:100% !important;
+                      }
+
+                      table[class="full-width-text"]{
+                        width:100% !important;
+                         background-color:#ffffff;
+                         padding-left:20px !important;
+                         padding-right:20px !important;
+                      }
+
+                      table[class="full-width-text2"]{
+                        width:100% !important;
+                         background-color:#ffffff;
+                         padding-left:20px !important;
+                         padding-right:20px !important;
+                      }
+
+                      table[class="col-2-3img"]{
+                        width:50% !important;
+                        margin-right: 20px !important;
+                      }
+                        table[class="col-2-3img-last"]{
+                        width:50% !important;
+                      }
+
+                      table[class="col-2"]{
+                        width:47% !important;
+                        margin-right:20px !important;
+                      }
+
+                      table[class="col-2-last"]{
+                        width:47% !important;
+                      }
+
+                      table[class="col-3"]{
+                        width:29% !important;
+                        margin-right:20px !important;
+                      }
+
+                      table[class="col-3-last"]{
+                        width:29% !important;
+                      }
+
+                      table[class="row-2"]{
+                        width:50% !important;
+                      }
+
+                      td[class="text-center"]{
+                         text-align: center !important;
+                       }
+
+                      /* start clear and rem*/
+                      table[class="rem"]{
+                        display:none !important;
+                      }
+
+                      td[class="rem"]{
+                        display:none !important;
+                      }
+                      /* end clear and rem*/
+
+                      table[class="fix-box"]{
+                        padding-left:20px !important;
+                        padding-right:20px !important;
+                      }
+                      td[class="fix-box"]{
+                        padding-left:20px !important;
+                        padding-right:20px !important;
+                      }
+
+                      td[class="font-resize"]{
+                        font-size: 18px !important;
+                        line-height: 22px !important;
+                      }
+
+                        table[class="space-scale"]{
+                        width:100% !important;
+                        float:none !important;
+                      }
+
+
+                    }
+
+
+
+                    @media only screen and (max-width: 479px){
+                      body{
+                        font-size:10px !important;
+                      }
+
+                            table[class="container"]{
+                        width: 100%!important;
+                        padding-left: 10px!important;
+                        padding-right:10px!important;
+                      }
+
+                       table[class="container2"]{
+                        width: 100%!important;
+                        float:none !important;
+
+                      }
+
+                      img[class="image-100-percent"]{
+                        width:100% !important;
+                        height:auto !important;
+                        max-width:100% !important;
+                        min-width:124px !important;
+                      }
+                        img[class="small-image-100-percent"]{
+                        width:100% !important;
+                        height:auto !important;
+                        max-width:100% !important;
+                        min-width:124px !important;
+                      }
+
+                      table[class="full-width"]{
+                        width:100% !important;
+                      }
+
+                      table[class="full-width-text"]{
+                        width:100% !important;
+                         background-color:#b91925;
+                         padding-left:20px !important;
+                         padding-right:20px !important;
+                      }
+
+                      table[class="full-width-text2"]{
+                        width:100% !important;
+                         background-color:#ffffff;
+                         padding-left:20px !important;
+                         padding-right:20px !important;
+                      }
+
+
+
+                      table[class="col-2"]{
+                        width:100% !important;
+                        margin-right:0px !important;
+                      }
+
+                      table[class="col-2-last"]{
+                        width:100% !important;
+
+                      }
+
+                      table[class="col-3"]{
+                        width:100% !important;
+                        margin-right:0px !important;
+                      }
+
+                      table[class="col-3-last"]{
+                        width:100% !important;
+
+                      }
+
+                        table[class="row-2"]{
+                        width:100% !important;
+                      }
+
+
+                      table[id="col-underline"]{
+                        float: none !important;
+                        width: 100% !important;
+                        border-bottom: 1px solid #eee;
+                      }
+
+                      td[id="col-underline"]{
+                        float: none !important;
+                        width: 100% !important;
+                        border-bottom: 1px solid #eee;
+                      }
+
+                      td[class="col-underline"]{
+                        float: none !important;
+                        width: 100% !important;
+                        border-bottom: 1px solid #eee;
+                      }
+
+
+
+                       /*start text center*/
+                      td[class="text-center"]{
+                        text-align: center !important;
+
+                      }
+
+                      div[class="text-center"]{
+                        text-align: center !important;
+                      }
+                       /*end text center*/
+
+
+
+                      /* start  clear and rem */
+
+                      table[id="clear-padding"]{
+                        padding:0 !important;
+                      }
+                      td[id="clear-padding"]{
+                        padding:0 !important;
+                      }
+                      td[class="clear-padding"]{
+                        padding:0 !important;
+                      }
+                      table[class="rem-479"]{
+                        display:none !important;
+                      }
+                      td[class="rem-479"]{
+                        display:none !important;
+                      }
+                      table[class="clear-align"]{
+                        float:none !important;
+                      }
+                      /* end  clear and rem */
+
+                      table[class="width-small"]{
+                        width:100% !important;
+                      }
+
+                      table[class="fix-box"]{
+                        padding-left:0px !important;
+                        padding-right:0px !important;
+                      }
+                      td[class="fix-box"]{
+                        padding-left:0px !important;
+                        padding-right:0px !important;
+                      }
+                        td[class="font-resize"]{
+                        font-size: 14px !important;
+                      }
+
+                      td[class="increase-Height"]{
+                        height:10px !important;
+                      }
+                        td[class="increase-Height-20"]{
+                        height:20px !important;
+                      }
+
+                    }
+                    @media only screen and (max-width: 320px){
+                      table[class="width-small"]{
+                        width:125px !important;
+                      }
+                      img[class="image-100-percent"]{
+                        width:100% !important;
+                        height:auto !important;
+                        max-width:100% !important;
+                        min-width:124px !important;
+                      }
+
+                    }
+    </style>
+</head>
+<body style="font-size:12px; background-color:#ffffff;">
+    <!--start 100% wrapper (white background) -->
+    <table border="0" cellpadding="0" cellspacing="0" id="mainStructure" style="background-color:#ffffff;" width="100%">
+        <!--  start cabeçalho -->
+        <tbody>
+            <tr>
+                <td align="center" class="fix-box" style="background-color:#ffffff;" valign="top">
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="container" style="background-color:#ffffff;" width="600">
+                        <tbody>
+                            <tr>
+                                <td valign="top">
+                                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="container" style="background-color:#ffffff;" width="560">
+                                        <!--start space height -->
+                                        <tbody>
+                                            <tr>
+                                                <td height="10"> </td>
+                                            </tr>
+                                            <!--end space height -->
+                                            <tr>
+                                                <!-- start content -->
+                                                <td style="font-size: 13px; line-height: 22px; font-family: Arial,Tahoma, Helvetica, sans-serif; color:#ffffff; font-weight:normal; text-align:center; " valign="top"> </td>
+                                                <!-- end content -->
+                                            </tr>
+                                            <!--start space height -->
+                                            <tr>
+                                                <td height="10"> </td>
+                                            </tr>
+                                            <!--end space height -->
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <!--  END cabeçalho --><!--START IMAGE HEADER LAYOUT-->
+            <tr>
+                <td class="fix-box" valign="top">
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="full-width" style="background-color:#ffffff;" width="100%">
+                        <tbody>
+                            <tr>
+                                <td align="center" class="full-width" valign="top" width="100%">
+                                    <!-- start header container -->
+                                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="full-width" style="background-color:#ffffff; " width="600">
+                                        <tbody>
+                                            <tr>
+                                                <td align="center" valign="top"><a href="https://www.mercadodeservicos.com.br" target="_blank"><img alt="Mãe" class="image-100-percent" src="https://www.mercadodeservicos.com.br/Content/Imagens/logo2.png" style="border-width: 0px; border-style: solid; margin: 0px; width: 600px;" /> </a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <!-- end header container -->
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <!--END IMAGE HEADER LAYOUT--><!-- START LAYOUT 1 -->
+            <tr>
+                <td align="center" class="fix-box" valign="top">
+                    <!-- start layout-1 container width 600px -->
+                    <table align="center" bgcolor="#ffffff" border="0" cellpadding="0" cellspacing="0" class="container" style="background-color: #ffffff; " width="600">
+                        <tbody>
+                            <tr>
+                                <td valign="top">
+                                    <!-- start layout-1 container width 560px -->
+                                    <table align="center" bgcolor="#ffffff" border="0" cellpadding="0" cellspacing="0" class="full-width" style="background-color:#ffffff;" width="560">
+                                        <!--start space height -->
+                                        <tbody>
+                                            <!--end space height --><!-- start text content -->
+                                            <tr>
+                                                <td valign="top">
+                                                    <table align="left" border="0" cellpadding="0" cellspacing="0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="font-size: 28px; line-height: 30px; font-family: Times New Roman, Times, serif; color:#E56766; font-weight:normal; text-align:left; padding-left: 10px; padding-right: 10px;"><span style="font-weight: normal;"><a href="#" style="text-decoration: none; color: #E56766; font-weight: normal;"><span style="color:#000000;">Feliz Dia das Mães! </span></a><span style="color:#000000;"> </span></span></td>
+                                                            </tr>
+                                                            <!--start space height -->
+                                                            <tr>
+                                                                <td height="15"> </td>
+                                                            </tr>
+                                                            <!--end space height -->
+                                                            <tr>
+                                                                <td style="font-size: 17px; line-height: 24px; font-family: &quot;Times New Roman&quot;, Times, serif; color: #ffffff; font-weight: normal; padding-left: 10px; padding-right: 10px; text-align: center;">
+                                                                    <div style="text-align: left;"><span style="color:#000000;"><span style="font-size: medium; text-align: center;">Mãe...São três letras apenas as desse nome bendito:</span></span></div>
+
+                                                                    <div style="text-align: left;"><span style="color:#000000;"><span style="font-size: medium; text-align: center;">Também o Céu tem três letras e nelas cabem o infinito</span></span></div>
+
+                                                                    <div style="text-align: left;">
+                                                                        <span style="color:#000000;">
+                                                                            <span style="font-size: medium; text-align: center;">Para louvar a nossa mãe, todo bem que se disser</span><br style="font-size: medium; text-align: center;" />
+                                                                            <span style="font-size: medium; text-align: center;">Nunca há de ser tão grande como o bem que ela nos quer</span><br style="font-size: medium; text-align: center;" />
+                                                                            <span style="font-size: medium; text-align: center;">Palavra tão pequenina, Bem sabem os os lábios meus</span><br style="font-size: medium; text-align: center;" />
+                                                                            <span style="font-size: medium; text-align: center;">Que és do tamanho do Céu E apenas menor que Deus!</span>
+                                                                        </span>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <!--start space height -->
+                                                            <tr>
+                                                                <td height="20">
+                                                                    <div><span style="font-size:14px;">"Mãe" - Mário Quintana</span></div>
+                                                                </td>
+                                                            </tr>
+                                                            <!--end space height -->
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <!-- end layout-1 container width 600px -->
+                                </td>
+                            </tr>
+                            <!-- END LAYOUT 1 --><!-- START HEIGHT SPACE 20PX-->
+                            <tr>
+                                <td align="center" valign="top">
+                                    <table border="0" cellpadding="0" cellspacing="0" height="20" width="100%">
+                                        <tbody>
+                                            <tr>
+                                                <td height="20" valign="top"><img alt="space" src="https://emkt.uolhost.uol.com.br/images/templates/dia_das_maes1/space.png" style="display:block; max-height:20px; max-width:20px;" width="20" /></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <!-- END HEIGHT SPACE 20PX--><!--START IMAGE HEADER LAYOUT-->
+                            <tr>
+                                <td class="fix-box" valign="top">
+                                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="full-width" style="background-color:#455A64;" width="100%">
+                                        <tbody>
+                                            <tr>
+                                                <td align="center" class="full-width" valign="top" width="100%">
+                                                    <!-- start header container -->
+                                                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="full-width" style="background-color:#ffffff; " width="600">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td align="center" valign="top"><a href="#"><img alt="image_header_600x300" border="0" class="image-100-percent" hspace="0" src="https://emkt.uolhost.uol.com.br/images/templates/dia_das_maes1/borda.png" style="max-width:600px display:block; " vspace="0" width="600" /> </a></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <!-- end header container -->
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <!--END IMAGE HEADER LAYOUT--><!--  start cabeçalho -->
+                            <tr>
+                                <td align="center" class="fix-box" style="background-color:#ffffff;" valign="top">
+                                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="container" style="background-color:#ffffff;" width="600">
+                                        <tbody>
+                                            <tr>
+                                                <td valign="top">
+                                                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="container" style="background-color:#ffffff;" width="560">
+                                                        <!--start space height -->
+                                                        <tbody>
+                                                            <tr>
+                                                                <td height="10"> </td>
+                                                            </tr>
+                                                            <!--end space height -->
+                                                            <tr>
+                                                                <!-- start content -->
+                                                                <td style="font-size: 11px; line-height: 17px; font-family: Arial,Tahoma, Helvetica, sans-serif; color:#ffffff; font-weight:normal; text-align:left; " valign="top">
+                                                                    <div style="text-align: center;">
+                                                                        <span style="color:#000000;">
+                                                                            <span style="font-size:14px;">
+                                                                                <span style="font-family: Roboto, Arial, sans-serif;">Por mais que o tempo passe</span><br style="margin: 0px; padding: 0px; outline: none; font-family: Roboto, Arial, sans-serif; font-size: 24px;" />
+                                                                                <span style="font-family: Roboto, Arial, sans-serif;">E as estações se movam,</span><br style="margin: 0px; padding: 0px; outline: none; font-family: Roboto, Arial, sans-serif; font-size: 24px;" />
+                                                                                <span style="font-family: Roboto, Arial, sans-serif;">Ainda será minha estrela,</span><br style="margin: 0px; padding: 0px; outline: none; font-family: Roboto, Arial, sans-serif; font-size: 24px;" />
+                                                                                <span style="font-family: Roboto, Arial, sans-serif;">A mais linda, a mais radiante...</span><br style="margin: 0px; padding: 0px; outline: none; font-family: Roboto, Arial, sans-serif; font-size: 24px;" />
+                                                                                <span style="font-family: Roboto, Arial, sans-serif;">Será pra mim sempre bela,</span><br style="margin: 0px; padding: 0px; outline: none; font-family: Roboto, Arial, sans-serif; font-size: 24px;" />
+                                                                                <span style="font-family: Roboto, Arial, sans-serif;">Sempre amiga.</span><br style="margin: 0px; padding: 0px; outline: none; font-family: Roboto, Arial, sans-serif; font-size: 24px;" />
+                                                                                <span style="font-family: Roboto, Arial, sans-serif;">Podem todos me crucificar,</span><br style="margin: 0px; padding: 0px; outline: none; font-family: Roboto, Arial, sans-serif; font-size: 24px;" />
+                                                                                <span style="font-family: Roboto, Arial, sans-serif;">Mas sei que saberás a verdade</span><br style="margin: 0px; padding: 0px; outline: none; font-family: Roboto, Arial, sans-serif; font-size: 24px;" />
+                                                                                <span style="font-family: Roboto, Arial, sans-serif;">E com todas suas forças irá me defender</span><br style="margin: 0px; padding: 0px; outline: none; font-family: Roboto, Arial, sans-serif; font-size: 24px;" />
+                                                                                <span style="font-family: Roboto, Arial, sans-serif;">Como ninguém me defenderia.</span><br style="margin: 0px; padding: 0px; outline: none; font-family: Roboto, Arial, sans-serif; font-size: 24px;" />
+                                                                                <span style="font-family: Roboto, Arial, sans-serif;">Está presente em todos os felizes e tristes momentos.</span><br style="margin: 0px; padding: 0px; outline: none; font-family: Roboto, Arial, sans-serif; font-size: 24px;" />
+                                                                                <span style="font-family: Roboto, Arial, sans-serif;">Está sempre forte para vencer mais um desafio.</span><br style="margin: 0px; padding: 0px; outline: none; font-family: Roboto, Arial, sans-serif; font-size: 24px;" />
+                                                                                <span style="font-family: Roboto, Arial, sans-serif;">Por mais que eu cresça e amadureça,</span><br style="margin: 0px; padding: 0px; outline: none; font-family: Roboto, Arial, sans-serif; font-size: 24px;" />
+                                                                                <span style="font-family: Roboto, Arial, sans-serif;">Sempre serei seu fruto,</span><br style="margin: 0px; padding: 0px; outline: none; font-family: Roboto, Arial, sans-serif; font-size: 24px;" />
+                                                                                <span style="font-family: Roboto, Arial, sans-serif;">E orgulho total de minha raiz...</span><br style="margin: 0px; padding: 0px; outline: none; font-family: Roboto, Arial, sans-serif; font-size: 24px;" />
+                                                                                <span style="font-family: Roboto, Arial, sans-serif;">Te amo de forma insubstituível,</span><br style="margin: 0px; padding: 0px; outline: none; font-family: Roboto, Arial, sans-serif; font-size: 24px;" />
+                                                                                <span style="font-family: Roboto, Arial, sans-serif;">És robusto meu amor</span><br style="margin: 0px; padding: 0px; outline: none; font-family: Roboto, Arial, sans-serif; font-size: 24px;" />
+                                                                                <span style="font-family: Roboto, Arial, sans-serif;">És sincero meu afeto.</span><br style="margin: 0px; padding: 0px; outline: none; font-family: Roboto, Arial, sans-serif; font-size: 24px;" />
+                                                                                <span style="font-family: Roboto, Arial, sans-serif;">Trouxe-me ao mundo,</span><br style="margin: 0px; padding: 0px; outline: none; font-family: Roboto, Arial, sans-serif; font-size: 24px;" />
+                                                                                <span style="font-family: Roboto, Arial, sans-serif;">Aguentou toda dor</span><br style="margin: 0px; padding: 0px; outline: none; font-family: Roboto, Arial, sans-serif; font-size: 24px;" />
+                                                                                <span style="font-family: Roboto, Arial, sans-serif;">E sorriu ao me ver pela primeira vez.</span><br style="margin: 0px; padding: 0px; outline: none; font-family: Roboto, Arial, sans-serif; font-size: 24px;" />
+                                                                                <span style="font-family: Roboto, Arial, sans-serif;">Com muito carinho estou a pensar em você,</span><br style="margin: 0px; padding: 0px; outline: none; font-family: Roboto, Arial, sans-serif; font-size: 24px;" />
+                                                                                <span style="font-family: Roboto, Arial, sans-serif;">Pois de carinho me alimenta.</span><br style="margin: 0px; padding: 0px; outline: none; font-family: Roboto, Arial, sans-serif; font-size: 24px;" />
+                                                                                <span style="font-family: Roboto, Arial, sans-serif;">Minha mãe querida</span><br style="margin: 0px; padding: 0px; outline: none; font-family: Roboto, Arial, sans-serif; font-size: 24px;" />
+                                                                                <span style="font-family: Roboto, Arial, sans-serif;">Da mesma forma que deseja a mim saúde e felicidade,</span><br style="margin: 0px; padding: 0px; outline: none; font-family: Roboto, Arial, sans-serif; font-size: 24px;" />
+                                                                                <span style="font-family: Roboto, Arial, sans-serif;">Desejo-te também com toda certeza que tenho,</span><br style="margin: 0px; padding: 0px; outline: none; font-family: Roboto, Arial, sans-serif; font-size: 24px;" />
+                                                                                <span style="font-family: Roboto, Arial, sans-serif;">Em nome do grande valor que tem pra mim.</span>
+                                                                            </span>
+                                                                        </span>
+                                                                    </div>
+                                                                </td>
+                                                                <!-- end content -->
+                                                            </tr>
+                                                            <!--start space height -->
+                                                            <tr>
+                                                                <td height="10">Autor desconhecido</td>
+                                                            </tr>
+                                                            <!--end space height -->
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <!--  END cabeçalho --><!--  start cabeçalho -->
+                            <tr>
+                                <td align="center" class="fix-box" style="background-color:#ffffff;" valign="top">
+                                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="container" style="background-color:#ffffff;" width="600">
+                                        <tbody>
+                                            <tr>
+                                                <td valign="top">
+                                                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="container" style="background-color:#ffffff;" width="560">
+                                                        <!--start space height -->
+                                                        <tbody>
+                                                            <tr>
+                                                                <td height="10"> </td>
+                                                            </tr>
+                                                            <!--end space height -->
+                                                            <tr>
+                                                                <!-- start content -->
+                                                                <td style="font-size: 13px; line-height: 22px; font-family: Arial,Tahoma, Helvetica, sans-serif; color:#455A64; font-weight:normal; text-align:center; " valign="top"><span style="color:#000000;"><span style="font-family: Merriweather, &quot;Helvetica Neue&quot;, Arial, sans-serif; text-align: center;"><span style="background-color:#ffffff;">Mercado de Intermediação de Serviços LTDA&nbsp;</span></span></span></td>
+                                                            </tr>
+                                                            <!--end space height -->
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <!--  END cabeçalho -->
+                        </tbody>
+                    </table>
+                    <!-- end 100% wrapper (white background) -->
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,38 +1,29 @@
 ﻿@model DIVULGA_SERVICOS.Models.CAD_CATEGORIA
 
 @{
-    ViewBag.Title = "Criar Serviço";
+    ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<head>
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({
-          google_ad_client: "ca-pub-2571448761678693",
-          enable_page_level_ads: true
-        });
-    </script>
-</head>
-<h2>Criar Serviço</h2>
 
-@using (Html.BeginForm()) 
+<h2>Criar Serviços</h2>
+
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>Criar</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @*<div class="form-group">
+        <div class="form-group">
             @Html.LabelFor(model => model.CD_PES_JURIDICA, "CD_PES_JURIDICA", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("CD_PES_JURIDICA", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("CD_PES_JURIDICA", null, htmlAttributes: new { @class = "form-control"})
                 @Html.ValidationMessageFor(model => model.CD_PES_JURIDICA, "", new { @class = "text-danger" })
             </div>
-        </div>*@
+        </div>
 
         <div class="form-group">
-            <label class="control-label col-md-2" for="NM_NOME">Nome</label>
+            @Html.LabelFor(model => model.NM_NOME, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.NM_NOME, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.NM_NOME, "", new { @class = "text-danger" })
@@ -40,7 +31,7 @@
         </div>
 
         <div class="form-group">
-            <label class="control-label col-md-2" for="DS_DESCRICAO">Descrição</label>
+            @Html.LabelFor(model => model.DS_DESCRICAO, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.DS_DESCRICAO, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.DS_DESCRICAO, "", new { @class = "text-danger" })
@@ -49,12 +40,13 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Criar" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Voltar a lista de serviços", "Servicos")
+    @Html.ActionLink("Lista de Serviços", "Servicos", new { id = @Html.DisplayFor(model => model.CAD_PES_JURIDICA.CD_PESSOA) })
+    @Html.ActionLink("Lista de cadastrados", "Index")
 </div>

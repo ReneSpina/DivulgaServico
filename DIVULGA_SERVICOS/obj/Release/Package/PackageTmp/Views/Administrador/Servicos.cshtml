@@ -1,0 +1,46 @@
+﻿@model IEnumerable<DIVULGA_SERVICOS.Models.CAD_CATEGORIA>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Servicos</h2>
+
+@Html.ActionLink("Criar", "CriarServico")
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CAD_PES_JURIDICA.CD_CNPJ)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NM_NOME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DS_DESCRICAO)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CAD_PES_JURIDICA.CD_CNPJ)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NM_NOME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DS_DESCRICAO)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "EditarServico", new { id = item.CAD_PES_JURIDICA.CD_PESSOA }) |
+                @Html.ActionLink("Detalhes", "DetalhesServico", new { id= item.CAD_PES_JURIDICA.CD_PESSOA }) |
+                @Html.ActionLink("Deletar", "DeletarServico", new { id= item.CAD_PES_JURIDICA.CD_PESSOA })
+            </td>
+        </tr>
+    }
+
+</table>

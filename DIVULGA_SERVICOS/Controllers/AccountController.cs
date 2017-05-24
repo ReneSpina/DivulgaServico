@@ -496,6 +496,43 @@ namespace DIVULGA_SERVICOS.Controllers
                             }
                             else
                             {
+                                var id = user.Id;
+                                var removeRole = UserManager.RemoveFromRole(id, "Prestador");
+                                CAD_FORMA_PAGAMENTO formaPagamento = db.CAD_FORMA_PAGAMENTO.Find(id);
+                                formaPagamento = db.CAD_FORMA_PAGAMENTO.Remove(formaPagamento);
+                                CAD_PORTE_EMPRESA porteEmpresa = db.CAD_PORTE_EMPRESA.Find(id);
+                                porteEmpresa = db.CAD_PORTE_EMPRESA.Remove(porteEmpresa);
+
+
+                                var telefones = new List<CAD_PES_FONE>();
+                                telefones = db.CAD_PES_FONE.Where(x => x.CD_PESSOA == id).ToList();
+                                for (int i = telefones.Count - 1; i >= 0; i--)
+                                {
+                                    telefones.Remove(telefones[i]);
+                                }
+
+                                var enderecos = new List<CAD_PES_ENDERECO>();
+                                enderecos = db.CAD_PES_ENDERECO.Where(x => x.CD_PESSOA == id).ToList();
+                                for (int i = enderecos.Count - 1; i >= 0; i--)
+                                {
+                                    enderecos.Remove(enderecos[i]);
+                                }
+
+                                var horarios = new List<CAD_HORA_ATENDIMENTO>();
+                                horarios = db.CAD_HORA_ATENDIMENTO.Where(x => x.CD_PES_JURIDICA == id).ToList();
+                                for (int i = horarios.Count - 1; i >= 0; i--)
+                                {
+                                    horarios.Remove(horarios[i]);
+                                }
+
+                                var atividades = new List<CAD_CATEGORIA>();
+                                atividades = db.CAD_CATEGORIA.Where(x => x.CD_PES_JURIDICA == id).ToList();
+                                for (int i = atividades.Count - 1; i >= 0; i--)
+                                {
+                                    atividades.Remove(atividades[i]);
+                                }
+                                UserManager.Delete(user);
+                                transacao.Rollback();
                                 AddErrors(result);
                             }
                         }
@@ -548,12 +585,12 @@ namespace DIVULGA_SERVICOS.Controllers
                     var fornecedorExistente = db.CAD_PES_FORNECEDOR.Where(x => x.CD_PESSOA == userIdExistente).ToList();
                     if (fornecedorExistente.Count() > 0)
                     {
-                        ViewBag.errorMessage = "Este email está cadastrado para um fornecedor. Se não lembrar a senha, solicite o reset de senha. Não é possível cadastrar um mesmo email para dois usuários. Caso tenha feito o cadastro do fornecedor por engano, acesse a conta do fornecedor, vá até a área de gerenciamento de perfil e delete a conta ou altere o email.";
+                        ViewBag.errorMessage = "Este email está cadastrado para um fornecedor. Se não lembrar a senha, solicite o reset de senha. Não é possível cadastrar um mesmo email para dois usuários. Caso tenha feito o cadastro de fornecedor por engano, entre em contato com a gente ou faça o cadastro com outra conta de email.";
                         return View("Error");
                     }
                     else
                     {
-                        ViewBag.errorMessage = "Este email está cadastrado para um prestador de serviços. Se não lembrar a senha, solicite o reset de senha. Não é possível cadastrar um mesmo email para dois usuários diferentes! Caso tenha feito o cadastro do prestador por engano, acesse a conta do prestador, vá até a área de gerenciamento de perfil e delete a conta ou altere o email.";
+                        ViewBag.errorMessage = "Este email está cadastrado para um prestador de serviços. Se não lembrar a senha, solicite o reset de senha. Não é possível cadastrar um mesmo email para dois usuários diferentes! Caso tenha feito o cadastro de prestador de serviços por engano, entre em contato com a gente ou faça o cadastro com outra conta de email.";
                         return View("Error");
                     }
                 }

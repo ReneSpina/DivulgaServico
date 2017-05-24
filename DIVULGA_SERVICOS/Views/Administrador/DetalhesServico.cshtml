@@ -1,0 +1,42 @@
+﻿@model DIVULGA_SERVICOS.Models.CAD_CATEGORIA
+
+@{
+    ViewBag.Title = "Detalhes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalhes</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CAD_PES_JURIDICA.CD_CNPJ)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CAD_PES_JURIDICA.CD_CNPJ)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NM_NOME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NM_NOME)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DS_DESCRICAO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DS_DESCRICAO)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "EditarServico", new {id = @Html.DisplayFor(model => model.CAD_PES_JURIDICA.CD_PESSOA) }) |
+    @Html.ActionLink("Servicos", "Servicos", new { id = @Html.DisplayFor(model => model.CAD_PES_JURIDICA.CD_PESSOA) }) |
+    @Html.ActionLink("Cadastrados", "Index")
+</p>

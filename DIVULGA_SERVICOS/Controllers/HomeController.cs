@@ -28,7 +28,6 @@ namespace DIVULGA_SERVICOS.Controllers
         public ActionResult Contatos()
         {
             ViewBag.Message = "Nossos Contatos";
-
             return View();
         }
 
@@ -53,6 +52,11 @@ namespace DIVULGA_SERVICOS.Controllers
         public ActionResult ComoFuncionaF()
         {
             return View("Fornecedor");
+        }
+
+        public ActionResult TestaEmail()
+        {
+            return View("TestaEmail");
         }
 
         [HttpPost]
@@ -83,7 +87,8 @@ namespace DIVULGA_SERVICOS.Controllers
                 smtp.Port = 587;
                 smtp.EnableSsl = false;
                 await smtp.SendMailAsync(message);
-                return RedirectToAction("Contatos");
+                ViewBag.Retorno = "true";
+                return View("Contatos");
             }
         }
     }

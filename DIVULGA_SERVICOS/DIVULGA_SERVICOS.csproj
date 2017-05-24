@@ -913,6 +913,12 @@
     <Content Include="Views\Administrador\Index.cshtml" />
     <Content Include="Views\Home\TestaEmail.cshtml" />
     <Content Include="Views\Home\TestaEmail - Copy.cshtml" />
+    <Content Include="Views\Administrador\CriarServico.cshtml" />
+    <Content Include="Views\Administrador\Servicos.cshtml" />
+    <Content Include="Views\Administrador\DetalhesServico.cshtml" />
+    <Content Include="Views\Administrador\EditarServico.cshtml" />
+    <Content Include="Views\Administrador\DeletarServico.cshtml" />
+    <Content Include="Views\Administrador\Lista.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

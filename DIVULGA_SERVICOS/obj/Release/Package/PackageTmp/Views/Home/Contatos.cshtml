@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Contact";
+    ViewBag.Title = "Contato";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <head>
@@ -15,6 +15,12 @@
 <br>
 <section class="content">
     <div class="row">
+        @if (!String.IsNullOrEmpty(ViewBag.Retorno))
+        {
+            <div class="alert alert-success">
+                <strong>Sucesso!</strong> Agradecemos seu contato. Em instantes estaremos enviando um email com a resposta!
+            </div>
+        }
         <div class="col-sm-4">
             <h3>Mercado de Serviços</h3>
             <hr>
