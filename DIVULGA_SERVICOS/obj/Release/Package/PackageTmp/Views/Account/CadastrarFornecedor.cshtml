@@ -113,15 +113,16 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.TF_TEL_CEL, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-5">
-                        @Html.EditorFor(model => model.TF_TEL_CEL, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                        @Html.EditorFor(model => model.TF_TEL_CEL, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.TF_TEL_CEL, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label col-md-2" for="autocomplete">OPERADORA*</label>
+                    <label class="control-label col-md-2" for="autocomplete">OPERADORA</label>
                     <div class="col-md-5">
-                        <select name="NM_OPERADORA" class="form-control" required = "required">
+                        <select name="NM_OPERADORA" class="form-control">
+                            <option value="Outro">Escolha uma Operadora</option>
                             <option value="Tim">Tim</option>
                             <option value="Claro">Claro</option>
                             <option value="Vivo">Vivo</option>
@@ -132,9 +133,10 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label col-md-2" for="autocomplete">WHATSAPP*</label>
+                    <label class="control-label col-md-2" for="autocomplete">WHATSAPP</label>
                     <div class="col-md-5">
-                        <select name="WHATSAPP" class="form-control" required = "required">
+                        <select name="WHATSAPP" class="form-control">
+                            <option value="false">Sim ou Não</option>
                             <option value="true">Sim</option>
                             <option value="false">Não</option>
                         </select>
@@ -277,7 +279,13 @@
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalContrato">Aceitar os Termos de Serviço</button>
+                        <div class="checkbox ACEITE_CONTRATO">
+                            <label for="ACEITE_CONTRATO">
+                                <input name="ACEITE_CONTRATO" id="ACEITE_CONTRATO" value="true" type="checkbox">
+                                <input type="hidden" value="false" name="ACEITE_CONTRATO" />
+                                Aceito os <a data-toggle="modal" href="#ModalContrato" class="SemClick">Termos de Uso</a>
+                            </label>
+                        </div>
                     </div>
                 </div>
 
@@ -619,15 +627,6 @@
                             <div>
                                 <br />
                             </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="checkbox ACEITE_CONTRATO">
-                            <label for="ACEITE_CONTRATO">
-                                <input name="ACEITE_CONTRATO" id="ACEITE_CONTRATO" value="true" type="checkbox">
-                                <input type="hidden" value="false" name="ACEITE_CONTRATO" />
-                                Aceito os termos de serviço
-                            </label>
                         </div>
                     </div>
                 </div>

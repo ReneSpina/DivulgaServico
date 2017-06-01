@@ -224,62 +224,64 @@ namespace DIVULGA_SERVICOS.Controllers
                     };
                     var result = await UserManager.CreateAsync(user, model.Password);
 
-                    var addrole = UserManager.AddToRole(user.Id, "Prestador");
-
-                    if (model.UserName == "dourado.spina@gmail.com")
+                    if (result.Succeeded)
                     {
-                        var removeRole = UserManager.RemoveFromRole(user.Id, "Prestador");
-                        addrole = UserManager.AddToRole(user.Id, "Admin");
-                    }
-
-                    if (addrole.Succeeded)
-                    {
-                        if(model.CD_LAT.Length > 10)
+                        using (DbContextTransaction transacao = db.Database.BeginTransaction())
                         {
-                            lat = model.CD_LAT.Substring(0, 10);
-                        }
-                        else
-                        {
-                            lat = model.CD_LAT;
-                        }
-                        if(model.CD_LONG.Length > 10)
-                        {
-                            lng = model.CD_LONG.Substring(0, 10);
-                        }
-                        else
-                        {
-                            lng = model.CD_LONG;
-                        }
-                        DbGeography validarEndereco = DbGeography.FromText("POINT(" + lat + " " + lng + ")");
-                        ExisteEndereco = db.CAD_PES_ENDERECO
-                            .Where(x => x.localizacao.Longitude == validarEndereco.Longitude)
-                            .Where(x => x.NM_ESTADO == model.NM_ESTADO)
-                            .Where(x => x.NM_CIDADE == model.NM_CIDADE)
-                            .Where(x => x.NM_LOGRADOURO == model.NM_LOGRADOURO).ToList();
-
-                        if (ExisteEndereco.Count > 0)
-                        {
-                            double incremento = 00.000300;
-                            for (var i = 0; i < ExisteEndereco.Count; i++)
+                            try
                             {
-                                incremento = incremento + 00.000300;
-                            }
+                                var addrole = UserManager.AddToRole(user.Id, "Prestador");
 
-                            var lngCadastro = validarEndereco.Latitude;
-                            var lngCadastrar = (lngCadastro + incremento).ToString().Replace(",", ".");
-                            if(lngCadastrar.Length > 10)
-                            {
-                                lngCadastrar = lngCadastrar.Substring(0, 10);
-                            }
-                            validarEndereco = DbGeography.FromText("POINT(" + lat + " " + lngCadastrar + ")");
-                        }
+                                if (model.UserName == "dourado.spina@gmail.com")
+                                {
+                                    var removeRole = UserManager.RemoveFromRole(user.Id, "Prestador");
+                                    addrole = UserManager.AddToRole(user.Id, "Admin");
+                                }
+
+                                if (model.CD_LAT.Length > 10)
+                                {
+                                    lat = model.CD_LAT.Substring(0, 10);
+                                }
+                                else
+                                {
+                                    lat = model.CD_LAT;
+                                }
+                                if (model.CD_LONG.Length > 10)
+                                {
+                                    lng = model.CD_LONG.Substring(0, 10);
+                                }
+                                else
+                                {
+                                    lng = model.CD_LONG;
+                                }
+                                DbGeography validarEndereco = DbGeography.FromText("POINT(" + lat + " " + lng + ")");
+                                ExisteEndereco = db.CAD_PES_ENDERECO
+                                    .Where(x => x.localizacao.Longitude == validarEndereco.Longitude)
+                                    .Where(x => x.NM_ESTADO == model.NM_ESTADO)
+                                    .Where(x => x.NM_CIDADE == model.NM_CIDADE)
+                                    .Where(x => x.NM_LOGRADOURO == model.NM_LOGRADOURO).ToList();
+
+                                if (ExisteEndereco.Count > 0)
+                                {
+                                    double incremento = 00.000300;
+                                    for (var i = 0; i < ExisteEndereco.Count; i++)
+                                    {
+                                        incremento = incremento + 00.000300;
+                                    }
+
+                                    var lngCadastro = validarEndereco.Latitude;
+                                    var lngCadastrar = (lngCadastro + incremento).ToString().Replace(",", ".");
+                                    if (lngCadastrar.Length > 10)
+                                    {
+                                        lngCadastrar = lngCadastrar.Substring(0, 10);
+                                    }
+                                    validarEndereco = DbGeography.FromText("POINT(" + lat + " " + lngCadastrar + ")");
+                                }
 
 
-                        DbContextTransaction transacao = db.Database.BeginTransaction();
-                        try
-                        {
-                            if (result.Succeeded)
-                            {
+
+                                //if (result.Succeeded)
+                                //{
                                 //IdentityResult resultClaim = await UserManager
                                 //  .AddClaimAsync(user.Id, new Claim("Nome", model.NM_NOME_PESSOA));
                                 //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
@@ -308,7 +310,6 @@ namespace DIVULGA_SERVICOS.Controllers
                                 };
                                 db.CAD_PES_FONE.Add(telefone);
                                 db.SaveChanges();
-
                                 CAD_PES_ENDERECO endereco = new CAD_PES_ENDERECO
                                 {
                                     CD_PESSOA = user.Id,
@@ -493,90 +494,128 @@ namespace DIVULGA_SERVICOS.Controllers
                                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                                 // Send an email with this link
 
+                                //}
+                                //else
+                                //{
+                                //    var id = user.Id;
+                                //    var removeRole = UserManager.RemoveFromRole(id, "Prestador");
+                                //    CAD_FORMA_PAGAMENTO formaPagamento = db.CAD_FORMA_PAGAMENTO.Find(id);
+                                //    formaPagamento = db.CAD_FORMA_PAGAMENTO.Remove(formaPagamento);
+                                //    CAD_PORTE_EMPRESA porteEmpresa = db.CAD_PORTE_EMPRESA.Find(id);
+                                //    porteEmpresa = db.CAD_PORTE_EMPRESA.Remove(porteEmpresa);
+
+
+                                //    var telefones = new List<CAD_PES_FONE>();
+                                //    telefones = db.CAD_PES_FONE.Where(x => x.CD_PESSOA == id).ToList();
+                                //    for (int i = telefones.Count - 1; i >= 0; i--)
+                                //    {
+                                //        telefones.Remove(telefones[i]);
+                                //    }
+
+                                //    var enderecos = new List<CAD_PES_ENDERECO>();
+                                //    enderecos = db.CAD_PES_ENDERECO.Where(x => x.CD_PESSOA == id).ToList();
+                                //    for (int i = enderecos.Count - 1; i >= 0; i--)
+                                //    {
+                                //        enderecos.Remove(enderecos[i]);
+                                //    }
+
+                                //    var horarios = new List<CAD_HORA_ATENDIMENTO>();
+                                //    horarios = db.CAD_HORA_ATENDIMENTO.Where(x => x.CD_PES_JURIDICA == id).ToList();
+                                //    for (int i = horarios.Count - 1; i >= 0; i--)
+                                //    {
+                                //        horarios.Remove(horarios[i]);
+                                //    }
+
+                                //    var atividades = new List<CAD_CATEGORIA>();
+                                //    atividades = db.CAD_CATEGORIA.Where(x => x.CD_PES_JURIDICA == id).ToList();
+                                //    for (int i = atividades.Count - 1; i >= 0; i--)
+                                //    {
+                                //        atividades.Remove(atividades[i]);
+                                //    }
+                                //    UserManager.Delete(user);
+                                //    transacao.Rollback();
+                                //    AddErrors(result);
+                                //}
                             }
-                            else
+                            catch (Exception ex)
                             {
-                                var id = user.Id;
-                                var removeRole = UserManager.RemoveFromRole(id, "Prestador");
-                                CAD_FORMA_PAGAMENTO formaPagamento = db.CAD_FORMA_PAGAMENTO.Find(id);
-                                formaPagamento = db.CAD_FORMA_PAGAMENTO.Remove(formaPagamento);
-                                CAD_PORTE_EMPRESA porteEmpresa = db.CAD_PORTE_EMPRESA.Find(id);
-                                porteEmpresa = db.CAD_PORTE_EMPRESA.Remove(porteEmpresa);
+                                //var id = user.Id;
+                                //var removeRole = UserManager.RemoveFromRole(id, "Prestador");
+                                //CAD_FORMA_PAGAMENTO formaPagamento = db.CAD_FORMA_PAGAMENTO.Where(x => x.CD_PESSOA == id).FirstOrDefault();
+                                //if (formaPagamento != null)
+                                //{
+                                //    formaPagamento = db.CAD_FORMA_PAGAMENTO.Remove(formaPagamento);
+                                //}
+                                //CAD_PORTE_EMPRESA porteEmpresa = db.CAD_PORTE_EMPRESA.Where(x => x.CD_PESSOA == id).FirstOrDefault();
+                                //if (porteEmpresa != null)
+                                //{
+                                //    porteEmpresa = db.CAD_PORTE_EMPRESA.Remove(porteEmpresa);
+                                //}
+                                //var telefones = new List<CAD_PES_FONE>();
+                                //telefones = db.CAD_PES_FONE.Where(x => x.CD_PESSOA == id).ToList();
+                                //for (int i = telefones.Count - 1; i >= 0; i--)
+                                //{
+                                //    telefones.Remove(telefones[i]);
+                                //}
 
+                                //var enderecos = new List<CAD_PES_ENDERECO>();
+                                //enderecos = db.CAD_PES_ENDERECO.Where(x => x.CD_PESSOA == id).ToList();
+                                //for (int i = enderecos.Count - 1; i >= 0; i--)
+                                //{
+                                //    enderecos.Remove(enderecos[i]);
+                                //}
 
-                                var telefones = new List<CAD_PES_FONE>();
-                                telefones = db.CAD_PES_FONE.Where(x => x.CD_PESSOA == id).ToList();
-                                for (int i = telefones.Count - 1; i >= 0; i--)
-                                {
-                                    telefones.Remove(telefones[i]);
-                                }
+                                //var horarios = new List<CAD_HORA_ATENDIMENTO>();
+                                //horarios = db.CAD_HORA_ATENDIMENTO.Where(x => x.CD_PES_JURIDICA == id).ToList();
+                                //for (int i = horarios.Count - 1; i >= 0; i--)
+                                //{
+                                //    horarios.Remove(horarios[i]);
+                                //}
 
-                                var enderecos = new List<CAD_PES_ENDERECO>();
-                                enderecos = db.CAD_PES_ENDERECO.Where(x => x.CD_PESSOA == id).ToList();
-                                for (int i = enderecos.Count - 1; i >= 0; i--)
-                                {
-                                    enderecos.Remove(enderecos[i]);
-                                }
+                                //var atividades = new List<CAD_CATEGORIA>();
+                                //atividades = db.CAD_CATEGORIA.Where(x => x.CD_PES_JURIDICA == id).ToList();
+                                //for (int i = atividades.Count - 1; i >= 0; i--)
+                                //{
+                                //    atividades.Remove(atividades[i]);
+                                //}
+                                //CAD_PES_JURIDICA userJuridica = db.CAD_PES_JURIDICA.Where(x => x.CD_PESSOA == id).FirstOrDefault();
+                                //if (userJuridica != null)
+                                //{
+                                //    db.CAD_PES_JURIDICA.Remove(userJuridica);
+                                //    db.SaveChanges();
+                                //}
 
-                                var horarios = new List<CAD_HORA_ATENDIMENTO>();
-                                horarios = db.CAD_HORA_ATENDIMENTO.Where(x => x.CD_PES_JURIDICA == id).ToList();
-                                for (int i = horarios.Count - 1; i >= 0; i--)
-                                {
-                                    horarios.Remove(horarios[i]);
-                                }
+                                //CAD_PES_JURIDICA userJuridica1 = db.CAD_PES_JURIDICA.Where(x => x.CD_PESSOA == id).FirstOrDefault();
 
-                                var atividades = new List<CAD_CATEGORIA>();
-                                atividades = db.CAD_CATEGORIA.Where(x => x.CD_PES_JURIDICA == id).ToList();
-                                for (int i = atividades.Count - 1; i >= 0; i--)
-                                {
-                                    atividades.Remove(atividades[i]);
-                                }
-                                UserManager.Delete(user);
+                                //var results = await UserManager.DeleteAsync(user);
+
+                                // If successful
+                                //if (results.Succeeded)
+                                //{
+                                //    // Redirect to Users page
+                                //    ViewBag.errorMessage = "Infelizmente não foi possível finalizar a operação, tente novamente";
+                                //    transacao.Rollback();
+                                //    return View("Error");
+                                //}
                                 transacao.Rollback();
-                                AddErrors(result);
+                                var id = user.Id;
+                                var results = await UserManager.DeleteAsync(user);
+                                
+                                if (results.Succeeded)
+                                {
+                                    // Redirect to Users page
+                                    ViewBag.errorMessage = "Infelizmente não foi possível finalizar a operação, tente novamente!";
+                                    return View("Error");
+                                }
+                                throw ex;
                             }
                         }
-                        catch (Exception ex)
-                        {
-                            var id = user.Id;
-                            var removeRole = UserManager.RemoveFromRole(id, "Prestador");
-                            CAD_FORMA_PAGAMENTO formaPagamento = db.CAD_FORMA_PAGAMENTO.Find(id);
-                            formaPagamento = db.CAD_FORMA_PAGAMENTO.Remove(formaPagamento);
-                            CAD_PORTE_EMPRESA porteEmpresa = db.CAD_PORTE_EMPRESA.Find(id);
-                            porteEmpresa = db.CAD_PORTE_EMPRESA.Remove(porteEmpresa);
-
-
-                            var telefones = new List<CAD_PES_FONE>();
-                            telefones = db.CAD_PES_FONE.Where(x => x.CD_PESSOA == id).ToList();
-                            for (int i = telefones.Count - 1; i >= 0; i--)
-                            {
-                                telefones.Remove(telefones[i]);
-                            }
-
-                            var enderecos = new List<CAD_PES_ENDERECO>();
-                            enderecos = db.CAD_PES_ENDERECO.Where(x => x.CD_PESSOA == id).ToList();
-                            for (int i = enderecos.Count - 1; i >= 0; i--)
-                            {
-                                enderecos.Remove(enderecos[i]);
-                            }
-
-                            var horarios = new List<CAD_HORA_ATENDIMENTO>();
-                            horarios = db.CAD_HORA_ATENDIMENTO.Where(x => x.CD_PES_JURIDICA == id).ToList();
-                            for (int i = horarios.Count - 1; i >= 0; i--)
-                            {
-                                horarios.Remove(horarios[i]);
-                            }
-
-                            var atividades = new List<CAD_CATEGORIA>();
-                            atividades = db.CAD_CATEGORIA.Where(x => x.CD_PES_JURIDICA == id).ToList();
-                            for (int i = atividades.Count - 1; i >= 0; i--)
-                            {
-                                atividades.Remove(atividades[i]);
-                            }
-                            UserManager.Delete(user);
-                            transacao.Rollback();
-                            throw ex;
-                        }
+                    }
+                    else
+                    {
+                        //UserManager.Delete(user);
+                        ViewBag.errorMessage = "Infelizmente não foi possível finalizar a operação, tente novamente!";
+                        return View("Error");
                     }
                 }
                 else
@@ -631,138 +670,117 @@ namespace DIVULGA_SERVICOS.Controllers
                     };
                     var result = await UserManager.CreateAsync(user, model.Password);
 
-                    var addrole = UserManager.AddToRole(user.Id, "Fornecedor");
-
-                    DbContextTransaction transacao = db.Database.BeginTransaction();
-                    try
+                    using (DbContextTransaction transacao = db.Database.BeginTransaction())
                     {
-                        if (result.Succeeded)
+                        try
                         {
-                            if (addrole.Succeeded)
+                            if (result.Succeeded)
                             {
+                                var addrole = UserManager.AddToRole(user.Id, "Fornecedor");
 
-                                CAD_PES_FORNECEDOR fornecedor = new CAD_PES_FORNECEDOR
+                                if (addrole.Succeeded)
                                 {
-                                    CD_PESSOA = user.Id,
-                                    CD_CNPJ = model.CD_CNPJ,
-                                    CD_STATUS_PAGT = 1,
-                                    ATIVO = true,
-                                    ACEITE_CONTRATO = model.ACEITE_CONTRATO
-                                };
-                                db.CAD_PES_FORNECEDOR.Add(fornecedor);
-                                db.SaveChanges();
 
-                                CAD_PES_FONE telefone = new CAD_PES_FONE
-                                {
-                                    CD_PESSOA = user.Id,
-                                    CD_FIXO = model.TF_TEL_FIXO,
-                                    CD_CELULAR = model.TF_TEL_CEL,
-                                    NM_OPERADORA = model.NM_OPERADORA,
-                                    WHATSAPP = model.WHATSAPP
-                                };
-                                db.CAD_PES_FONE.Add(telefone);
-                                db.SaveChanges();
-
-                                CAD_PES_ENDERECO endereco = new CAD_PES_ENDERECO
-                                {
-                                    CD_PESSOA = user.Id,
-                                    NM_CIDADE = model.NM_CIDADE,
-                                    NM_LOGRADOURO = model.NM_LOGRADOURO,
-                                    NM_BAIRRO = "NULL",
-                                    NUMERO = model.NUMERO,
-                                    NM_ESTADO = model.NM_ESTADO,
-                                    CD_CEP = model.CD_CEP,
-                                    localizacao = DbGeography.FromText("POINT(" + model.CD_LAT + " " + model.CD_LONG + ")")
-                                    //TP_TIPO_LOGRADOURO = model.TP_TIPO_LOGRADOURO,
-                                };
-                                db.CAD_PES_ENDERECO.Add(endereco);
-                                db.SaveChanges();
-                                transacao.Commit();
-
-                                var body = "<div class='corpo' style='width:100%; height: 100%'><div style='height: 40%; widows:100%;'><h3>Mercado de Serviços</h3><h4>Olá " + model.NM_NOME_PESSOA + ", tudo bem?</h4><h4>ESTAMOS FELIZES POR TER VOCÊ COMO PARCEIRO!</h4><p>NÓS TEMOS O QUE VOCÊ PRECISA. PESQUISE, DIVULGUE E VENDA MAIS!</p></div><div><p>Nossa proposta é a de facilitar a vida do usuário em busca dos mais variados tipos de serviços do dia-a-dia.</p><p>De outro lado, queremos possibilitar que prestadores de serviços encontrem um local propício para divulgar seus trabalhos de forma simples, rápida, abrangente e GRATUITA. Por este motivo, o MERCADO DE SERVIÇOS tem por objetivo atingir as mais diversas áreas de atuação no campo da prestação de serviços, atuando como um elo facilitador entre o usuário e o serviço especializado mais próximo.</p><p>Para atingirmos esta finalidade, contamos com uma crescente rede de cadastros de prestadores de serviço, distribuídos por todo o país, permitindo assim que sua demanda seja atendida da forma mais rápida e satisfatória possível. Por isso, contamos com que você, usuário, desfrute desta nova ferramenta e deixe sua avaliação após ter utilizado o serviço. Dessa forma teremos a condição de oferecer sempre o melhor do que você precisa, ampliando a rede de ofertas e primando sempre pela melhor qualidade.</p><p>O Fornecedor pode aproveitar isso para divulgar seus produtos/equipamentos/materiais de forma direcionada. O Fornecedor tem a opção de divulgar para prestadores de serviços que estão relacionados ao que ele vende. O Fornecedor também pode limitar a divulgação por cidades e estados específicos ou divulgar a nível Brasil!</p></div><footer><p>Mercado de Serviços <a href='https://www.mercadodeservicos.com.br'>www.mercadodeservicos.com.br</a></p></footer></div>";
-                                var message = new MailMessage();
-                                message.To.Add(new MailAddress(model.UserName));  // replace with valid value 
-                                message.From = new MailAddress("ms@mercadodeservicos.com.br", "Mercado de Serviços");  // replace with valid value
-                                message.Subject = "Estamos felizes por ter você como parceiro!";
-                                message.Body = body;
-                                message.IsBodyHtml = true;
-
-                                using (var smtp = new SmtpClient())
-                                {
-                                    var credential = new NetworkCredential
+                                    CAD_PES_FORNECEDOR fornecedor = new CAD_PES_FORNECEDOR
                                     {
-                                        UserName = "ms@mercadodeservicos.com.br",  // replace with valid value
-                                        Password = "Mercado@745"  // replace with valid value
+                                        CD_PESSOA = user.Id,
+                                        CD_CNPJ = model.CD_CNPJ,
+                                        CD_STATUS_PAGT = 1,
+                                        ATIVO = true,
+                                        ACEITE_CONTRATO = model.ACEITE_CONTRATO
                                     };
-                                    smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                                    smtp.Credentials = credential;
-                                    smtp.Host = "smtp.mercadodeservicos.com.br";
-                                    smtp.Port = 587;
-                                    smtp.EnableSsl = false;
-                                    await smtp.SendMailAsync(message);
-                                    var loginResult = Login(new LoginViewModel()
+                                    db.CAD_PES_FORNECEDOR.Add(fornecedor);
+                                    db.SaveChanges();
+
+                                    CAD_PES_FONE telefone = new CAD_PES_FONE
                                     {
-                                        Email = model.UserName,
-                                        Password = model.Password,
-                                        RememberMe = true,
-                                    }, "https://www.mercadodeservicos.com.br/Manage");
-                                    return await loginResult;
+                                        CD_PESSOA = user.Id,
+                                        CD_FIXO = model.TF_TEL_FIXO,
+                                        CD_CELULAR = model.TF_TEL_CEL,
+                                        NM_OPERADORA = model.NM_OPERADORA,
+                                        WHATSAPP = model.WHATSAPP
+                                    };
+                                    db.CAD_PES_FONE.Add(telefone);
+                                    db.SaveChanges();
+
+                                    CAD_PES_ENDERECO endereco = new CAD_PES_ENDERECO
+                                    {
+                                        CD_PESSOA = user.Id,
+                                        NM_CIDADE = model.NM_CIDADE,
+                                        NM_LOGRADOURO = model.NM_LOGRADOURO,
+                                        NM_BAIRRO = "NULL",
+                                        NUMERO = model.NUMERO,
+                                        NM_ESTADO = model.NM_ESTADO,
+                                        CD_CEP = model.CD_CEP,
+                                        localizacao = DbGeography.FromText("POINT(" + model.CD_LAT + " " + model.CD_LONG + ")")
+                                        //TP_TIPO_LOGRADOURO = model.TP_TIPO_LOGRADOURO,
+                                    };
+                                    db.CAD_PES_ENDERECO.Add(endereco);
+                                    db.SaveChanges();
+                                    transacao.Commit();
+
+                                    var body = "<div class='corpo' style='width:100%; height: 100%'><div style='height: 40%; widows:100%;'><h3>Mercado de Serviços</h3><h4>Olá " + model.NM_NOME_PESSOA + ", tudo bem?</h4><h4>ESTAMOS FELIZES POR TER VOCÊ COMO PARCEIRO!</h4><p>NÓS TEMOS O QUE VOCÊ PRECISA. PESQUISE, DIVULGUE E VENDA MAIS!</p></div><div><p>Nossa proposta é a de facilitar a vida do usuário em busca dos mais variados tipos de serviços do dia-a-dia.</p><p>De outro lado, queremos possibilitar que prestadores de serviços encontrem um local propício para divulgar seus trabalhos de forma simples, rápida, abrangente e GRATUITA. Por este motivo, o MERCADO DE SERVIÇOS tem por objetivo atingir as mais diversas áreas de atuação no campo da prestação de serviços, atuando como um elo facilitador entre o usuário e o serviço especializado mais próximo.</p><p>Para atingirmos esta finalidade, contamos com uma crescente rede de cadastros de prestadores de serviço, distribuídos por todo o país, permitindo assim que sua demanda seja atendida da forma mais rápida e satisfatória possível. Por isso, contamos com que você, usuário, desfrute desta nova ferramenta e deixe sua avaliação após ter utilizado o serviço. Dessa forma teremos a condição de oferecer sempre o melhor do que você precisa, ampliando a rede de ofertas e primando sempre pela melhor qualidade.</p><p>O Fornecedor pode aproveitar isso para divulgar seus produtos/equipamentos/materiais de forma direcionada. O Fornecedor tem a opção de divulgar para prestadores de serviços que estão relacionados ao que ele vende. O Fornecedor também pode limitar a divulgação por cidades e estados específicos ou divulgar a nível Brasil!</p></div><footer><p>Mercado de Serviços <a href='https://www.mercadodeservicos.com.br'>www.mercadodeservicos.com.br</a></p></footer></div>";
+                                    var message = new MailMessage();
+                                    message.To.Add(new MailAddress(model.UserName));  // replace with valid value 
+                                    message.From = new MailAddress("ms@mercadodeservicos.com.br", "Mercado de Serviços");  // replace with valid value
+                                    message.Subject = "Estamos felizes por ter você como parceiro!";
+                                    message.Body = body;
+                                    message.IsBodyHtml = true;
+
+                                    using (var smtp = new SmtpClient())
+                                    {
+                                        var credential = new NetworkCredential
+                                        {
+                                            UserName = "ms@mercadodeservicos.com.br",  // replace with valid value
+                                            Password = "Mercado@745"  // replace with valid value
+                                        };
+                                        smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                                        smtp.Credentials = credential;
+                                        smtp.Host = "smtp.mercadodeservicos.com.br";
+                                        smtp.Port = 587;
+                                        smtp.EnableSsl = false;
+                                        await smtp.SendMailAsync(message);
+                                        var loginResult = Login(new LoginViewModel()
+                                        {
+                                            Email = model.UserName,
+                                            Password = model.Password,
+                                            RememberMe = true,
+                                        }, "https://www.mercadodeservicos.com.br/Manage");
+                                        return await loginResult;
+                                    }
+                                    //Envio de email para confirmação da conta cadastrada.
+                                    //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                                    //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                                    //await UserManager.SendEmailAsync(user.Id, "Confirme sua conta", "Por favor, confirme sua conta clicando <a href=\"" + callbackUrl + "\">aqui</a>");
+
+                                    //ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
+                                    // + "before you can log in.";
+                                    //AddErrors(result);
+                                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                                    // Send an email with this link
                                 }
-                                //Envio de email para confirmação da conta cadastrada.
-                                //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                                //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                                //await UserManager.SendEmailAsync(user.Id, "Confirme sua conta", "Por favor, confirme sua conta clicando <a href=\"" + callbackUrl + "\">aqui</a>");
-
-                                //ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
-                                // + "before you can log in.";
-                                //AddErrors(result);
-                                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                                // Send an email with this link
                             }
+                            else
+                            {
+                                ViewBag.errorMessage = "Infelizmente não foi possível finalizar a operação, tente novamente!";
+                                return View("Error");
+                            }
+                            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: true);
                         }
-                        else
+                        catch (Exception ex)
                         {
-                            var removeRole = UserManager.RemoveFromRole(user.Id, "Fornecedor");
-                            var id = user.Id;
-                            var telefones = new List<CAD_PES_FONE>();
-                            telefones = db.CAD_PES_FONE.Where(x => x.CD_PESSOA == id).ToList();
-                            for (int i = telefones.Count - 1; i >= 0; i--)
-                            {
-                                telefones.Remove(telefones[i]);
-                            }
-
-                            var enderecos = new List<CAD_PES_ENDERECO>();
-                            enderecos = db.CAD_PES_ENDERECO.Where(x => x.CD_PESSOA == id).ToList();
-                            for (int i = enderecos.Count - 1; i >= 0; i--)
-                            {
-                                enderecos.Remove(enderecos[i]);
-                            }
-                            UserManager.Delete(user);
                             transacao.Rollback();
-                            AddErrors(result);
-                        }
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: true);
-                    }
-                    catch (Exception ex)
-                    {
-                        var removeRole = UserManager.RemoveFromRole(user.Id, "Fornecedor");
-                        var id = user.Id;
-                        var telefones = new List<CAD_PES_FONE>();
-                        telefones = db.CAD_PES_FONE.Where(x => x.CD_PESSOA == id).ToList();
-                        for (int i = telefones.Count - 1; i >= 0; i--)
-                        {
-                            telefones.Remove(telefones[i]);
-                        }
+                            var id = user.Id;
+                            var results = await UserManager.DeleteAsync(user);
 
-                        var enderecos = new List<CAD_PES_ENDERECO>();
-                        enderecos = db.CAD_PES_ENDERECO.Where(x => x.CD_PESSOA == id).ToList();
-                        for (int i = enderecos.Count - 1; i >= 0; i--)
-                        {
-                            enderecos.Remove(enderecos[i]);
+                            if (results.Succeeded)
+                            {
+                                // Redirect to Users page
+                                ViewBag.errorMessage = "Infelizmente não foi possível finalizar a operação, tente novamente!";
+                                return View("Error");
+                            }
+                            throw ex;
                         }
-                        UserManager.Delete(user);
-                        transacao.Rollback();
-                        throw ex;
                     }
                 }
             }

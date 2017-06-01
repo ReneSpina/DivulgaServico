@@ -601,25 +601,40 @@
                          </text>
                     }
                      "<br>" +
-                     "<strong>Telefones para contato:</strong>" +
+                     "<strong>Telefones:</strong>" +
                      "<br>" +
                      @foreach(var telefone in item.CAD_PESSOA.CAD_PES_FONE)
                      {
+
+                         if(telefone.CD_FIXO != null)
+                         {
                                 <text>
-                                "<a href='tel:@telefone.CD_FIXO'>@telefone.CD_FIXO</a>" + "  <br><br> " +
+                                "<a href='tel:@telefone.CD_FIXO'>@telefone.CD_FIXO</a>" +
+                                "<br><br>" +
+                                </text>
+                         }
+                         if (telefone.CD_CELULAR != null)
+                         {
+                                <text>
                                 "<a href='tel:@telefone.CD_CELULAR'>@telefone.CD_CELULAR" + " - @telefone.NM_OPERADORA" + "</a><br><br>"+
                                 </text>
-                         if(@telefone.WHATSAPP == true)
-                         {
-                                     <text>
-                                        "<a href='https://api.whatsapp.com/send?phone=55" + soNumero('@telefone.CD_CELULAR') + "' target='_blank'>Whatsapp</a>" +
-                                     </text>
+                                 if(@telefone.WHATSAPP == true)
+                                 {
+                                             <text>
+                                                "<a href='https://api.whatsapp.com/send?phone=55" + soNumero('@telefone.CD_CELULAR') + "' target='_blank'>Whatsapp</a>" +
+                                             </text>
+                                 }
+                                <text>
+                                    "<br>" +
+                                    "<br>" +
+                                </text>
                          }
-                        <text>
-                            "<br>" +
-                        </text>
-                    }
+                     }
+
+                    "<strong>Email:</strong>" +
                     "<br>" +
+                    "<a href='mailto:@item.CAD_PESSOA.Email' target='_top'>@item.CAD_PESSOA.Email</a>" +
+                    "<br><br>" +
 
                     @if(item.CAD_PESSOA.CAD_PES_JURIDICA.TODO_DIA == true)
                                 {
@@ -714,7 +729,7 @@
             //    infowindow.open(map, cluster);
             //    //alert('center of cluster: '+);
             //});
-            </text>   
+            </text>
             }
         }
     </script>

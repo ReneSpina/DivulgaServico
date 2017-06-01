@@ -189,15 +189,15 @@ $("#cadastrogeral").click(function () {
         }
     }
 
-    if ($("#TF_TEL_CEL").val() == "") {
-        $('#ModalErroHeaderGenerico').remove();
-        $('#ModalErroBodyGenerico').remove();
-        $('#ModalErroFooterGenerico').remove();
-        $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">Você deve inserir um celular para contato!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
-        $('#ModalErro').modal('show');
-        $('a[href="#step-2"]').bootstrapWizard('previous');
-        return false;
-    }
+    //if ($("#TF_TEL_CEL").val() == "") {
+    //    $('#ModalErroHeaderGenerico').remove();
+    //    $('#ModalErroBodyGenerico').remove();
+    //    $('#ModalErroFooterGenerico').remove();
+    //    $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">Você deve inserir um número de celular válido!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
+    //    $('#ModalErro').modal('show');
+    //    $('a[href="#step-2"]').bootstrapWizard('previous');
+    //    return false;
+    //}
 
 });
 
@@ -241,15 +241,24 @@ $("#proximo_principal").click(function () {
             return false;
         }
     }
-
-    if ($("#TF_TEL_CEL").val() == "") {
+    
+    if ($("#TF_TEL_CEL").val().length < 15 && $("#TF_TEL_CEL").val() != "") {
             $('#ModalErroHeaderGenerico').remove();
             $('#ModalErroBodyGenerico').remove();
             $('#ModalErroFooterGenerico').remove();
-            $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">Você deve inserir um celular para contato!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
+            $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">Você deve inserir um celular válido para contato (xx) 9xxxx-xxxx </div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
             $('#ModalErro').modal('show');
             $('a[href="#step-2"]').bootstrapWizard('previous');
             return false;
+    }
+    if ($("#TF_TEL_FIXO").val().length < 14 && $("#TF_TEL_FIXO").val() != "") {
+        $('#ModalErroHeaderGenerico').remove();
+        $('#ModalErroBodyGenerico').remove();
+        $('#ModalErroFooterGenerico').remove();
+        $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">Você deve inserir um telefone fixo válido para contato (xx) xxxx-xxxx </div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
+        $('#ModalErro').modal('show');
+        $('a[href="#step-2"]').bootstrapWizard('previous');
+        return false;
     }
 
 });
@@ -262,30 +271,33 @@ $("#ProximoHora").click(function () {
         $('#ModalErroFooterGenerico').remove();
         $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">Você deve selecionar ao menos um horário de atendimento!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
         $('#ModalErro').modal('show');
+        $('a[href="#step-4"]').bootstrapWizard('previous');
         return false;
     }
-    else if ((parseInt($("#segunda_fim").val()) <= parseInt($("#segunda_inicio").val())) || (parseInt($("#terca_fim").val()) <= parseInt($("#terca_inicio").val())) || (parseInt($("#quarta_fim").val()) <= parseInt($("#quarta_inicio").val())) || (parseInt($("#quinta_fim").val()) <= parseInt($("#quinta_inicio").val())) || (parseInt($("#sexta_fim").val()) <= parseInt($("#sexta_inicio").val())) || (parseInt($("#sabado_fim").val()) <= parseInt($("#sabado_inicio").val())) || (parseInt($("#domingo_fim").val()) <= parseInt($("#domingo_inicio").val())) || (parseInt($(".segundasextafim").val()) <= parseInt($(".segundasextainicio").val()))) {
+    else if (parseInt($(".segundasextainicio").val()) > 23 || parseInt($(".segundasextafim").val()) > 23 || parseInt($("#segunda_inicio").val()) > 23 || parseInt($("#segunda_fim").val()) > 23 || parseInt($("#terca_inicio").val()) > 23 || parseInt($("#terca_fim").val()) > 23 || parseInt($("#quarta_inicio").val()) > 23 || parseInt($("#quarta_fim").val()) > 23 || parseInt($("#quinta_inicio").val()) > 23 || parseInt($("#quinta_fim").val()) > 23 || parseInt($("#sexta_inicio").val()) > 23 || parseInt($("#sexta_fim").val()) > 23 || parseInt($("#sabado_inicio").val()) > 23 || parseInt($("#sabado_fim").val()) > 23 || parseInt($("#domingo_inicio").val()) > 23 || parseInt($("#domingo_fim").val()) > 23)
+    {
         $('#ModalErroHeaderGenerico').remove();
         $('#ModalErroBodyGenerico').remove();
         $('#ModalErroFooterGenerico').remove();
-        $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">A hora de início não pode ser maior ou igual a hora de fim!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
+        $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">A hora de início ou de fim não pode ser maior que 23!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
         $('#ModalErro').modal('show');
-        return false;
-    }
-    else if ($("#segunda_fim").val() == "" & $("#segunda_inicio").val() != "" || $("#terca_fim").val() == "" & $("#terca_inicio").val() != "" || $("#quarta_fim").val() == "" & $("#quarta_inicio").val() != "" || $("#quinta_fim").val() == "" & $("#quinta_inicio").val() != "" || $("#sexta_fim").val() == "" & $("#sexta_inicio").val() != "" || $("#sabado_fim").val() == "" & $("#sabado_inicio").val() != "" || $("#domingo_fim").val() == "" & $("#domingo_inicio").val() != "" || $(".segundasextafim").val() == "" & $(".segundasextainicio").val() != "") {
-        $('#ModalErroHeaderGenerico').remove();
-        $('#ModalErroBodyGenerico').remove();
-        $('#ModalErroFooterGenerico').remove();
-        $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">O campo de fim também deve ser preenchido!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
-        $('#ModalErro').modal('show');
-        return false;
-    }
-    else if ($("#segunda_inicio").val() == "" & $("#segunda_fim").val() != "" || $("#terca_inicio").val() == "" & $("#terca_fim").val() != "" || $("#quarta_inicio").val() == "" & $("#quarta_fim").val() != "" || $("#quinta_inicio").val() == "" & $("#quinta_fim").val() != "" || $("#sexta_inicio").val() == "" & $("#sexta_fim").val() != "" || $("#sabado_inicio").val() == "" & $("#sabado_fim").val() != "" || $("#domingo_inicio").val() == "" & $("#domingo_fim").val() != "" || $(".segundasextainicio").val() == "" & $(".segundasextafim").val() != "") {
-        $('#ModalErroHeaderGenerico').remove();
-        $('#ModalErroBodyGenerico').remove();
-        $('#ModalErroFooterGenerico').remove();
-        $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">O campo de inicio também deve ser preenchido!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
-        $('#ModalErro').modal('show');
+        $(".segundasextainicio").val('');
+        $(".segundasextafim").val('');
+        $("#segunda_inicio").val('');
+        $("#segunda_fim").val('');
+        $("#terca_inicio").val('');
+        $("#terca_fim").val('');
+        $("#quarta_inicio").val('');
+        $("#quarta_fim").val('');
+        $("#quinta_inicio").val('');
+        $("#quinta_fim").val('');
+        $("#sexta_inicio").val('');
+        $("#sexta_fim").val('');
+        $("#sabado_fim").val('');
+        $("#sabado_inicio").val('');
+        $("#domingo_fim").val('');
+        $("#domingo_inicio").val('');
+        $('a[href="#step-4"]').bootstrapWizard('previous');
         return false;
     }
     else if ($("#segundasexta").is(":checked")) {
@@ -319,6 +331,60 @@ $("#ProximoHora").click(function () {
 
         $("#sexta_inicio").val($(".segundasextainicio").val());
         $("#sexta_fim").val($(".segundasextafim").val());
+
+        if ((parseInt($("#segunda_fim").val()) <= parseInt($("#segunda_inicio").val())) || (parseInt($("#terca_fim").val()) <= parseInt($("#terca_inicio").val())) || (parseInt($("#quarta_fim").val()) <= parseInt($("#quarta_inicio").val())) || (parseInt($("#quinta_fim").val()) <= parseInt($("#quinta_inicio").val())) || (parseInt($("#sexta_fim").val()) <= parseInt($("#sexta_inicio").val())) || (parseInt($("#sabado_fim").val()) <= parseInt($("#sabado_inicio").val())) || (parseInt($("#domingo_fim").val()) <= parseInt($("#domingo_inicio").val())) || (parseInt($(".segundasextafim").val()) <= parseInt($(".segundasextainicio").val())))
+        {
+            $('#ModalErroHeaderGenerico').remove();
+            $('#ModalErroBodyGenerico').remove();
+            $('#ModalErroFooterGenerico').remove();
+            $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">A hora de início não pode ser maior ou igual a hora de fim!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
+            $('#ModalErro').modal('show');
+            $(".segundasextainicio").val('');
+            $(".segundasextafim").val('');
+            $("#segunda_inicio").val('');
+            $("#segunda_fim").val('');
+            $("#terca_inicio").val('');
+            $("#terca_fim").val('');
+            $("#quarta_inicio").val('');
+            $("#quarta_fim").val('');
+            $("#quinta_inicio").val('');
+            $("#quinta_fim").val('');
+            $("#sexta_inicio").val('');
+            $("#sexta_fim").val('');
+            $("#sabado_fim").val('');
+            $("#sabado_inicio").val('');
+            $("#domingo_fim").val('');
+            $("#domingo_inicio").val('');
+            $('a[href="#step-4"]').bootstrapWizard('previous');
+            return false;
+        }
+    }
+    else if ((parseInt($("#segunda_fim").val()) <= parseInt($("#segunda_inicio").val())) || (parseInt($("#terca_fim").val()) <= parseInt($("#terca_inicio").val())) || (parseInt($("#quarta_fim").val()) <= parseInt($("#quarta_inicio").val())) || (parseInt($("#quinta_fim").val()) <= parseInt($("#quinta_inicio").val())) || (parseInt($("#sexta_fim").val()) <= parseInt($("#sexta_inicio").val())) || (parseInt($("#sabado_fim").val()) <= parseInt($("#sabado_inicio").val())) || (parseInt($("#domingo_fim").val()) <= parseInt($("#domingo_inicio").val())) || (parseInt($(".segundasextafim").val()) <= parseInt($(".segundasextainicio").val()))) {
+        $('#ModalErroHeaderGenerico').remove();
+        $('#ModalErroBodyGenerico').remove();
+        $('#ModalErroFooterGenerico').remove();
+        $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">A hora de início não pode ser maior ou igual a hora de fim!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
+        $('#ModalErro').modal('show');
+        $('a[href="#step-4"]').bootstrapWizard('previous');
+        return false;
+    }
+    else if ($("#segunda_fim").val() == "" & $("#segunda_inicio").val() != "" || $("#terca_fim").val() == "" & $("#terca_inicio").val() != "" || $("#quarta_fim").val() == "" & $("#quarta_inicio").val() != "" || $("#quinta_fim").val() == "" & $("#quinta_inicio").val() != "" || $("#sexta_fim").val() == "" & $("#sexta_inicio").val() != "" || $("#sabado_fim").val() == "" & $("#sabado_inicio").val() != "" || $("#domingo_fim").val() == "" & $("#domingo_inicio").val() != "" || $(".segundasextafim").val() == "" & $(".segundasextainicio").val() != "") {
+        $('#ModalErroHeaderGenerico').remove();
+        $('#ModalErroBodyGenerico').remove();
+        $('#ModalErroFooterGenerico').remove();
+        $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">O campo de fim também deve ser preenchido!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
+        $('#ModalErro').modal('show');
+        $('a[href="#step-4"]').bootstrapWizard('previous');
+        return false;
+    }
+    else if ($("#segunda_inicio").val() == "" & $("#segunda_fim").val() != "" || $("#terca_inicio").val() == "" & $("#terca_fim").val() != "" || $("#quarta_inicio").val() == "" & $("#quarta_fim").val() != "" || $("#quinta_inicio").val() == "" & $("#quinta_fim").val() != "" || $("#sexta_inicio").val() == "" & $("#sexta_fim").val() != "" || $("#sabado_inicio").val() == "" & $("#sabado_fim").val() != "" || $("#domingo_inicio").val() == "" & $("#domingo_fim").val() != "" || $(".segundasextainicio").val() == "" & $(".segundasextafim").val() != "") {
+        $('#ModalErroHeaderGenerico').remove();
+        $('#ModalErroBodyGenerico').remove();
+        $('#ModalErroFooterGenerico').remove();
+        $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">O campo de inicio também deve ser preenchido!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
+        $('#ModalErro').modal('show');
+        $('a[href="#step-4"]').bootstrapWizard('previous');
+        return false;
     }
     else if ($("#todo_dia").is(":checked")) {
 
@@ -363,12 +429,12 @@ $("#ProximoHora").click(function () {
         $("#domingo_fim").val(23);
     }
     if ($("#domingo_inicio").val() == "" || $("#domingo_fim").val() == "") {
-        $("#domingo_inicio").val(0);
-        $("#domingo_fim").val(0);
+        $("#domingo_inicio").val('');
+        $("#domingo_fim").val('');
     }
     if ($("#sabado_inicio").val() == "" || $("#sabado_fim").val() == "") {
-        $("#sabado_inicio").val(0);
-        $("#sabado_fim").val(0);
+        $("#sabado_inicio").val('');
+        $("#sabado_fim").val('');
     }
 });
 
@@ -484,13 +550,13 @@ $("#EditarHorario").click(function () {
 
     if($("#domingo_inicio").val() == "" || $("#domingo_fim").val() == "")
     {
-        $("#domingo_inicio").val(0);
-        $("#domingo_fim").val(0);
+        $("#domingo_inicio").val('');
+        $("#domingo_fim").val('');
     }
     if ($("#sabado_inicio").val() == "" || $("#sabado_fim").val() == "")
     {
-        $("#sabado_inicio").val(0);
-        $("#sabado_fim").val(0);
+        $("#sabado_inicio").val('');
+        $("#sabado_fim").val('');
     }
 
 });
@@ -580,6 +646,18 @@ $("#segundasexta").change(function () {
         $(".quarta_check").show();
         $(".quinta_check").show();
         $(".sexta_check").show();
+        $(".segundasextainicio").val('');
+        $(".segundasextafim").val('');
+        $("#segunda_inicio").val('');
+        $("#segunda_fim").val('');
+        $("#terca_inicio").val('');
+        $("#terca_fim").val('');
+        $("#quarta_inicio").val('');
+        $("#quarta_fim").val('');
+        $("#quinta_inicio").val('');
+        $("#quinta_fim").val('');
+        $("#sexta_inicio").val('');
+        $("#sexta_fim").val('');
     }
 });
 

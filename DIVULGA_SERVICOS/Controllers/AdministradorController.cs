@@ -188,10 +188,16 @@ namespace DIVULGA_SERVICOS.Controllers
             {
                 var removeRole = UserManager.RemoveFromRole(juridica.CD_PESSOA, "Prestador");
                 CAD_FORMA_PAGAMENTO formaPagamento = db.CAD_FORMA_PAGAMENTO.Find(id);
-                formaPagamento = db.CAD_FORMA_PAGAMENTO.Remove(formaPagamento);
                 CAD_PORTE_EMPRESA porteEmpresa = db.CAD_PORTE_EMPRESA.Find(id);
-                porteEmpresa = db.CAD_PORTE_EMPRESA.Remove(porteEmpresa);
 
+                if (formaPagamento != null)
+                {
+                    formaPagamento = db.CAD_FORMA_PAGAMENTO.Remove(formaPagamento);
+                }
+                if (porteEmpresa != null)
+                {
+                    porteEmpresa = db.CAD_PORTE_EMPRESA.Remove(porteEmpresa);
+                }
 
                 var telefones = new List<CAD_PES_FONE>();
                 telefones = db.CAD_PES_FONE.Where(x => x.CD_PESSOA == id).ToList();
@@ -243,6 +249,20 @@ namespace DIVULGA_SERVICOS.Controllers
                 for (int i = enderecos.Count - 1; i >= 0; i--)
                 {
                     enderecos.Remove(enderecos[i]);
+                }
+
+                var enderecosDilvulga = new List<CAD_CIDADES_DIVULGA_FORNECEDOR>();
+                enderecosDilvulga = db.CAD_CIDADES_DIVULGA_FORNECEDOR.Where(x => x.CD_PESSOA == id).ToList();
+                for (int i = enderecosDilvulga.Count - 1; i >= 0; i--)
+                {
+                    enderecosDilvulga.Remove(enderecosDilvulga[i]);
+                }
+
+                var produtos = new List<CAD_PRODUTO_FORNECEDOR>();
+                produtos = db.CAD_PRODUTO_FORNECEDOR.Where(x => x.CD_PESSOA == id).ToList();
+                for (int i = produtos.Count - 1; i >= 0; i--)
+                {
+                    produtos.Remove(produtos[i]);
                 }
 
                 var avaliacao = new List<CAD_AVALIACAO>();

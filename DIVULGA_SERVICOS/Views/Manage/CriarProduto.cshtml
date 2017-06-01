@@ -41,7 +41,7 @@
         </div>
 
         <div class="form-group">
-            <label class="control-label col-md-2" for="VALOR_PRODUTO">Valor</label>
+            <label class="control-label col-md-2" for="VALOR_PRODUTO">Valor (ou 0 caso não queira informar)</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.VALOR_PRODUTO, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.VALOR_PRODUTO, "", new { @class = "text-danger" })
@@ -59,9 +59,9 @@
         </div>
 
         <div class="form-group">
-            <label class="control-label col-md-2" for="TAGS">Tags</label>
+            <label class="control-label col-md-2" for="TAGS">Para quem você vai divulgar?</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.TAGS, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.TAGS, new { htmlAttributes = new { @class = "form-control", @placeholder = "Pedreiro eletricista encanador..." } })
                 @Html.ValidationMessageFor(model => model.TAGS, "", new { @class = "text-danger" })
             </div>
         </div>

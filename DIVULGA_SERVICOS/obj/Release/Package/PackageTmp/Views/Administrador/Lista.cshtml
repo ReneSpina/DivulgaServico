@@ -1,0 +1,93 @@
+﻿@model IEnumerable<DIVULGA_SERVICOS.Models.CAD_PESSOA>
+
+@{
+    ViewBag.Title = "Administração";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Administração</h2>
+<br />
+
+<h4> Cadastrados <span class="badge">@Model.Count()</span></h4>
+
+<div id="no-more-tables">
+    <table class="col-md-12 table-bordered table-striped table-condensed cf">
+        <thead class="cf">
+            <tr>
+                <th>
+                    Nome
+                </th>
+                <th>
+                    Nome Empresa
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Celular
+                </th>
+                <th>
+                    Telefone
+                </th>
+                <th>
+                    Data Cadastro
+                </th>
+                <th>
+                    Tipo
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td data-title="Nome">
+                        @Html.DisplayFor(modelItem => item.NM_NOME_PESSOA)
+                    </td>
+
+                    <td data-title="Nome">
+                        @Html.DisplayFor(modelItem => item.CAD_PES_JURIDICA.NM_NOME_PRESTADOR)
+                    </td>
+
+                    <td data-title="Email">
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td data-title="Celular">
+                        @Html.DisplayFor(modelItem => item.CAD_PES_FONE.FirstOrDefault().CD_CELULAR)
+                    </td>
+
+                    <td data-title="Telefone">
+                        @Html.DisplayFor(modelItem => item.CAD_PES_FONE.FirstOrDefault().CD_FIXO)
+                    </td>
+                    <td data-title="Data Cadastro">
+                        @Html.FormatValue(Convert.ChangeType(item.DT_DATA_CADASTRO, typeof(object)),
+                            "{0: dd/MM/yy}")
+                    </td>
+                    @if (item.EmailConfirmed == true)
+                    {
+                        <td data-title="Tipo">
+                            Prestador de Serviços
+                        </td>
+                    }
+                    else
+                    {
+                        <td data-title="Tipo">
+                            Fornecedor
+                        </td>
+                    }
+                    <td data-title="Configurações">
+                        @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Detalhes", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Deletar", "Delete", new { id = item.Id }) |
+                        @if (item.EmailConfirmed == true)
+                            {
+                               @Html.ActionLink("Serviços", "Servicos", new { id = item.Id })
+                            }
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>

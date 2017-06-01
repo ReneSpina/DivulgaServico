@@ -6,10 +6,14 @@
 @{
     if (String.IsNullOrEmpty(ViewBag.errorMessage))
     {
-        <h2 class="text-danger">Um erro aconteceu enquanto processamos sua solicitação.</h2>
+        <div class="alert alert-danger">
+            <strong>Atenção!</strong> Um erro aconteceu enquanto processamos sua solicitação. Tente novamente.
+        </div>
     }
     else
     {
-        <h2 class="text-danger">@ViewBag.errorMessage</h2>
+        <div class="alert alert-danger">
+            <strong>Atenção!</strong> @ViewBag.errorMessage
+        </div>
     }
 }

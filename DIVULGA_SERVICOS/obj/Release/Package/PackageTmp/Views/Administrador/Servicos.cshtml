@@ -36,9 +36,9 @@
                 @Html.DisplayFor(modelItem => item.DS_DESCRICAO)
             </td>
             <td>
-                @Html.ActionLink("Editar", "EditarServico", new { id = item.CAD_PES_JURIDICA.CD_PESSOA }) |
-                @Html.ActionLink("Detalhes", "DetalhesServico", new { id= item.CAD_PES_JURIDICA.CD_PESSOA }) |
-                @Html.ActionLink("Deletar", "DeletarServico", new { id= item.CAD_PES_JURIDICA.CD_PESSOA })
+                @Html.ActionLink("Editar", "EditarServico", new { id = item.CD_PES_JURIDICA }) |
+                @Html.ActionLink("Detalhes", "DetalhesServico", new { id= item.CD_PES_JURIDICA, sq = item.SQ_CATEGORIA }) |
+                @Html.ActionLink("Deletar", "DeletarServico", new { id= item.CD_PES_JURIDICA })
             </td>
         </tr>
     }

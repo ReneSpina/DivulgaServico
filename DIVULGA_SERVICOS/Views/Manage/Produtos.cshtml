@@ -57,7 +57,10 @@
                         @Html.DisplayFor(modelItem => item.DS_DESCRICAO)
                     </td>
                     <td data-title="Valor">
-                        @Html.DisplayFor(modelItem => item.VALOR_PRODUTO)
+                        @{
+                            var moeda = "R"+ Html.DisplayFor(modelItem => item.VALOR_PRODUTO);
+                        }
+                        @moeda
                     </td>
                     <td data-title="Data da Criação">
                         @Html.DisplayFor(modelItem => item.DT_CRIACAO)

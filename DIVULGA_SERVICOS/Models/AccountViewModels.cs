@@ -190,10 +190,10 @@ namespace DIVULGA_SERVICOS.Models
         //[DisplayFormat(DataFormatString = "{0:(##) ####-####}", ApplyFormatInEditMode =true)]
         public string TF_TEL_FIXO { get; set; }
 
-        [Required(ErrorMessage = "O TELEFONE CELULAR É OBRIGATÓRIO")]
+        //[Required(ErrorMessage = "O TELEFONE CELULAR É OBRIGATÓRIO")]
         [StringLength(15)]
         //[RegularExpression("^\\([1-9]{2}\\) [2-9][0-9]{3,3}\\-[0-9]{4}$", ErrorMessage = "INSIRA UM TELEONE VÁLIDO (Ex.: (##) ####-#### ou (##) #####-####!")]
-        [Display(Name = "Celular*")]
+        [Display(Name = "Celular")]
         //[DisplayFormat(DataFormatString = "{0:(##) #####-####}", ApplyFormatInEditMode = true)]
         public string TF_TEL_CEL { get; set; }
 
@@ -397,7 +397,7 @@ namespace DIVULGA_SERVICOS.Models
     public class RegisterFornecedorViewModel
     {
         [Required(ErrorMessage = "O NOME É OBRIGATÓRIO!")]
-        [Display(Name = "Nome*")]
+        [Display(Name = "Nome da Empresa*")]
         public string NM_NOME_PESSOA { get; set; }
 
         //[Required(ErrorMessage = "O TELEFONE FIXO É OBRIGATÓRIO!")]
@@ -407,10 +407,10 @@ namespace DIVULGA_SERVICOS.Models
         //[DisplayFormat(DataFormatString = "{0:(##) ####-####}", ApplyFormatInEditMode =true)]
         public string TF_TEL_FIXO { get; set; }
 
-        [Required(ErrorMessage = "O TELEFONE CELULAR É OBRIGATÓRIO")]
+        //[Required(ErrorMessage = "O TELEFONE CELULAR É OBRIGATÓRIO")]
         [StringLength(15)]
         //[RegularExpression("^\\([1-9]{2}\\) [2-9][0-9]{3,3}\\-[0-9]{4}$", ErrorMessage = "INSIRA UM TELEONE VÁLIDO (Ex.: (##) ####-#### ou (##) #####-####!")]
-        [Display(Name = "Celular*")]
+        [Display(Name = "Celular")]
         //[DisplayFormat(DataFormatString = "{0:(##) #####-####}", ApplyFormatInEditMode = true)]
         public string TF_TEL_CEL { get; set; }
 
