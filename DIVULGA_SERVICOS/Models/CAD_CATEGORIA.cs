@@ -32,8 +32,7 @@ namespace DIVULGA_SERVICOS.Models
         [StringLength(255)]
         public string NM_NOME { get; set; }
 
-        [Required]
-        [StringLength(1000)]
+        [StringLength(2000)]
         public string DS_DESCRICAO { get; set; }
 
         public virtual CAD_PES_JURIDICA CAD_PES_JURIDICA { get; set; }

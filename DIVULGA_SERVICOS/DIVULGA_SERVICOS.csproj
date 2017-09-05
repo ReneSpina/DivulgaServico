@@ -268,9 +268,9 @@
     <Compile Include="Migrations\201704160156540_Principal.Designer.cs">
       <DependentUpon>201704160156540_Principal.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201705010259031_Principal1.cs" />
-    <Compile Include="Migrations\201705010259031_Principal1.Designer.cs">
-      <DependentUpon>201705010259031_Principal1.cs</DependentUpon>
+    <Compile Include="Migrations\201706140115298_Principal2.cs" />
+    <Compile Include="Migrations\201706140115298_Principal2.Designer.cs">
+      <DependentUpon>201706140115298_Principal2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -309,6 +309,7 @@
     <Content Include="Content\home\Mycreative.css" />
     <Content Include="Content\home\creative.min.css" />
     <Content Include="Content\Imagens\header.jpg" />
+    <Content Include="Content\Imagens\header3.jpg" />
     <Content Include="Content\Imagens\home.jpg" />
     <Content Include="Content\Imagens\icone1.png" />
     <Content Include="Content\Imagens\Icon_Whatsapp.png" />
@@ -937,8 +938,8 @@
     <EmbeddedResource Include="Migrations\201704160156540_Principal.resx">
       <DependentUpon>201704160156540_Principal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705010259031_Principal1.resx">
-      <DependentUpon>201705010259031_Principal1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201706140115298_Principal2.resx">
+      <DependentUpon>201706140115298_Principal2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

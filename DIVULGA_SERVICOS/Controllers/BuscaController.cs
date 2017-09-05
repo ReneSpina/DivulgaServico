@@ -73,7 +73,7 @@ namespace DIVULGA_SERVICOS.Controllers
                 string[] words = pesquisa.Split(' ');
                 foreach (var word in words)
                 {
-                    if (word != "de" && word != "para" && word.Length > 3)
+                    if (word != "de" && word != "para" && word != "tecnico" && word != "Tecnico" && word != "Técnico" && word != "técnico" && word != "Conserto" && word != "conserto" && word != "Concerto" && word != "concerto")
                     {
                         var texto = "";
                         if (distancia != 0)

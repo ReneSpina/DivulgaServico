@@ -358,6 +358,16 @@ $("#ProximoHora").click(function () {
             $('a[href="#step-4"]').bootstrapWizard('previous');
             return false;
         }
+        if ($("#domingo_inicio").val() == "")
+        {
+            $("#domingo_inicio").val(0);
+            $("#domingo_fim").val(0);
+        }
+        if ($("#sabado_inicio").val() == "") {
+            $("#sabado_inicio").val(0);
+            $("#sabado_fim").val(0);
+        }
+
     }
     else if ((parseInt($("#segunda_fim").val()) <= parseInt($("#segunda_inicio").val())) || (parseInt($("#terca_fim").val()) <= parseInt($("#terca_inicio").val())) || (parseInt($("#quarta_fim").val()) <= parseInt($("#quarta_inicio").val())) || (parseInt($("#quinta_fim").val()) <= parseInt($("#quinta_inicio").val())) || (parseInt($("#sexta_fim").val()) <= parseInt($("#sexta_inicio").val())) || (parseInt($("#sabado_fim").val()) <= parseInt($("#sabado_inicio").val())) || (parseInt($("#domingo_fim").val()) <= parseInt($("#domingo_inicio").val())) || (parseInt($(".segundasextafim").val()) <= parseInt($(".segundasextainicio").val()))) {
         $('#ModalErroHeaderGenerico').remove();
@@ -503,6 +513,40 @@ $("#EditarHorario").click(function () {
 
         $("#sexta_inicio").val($(".segundasextainicio").val());
         $("#sexta_fim").val($(".segundasextafim").val());
+
+        if ((parseInt($("#segunda_fim").val()) <= parseInt($("#segunda_inicio").val())) || (parseInt($("#terca_fim").val()) <= parseInt($("#terca_inicio").val())) || (parseInt($("#quarta_fim").val()) <= parseInt($("#quarta_inicio").val())) || (parseInt($("#quinta_fim").val()) <= parseInt($("#quinta_inicio").val())) || (parseInt($("#sexta_fim").val()) <= parseInt($("#sexta_inicio").val())) || (parseInt($("#sabado_fim").val()) <= parseInt($("#sabado_inicio").val())) || (parseInt($("#domingo_fim").val()) <= parseInt($("#domingo_inicio").val())) || (parseInt($(".segundasextafim").val()) <= parseInt($(".segundasextainicio").val()))) {
+            $('#ModalErroHeaderGenerico').remove();
+            $('#ModalErroBodyGenerico').remove();
+            $('#ModalErroFooterGenerico').remove();
+            $('#ModalErroBody').append('<div class="modal-header" id="ModalErroHeaderGenerico"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel">Atenção!</h3></div><div class="modal-body" id="ModalErroBodyGenerico"><div class="alert alert-danger" role="alert">A hora de início não pode ser maior ou igual a hora de fim!</div></div><div class="modal-footer" id="ModalErroFooterGenerico"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button></div>');
+            $('#ModalErro').modal('show');
+            $(".segundasextainicio").val('');
+            $(".segundasextafim").val('');
+            $("#segunda_inicio").val('');
+            $("#segunda_fim").val('');
+            $("#terca_inicio").val('');
+            $("#terca_fim").val('');
+            $("#quarta_inicio").val('');
+            $("#quarta_fim").val('');
+            $("#quinta_inicio").val('');
+            $("#quinta_fim").val('');
+            $("#sexta_inicio").val('');
+            $("#sexta_fim").val('');
+            $("#sabado_fim").val('');
+            $("#sabado_inicio").val('');
+            $("#domingo_fim").val('');
+            $("#domingo_inicio").val('');
+            $('a[href="#step-4"]').bootstrapWizard('previous');
+            return false;
+        }
+        if ($("#domingo_inicio").val() == "") {
+            $("#domingo_inicio").val(0);
+            $("#domingo_fim").val(0);
+        }
+        if ($("#sabado_inicio").val() == "") {
+            $("#sabado_inicio").val(0);
+            $("#sabado_fim").val(0);
+        }
     }
     else if ($("#todo_dia").is(":checked")) {
 

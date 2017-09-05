@@ -44,6 +44,7 @@ namespace DIVULGA_SERVICOS.Models
 
         [Column(TypeName = "text")]
         [DataType(DataType.MultilineText)]
+        [StringLength(210)]
         public string DS_O_QUE_FAZEMOS { get; set; }
 
         //public int? ID_PLANO { get; set; }

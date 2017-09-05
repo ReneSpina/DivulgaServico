@@ -111,12 +111,12 @@
                         <div class="alert alert-danger">
                             <strong>Aaaaaah!</strong> Infelizmente não conseguimos encontrar o serviço desejado. Tente alterar as palavras de sua pesquisa.
                         </div>
-                        <div class="alert alert-success">
-                            <strong>Importante!</strong> Não esqueça de nos indicar para os prestadores de serviços que você conhece.
-                        </div>
                         <div class="alert alert-info">
                             <strong>Lembre-se!</strong> Estamos iniciando agora e a nossa missão é encontrar o que você precisa.
-                        </div>                        
+                        </div>
+                        <div class="alert alert-success">
+                            <strong>Importante!</strong> Não esqueça de nos indicar para os prestadores de serviços que você conhece.
+                        </div>             
                 </div>
                 <div class="modal-footer" id="ModalErroFooterGenerico">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -142,11 +142,11 @@
                                     <a href="~/Account/Register" class="btn btn-success">Prestador de Serviços</a>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            @*<div class="col-md-6">
                                 <div class="service-box">
                                     <a href="~/Account/cadastrarfornecedor" class="btn btn-success">Fornecedor</a>
                                 </div>
-                            </div>
+                            </div>*@
                         </div>
                     </div>
                 </div>
@@ -606,14 +606,14 @@
                      @foreach(var telefone in item.CAD_PESSOA.CAD_PES_FONE)
                      {
 
-                         if(telefone.CD_FIXO != null)
+                         if(telefone.CD_FIXO.IsEmpty() != true)
                          {
                                 <text>
                                 "<a href='tel:@telefone.CD_FIXO'>@telefone.CD_FIXO</a>" +
                                 "<br><br>" +
                                 </text>
                          }
-                         if (telefone.CD_CELULAR != null)
+                         if (telefone.CD_CELULAR.IsEmpty() != true)
                          {
                                 <text>
                                 "<a href='tel:@telefone.CD_CELULAR'>@telefone.CD_CELULAR" + " - @telefone.NM_OPERADORA" + "</a><br><br>"+
@@ -816,15 +816,23 @@
                                 <div class="col-sm-3" style="width:100%">
                                     <h4>Telefones:</h4>
                                     <div class="well">
-                                        @foreach(var telefone in endereco.CAD_PESSOA.CAD_PES_FONE)
+                                        @foreach (var telefone in endereco.CAD_PESSOA.CAD_PES_FONE)
                                         {
-                                            <p><b>Fixo: </b><a href='tel:@telefone.CD_FIXO'>@telefone.CD_FIXO</a></p>
-                                            <p><b>Cel: </b><a href='tel:@telefone.CD_CELULAR '>@telefone.CD_CELULAR</a></p>
-                                            if (@telefone.WHATSAPP == true)
+                                            if (telefone.CD_FIXO.IsEmpty() != true)
                                             {
-                                                string resultString = string.Join(null, System.Text.RegularExpressions.Regex.Split(@telefone.CD_CELULAR, "[^\\d]"));
-                                                string whatsapp = "https://api.whatsapp.com/send?phone=55" + resultString;
-                                                <p><a href="@whatsapp" target="_blank">Abrir no Whatsapp</a></p>
+                                                <p><b>Fixo: </b><a href='tel:@telefone.CD_FIXO'>@telefone.CD_FIXO</a></p>
+                                            }
+                                            if (telefone.CD_CELULAR.IsEmpty() != true)
+                                            {
+                                                <p><b>Cel: </b><a href='tel:@telefone.CD_CELULAR '>@telefone.CD_CELULAR - @telefone.NM_OPERADORA</a></p>
+                                                if (@telefone.WHATSAPP == true)
+                                                {
+                                                    string resultString = string.Join(null, System.Text.RegularExpressions.Regex.Split(@telefone.CD_CELULAR, "[^\\d]"));
+                                                    string whatsapp = "https://api.whatsapp.com/send?phone=55" + resultString;
+                                                    <p><a href="@whatsapp" target="_blank">Abrir no Whatsapp</a></p>
+                                                }
+                                                <br>
+                                                <br>
                                             }
                                         }
                                     </div>

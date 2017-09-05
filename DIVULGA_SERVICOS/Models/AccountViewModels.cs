@@ -88,46 +88,46 @@ namespace DIVULGA_SERVICOS.Models
 
     public class EditarHorarioAtendimento
     {
-        [Required]
+     
         public int SEGUNDA_HORA_INICIO { get; set; }
 
-        [Required]
+      
         public int SEGUNDA_HORA_FIM { get; set; }
 
-        [Required]
+     
         public int TERCA_HORA_INICIO { get; set; }
 
-        [Required]
+    
         public int TERCA_HORA_FIM { get; set; }
 
-        [Required]
+
         public int QUARTA_HORA_INICIO { get; set; }
 
-        [Required]
+      
         public int QUARTA_HORA_FIM { get; set; }
 
-        [Required]
+       
         public int QUINTA_HORA_INICIO { get; set; }
 
-        [Required]
+     
         public int QUINTA_HORA_FIM { get; set; }
 
-        [Required]
+      
         public int SEXTA_HORA_INICIO { get; set; }
 
-        [Required]
+       
         public int SEXTA_HORA_FIM { get; set; }
 
-        [Required]
+        
         public int SABADO_HORA_INICIO { get; set; }
 
-        [Required]
+        
         public int SABADO_HORA_FIM { get; set; }
 
-        [Required]
+        
         public int DOMINGO_HORA_INICIO { get; set; }
 
-        [Required]
+        
         public int DOMINGO_HORA_FIM { get; set; }
     }
 
@@ -290,49 +290,49 @@ namespace DIVULGA_SERVICOS.Models
         [StringLength(100)]
         public string CD_LONG { get; set; }
 
-        [Required]
+        
         public int SEGUNDA_HORA_INICIO { get; set; }
 
-        [Required]
+        
         public int SEGUNDA_HORA_FIM { get; set; }
 
-        [Required]
+        
         public int TERCA_HORA_INICIO { get; set; }
 
-        [Required]
+        
         public int TERCA_HORA_FIM { get; set; }
 
-        [Required]
+        
         public int QUARTA_HORA_INICIO { get; set; }
 
-        [Required]
+        
         public int QUARTA_HORA_FIM { get; set; }
 
-        [Required]
+        
         public int QUINTA_HORA_INICIO { get; set; }
 
-        [Required]
+        
         public int QUINTA_HORA_FIM { get; set; }
 
-        [Required]
+        
         public int SEXTA_HORA_INICIO { get; set; }
 
-        [Required]
+        
         public int SEXTA_HORA_FIM { get; set; }
 
-        [Required]
+        
         public int SABADO_HORA_INICIO { get; set; }
 
-        [Required]
+        
         public int SABADO_HORA_FIM { get; set; }
 
-        [Required]
+        
         public int DOMINGO_HORA_INICIO { get; set; }
 
-        [Required]
+        
         public int DOMINGO_HORA_FIM { get; set; }
 
-        [Required]
+        
         public bool TODO_DIA { get; set; }
 
         [Required]
@@ -384,12 +384,12 @@ namespace DIVULGA_SERVICOS.Models
         public string NM_NOME_ATIVIDADE { get; set; }
 
         [Required]
-        [StringLength(255)]
+        [StringLength(2000)]
         [Display(Name = "Descrição da Atividade")]
         public string DS_DESCRICAO_ATIVIDADE { get; set; }
 
         [Required]
-        [StringLength(255)]
+        [StringLength(210)]
         [Display(Name = "Descreva suas Atividades")]
         public string DS_O_QUE_FAZEMOS { get; set; }
     }
